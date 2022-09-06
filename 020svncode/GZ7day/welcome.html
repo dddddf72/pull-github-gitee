@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="page-view-size" content="1280*720">
+    <title>入口欢迎页</title>
+    <link id="loading" type="text/css" rel="stylesheet" href="css/loading.css" />
+    <link href="css/welcome.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+        <div class="load_title">加载中...</div>
+    </div>
+    <div id="bg" class="main" >
+     <div class="nav" style="display: none;" id="RoleTab"></div>
+        <!-- 主体 -->
+        <div class="maincon" id="TabCell"></div>
+    </div>
+    <!-- 静音图标-->
+    <div id="g_static" class="static"></div>
+</body>
+
+<script type="text/javascript" src="moui_files/base.js?20161255"></script>
+<script type="text/javascript" src="moui_files/json2.min.js?20161255"></script>
+<script type="text/javascript" src="moui_files/main.js?20161255"></script>
+<script type="text/javascript" src="moui_files/data.js?20161255"></script>
+<script type="text/javascript" src="moui_files/welcome.js?20161255"></script>
+<script>
+    window.onload = init;
+    //页面跳出时停止音乐播放
+    window.onunload = function() {
+      stopAudioPlay();
+    }
+</script>
+</html>

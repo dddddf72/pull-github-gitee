@@ -1,0 +1,421 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content=" 1280*720; text/html; charset=utf-8" />
+    <title>如皋在线支付</title>
+    <style type="text/css">
+        body,html{
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .app{
+            background: url("images/scanBg.jpg");
+            width: 1280px;
+            height: 720px;
+            position: relative;
+        }
+        .monolithic{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .text{
+            position: absolute;
+            top: 24px;
+            left: 72px;
+            font-size: 30px;
+            color: rgb( 202, 215, 253 );
+            font-weight: bold;
+        }
+        .content{
+            position: absolute;
+            width: 100%;
+            height: 648px;
+            top: 72px;
+            text-align: center;
+        }
+        .left{
+            float: left;
+            width: 380px;
+            height: 100%;
+            background: url("images/leftBg.png");
+            display: none;
+        }
+        .right{
+            float: left;
+            height: 100%;
+            vertical-align: top;
+        }
+        .scanBox{
+            padding-top: 124px;
+        }
+        .payBox{
+            display: inline-block;
+            background: url("images/scanBox.png") no-repeat;
+            width: 273px;
+            margin: 0 72px;
+        }
+        .payBox img{
+            width: 237px;
+            height: 237px;
+            padding: 13px 15px;
+        }
+        .payBox div{
+            height: 95px;
+            line-height: 95px;
+            font-size: 24px;
+            color: rgb( 255, 255, 255 );
+        }
+        .info{
+            text-align: center;
+            font-size: 24px;
+            color: rgb( 255, 255, 255 );
+        }
+        .choose{
+            margin-top: 112px;
+            left: 98px;
+            position: absolute;
+        }
+        .chooseBox{
+            background: url("images/chooseBox.png");
+            width: 190px;
+            height: 87px;
+            line-height: 87px;
+            margin-bottom: 56px;
+            font-size: 38px;
+            color: rgb( 153, 153, 153);
+            text-align: center;
+        }
+
+        .chooseBoxFocus{
+            background: url("images/chooseBoxFocus.png");
+            width: 233px;
+            height: 106px;
+            line-height: 87px;
+            position: absolute;
+            left: -22px;
+            top: 0;
+            font-size: 38px;
+            color: rgb( 255, 255, 255);
+
+        }
+        #title,#price{
+            font-size: 40px;
+            color: rgb( 240, 147, 51 );
+        }
+        #tip_window p{
+            color: white;
+            font-size: 35px;
+            margin-top: 35px;
+        }
+    </style>
+    <script type="text/javascript" src="js/until.js"></script>
+    <script type="text/javascript" src="js/scan_code_config.js"></script>
+    <script type="text/javascript" src="/RGyouku/iPG/T-nsp/res_jtyy/default/js/commonAPI.js"></script>
+</head>
+<body onload="initPage()">
+    <div class="app">
+
+        <div class="monolithic">
+            <div class="text" id="text">单片订购</div>
+            <div class="content">
+                <div class="left" id="left">
+                    <div class="choose">
+                        <div class="chooseBox">包月</div>
+                        <div class="chooseBox">包季</div>
+                        <div class="chooseBox">包年</div>
+                        <div class="chooseBoxFocus" id="chooseBoxFocus">包月</div>
+                    </div>
+                </div>
+                <div class="right" id="right">
+                    <div class="scanBox">
+                        <div class="payBox"><img id="alipayScan" src="images/exampleScan.jpg"/><div>支付宝支付</div></div>
+                        <div class="payBox"><img id="wechatScan" src="images/exampleScan2.jpg"/><div>微信支付</div></div>
+                    </div>
+                    <div class="info" id="info">欢迎订购《<span id="title"></span>》单片 仅需￥<span id="price">16.5</span>元</div>
+                </div>
+            </div>
+        </div>
+        <div id="tip" style="position: absolute;z-index: 3;width: 100%;height: 100%;top: 0;left: 0;background:url(images/tip_background.png) no-repeat;display: none;">
+            <div class="tip_window" id="tip_window" style="margin: auto;padding-top: 200px;text-align: center;">
+                <p id="asset_name"></p>
+                <p id="effect_time"></p>
+                <p id="is_success"></p>
+                <div id="confirm_button" style="margin-top: 60px;">
+                    <img src="images/tip_button.png"/>
+                    <p style="margin-top: -32px;font-size: 25px;color: black;">确定</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+
+    var gotoUrl = getQueryStr('gotourl')||"";
+    var backUrl = getQueryStr('backurl')||"";
+
+    var assetId = getQueryStr('assetid')||"";
+    var assetName = getQueryStr('assetname')||"";
+    var productCode = getQueryStr('productcode')||"";
+    var providerId = getQueryStr('providerid')||"";
+
+    var columnId = getQueryStr('columnid');
+
+    var prop = getQueryStr('prop')||'1';
+
+    var price = 0;
+
+    var focusIndex = 0;
+    var type = getQueryStr('type');
+
+    var orderNumber;
+
+    var trueMonth = [];
+    var showMonth = [];
+    var showPrice = [];
+
+    var nowMonth = 0;
+
+    for(var i in showIndex){
+        for(var j in datas){
+            if(datas[j].index == showIndex[i]){
+                trueMonth.push(datas[j].month);
+                showMonth.push(datas[j].showMonth);
+                showPrice.push(datas[j].showPrice);
+            }
+        }
+    }
+
+    function initPage() {
+        if(type!="2") {
+            $('left').style.display = 'none';
+            $('text').innerHTML = '单片订购';
+            $('info').innerHTML = '欢迎订购《<span id="title">'+assetName+'</span>》单片 仅需￥<span id="price">'+singelPrice+'</span>元';
+            $('right').style.marginLeft = '252px';
+        }else{
+            $('left').style.display = 'inline-block';
+            $('text').innerHTML = '套餐订购';
+            $('info').innerHTML = '欢迎订购《<span id="title">'+assetName+'</span>》包月套餐 套餐仅需￥<span id="price">'+data[focusIndex].showPrice+'</span>元';
+            $('right').style.marginLeft = '0';
+        }
+        ajaxPriceGet();
+        price = singelPrice;
+    }
+    var time ;
+    function timingQuitPage() {
+        clearTimeout(time);
+        time = setTimeout(function () {
+            returnToDetail();
+        },300*1000);
+    }
+
+    function getQueryStr(_param) {
+        var rs = new RegExp("(^|)" + _param + "=([^\&]*)(\&|$)", "g").exec(window.location), tmp;
+        if( tmp = rs) {
+            return decodeURIComponent(tmp[2]);
+        }
+        return "";
+    }
+
+
+    function moveDown() {
+        if(type == '2') {
+            if (focusIndex < 2) {
+                focusIndex++;
+                setMeal(focusIndex);
+            }
+
+        }
+    }
+    function moveUp() {
+        if(type == '2') {
+            if (focusIndex > 0) {
+                focusIndex--;
+                setMeal(focusIndex);
+            }
+        }
+    }
+    function setMeal(index) {
+        index = parseInt(index);
+
+        $('chooseBoxFocus').style.top = (focusIndex*143)+'px';
+        $('chooseBoxFocus').innerHTML = (index==0?'包月':index==1?'包季':'包年');
+        $('price').innerHTML = datas[focusIndex].showPrice;
+
+        nowMonth = focusIndex;
+        if(price ==0){
+            ajaxPriceGet();
+        }else {
+            ajaxScanCode();
+        }
+    }
+    function ajaxPriceGet(){
+        //alert(goodsId)
+        var price  = {
+            "data": '<GetUpsellOffer serviceId="' + productCode + '" portalId="' + portalId + '" client="' + cardId + '" account="'+ userId +'"/>',
+            "callBack" : getPrice
+        };
+        getData("/GetUpsellOffer", price);
+    }
+    function getPrice(_dataJson) {
+        if(_dataJson.displayPrice){
+            price = _dataJson.displayPrice;
+            ajaxScanCode();
+        }else{
+            price = singelPrice;
+            ajaxScanCode();
+        }
+    }
+
+    function ajaxScanCode(){
+        var scanCode;
+        var oriPrice = price * (data[focusIndex].month)*100;
+
+        if(type=='2'){  //包月
+
+            scanCode = {
+                "data": '<GetQRCode portalId="' + portalId + '" client="' + cardId + '" account="'+ userId +'" assetId="'+ assetId + '" payOrg="ali_pay,we_chat_pay" orderType="2" site="3" productCode="' + productCode + '" price="' + oriPrice + '" columnId="'+columnId+'" providerId="' + providerId + '"/>',
+                "callBack" : getScanCode
+            };
+
+
+        }else  if(type=='1'){ //单片按次
+            scanCode = {
+                "data": '<GetQRCode portalId="' + portalId + '" client="' + cardId + '" account="'+ userId +'" assetId="'+ assetId + '" payOrg="ali_pay,we_chat_pay" orderType="1" site="3" providerId="' + providerId + '"/>',
+                "callBack" : getScanCode
+            };
+        }else {
+            alert("资费类型获取失败，包月或按次？");
+            returnToDetail();
+        }
+        getData("/GetQRCode", scanCode);
+
+    }
+    var scanInterval1;
+    var scanInterval2;
+    var scanInterval3;
+    var orderNumber1;
+    var orderNumber2;
+    var orderNumber3;
+    var succeed = false;
+    function getScanCode(_dataJson) {
+
+        var reuslt = _dataJson;
+        if (reuslt.code) {
+            alert("获取二维码失败，错误码是：" + reuslt.code);
+            returnToDetail();
+        } else {
+            timingQuitPage();
+            orderNumber = reuslt.orderNumber;
+            if(focusIndex==0){
+                orderNumber1 = orderNumber;
+
+                clearInterval(scanInterval1);
+                scanInterval1 = setInterval(function(){
+                    ajaxScanResult(orderNumber1);
+                }, 1 * 1000);
+            }else if(focusIndex==1){
+                orderNumber2 = orderNumber;
+                clearInterval(scanInterval2);
+                scanInterval2 = setInterval(function(){
+                    ajaxScanResult(orderNumber2);
+                }, 1 * 1000);
+            }else{
+                orderNumber3 = orderNumber;
+                clearInterval(scanInterval3);
+                scanInterval3 = setInterval(function(){
+                    ajaxScanResult(orderNumber3);
+                }, 1 * 1000);
+            }
+            changeQRImage(reuslt.qrList);
+        }
+    }
+    function changeQRImage(qrList){
+        for(var i = 0; i < qrList.length; i ++){
+            if(qrList[i].type == "wxQR" || qrList[i].type == "weixin.qrcode"){
+
+               //$('wechatScan').src = qrList[i].qrCode + "&width=237&height=237";
+                $('wechatScan').src = imgurl+'/GetQRRGCodeImage?qrUrl='+qrList[i].qrCode + "&size=11";
+            } else if(qrList[i].type == "zfbQR" || qrList[i].type == "alipay.qrcode"){
+                //$('alipayScan').src = qrList[i].qrCode + "&width=237&height=237";
+                $('alipayScan').src = imgurl+'/GetQRRGCodeImage?qrUrl='+qrList[i].qrCode + "&size=11";
+            }
+        }
+    }
+
+    function returnToDetail() {
+        location.href = backUrl;
+    }
+
+    function ajaxScanResult(orderNumber){
+        var scanResult = {
+            "data": '<GetHRBPaymentResult portalId="' + portalId + '" client="' + cardId + '" account="'+ userId +'" orderNumber="' + orderNumber + '"/>',
+            "callBack": getScanRsult
+        };
+        getData("/GetHRBPaymentResult", scanResult);
+    }
+    var nowState;
+    function getScanRsult(_dataJson){
+        var result = _dataJson;
+        if(result.code != null && result.code == "404"){
+
+            alert("获取支付结果出现异常");
+            returnToDetail();
+        } else {
+            if(result.result == "2"){ // 支付成功
+                if(nowState != "2"){
+                    showSuccessTip();
+                }
+            }
+            nowState = result.result; // 保存当前状态
+        }
+    }
+    function showSuccessTip(){
+        clearInterval(scanInterval1);
+        clearInterval(scanInterval2);
+        clearInterval(scanInterval3);
+        clearTimeout(time);
+
+        $('asset_name').innerHTML = "恭喜您，《" + decodeURIComponent(assetName)+ "》购买成功";
+
+        var msg = showMonth[nowMonth];
+
+        if(type == "2"){
+            $('effect_time').innerHTML = "服务有效期为" + msg;
+        } else {
+            $('effect_time').innerHTML = "服务有效期为" + singleEffectTime;
+        }
+        $('is_success').innerHTML = "本次订购将在5分钟内生效，祝您观影愉快";
+
+        $('tip').style.display = "block";
+
+        tipFlag = true; // 显示弹出框
+    }
+    function gotourl() {
+        var VOD_checkBuy = {  //鉴权
+            "data":"<ValidatePlayEligibility providerId=\""+ providerId+"\" serviceId=\"\" assetId=\"" + assetId + "\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId +"\"/>",
+            "callBack" : function (_dataJson) {
+                if(_dataJson.orderFlag == 'Y'){
+                    gotoPlay();
+                }else {
+                    returnToDetail();
+                }
+            }
+        };
+        IEPG.getData(URL.VOD_checkBuy, VOD_checkBuy);
+    }
+    function gotoPlay() {
+        var json = {
+            "providerId" : providerId,
+            "resourceId" : assetId,
+            "columnMapId":columnId
+        };
+        Buy = new IEPG.BUY(json);
+        IEPG.doPlay();
+    }
+</script>
+</body>
+
+</html>

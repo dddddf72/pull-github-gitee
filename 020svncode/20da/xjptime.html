@@ -1,0 +1,385 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="1280*720; text/html; charset=utf-8">
+    <meta name="viewport" content="width=1280,height=720,user-scalable=no">
+    <title>xjptime</title>
+    <link href="./css/common.css" type="text/css" rel="stylesheet">
+    <style>
+        .set-bg {
+            background: url("./images/xjptemo.png") no-repeat;
+        }
+        
+        .viewParent {
+            position: relative;
+            /* overflow: hidden; */
+        }
+        
+        .content {
+            position: absolute;
+            top: 125px;
+            height: 720px;
+            width: 1280px;
+            /* overflow: hidden; */
+        }
+        
+        .leftarrow {
+            position: absolute;
+            left: 40px;
+        }
+        
+        .rigarrow {
+            position: absolute;
+            right: 40px;
+        }
+        
+        .cell-item {
+            position: relative;
+            float: left;
+            width: 365px;
+            height: 50px;
+            margin: 0 30px 0 0;
+        }
+        
+        .xjp {
+            position: absolute;
+            width: 343px;
+            height: 454px;
+        }
+        
+        .page {
+            /* text-align: center; */
+            position: absolute;
+            left: 670px;
+            top: 499px;
+            font-size: 16px;
+        }
+        
+        #textcd {
+            height: 46px;
+            width: 365px;
+            line-height: 46px;
+            text-align: center;
+            font-size: 20px;
+            overflow: hidden;
+        }
+        
+        .cell-item.focus {
+            color: #000;
+        }
+        
+        .cell-item.focus #textcd {
+            background: url("images/focus.png");
+        }
+        
+        .item-title {
+            position: absolute;
+            display: block;
+            top: 250px;
+            left: 10px;
+            width: 175px;
+            height: 38px;
+            line-height: 38px;
+            box-sizing: border-box;
+            text-align: center;
+            white-space: nowrap;
+            font-size: 22px;
+            color: #ababab;
+        }
+        
+        .title-menu {
+            min-width: 144px;
+            text-align: center;
+            font-size: 24px;
+            padding: 0 10px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 25px;
+            background-color: #2d7fff;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        
+        .list-item {
+            position: relative;
+            float: left;
+            height: 40px;
+            line-height: 40px;
+            font-size: 24px;
+            width: 270px;
+            padding: 0 8px;
+            margin: 0 10px 10px 0;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            border: 3px solid transparent;
+        }
+        
+        .list-item:before {
+            float: left;
+            content: "";
+            width: 24px;
+            height: 24px;
+            margin: 8px 8px;
+            background: url("images/bus.png");
+        }
+        
+        .list {
+            position: relative;
+            float: left;
+            width: 1120px;
+            height: 480px;
+        }
+        
+        .list-item.focus {
+            border: 3px solid #fff03f;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body onload="initTopIcon()">
+    <div class="main set-bg">
+        <div class="content" id="content">
+               <div class="xjp" id="xjp" style="margin-left: 75px;margin-top: 20px;">
+            </div>
+            <div class="viewParent" id="viewParent" style="width: 1170px;height: 450px;left: 430px;margin-top: 26px;">
+                <!-- <div class="cell-item" id="cell-item-0" style="width: 272px;height: 128px;"><img id="cell-img-0" src="images/send-bg.jpg" /> </div>
+                <div class="cell-item" id="cell-item-1" style="width: 272px;height: 128px;"><img id="cell-img-1" src="images/send-bg.jpg" /> </div>
+                <div class="cell-item" id="cell-item-2" style="width: 272px;height: 128px;"><img id="cell-img-2" src="images/send-bg.jpg" /> </div> -->
+            </div>
+            <!-- <div class="page">第1页/
+                <span class="turn">
+                    共5页
+                </span>
+            </div> -->
+            <div class="page" id="page">
+                当前：<span id="current"></span> / <span id="total"></span>
+            </div>
+            <!-- <div class="leftarrow" id="leftarrow"><img src="./images/arrow.png" alt="" style="width: 25px;"></div> -->
+            <!-- <div class="rigarrow" id="rigarrow"><img src="./images/arrow.png" alt="" style="width: 25px;"></div> -->
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./common/global.js"></script>
+<script type="text/javascript" src="./common/utils.js"></script>
+<script type="text/javascript" src="./common/keyAction.js"></script>
+<script type="text/javascript" src="./common/view.js"></script>
+<script type="text/javascript" src="./common/serverAPI.js"></script>
+<script>
+    function initTopIcon() {
+        List.getChannel();
+        getFocus();
+    }
+
+    function exitPage() {
+        stopLivePlay();
+        // getFocus();
+    }
+
+    function getFocus() {
+        index = getGlobalVar('gy_list_menu_index') ? Number(getGlobalVar('gy_list_menu_index')) : -1;
+        listIndex = getGlobalVar('gy_list_list_index') ? Number(getGlobalVar('gy_list_list_index')) : -1;
+    }
+
+    var List = {
+        data: [],
+        index: 0,
+        focus: 0,
+        start: 0,
+        maxSize: 18,
+        focusobj: null,
+        eles: [],
+        total: 1,
+        model: $("viewParent"),
+        box: $("xjp"),
+        contentId: '',
+        currentPage: 1,
+        xjp: '',
+        init: function() {
+            this.getChannel();
+        },
+        getChannel: function() {
+            console.log('11111', location.search.slice(4));
+            contentId = location.search.slice(4);
+            MonitorAPI.getColumnsone(contentId, function(res) {
+                List.menu = eval('(' + res + ')');
+                var html = '';
+                var pic = '';
+		
+		var picurl = getGlobalVar('poster');
+                 pic = Config.monitorUrl + picurl;
+				 
+              html += '<div><img src="' + pic + '" style="width: 300px;height:400px;"></div>';
+                List.box.innerHTML = html;
+                total = List.menu.selectableItemList.length;
+                List.total = List.menu.selectableItemList.length;
+                if (index != -1) {
+                    if (Math.ceil(List.total / List.maxSize) >= index + 1) {
+                        List.start = index * List.maxSize;
+                        List.index = listIndex != -1 ? listIndex : 0;
+                    }
+                }
+                List.showPage();
+            
+            })
+            MonitorAPI.getColumnstwo(contentId, function(res) {
+                if (res) {
+                    List.menu = eval('(' + res + ')');
+                    console.log('res', List.menu.selectableItemList.length);
+                    List.initData();
+                }
+            })
+        },
+        showPage: function() {
+            $("current").innerHTML = Math.ceil((this.start + 1) / this.maxSize);
+            $("total").innerHTML = Math.ceil(this.total / this.maxSize);
+        },
+        initData: function() {
+            var html = '';
+            var title = '';
+            for (var i = 0; i < List.menu.selectableItemList.length; i++) {
+                title = List.menu.selectableItemList[i].summarMedium;
+                // titlecd = List.menu.selectableItemList[i].summarMedium.length;
+                html += '<div class="cell-item" id="cell-item-' + i + '"><h3 id="textcd"><span class="text">' + title + '</span></h3>';
+                html += '</div>';
+            }
+            List.model.innerHTML = html;
+            setTimeout(function() {
+                List.initFocus();
+            }, 500)
+        },
+
+        initFocus: function() {
+            var self = this;
+            this.eles = List.model.getElementsByTagName('div');
+            this.focusobj = new View(List.model);
+            this.focusobj.init(this.eles);
+            // this.focusobj.scrollY = true;
+            this.focusobj.up = function() {
+                self.up();
+            };
+            this.focusobj.ok = function() {
+                self.ok();
+            };
+            this.focusobj.down = function() {
+                self.down();
+            };
+            this.focusobj.cellBlur = function(ele) {
+                self.cellBlur(ele);
+            };
+            this.focusobj.cellFocus = function(ele) {
+                self.cellFocus(ele);
+            };
+            this.focusobj.move = function(pre, cur) {
+                self.move(pre, cur);
+            };
+            setTimeout(function() {
+                var cacheIndex = getGlobalVar('punctuation') || 0;
+                // List.focusobj.focusById('cell-item-' + cacheIndex);
+                List.focusobj.focusByIndex(cacheIndex);
+            }, 500)
+        },
+        getIndex: function(id) {
+            var arr = id.split('-');
+            this.index = Number(arr[arr.length - 1]);
+        },
+
+        move: function(pre, cur) {
+            this.getIndex(cur.id);
+        },
+        cellBlur: function(ele) {
+            console.log('cellBlur', ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerText.length);
+            ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerHTML = ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerText;
+        },
+        cellFocus: function(ele) {
+            console.log('cellFocus', ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerText.length);
+            if (ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerText.length > 18) {
+                ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerHTML = '<marquee scrollamount="4">' + ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerText + '</marquee>'
+            }
+        },
+        up: function() {
+            if (this.start != 0) {
+                this.start -= this.maxSize;
+                this.currentPage--;
+                turnPage(this.currentPage);
+            }
+        },
+        down: function() {
+            if (this.start + this.maxSize < this.total) {
+                this.start += this.maxSize;
+                this.currentPage++;
+                turnPage(this.currentPage);
+            }
+        },
+        pageUp: function() {
+            this.up();
+        },
+        pageDown: function() {
+            this.down();
+        },
+        ok: function() {
+            setGlobalVar('punctuation', this.index);
+            ServerAPI.getPlayURL(List.menu.selectableItemList[this.index].assetId, function(res) {
+                var video = eval('(' + res + ')').palyURL;
+                console.log('video', video);
+                window.location.href = 'play/play.html' + '?playUrl=' + video;
+            })
+        },
+        onKey: function(action) {
+            this.focusobj.onkey(action);
+        }
+    };
+
+
+    //翻页
+    function turnPage(page) {
+        console.log('page', page);
+        turning = (page - 1) * List.maxSize + 1;
+        MonitorAPI.getColumnsthree(contentId, turning, List.maxSize, function(res) {
+            if (res) {
+                List.menu = eval('(' + res + ')');
+                List.initData();
+                console.log('1', List.maxSize);
+                if (index != -1) {
+                    if (Math.ceil(List.total / List.maxSize) >= index + 1) {
+                        List.start = index * List.maxSize;
+                        List.index = listIndex != -1 ? listIndex : 0;
+                    }
+                }
+                List.showPage();
+            }
+        })
+    }
+
+    function moveLeft() {
+        List.onKey('left');
+    }
+
+    function moveUp() {
+        List.onKey('up');
+    }
+
+    function moveRight() {
+        List.onKey('right');
+    }
+
+    function moveDown() {
+        List.onKey('down');
+    }
+
+    function doConfirm() {
+        List.onKey('ok');
+    }
+
+    function pageUp() {
+        List.pageUp();
+    }
+
+    function pageDown() {
+        List.pageDown();
+    }
+</script>
+
+</html>

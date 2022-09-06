@@ -1,0 +1,708 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content=" 1280*720; text/html; charset=utf-8" />
+    <title>如皋在线支付</title>
+    <style type="text/css">
+        body,html{
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .app{
+            background: url("images/scanBg.jpg");
+            width: 1280px;
+            height: 720px;
+            position: relative;
+        }
+        .monolithic{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .text{
+            position: absolute;
+            top: 24px;
+            left: 72px;
+            font-size: 30px;
+            color: rgb( 202, 215, 253 );
+            font-weight: bold;
+        }
+        .content{
+            position: absolute;
+            width: 100%;
+            height: 648px;
+            top: 72px;
+            text-align: center;
+        }
+        .left{
+            float: left;
+            width: 380px;
+            height: 100%;
+            /*background: url("images/leftBg.png");*/
+            display: none;
+        }
+        .right{
+            float: left;
+            height: 100%;
+            vertical-align: top;
+            display: none;
+            overflow: hidden;
+        }
+        .scanBox{
+            padding-top: 124px;
+        }
+        .payBox{
+            display: inline-block;
+            background: url("images/scanBox.png") no-repeat;
+            width: 273px;
+            margin: 0 72px;
+        }
+        .payBox img{
+            width: 237px;
+            height: 237px;
+            padding: 13px 15px;
+        }
+        .payBox div{
+            height: 95px;
+            line-height: 95px;
+            font-size: 24px;
+            color: rgb( 255, 255, 255 );
+        }
+        .info{
+            text-align: center;
+            font-size: 24px;
+            color: rgb( 255, 255, 255 );
+        }
+        .choose{
+            margin-top: 62px;
+            left: 98px;
+            position: absolute;
+        }
+        .chooseBox{
+            background: url("images/chooseBox.png");
+            width: 190px;
+            height: 87px;
+            line-height: 87px;
+            margin-bottom: 56px;
+            font-size: 38px;
+            color: rgb( 153, 153, 153);
+            text-align: center;
+        }
+        #choose1{
+            display: none;
+        }
+
+        .chooseBoxFocus{
+            background: url("images/chooseBoxFocus.png");
+            width: 233px;
+            height: 106px;
+            line-height: 87px;
+            top:143px;
+            position: absolute;
+            left: -22px;
+            font-size: 38px;
+            color: rgb( 255, 255, 255);
+
+        }
+        #title,#price,#effTime{
+            font-size: 40px;
+            color: rgb( 240, 147, 51 );
+        }
+        #info{
+            width: 800px;
+            overflow: hidden;
+            line-height: 60px;
+        }
+
+        #tip_window p{
+            color: white;
+            font-size: 35px;
+            margin-top: 35px;
+        }
+        .smallFontSize{
+            font-size: 14px;
+        }
+    </style>
+    <script type="text/javascript" src="/RGyouku/iPG/T-nsp/res/default/js/global.js"></script>
+    <script type="text/javascript" src="js/scan_code_config.js"></script>
+    <script type="text/javascript" src="/RGyouku/iPG/T-nsp/res/default/js/commonAPI.js"></script>
+    <script type="text/javascript" src="../iPG/T-nsp/res/default/js/json2.min.js"></script>
+</head>
+<body onload="initPage()">
+<div class="app">
+
+    <div class="monolithic">
+        <div class="text" id="text"></div>
+        <div class="content">
+            <div class="left" id="left">
+                <div class="choose">
+                    <div class="chooseBox" id="anciButton">按次</div>
+                    <div class="chooseBox">包月</div>
+                    <div class="chooseBox">包季</div>
+                    <div class="chooseBox">包年</div>
+                    <div class="chooseBoxFocus" id="chooseBoxFocus">包月</div>
+                </div>
+            </div>
+            <div class="right" id="right">
+                <div class="scanBox">
+                    <div class="payBox"><img id="alipayScan" src="images/exampleScan.jpg"/><div>支付宝支付</div></div>
+                    <div class="payBox"><img id="wechatScan" src="images/exampleScan2.jpg"/><div>微信支付</div></div>
+                </div>
+                <div class="info" id="info"></div>
+            </div>
+        </div>
+    </div>
+    <div id="tip" style="position: absolute;z-index: 3;width: 100%;height: 100%;top: 0;left: 0;background:url(images/tip_background.png) no-repeat;display: none;">
+        <div class="tip_window" id="tip_window" style="margin: auto;padding-top: 200px;text-align: center;">
+            <p id="asset_name"></p>
+            <p id="effect_time"></p>
+            <p id="is_success"></p>
+            <div id="confirm_button" style="margin-top: 60px;">
+                <img src="images/tip_button.png"/>
+                <p style="margin-top: -32px;font-size: 25px;color: black;">确定</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="pop" style="width: 100px;height: 100px;position: absolute;left: 100px;top: 100px;"></div>
+<script type="text/javascript">
+
+    var gotoUrl='';
+    var backUrl='';
+    if(getGlobalVar('vod_ctrl_backurl')!=''){
+        backUrl = getGlobalVar('vod_ctrl_backurl');
+    }else{
+        backUrl = getQueryStr('backUrl')||"";
+    }
+
+    if(getGlobalVar('gotoUrl')!=''){
+        gotoUrl = getGlobalVar('gotoUrl');
+    }else{
+        gotoUrl = getQueryStr('gotoUrl')||"";
+    }
+    var assetId = getQueryStr('assetId')||"";
+    var columnId = getQueryStr('columnId');
+    var prop = getQueryStr('prop')||'1';
+
+    var price = 0;
+
+    var focusIndex = 0;
+    var type= '-1';
+    var orderNumber;
+
+    var trueMonth = [];
+    var showMonth = [];
+    var showPrice = [];
+
+    var nowMonth = 0;
+    var anciItem;
+    var baoyueItem;
+    var goodsName = '';
+    var d1 = getQueryStr('d1');
+    var d2 = getQueryStr('d2');
+    var d3 = getQueryStr('d3');
+    var d = [d1,d2,d3];
+    for(var i in showIndex){
+        for(var j in datas){
+            if(datas[j].index == showIndex[i]){
+                trueMonth.push(datas[j].month);
+                showMonth.push(datas[j].showMonth);
+                showPrice.push(datas[j].showPrice);
+            }
+        }
+    }
+    function initPage() {
+        columnOncePayFlag = getGlobalVar("columnOncePayFlag");
+        var orderServices = {
+            "data": '<GetOrderServices assetId="' + assetId + '" portalId="' + portalId + '" account="'+ userId +'" client="' + cardId + '" folderAssetId="'+columnId+'" minOncePriceFlag="Y" />',
+            "callBack": getOrderService
+        };
+        IEPG.getData("/GetOrderServices", orderServices);
+
+    }
+    function showCode() {
+        if(type=="5") {
+            goodsName = getGlobalVar("assetName");
+            $('left').style.display = 'none';
+            $('text').innerHTML = '单片订购';
+            $('info').innerHTML = '欢迎订购《<span id="title">'+goodsName+'</span>》单片<br/> 仅需￥<span id="price"></span>元'+' 有效时间：<span id="effTime"></span>';
+            $('right').style.marginLeft = '252px';
+            ajaxPriceGet();
+        }else if(type=="1"){
+            goodsName = baoyueItem.title;
+            $('left').style.display = 'inline-block';
+            $('anciButton').innerHTML = '本片不支持按次购买';
+            $('anciButton').style.fontSize = '18px';
+            //addClass('anciButton','smallFontSize');
+            $('text').innerHTML = '套餐订购';
+            $('info').innerHTML = '欢迎订购《<span id="title">'+goodsName+'</span>》包月套餐<br/> 套餐仅需￥<span id="price"></span>元';
+            $('right').style.marginLeft = '0';
+            ajaxPriceGet();
+        }else if(type=="all"){
+            goodsName = baoyueItem.title;
+            $('left').style.display = 'inline-block';
+            $('text').innerHTML = '套餐订购';
+            $('info').innerHTML = '欢迎订购《<span id="title">'+goodsName+'</span>》包月套餐 <br/>套餐仅需￥<span id="price"></span>元';
+            $('right').style.marginLeft = '0';
+            ajaxPriceGet();
+        }else{
+            showFailureTip('不支持的购买类型');
+        }
+        $('right').style.display='block';
+    }
+
+
+    var time ;
+    function timingQuitPage() {
+
+        clearTimeout(time);
+        time = setTimeout(function () {
+            showFailureTip('支付操作超时，请在5分钟内完成支付');
+        },300*1000);
+    }
+
+    function getQueryStr(_param) {
+        var rs = new RegExp("(^|)" + _param + "=([^\&]*)(\&|$)", "g").exec(window.location), tmp;
+        if( tmp = rs) {
+            return decodeURIComponent(tmp[2]);
+        }
+        return "";
+    }
+
+
+    function moveDown() {
+        if(scantip){
+
+        }else {
+            if (type == '1'||type == 'all') {
+                if (focusIndex < 2) {
+                    focusIndex++;
+                    setMeal(focusIndex);
+                }
+            }
+        }
+    }
+    function moveUp() {
+        if(scantip){
+
+        }else {
+            var upindex= 0;
+            if (type == '1') {
+                upindex = 0;
+                if (focusIndex > upindex) {
+                    focusIndex--;
+                    setMeal(focusIndex);
+                }
+            }else if (type == 'all'){
+                upindex = -1;
+                if (focusIndex > upindex) {
+                    focusIndex--;
+                    setMeal(focusIndex);
+                }
+            }
+        }
+    }
+    function setMeal(index) {
+        index = parseInt(index);
+        $('chooseBoxFocus').style.top = ((focusIndex+1)*143)+'px';
+        $('chooseBoxFocus').innerHTML = (index==-1?'按次':index==-0?'包月':index==1?'包季':'包年');
+        nowMonth = focusIndex;
+        ajaxPriceGet();
+    }
+    function ajaxPriceGet(){
+        var item;
+
+        if(type == '5'){
+            item = anciItem;
+        }else if(type=='1'){
+            item = baoyueItem;
+        }else if(type=='all'){
+            if(focusIndex>=0) {
+               item = baoyueItem;
+            }else{
+                item = anciItem;
+            }
+        }
+
+        productCode = item.serviceId;
+        price = parseInt(item.displayPrice);
+        effTime = item.chargeTerm + unit[item.chargeTermUnit];
+        $('pop').innerHTML=price;
+        ajaxScanCode();
+    }
+    var unit = ["分", "小时", "天", "月", "年"]; // 单片生效周期
+    var effTime;
+    var showname = ['月','季','年'];
+    var providerId= getGlobalVar("providerId");
+    function ajaxScanCode(){
+        var scanCode;
+        var oriPrice = price * (data[focusIndex].month);
+
+        if(type=='1'||(type=='all'&&focusIndex>=0)){  //包月
+            goodsName = baoyueItem.title;
+            //oriPrice =  datas[focusIndex].showPrice*100;
+            oriPrice = price * (data[focusIndex].month) * d[focusIndex];
+            $('text').innerHTML = '套餐订购';
+            $('info').innerHTML = '欢迎订购《<span id="title">'+goodsName+'</span>》包'+showname[focusIndex]+'套餐<br/> 套餐仅需￥<span id="price"></span>元';
+            $('price').innerHTML = (oriPrice/100).toFixed(2);
+            scanCode = {
+                "data": '<GetQRCode  portalId="' + portalId + '" providerId="'+providerId+'" client="' + cardId + '" account="'+ userId +'" stbNo="'+stbNo+'" assetId="'+ assetId + '" payOrg="all" orderType="2" site="3" productCode="' + productCode + '" price="' + oriPrice + '" columnId="'+columnId+'" amount="'+data[focusIndex].month+'"/>',//amount
+                "callBack" : getScanCode
+            };
+        }else if(type=='5'){ //单片按次
+            var num = parseInt(price);
+            oriPrice = parseInt(price);
+
+            $('price').innerHTML = (num/100).toFixed(2);
+
+            scanCode = {
+                "data": '<GetQRCode portalId="' + portalId + '" providerId="'+providerId+'" client="' + cardId + '" account="'+ userId +'" assetId="'+ assetId +  '" stbNo="'+stbNo+'" payOrg="all" orderType="1" site="3" price="' + oriPrice + '" amount="'+1+'"/>',
+                "callBack" : getScanCode
+            }
+        }else if(type=='all'&&focusIndex<0){
+            goodsName = getGlobalVar('assetName');
+            var num = parseInt(price);
+            oriPrice = parseInt(price);
+            $('text').innerHTML = '单片订购';
+            $('info').innerHTML = '欢迎订购《<span id="title">'+goodsName+'</span>》单片<br/> 仅需￥<span id="price">'+(num/100).toFixed(2)+'</span>元'+' 有效时间：<span id="effTime">'+effTime+'</span>';
+
+            scanCode = {
+                "data": '<GetQRCode portalId="' + portalId + '" providerId="'+providerId+'" client="' + cardId + '" account="'+ userId +'" assetId="'+ assetId +  '" stbNo="'+stbNo+'" payOrg="all" orderType="1" site="3" price="' + oriPrice + '" amount="'+1+'"/>',
+                "callBack" : getScanCode
+            };
+        } else {
+            showFailureTip("资费类型获取失败，包月或按次？");
+        }
+
+        IEPG.getData("/QRCodeAction", scanCode);
+    }
+    var scanInterval;
+    var orderNumber;
+    var scanInterval1;
+    var scanInterval2;
+    var scanInterval3;
+    var orderNumber1;
+    var orderNumber2;
+    var orderNumber3;
+
+    var orderNumber_1;
+    var scanInterval_1;
+    var succeed = false;
+    function getScanCode(_dataJson) {
+        var reuslt = _dataJson;
+
+        if (reuslt.code) {
+            showFailureTip("获取二维码失败，错误码是：" + reuslt.code);
+        } else if(reuslt.orderNumber){
+            timingQuitPage();
+            orderNumber = reuslt.orderNumber;
+            if(orderNumber=='') {
+                showmyMsg(reuslt.qrList);
+            } else {
+                if (focusIndex == 0) {
+                    // orderNumber1 = orderNumber;
+                    clearInterval(scanInterval);
+                    scanInterval = setInterval(function () {
+                        ajaxScanResult(orderNumber, '0');
+                    }, 1 * 1000);
+                } else if (focusIndex == 1) {
+                    // orderNumber2 = orderNumber;
+                    clearInterval(scanInterval);
+                    scanInterval = setInterval(function () {
+                        ajaxScanResult(orderNumber, '1');
+                    }, 1 * 1000);
+                } else if (focusIndex == 3){
+                    // orderNumber3 = orderNumber;
+                    clearInterval(scanInterval);
+                    scanInterval = setInterval(function () {
+                        ajaxScanResult(orderNumber, '2');
+                    }, 1 * 1000);
+                }else {
+                    // orderNumber_1 = orderNumber;
+                    clearInterval(scanInterval);
+                    scanInterval = setInterval(function () {
+                        ajaxScanResult(orderNumber, '-1');
+                    }, 1 * 1000);
+                }
+                changeQRImage(reuslt.qrList);
+            }
+
+        }else{
+            showFailureTip("获取二维码失败，系统繁忙" );
+        }
+    }
+
+    function changeQRImage(qrList){
+        for(var i = 0; i < qrList.length; i ++){
+            if(qrList[i].type == "wxQR" || qrList[i].type == "weixin.qrcode"  ){
+                //$('wechatScan').src = qrList[i].qrCode + "&width=237&height=237";
+                $('wechatScan').src = imgurl+'/GetQRCodeImage?qrUrl='+qrList[i].qrCode + "&size=11";
+            } else if(qrList[i].type == "zfbQR" || qrList[i].type == "alipay.qrcode" ){
+                //$('alipayScan').src = qrList[i].qrCode + "&width=237&height=237";
+
+                $('alipayScan').src = imgurl+'/GetQRCodeImage?qrUrl='+qrList[i].qrCode + "&size=11";
+            }else if(qrList[i].type == "we_chat_pay"){
+
+                $('wechatScan').src = qrList[i].qrCode + "&width=237&height=237";
+            }else if(qrList[i].type == "ali_pay"){
+                $('alipayScan').src = qrList[i].qrCode + "&width=237&height=237";
+            }
+        }
+    }
+    function showmyMsg(qrList) {
+        for(var i = 0; i < qrList.length; i ++) {
+            if(qrList[i].type == "weixin.qrcode"&&qrList[i].qrCode!='') {
+                showFailureTip("微信获取二维码失败，原因：" + qrList[i].qrCode);
+                return;
+            }
+            if(qrList[i].type == "alipay.qrcode"&&qrList[i].qrCode!=''){
+                showFailureTip("支付宝获取二维码失败，原因：" + qrList[i].qrCode);
+                return;
+            }
+        }
+        showFailureTip("获取二维码失败");
+    }
+    function returnToDetail() {
+        // if(prop=='1') {
+        //     goReturnUrlPath();
+        // }else {
+        //     location.href = backUrl;
+        // }
+        location.href = backUrl;
+    }
+    function doReturnKey(){
+        setTimeout(function () {
+            location.href = backUrl;
+        },200);
+
+    }
+    var nowState;
+    function ajaxScanResult(orderNumber,type){
+        var scanResult = {
+            "data": '<GetPaymentResult portalId="' + portalId + '" client="' + cardId + '" account="'+ userId +'" orderNumber="' + orderNumber + '"/>',
+            "callBack": function (_dataJson) {
+                var result = _dataJson;
+                if(result.code != null && result.code == "404"){
+                    showFailureTip("获取支付结果出现异常");
+                } else {
+                    if(result.result == "2"){ // 支付成功
+                        if(nowState != "2"){
+                            showSuccessTip(type);
+                        }
+                    }
+                    nowState = result.result; // 保存当前状态
+                }
+            }
+        };
+        IEPG.getData("/GetPaymentResultAction", scanResult);
+    }
+
+
+    var scantip = false;
+    function showSuccessTip(nowMonth){
+        clearInterval(scanInterval)
+        // clearInterval(scanInterval1);
+        // clearInterval(scanInterval2);
+        // clearInterval(scanInterval3);
+        clearTimeout(time);
+
+        $('asset_name').innerHTML = "恭喜您，《" + decodeURIComponent(goodsName)+ "》购买成功";
+
+        var msg = showMonth[parseInt(nowMonth)];
+
+        if(type == "1"||(type == "all"&&focusIndex>=0)){
+            $('effect_time').innerHTML = "服务有效期为" + msg;
+        } else {
+            $('effect_time').innerHTML = "服务有效期为" + effTime;
+        }
+        $('is_success').innerHTML = "本次订购将在5分钟内生效，祝您观影愉快";
+
+        $('tip').style.display = "block";
+
+        //tipFlag = true; // 显示弹出框
+        scantip = true;
+    }
+    function showFailureTip(msg){
+        clearInterval(scanInterval)
+        // clearInterval(scanInterval1);
+        // clearInterval(scanInterval2);
+        // clearInterval(scanInterval3);
+        clearTimeout(time);
+        setTimeout(function () {
+            returnToDetail();
+        },300*1000);
+        $('asset_name').innerHTML = "";
+        $('effect_time').innerHTML = "";
+        $('is_success').innerHTML = msg;
+        $('tip').style.display = "block";
+        //tipFlag = true;
+        scantip = true;
+    }
+
+    function doConfirm(){
+
+        if(scantip){
+            gotoPage();
+        }
+    }
+
+    function gotoPage() {
+        var VOD_checkBuy = {  //鉴权
+            "data":"<ValidatePlayEligibility serviceId=\"\" assetId=\"" + assetId + "\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId +"\"/>",
+            "callBack" : function (_dataJson) {
+                if(_dataJson.orderFlag == 'Y'){
+                    gotoPlay();
+                }else {
+                    returnToDetail();
+                }
+            }
+        };
+        IEPG.getData(URL.VOD_checkBuy, VOD_checkBuy);
+    }
+    function gotoPlay() {
+        if(prop=='1'){
+            //var json = getGlobalVar('aBuy');
+            // var json = {
+            //     "chargeMode": type,
+            //     "goodsId": productCode,
+            //     "columnMapId": "undefined",
+            //     "assetName": assetName,
+            //     "recordType": "VOD",
+            //     "providerId": providerId,
+            //     "resourceId": assetId,
+            //     "columnId": columnId
+            // };
+            var json = {
+                "chargeMode":getGlobalVar("chargeMode"),
+                "goodsId":getGlobalVar("goodsId"),
+                "columnMapId":getGlobalVar("columnMapId"),
+                "resourceId":assetId,
+                "assetName":getGlobalVar("assetName"),
+                "recordType": getGlobalVar("recordType"),
+                "isPackage" :getGlobalVar("isPackage"),
+                "showType":getGlobalVar("showType"),
+                "singleFlag":getGlobalVar("singleFlag"),
+                "resumePoint":getGlobalVar("resumePoint"),
+                "providerId":getGlobalVar("providerId"),
+                "pkgChargeMode":getGlobalVar("pkgChargeMode"),
+                "packageSingPlay":getGlobalVar("packageSingPlay"),
+                "buyPlayType":getGlobalVar("buyPlayType"),
+                "columnId":getGlobalVar("columnId"),
+                "pakgId":getGlobalVar("pakgId"),
+                "playTime":getGlobalVar("playTime"),
+            };
+
+            Buy = new IEPG.BUY(json);
+
+            //IEPG.doPlayAction(json);
+            IEPG.doPlay();
+        }else {
+            location.href = gotoUrl;
+        }
+    }
+
+
+
+    function getPlaylist(_dataJson) {
+        var playTotalTime=0,total_end_npt=0,total_start_npt=0;//广告加上影片的总时长
+        var trickModesRestricted,playString="";//广告禁用按键 F 快进R 快退P 暂停D拖动
+        var startNPT=parseInt(_dataJson.startNPT);//播放的开始时间点
+        var Playlist = _dataJson.contentRefList;
+        if(Playlist.length > 0) {
+            for(var i = 0; i < Playlist.length; i++) {
+                total_start_npt+=parseInt(Playlist[i].start_npt);
+                total_end_npt+=parseInt(Playlist[i].end_npt);
+                playString+=Playlist[i].start_npt+","+Playlist[i].end_npt+","+Playlist[i].trickModesRestricted+";";
+            }
+            var oldvideoList=[];
+            for(i=0;i<Playlist.length;i++)
+            {
+                var json={};
+                json.s=+parseInt(Playlist[i].start_npt);
+                json.e=+parseInt(Playlist[i].end_npt);
+                json.k=Playlist[i].trickModesRestricted;
+                oldvideoList.push(json);
+            }
+
+            var json=JSON.stringify(oldvideoList); ////将字符串转换成对象
+
+            if(Buy.buyPlayType== "1") {//续看
+                playTotalTime=total_end_npt-total_start_npt+startNPT;
+            }else{
+                playTotalTime=total_end_npt-total_start_npt;
+            }
+
+            setGlobalVar("playString", playString);//原播放列表
+            setGlobalVar("oldPlayString",json);   //构造后老的播放列表 断点时间需要
+        }
+        setGlobalVar("displayName", Buy.assetName);
+        setGlobalVar("vod_ctrl_startime", 0);
+        if(Buy.buyPlayType== "1") {//续看
+            setGlobalVar("vod_ctrl_startime", Buy.resumePoint);
+        }
+        setGlobalVar("vod_ctrl_endtime", playTotalTime);
+        setGlobalVar("vod_recordType", Buy.recordType);
+
+        if(Buy.isPackage == "1") {  //是否资源包
+            setGlobalVar("chapterLength",mediaListLength);//媒资包的实际集数
+            setGlobalVar("chapter",Buy.chapter);//当前媒资的集数
+        }
+
+        setGlobalVar("tryFlag", Buy.tryFlag);
+        setGlobalVar("assetId", Buy.resourceId);
+        setGlobalVar("providerId", Buy.providerId);
+        setGlobalVar("columnMapId", Buy.columnMapId);//保存当前资源包的上级id，用于电视剧播放下一集
+        setGlobalVar("catalogId", Buy.columnMapId);//保存当前资源包的上级id，用于电视剧播放下一集
+        setGlobalVar("purchaseToken", purchaseToken);
+        setGlobalVar("vod_play_type", Buy.buyPlayType);    //播放类型  0 正常, 1 续播
+        setGlobalVar("serviceId", Buy.goodsId);
+        setGlobalVar("packageSingPlay", Buy.packageSingPlay);
+        setGlobalVar("vod_ctrl_rtsp", encodeURIComponent(rtspUrl));
+        setGlobalVar("videoPlayType","1");
+        var backUrl1 = backUrl;
+        var index = backUrl1.indexOf('&vod_ctrl_breakpoint');
+        if(index > 0) {
+            backUrl1 = backUrl1.substring(0, index);
+        }
+        setGlobalVar("vod_ctrl_backurl", backUrl1);
+        delayTime = setTimeout(function() {
+            location.href = location.href.split("/RGyouku")[0] + "/RGyouku/iPG/T-nsp/vodctrl/vodplay.htm";//新播控
+        }, 300);
+    }
+
+    var columnOncePayFlag ='Y';
+
+    function getOrderService(_dataJson) {
+        var orderServiceItemList = _dataJson.orderServiceItem;
+
+        for (var i = 0; i < orderServiceItemList.length; i++) {
+            var orderItem = orderServiceItemList[i];
+            if(orderItem.chargeType=='5'){
+                anciItem = orderItem;
+            }else if(orderItem.chargeType=='1'){
+                if(getGlobalVar("goodsId")==orderItem.serviceId){
+                    baoyueItem = orderItem;
+                }
+            }
+        }
+
+        if(baoyueItem) {
+            if (anciItem) {
+                type='all';
+            } else {
+                type='1'
+            }
+        }else if(anciItem){
+            type='5';
+        }else{
+            type='-1';
+        }
+        showCode();
+    }
+
+</script>
+</body>
+
+</html>

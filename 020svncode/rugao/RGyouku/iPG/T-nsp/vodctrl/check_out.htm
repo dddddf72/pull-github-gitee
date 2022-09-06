@@ -1,0 +1,616 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta name="history" content="no-history" >
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="history" content="no-history">
+		<title>回放_退出</title>
+		<link href="css/base.css" rel="stylesheet" type="text/css" />
+		<link href="../res/default/css/common.css" type="text/css" rel="stylesheet">
+		<style type="text/css">
+			.btnB1{position:absolute;left:24px;width:40px;top: -5px;height:40px;background:url(images/btnB1.png) no-repeat;border:none;line-height:40px;color:#FFFFFF;text-align:center;font-size: 14px;background-size: cover;}
+			.btnB1:focus{ background:url(images/btnF1.png) no-repeat;background-size: cover;}
+			.btnB1.focus{background:url(images/btnF1.png) no-repeat;background-size: cover;}
+			.btnB2{position:absolute;left:81px;width:40px;top: -5px;height:40px;background:url(images/btnB2.png) no-repeat;border:none;line-height:40px;color:#FFFFFF;text-align:center;font-size: 14px;background-size: cover;}
+			.btnB2:focus{ background:url(images/btnF2.png) no-repeat;background-size: cover;}
+			.btnB2.focus{background:url(images/btnF2.png) no-repeat;background-size: cover;}
+
+			.newsBtnB1{position:absolute;left:0px;width:44px;top: -5px;height:44px;background:url(images/btnF.png) no-repeat;border:none;line-height:44px;color:#FFFFFF;text-align:center;background-size: cover;font-size: 12px;}
+			.newsBtnB2{position:absolute;left:50px;width:44px;top: -5px;height:44px;background:url(images/btnF.png) no-repeat;border:none;line-height:44px;color:#FFFFFF;text-align:center;background-size: cover;font-size: 12px;}
+			.newsBtnB3{position:absolute;left:100px;width:44px;top: -5px;height:44px;background:url(images/btnF.png) no-repeat;border:none;line-height:44px;color:#FFFFFF;text-align:center;background-size: cover;font-size: 12px;}
+			.newsBtnB1:focus,.newsBtnB2:focus,.newsBtnB3:focus{background:url(images/btnB.png) no-repeat;background-size: cover;}
+		</style>
+		<script type="text/javascript" src="../../../scan/js/scan_code.js"></script>
+		<script src="js/common.js"></script>
+		<script type="text/javascript">
+			var isCloseWindow = false;
+			var iCount = 15;
+			var countTimer;
+			var errorCode = 0;
+			//var mp = new MediaPlayer();
+			var isStop = true;
+            var colseTip;
+            var tip = "";
+            var playType=getGlobalVar("playType");
+            var columnMapId = getGlobalVar("columnMapId");
+            var listFocusId = 'next';
+			function initPage() {
+				//var nativePlayerInstanceId = getGlobalVar("nativePlayerInstanceId");
+				//mp.bindPlayerInstance(nativePlayerInstanceId);
+				tip = getQueryStr("errorCode", LocString);
+				//check if tip is integer.
+				//if not, output the tip value directly.
+				if(!isNaN(tip)) {
+					errorCode = getIntValue(tip);
+					if(errorCode == 0)//alert("tip==" + tip + "   str=" + LocString);
+					var reasonCode = getGlobalVar("reasonCode");
+					reasonCode = (reasonCode == null) ? "" : reasonCode;
+					$("checkoutContent").style.display = "block";
+					colseTip = "【确认】关闭";
+
+					switch(errorCode) {
+						case 1:
+							var rCode = getIntValue(reasonCode);
+							switch (rCode) {
+								case 15:
+								case 93:
+								case -15:
+								case -93:
+									tip = "信号中断。[" + Math.abs(rCode) + "]";
+									break;
+								case -92:
+								case 92:
+									tip = "通信中断。[" + Math.abs(rCode) + "]";
+									break;
+								case 96:
+								case -96:
+									tip = "系统错误，请求失败。[" + Math.abs(rCode) + "]";
+									break;
+								case 404:
+								case 415:
+									tip = "节目错误，请返回。[" + reasonCode + "]";
+									break;
+								case 411:
+								case 413:
+								case 414:
+								case 454:
+								case 456:
+								case 457:
+									tip = "系统错误，请返回。[" + reasonCode + "]";
+									break;
+								default:
+									tip = "系统繁忙，请稍后重试。[" + reasonCode + "]";
+									break;
+							}
+							break;
+						case 28:
+							tip = "前端停播，请返回。";
+							break;
+						case 31:
+							tip = "无效节目，请返回。";
+							break;
+						case 32:
+							tip = "锁频信号丢失，请返回。";
+							break;
+						case 100000:
+						case 200000:
+                            //saveBookMark(5400);
+                            deleteBookMark(1);
+
+                            //checkBookMark();
+                            if(errorCode==100000){
+                                colseTip = "【确认】播放 【返回】返回上一级";
+                                if(playType =="pakg"){
+                                    if(tryFlag==1){
+                                        tip="预览已结束，请前往营业厅订购或拨打电话87511672、96296咨询。";
+                                        colseTip = '【确认】';
+                                    }else {
+
+                                        var URL_VOD_getAssetList = "/GetFolderContents";
+                                        var VOD_getAssetDetail = {
+                                            'data': '<GetFolderContents assetId="' + columnMapId + '" portalId="' + portalId + '" client="' + getSmartCardId() + '" account="' + getUserId() + '" includeFolderProperties="Y" includeSubFolder="Y" includeSelectableItem="Y"/>',
+                                            "callBack": getAssetDetail
+                                        };
+                                        IEPG.getData(URL_VOD_getAssetList, VOD_getAssetDetail);
+                                        return;
+                                    }
+
+                                } else{
+                                    if(tryFlag==1)
+                                    {tip="预览已结束，请订购。";
+                                        colseTip ='【确认】 订购';
+                                    } else {
+
+                                        tip = "播放已结束，请返回";
+                                        colseTip = " 【确认】 关闭";
+                                        // $("checkoutContent").style.display = "none";
+                                        // $("checkout").style.display = "none";
+                                        //backTo();
+                                    }
+
+                                }
+                            }else{
+                                tip="节目已快退至开始，请返回。";
+                                //isStop = false;
+                                //mp.stop();
+                            }
+
+                            break;
+							//tip = (errorCode == 100000) ? "节目已播放结束，请返回。" : "节目已快退至开始，请返回。";
+							//isStop = false;
+							//mp.releasePlayerInstance();
+							//break;
+						case 100001:
+							tip = "无播放节目，请返回。";
+							break;
+						case 100002:
+							tip = "节目请求超时，请返回。";
+							break;
+						case 100003:
+							tip = "节目播放时间错误。[" + reasonCode + "]";
+							break;
+						case 100004:
+							tip = "输入时长比总时长大。";
+							isCloseWindow = true;
+							break;
+						case 100005:
+							tip = "区域码错误，请返回。[" + reasonCode + "]";
+							break;
+						case 677:
+							tip = "无IPQAM资源[677]";
+							break;
+						case 753:
+							tip = "Stream Not Available[753]";
+							break;
+						case 457:
+							tip = "Invalid Range[457]";
+							break;
+						case 10912:
+						case 10913:
+						case 10914:
+						case 10915:
+						case 10916:
+						case 10917:
+						case 10918:
+						case 10919:
+							//case 10920:
+							tip = "节目请求超时，请返回。[" + errorCode + "]";
+							break;
+						default:
+							tip = "系统临时忙!!![" + errorCode + "]";
+							break;
+					}
+				}
+				countTimer = setInterval("QuitPage()", 1000);
+				if(tip != ""){
+				    $("checkoutContent").innerHTML = tip;
+				}else{
+				    $("checkoutContent").style.display = "none";
+				}
+				if(colseTip != ""){
+				    $("btnColse").innerHTML = colseTip;
+				}	else{
+                    $("btnColse").innerHTML = '   ';
+				}
+			}
+
+			function QuitPage() {
+				setGlobalVar("chapter","");
+				iCount--;
+				//var obj = $("spCount");
+				//if (obj != null) obj.innerText = iCount;
+				if(iCount <= 0) {
+					clearInterval(countTimer);
+					doConfirm();
+				}
+			}
+
+            function createElement(){
+                if(playType=="pakg"){
+                    var btn1=document.createElement("input");
+                    btn1.setAttribute("value","  ");
+                    btn1.setAttribute("type","button");
+                    // btn1.setAttribute("disabled","false");
+                    btn1.setAttribute("id","next");
+                    btn1.setAttribute("class","btnB1");
+
+                    try{
+                        btn1.value = '  ';
+                        btn1.type = 'button';
+                    }catch (e) {
+                        btn1.setAttribute("value","  ");
+                        btn1.setAttribute("type","button");
+                    }
+
+                    var btn2=document.createElement("input");
+                    btn2.setAttribute("type","button");
+                    btn2.setAttribute("value","  ");
+                    btn2.setAttribute("class","btnB2");
+					btn2.setAttribute("id","cancel");
+                    try{
+                        btn2.value = '  ';
+                        btn2.type = 'button';
+                    }catch (e) {
+                        btn2.setAttribute("value","  ");
+                        btn2.setAttribute("type","button");
+                    }
+                    $("Image1").style.display='none';
+                    $("btnColse").appendChild(btn1);
+                    $("btnColse").appendChild(btn2);
+                    setTimeout(function(){
+                        $("next").focus();
+						// listFocusId = 'next';
+						$("next").setAttribute("class","btnB1 focus");
+                    },10);
+                }else{
+                    var btn1=document.createElement("input");
+                    btn1.setAttribute("type","button");
+                    btn1.setAttribute("id","newsNext");
+                    btn1.setAttribute("class","newsBtnB1");
+                    btn1.setAttribute("value","下一条");
+                    var btn2=document.createElement("input");
+                    btn2.setAttribute("type","button");
+                    btn2.setAttribute("value","第一条");
+                    btn2.setAttribute("id","newsFirst");
+                    btn2.setAttribute("class","newsBtnB2");
+                    var btn3=document.createElement("input");
+                    btn3.setAttribute("type","button");
+                    btn3.setAttribute("value","返回");
+                    btn3.setAttribute("class","newsBtnB3");
+                    $("btnColse").appendChild(btn1);
+                    $("btnColse").appendChild(btn2);
+                    $("btnColse").appendChild(btn3);
+                    setTimeout(function(){
+                        $("newsNext").focus();
+                    },10);
+                }
+            }
+            var portalId = 102;
+            var nextAssetJson;
+            var mediaListJson;
+            var nextMediaFocus;
+            var mediaFocus = parseInt(getGlobalVar("mediaId"));
+            var playNext = false;
+            var sumListLength;
+            var nextAssetId="";
+            var nextProviderId="";
+            var nextShowType="";
+            var tryFlag = parseInt(getGlobalVar("tryFlag")); //is only view a few seconds.
+            function getAssetDetail(_dataJson) {//获取详情数据
+                mediaListJson = _dataJson.selectableItemList;
+                sumListLength = mediaListJson.length;
+                nextMediaFocus = mediaFocus+1;
+                nextAssetJson = mediaListJson[nextMediaFocus-1];
+                if(nextAssetJson) {
+					nextAssetName = nextAssetJson.titleFull;
+					nextAssetId = nextAssetJson.assetId;
+					nextProviderId = nextAssetJson.providerId;
+					nextShowType = nextAssetJson.showType;
+				}
+
+                if(nextMediaFocus <= sumListLength){
+                    // tip="播放完毕,正在自动加载下一集,请稍后!";
+                    tip = "播放完毕,正在自动加载下一集,请稍后";
+                    createElement();
+                    playNext=true;
+                }else{
+                    tip="已经是最后一集，请返回";
+                    colseTip = "【确认】关闭";
+                    //setGlobalVar("playType","");
+                    $("btnColse").innerHTML = colseTip;
+                    playNext=false;
+                }
+//    tip="播放完毕，请选择";
+//    createElement();
+//    playNext=true;
+
+                callBackFlag=true;
+                if (tip != "") $("checkoutContent").innerHTML = tip;
+                else $("checkoutContent").style.display = "none";
+                countTimer = setInterval("QuitPage()", 1000);
+            }
+			function doConfirm() {
+				if(isCloseWindow) {
+					doCancel();
+				} else
+                if(playNext){
+                    returnUrls = getGlobalVar("vod_ctrl_backurl");
+                    if(callBackFlag){
+                        if(playType=="pakg"){
+                            if(document.activeElement.id=="next"){
+                                if(nextAssetJson) {
+                                    if(nextMediaFocus<=sumListLength){
+                                        //setGlobalVar("playType","pakg");   // 电视剧续播标识
+                                        setGlobalVar("mediaId", nextMediaFocus);//保存当前播放章节数
+                                    }else{
+                                        //setGlobalVar("playType","");
+                                    }
+                                    //playNextChapterFlag = true;
+                                    nextAssetJson.singleFlag = "true";
+                                    nextAssetJson.goodsId = "";
+                                    var VOD_checkBuy = {
+                                        "data":"<ValidatePlayEligibility assetId=\"" + nextAssetJson.assetId + "\" portalId=\"" + portalId +"\" client=\"" + getSmartCardId() +"\" account=\"" + userId +"\"/>",
+                                        "callBack" : function (_dataJson) {
+                                            var result=_dataJson;
+                                            //var result=data_pmJson;
+                                            var isBuy = result.orderFlag;
+                                            if(isBuy == 'Y'){
+                                                var URL_VOD_getToken = "/SelectionStart";
+                                                var VOD_getToken = {  //获取点播Token
+                                                    "data":"<SelectionStart titleProviderId=\""+ nextAssetJson.providerId +"\" serviceId=\"\" titleAssetId=\"" + nextAssetJson.assetId + "\" folderAssetId=\""+columnMapId+"\" portalId=\"" + portalId +"\" client=\"" + getSmartCardId() +"\" account=\"" + getUserId() +"\"/>",
+                                                    "callBack" : getToken
+                                                };
+                                                IEPG.getData(URL_VOD_getToken, VOD_getToken);
+											}else{
+												$("checkoutContent").innerHTML = '您未购买下一集，请返回';
+                                                $("next").setAttribute("class","btnB1");
+                                                $("next").style.display="none";
+                                                $("cancel").focus();
+                                                $("cancel").setAttribute("class","btnB2 focus");
+                                                return;
+											}
+                                        }
+                                    };
+                                    IEPG.getData('/ValidatePlayEligibility', VOD_checkBuy);
+
+
+                                    //IEPG.doPlayAction(nextAssetJson);
+                                }
+                            }else{
+                                setGlobalVar("columnMapId", "");//清空当前资源包的id，用于电视剧播放下一集
+                                backTo();
+                            }
+                        }
+                        else{
+                            if(document.activeElement.id=="newsNext"){
+                                setGlobalVar("displayName",newsData[parseInt(newsDataIndex)+1].paragraphName);
+                                setGlobalVar("news_dataIndex",parseInt(newsDataIndex)+1);
+                                var URL_VOD_getToken = "/SelectionStart";
+
+                                var VOD_getToken = {  //获取点播Token
+                                    "data":"<SelectionStart titleProviderId=\"" + newsInfo.providerId + "\" noPurchase=\"1\" startTime=\""+newsData[parseInt(newsDataIndex)+1].startTime+"\" endTime=\""+newsData[parseInt(newsDataIndex)+1].endTime+"\" titleAssetId=\"" + newsInfo.assetId + "\" folderAssetId=\""+columnMapId+"\" serviceId=\"\" portalId=\"" + portalId +"\" client=\"" + getSmartCardId() +"\" account=\"" + getUserId() +"\"/>",
+                                    "callBack" : getNewsToken
+                                };
+                                IEPG.getData(URL_VOD_getToken, VOD_getToken);
+                                //	var resId=newsData[parseInt(newsDataIndex)+1].resourceId;
+                                //	getRtsp(newsColumnMapId,resId);
+                            }else if(document.activeElement.id=="newsFirst"){
+                                setGlobalVar("displayName",newsData[0].fileName);
+                                setGlobalVar("news_dataIndex",0);
+                                var resId=newsData[0].resourceId;
+                                getRtsp(newsColumnMapId,resId);
+                            }else{
+                                backTo();
+                            }
+                        }
+                        playNext=false;
+                        callBackFlag=false;
+                    }
+                }else {
+					var returnUrl = getGlobalVar("vod_ctrl_backurl");
+					var vod_play_type = getGlobalVar("vod_play_type");
+					//is only view a few seconds.
+					if(getGlobalVar("bookmarkFlag") == "true" && tryFlag != 1 || vod_play_type != 0){//非试看，非正常播放，保存书签操作
+						deleteBookMark(getGlobalVar("bookmarkId"));//删除书签
+					}
+					if(vod_play_type == "1" && errorCode == 100000){
+						returnUrl = returnUrl.replaceQueryStr(1, "vod_prePlay_over");	
+					}else{
+						returnUrl = returnUrl.replace("&vod_prePlay_over=1&", "");
+					}
+					setGlobalVar("is_play_back", "Y");
+					setGlobalVar("isBack", "Y");
+					//location.href = returnUrl.replaceQueryStr(getUserId(),"userId") ;
+					setGlobalVar("BREAKPOINT_SALETYPE", "");
+					if(tryFlag == 1&&errorCode==100000){
+                        var href = location.href.split("/RGyouku")[0]+'/RGyouku'+"/scan/scan_test.htm?assetId=" + getGlobalVar("resourceId")  +'&columnId='+getGlobalVar("columnId") +'&providerId='+getGlobalVar("providerId")+'&assetName='+getGlobalVar("assetName")+'&goodsId='+getGlobalVar("goodsId")+'&backUrl='+''+"&prop=1"+'&gotoUrl='+''+'&d1='+d1+'&d2='+d2+'&d3='+d3;
+                        //不跳转二维码界面
+                        location.href = returnUrl;
+					}else {
+                        location.href = returnUrl;
+                    }
+				}
+			}
+            var purchaseToken;
+			
+            function getToken(_dataJson){
+                if(_dataJson.code){
+					$("checkoutContent").innerHTML = '您未购买下一集，请返回';
+                    //showMsg(tipUrl + "tip/a_errorTip.htm", _dataJson.message);
+                    // $("next").focus();
+                    // listFocusId = 'next';
+                    $("next").setAttribute("class","btnB1");
+                    $("next").style.display="none";
+                    $("cancel").focus();
+                    $("cancel").setAttribute("class","btnB2 focus");
+                    return;
+                }
+                var result = _dataJson;
+                purchaseToken=result.purchaseToken;
+                //rtspUrl = _dataJson.rtsp;
+                if(isIPanel) rtspUrl = "rtsp://" + MAPIP + ":" + MAPPort + "/;purchaseToken=" + purchaseToken + ";serverID=" + portalIP + ":" + portalPort;
+				else rtspUrl = _dataJson.rtsp;
+                if(purchaseToken!=""){
+                    //rtspUrl = "rtsp://" + MAPIP + ":" + MAPPort + "/;purchaseToken=" + purchaseToken + ";serverID=" + portalIP + ":" + portalPort;
+                    var URL_VOD_getPlaylist = "/GetPlaylist";
+                    var VOD_getPlaylist = {  //获取播放列表
+                        "data":"<GetPlaylist usage=\"Start\" deviceID=\"" + getSmartCardId() +"\" PT=\"" + purchaseToken +"\"/>",
+                        "callBack" : getPlaylist
+                    };
+                    IEPG.getData(URL_VOD_getPlaylist, VOD_getPlaylist);
+                }else{
+                    var errorMsg = _dataJson.NavServerResponse.message;
+                    showMsg(tipUrl + "tip/a_errorTip.htm", errorMsg);
+                }
+            }
+            var delayTime;
+            function getPlaylist(_dataJson) {
+                var playTotalTime=0,total_end_npt=0,total_start_npt=0;//广告加上影片的总时长
+                var trickModesRestricted,playString="";//广告禁用按键 F 快进R 快退P 暂停D拖动
+                var startNPT=parseInt(_dataJson.startNPT);//播放的开始时间点
+                var Playlist = _dataJson.contentRefList;
+                if(Playlist.length > 0) {
+                    for(var i = 0; i < Playlist.length; i++) {
+                        total_start_npt+=parseInt(Playlist[i].start_npt);
+                        total_end_npt+=parseInt(Playlist[i].end_npt);
+                        playString+=Playlist[i].start_npt+","+Playlist[i].end_npt+","+Playlist[i].trickModesRestricted+";";
+                    }
+                    playTotalTime=total_end_npt-total_start_npt+startNPT;
+                    setGlobalVar("playString", playString);
+                }
+                setGlobalVar("displayName", nextAssetName);
+                setGlobalVar("vod_ctrl_startime", 0);
+                setGlobalVar("vod_ctrl_endtime", playTotalTime);
+                setGlobalVar("assetId", nextAssetId);
+                setGlobalVar("providerId", nextProviderId);
+                setGlobalVar("columnMapId", columnMapId);//保存当前资源包的上级id，用于电视剧播放下一集
+                setGlobalVar("purchaseToken", purchaseToken);
+                setGlobalVar("vod_play_type", 0);    //播放类型  0 正常, 1 续播
+                // setGlobalVar("serviceId", serviceId);
+                setGlobalVar("vod_ctrl_rtsp", encodeURIComponent(rtspUrl));
+                var backUrl = location.href;
+                var index = backUrl.indexOf('&vod_ctrl_breakpoint');
+                if(index > 0) {
+                    backUrl = backUrl.substring(0, index);
+                }
+                delayTime = setTimeout(function() {
+                    setGlobalVar('',nextMediaFocus);
+                    location.href = "vodplay.htm";
+                }, 300);
+            }
+
+            function backTo(){
+                var returnUrl = unescape(getGlobalVar("vod_ctrl_backurl"));
+
+                if (errorCode == 100000) setGlobalVar("vod_play_over", 1);
+                else setGlobalVar("vod_play_over", "");
+                setGlobalVar("vod_play_back", "error");
+                setGlobalVar("isBack","Y");
+                //setGlobalVar("playType","");
+                location.href = returnUrl.replaceQueryStr(getUserId(),"userId") ;
+            }
+            var portalId = 102;
+            function saveBookMark(timePosition){
+                var URL_addSavedProgram = "/AddSavedProgram";
+                var VOD_addSavedProgram = {//媒资详情
+                    "data":"<AddSavedProgram  assetId=\"" + getGlobalVar("assetId") + "\" resumePointDisplay=\"" + timePosition + "\" folderAssetId=\"" + getGlobalVar("columnMapId") + "\" purchaseToken=\"" + getGlobalVar("purchaseToken") + "\" portalId=\"" + portalId +"\" client=\"" + getSmartCardId() +"\" account=\"" + userId +"\"/>",
+                    "callBack" : function(resp){
+                    }
+                };
+                IEPG.getData(URL_addSavedProgram, VOD_addSavedProgram);
+            }
+			function deleteBookMark(bookmarkId){//删除书签
+                var URL_deleteSavedProgram = "/DeleteSavedProgram";
+                var VOD_deleteSavedProgram = {//媒资详情
+                    "data":"<DeleteSavedProgram  assetId=\"" + getGlobalVar("assetId") + "\" folderAssetId=\"" + getGlobalVar("columnMapId") + "\"  portalId=\"" + portalId +"\" client=\"" + getSmartCardId() +"\" account=\"" + getUserId() +"\"/>",
+                    "callBack" : function(){}
+                };
+                IEPG.getData(URL_deleteSavedProgram, VOD_deleteSavedProgram);
+			}
+            function checkBookMark(){//检查书签获得书签id删除书签操作
+                var URL_checkSavedProgram = "/CheckSavedProgram";
+
+                var VOD_checkSavedProgram = {//媒资详情
+                    "data":"<CheckSavedProgram  assetId=\"" + getGlobalVar("assetId") + "\" folderAssetId=\"" + getGlobalVar("columnMapId") + "\" providerId=\""+getGlobalVar("providerId")+"\" portalId=\"" + portalId +"\" client=\"" + getSmartCardId() +"\" account=\"" + getUserId() +"\"/>",
+                    "callBack" : function(_dataJson){
+                        var bookmarkFlag = _dataJson.bookmarkFlag;
+
+                        if(bookmarkFlag=="true"){
+                            var URL_deleteSavedProgram = "/DeleteSavedProgram";
+                            var VOD_deleteSavedProgram = {//媒资详情
+                                "data":"<DeleteSavedProgram  assetId=\"" + getGlobalVar("assetId") + "\" folderAssetId=\"" + getGlobalVar("columnMapId") + "\"  portalId=\"" + portalId +"\" client=\"" + getSmartCardId() +"\" account=\"" + getUserId() +"\"/>",
+                                "callBack" : function(){}
+                            };
+                            IEPG.getData(URL_deleteSavedProgram, VOD_deleteSavedProgram);
+                        }
+                    }
+                };
+                IEPG.getData(URL_checkSavedProgram, VOD_checkSavedProgram);
+            }
+
+
+			function doCancel() {
+				clearInterval(countTimer);
+				isStop = false;
+				var parameter = LocString.substr(LocString.indexOf("?") + 1);
+				//  location.href = "/iEPG/T-nsp/Forward.do?svstype=play&" + parameter;
+				location.href = LocString.replace("vod_exit.htm", "vodplay.htm");
+			}
+
+			function closeVideo() {
+				if(isStop) {
+					if(isIPanel)media.AV.close();
+					else {new MediaPlayer().stop()}
+					//mp.pause(0);
+					//mp.releasePlayerInstance();
+				}
+				//media.AV.close();
+			}
+
+//			function grabDown(e) {
+//				var val = e.which || e.keyCode;
+//				switch(val) {
+//					case KEY_ENTER:
+//					case KEY_RETURN:
+//						e.preventDefault();
+//						doConfirm();
+//						break;
+//					default:
+//						break;
+//				}
+//			}//end grabDown
+			document.onkeypress = grabEvent;
+            document.onsystemevent = grabEvent;
+            document.onirkeypress = grabEvent;
+			
+			function grabEvent(event){
+				var val = event.which || event.keyCode;
+				switch (val) {
+					case KEY_ENTER:
+					case KEY_RETURN:
+						doConfirm();
+						break;
+					case KEY_FORWARD:
+					case KEY_FAST_FORWARD_N:
+					case KEY_FAST_FORWARD_RG:
+					case KEY_REWIND:
+					case KEY_FAST_REWIND_N:
+					case KEY_FAST_REWIND_RG:
+					    if($("next").style.display!='none') {
+                            if (document.activeElement.id == "next") {
+                                $("next").setAttribute("class", "btnB1");
+                                $("cancel").setAttribute("class", "btnB2 focus");
+                            } else {
+                                $("next").setAttribute("class", "btnB1 focus");
+                                $("cancel").setAttribute("class", "btnB2");
+                            }
+                        }
+						break;
+					default:
+						break;
+				}
+			}
+
+
+
+		</script>
+	</head>
+	<body bgColor="transparent" onload="initPage();" onunload="closeVideo();">
+		<div id="checkout">
+			<!--退出-->
+			<div id="btnCloseBg">
+				<div name="Image1" id="Image1" style="background: url('images/blank_btn.png');border:0;height:43px;width: 146px"></div>
+				<!--<a href="#"><img src="images/blank_btn.png" name="Image1" width="146" height="43" border="0" id="Image1" /></a>-->
+			</div>
+			<div id="btnColse" style="text-align: center"></div>
+		</div>
+		<div id="checkoutContent" style=" text-align:center;">
+			<p></p>
+		</div>
+
+		<!--end_退出-->
+		<div id="tip_visibility" class="tipcover">
+			<div class="tipupbox" id="tip_window"></div>
+		</div>
+	</body>
+</html>

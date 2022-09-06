@@ -1,0 +1,47 @@
+{
+    "Version": "1527150683247",
+    "RecList": [
+        {
+            "SceneType": "1",
+            "EndTime": 1527400800000,
+            "StartTime": 1526875200000,
+            "ChannelId": "1219"
+        },
+        {
+            "SceneType": "2",
+            "EndTime": 1527400800000,
+            "StartTime": 1526875200000,
+            "ChannelId": "1219"
+        },
+        {
+            "SceneType": "4",
+            "EndTime": 1527400800000,
+            "StartTime": 1526875200000,
+            "ChannelId": "1219"
+        },
+        {
+            "SceneType": "5",
+            "EndTime": 1527400800000,
+            "StartTime": 1526875200000,
+            "ChannelId": "1219"
+        },
+        {
+            "SceneType": "6",
+            "EndTime": 1527400800000,
+            "StartTime": 1526875200000,
+            "ChannelId": "1219"
+        },
+        {
+            "SceneType": "7",
+            "EndTime": 1527400800000,
+            "StartTime": 1526875200000,
+            "ChannelId": "1219"
+        },
+        {
+            "SceneType": "8",
+            "EndTime": 1527400800000,
+            "StartTime": 1526875200000,
+            "ChannelId": "1219"
+        }
+    ]
+}

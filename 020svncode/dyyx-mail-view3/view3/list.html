@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="1280*720; text/html; charset=utf-8">
+    <meta name="viewport" content="width=1280,user-scalable=no">
+    <title>马鞍山-列表</title>
+    <link href="css/main.css" type="text/css" rel="stylesheet">
+    <style>
+        .side {
+            float: left;
+            box-sizing: border-box;
+            width: 180px;
+            height: 100%;
+            padding: 30px 0;
+        }
+
+
+        .search {
+            display: block;
+            width: 132px;
+            height: 44px;
+            background: url('./img/list_search.png') center top;
+            margin: 0 auto;
+        }
+
+        .search.focus {
+            background: url('./img/list_search.png') center 44px;
+        }
+
+        .title {
+            font-size: 36px;
+            color: #fff;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            /* padding-right: 30px; */
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .list {
+            height: 500px;
+            overflow: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+
+        .item {
+            display: block;
+            height: 42px;
+            width: 180px;
+            line-height: 42px;
+            margin-bottom: 28px;
+            font-size: 24px;
+            padding: 0 15px 0 15px;
+            box-sizing: border-box;
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .item.current {
+            color: #fd6f01;
+        }
+
+        .item.focus {
+            background: #fd6f01;
+            color: #fff;
+        }
+
+        .content {
+            position: relative;
+            float: left;
+            width: 1100px;
+            height: 720px;
+        }
+
+        .con-wrap {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .con-wrap.show {
+            display: block;
+        }
+
+        .con-list {
+            height: 600px;
+            padding: 68px 0 0 10px;
+        }
+
+        .con-item {
+            position: relative;
+            float: left;
+            width: 195px;
+            height: 288px;
+            background: #111;
+            margin: 0 8px 8px 0;
+        }
+
+        .con-item img {
+            width: 100%;
+            height: 250px;
+        }
+
+
+        .cont-section {
+            position: relative;
+            width: 195px;
+            height: 250px;
+        }
+
+        .item-title {
+            position: absolute;
+            display: block;
+            top: 250px;
+            left: 10px;
+            width: 175px;
+            height: 38px;
+            line-height: 38px;
+            /*padding: 0 10px;*/
+            box-sizing: border-box;
+            text-align: center;
+            white-space: nowrap;
+            font-size: 22px;
+            color: #ababab;
+        }
+
+        .item-title.ellipsis {
+            /*text-overflow: ellipsis;*/
+            overflow: hidden;
+        }
+
+        .item-title.hide {
+            visibility: hidden;
+        }
+
+        .item-title span {
+            white-space: nowrap;
+        }
+
+        .con-item.focus .item-title {
+            background: #950000;
+            color: #fff;
+        }
+
+        .con-item.focus {
+            outline: 5px solid #950000;
+            background-color: #950000;
+            font-size: 22px;
+        }
+
+        .con-item {
+            /*background: url('./img/img03.png');*/
+            background: #283b41;
+        }
+
+        .list-con {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .pagePre {
+            position: absolute;
+            top: 27px;
+            left: 0;
+            width: 95%;
+            text-align: center;
+            visibility: hidden;
+        }
+
+        .pageNext {
+            position: absolute;
+            top: 660px;
+            left: 0;
+            width: 95%;
+            text-align: center;
+            visibility: hidden;
+        }
+
+        .pageTurn {
+            display: inline-block;
+            width: 41px;
+            height: 40px;
+        }
+
+        .pagePre span {
+            background: url("./img/arrow-up.png");
+        }
+
+        .pageNext span {
+            background: url("./img/arrow-down.png");
+        }
+
+        .pageNum {
+            position: absolute;
+            top: 68px;
+            left: 1030px;
+            width: 44px;
+            height: 584px;
+        }
+
+        .pageNum .line {
+            position: absolute;
+            top: 0;
+            left: 20px;
+            width: 4px;
+            height: 100%;
+            background-color: #fff;
+        }
+
+        .pageNum .box {
+            position: absolute;
+            top: 225px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            font-size: 30px;
+            text-align: center;
+            background-color: #950000;
+        }
+    </style>
+</head>
+
+<body>
+<div class="main">
+    <div class="side">
+        <div id="search">
+            <div class="search"></div>
+        </div>
+        <div class="title" id="title">电影</div>
+
+        <div class="list">
+            <div class="list-con" id="nav"></div>
+        </div>
+    </div>
+    <div class="content" id="con">
+
+    </div>
+    <!--<div id="pagePre"><span class="pageTurn"></span></div>
+    <div id="pageNext"><span class="pageTurn"></span></div>
+    <div id="pageNum"><div class="line"></div><div class="box"><div id="currPage"></div><div>/</div><div id="totalPage"></div></div></div>-->
+</div>
+<!-- <script type="text/javascript" src="./js/smoothscroll.min.js"></script> -->
+<script type="text/javascript" src="./js/json2.min.js"></script>
+<script type="text/javascript" src="./js/base.js"></script>
+<script type="text/javascript" src="./js/view.js"></script>
+<script type="text/javascript" src="./js/main.js"></script>
+<script>
+    //焦点记录
+    var navIndex = getGlobalVar('Lnav') || 0;
+    var listIndex = getGlobalVar('Llist') || -1;
+    var listPage = getGlobalVar('Lpage') || 1;
+
+    var params = window.location.href.split('?')[1];
+    var PARAMS = parseStrObjByRegExp(params);
+    var assetId = PARAMS.id;
+    var Nav = $('nav');
+    var Search = $('search');
+    var Title = $('title');
+    Title.innerHTML = decodeURI(PARAMS.title);
+    var Con = [];
+    var List = {}; //内容区域
+    var Page = {};
+    /*Vnav*/
+    var Vnav = new View(Nav);
+    /*Vsearch*/
+    var Vsearch = new View(Search);
+
+    Vsearch.init(Search.getElementsByTagName('div'));
+
+    //获取栏目
+    API.GetNav({
+        id: assetId,
+    }, function (data) {
+        var html_nav = '';
+        var html_con = '';
+        data.forEach(function (el) {
+            html_nav += '<div class="item" id="' + el.assetId + '">' + el.displayName + '</div>';
+            html_con += '<div class="con-wrap" id="tab' + el.assetId +
+                '"><div class="con-list" id="list' + el.assetId +
+                '"><div class="loading">正在加载...</div></div>';
+            html_con += '<div class="pagePre" id="pagePre' + el.assetId + '"><span class="pageTurn"></span></div>';
+            html_con += '<div class="pageNext" id="pageNext' + el.assetId + '"><span class="pageTurn"></span></div>';
+            html_con += '<div class="pageNum"><div class="line"></div><div class="box"><div id="currPage' + el.assetId + '">1</div><div>/</div><div id="totalPage' + el.assetId + '">1</div></div></div></div>';
+            List[el.assetId] = {};
+        });
+
+        var Con = $('con');
+        Nav.innerHTML = html_nav;
+        Con.innerHTML = html_con;
+
+        setTimeout(function () {
+            Vnav.init(Nav.getElementsByTagName('div'));
+            Vnav.scrollY = true;
+            Vnav.saveCurrent = true;
+            Vnav.focusByIndex(navIndex);
+
+            Vsearch.down = function () {
+                Vnav.onfocus();
+            }
+
+            Vsearch.ok = function () {
+                //alert($('search').innerHTML)
+                location.href = './search.html';
+            }
+
+            Vnav.right = function (el) {
+                if (List[el.id].ListV) {
+                    List[el.id].ListV.onfocus();
+                }
+            };
+
+            Vnav.back = function () {
+                setGlobalVar('Lnav', 0);
+                setGlobalVar('Llist', -1);
+                setGlobalVar('Lpage', 1);
+                history.go(-1);
+            }
+
+            Vnav.up = function (el) {
+                Vsearch.onfocus();
+            };
+
+
+            Vnav.move = function (prev, current) {
+                removeClass($("tab" + prev.id), 'show');
+                getList(current.id);
+
+            }
+
+
+            var current = Vnav.focusItem().id;
+            getList(current);
+            listPage = 1;
+        }, 300)
+
+
+    })
+
+
+    //获取推荐
+    function getList(tabId, calback) {
+        addClass($("tab" + tabId), 'show');
+        var ListCurrent = List[tabId];
+        if (!ListCurrent.ListA) {
+            ListCurrent.currentPage = listPage;
+            API.GetList({
+                id: tabId,
+                page: ListCurrent.currentPage,
+                pageSize: 10
+            }, function (data, total) {
+                ListCurrent.total = Math.ceil(total / 10) || 1;
+                ListCurrent.ListA = $("list" + tabId);
+                var _html = '';
+                data.forEach(function (el, i) {
+                    var posterUrl = el.imageList[1] ? el.imageList[1].posterUrl : el.recommendImage.posterUrl;
+                    posterUrl = posterUrl ? CONFIGS.ip + '/' + el.recommendImage.posterUrl : "";
+                    _html += '<div class="con-item" id="' + el.assetId + '" providerId="' + el.providerId + '"><h5 class="cont-section"><img src="' +
+                        posterUrl +
+                        '" alt="33" /><h3 class="item-title ellipsis"><span>' + el.titleBrief.clip(13) +
+                        '</span></h3><h3 class="item-title hide"><span>' + el.titleBrief + '</span></h3></h5></div>'
+                })
+
+                if (!calback) {
+                    ListCurrent.ListA.innerHTML = _html;
+                }
+                $("currPage" + tabId).innerHTML = ListCurrent.currentPage;
+                $("totalPage" + tabId).innerHTML = ListCurrent.total;
+                showPageIcon(ListCurrent.currentPage, ListCurrent.total, tabId);
+
+                ListCurrent.ListV = new View(ListCurrent.ListA);
+
+                setTimeout(function () {
+                    ListCurrent.ListV.init(ListCurrent.ListA.getElementsByTagName('div'));
+
+                    ListCurrent.ListV.cellFocus = function (ele) {
+                        try {
+                            var title = ele.getElementsByTagName("h3")[0],
+                                hideTextEle = ele.getElementsByTagName("h3")[1].getElementsByTagName('span')[0],
+                                text = hideTextEle.innerHTML,
+                                textWidth = hideTextEle.offsetWidth,
+                                textLen = hideTextEle.innerHTML.len();
+                            parentWidth = title.offsetWidth;
+                            console.log(ele.getElementsByTagName("h3")[1].getElementsByTagName('span')[0].innerHTML)
+                            // alert(textWidth + "," + parentWidth)
+                            if (textLen > 13) {
+                                title.innerHTML = '<marquee>' + text + '</marquee>';
+                            }
+                        } catch (e) {
+                        }
+
+                    }
+                    ListCurrent.ListV.cellBlur = function (ele) {
+                        try {
+                            var title = ele.getElementsByTagName("h3")[0],
+                                text = title.innerText;
+                            if (title.getElementsByTagName('marquee').length > 0) {
+                                title.innerHTML = text.clip(13);
+                            }
+                        } catch (e) {
+
+                        }
+
+                    }
+
+
+                    if (listIndex >= 0) {
+                        ListCurrent.ListV.focusByIndex(listIndex);
+                        listIndex = -1;
+                    }
+                    ListCurrent.ListV.back = function () {
+                        Vnav.onfocus()
+                    }
+                    ListCurrent.ListV.up = function () {
+
+                    }
+
+                    ListCurrent.ListV.ok = function (el) {
+                        API.GetDetail({
+                            id: el.id
+                        }, function (_data) {
+
+                            if (_data.isOver) {
+                                showMessage('该媒资已下架！');
+                            } else {
+                                setGlobalVar('Lnav', Vnav.focusId);
+                                setGlobalVar('Llist', ListCurrent.ListV.focusId);
+                                setGlobalVar('Lpage', ListCurrent.currentPage);
+                                localStorage.setItem("preUrl", "./list.html?id=" +
+                                    PARAMS.id +
+                                    '&title=' + PARAMS.title);
+                                location.href = './details.html?id=' + el.id;
+                            }
+                        })
+
+
+                    }
+
+                    ListCurrent.ListV.down = function () {
+                        if (ListCurrent.currentPage == ListCurrent.total) {
+                            return;
+                        }
+                        ListCurrent.currentPage++;
+                        turnPage(ListCurrent.currentPage, tabId);
+                    };
+                    ListCurrent.ListV.up = function () {
+                        if (ListCurrent.currentPage == 1) {
+                            return;
+                        }
+                        ListCurrent.currentPage--;
+                        turnPage(ListCurrent.currentPage, tabId);
+                    };
+                    ListCurrent.ListV.left = function () {
+                        Vnav.onfocus();
+                    }
+
+                }, 300)
+
+
+            })
+        }
+    }
+
+    //翻页
+    function turnPage(current, tabId) {
+        var ListCurrent = List[tabId];
+        ListCurrent.ListA.innerHTML = '<div class="loading">正在加载...</div>'
+        API.GetList({
+            id: tabId,
+            page: current,
+            pageSize: 10
+        }, function (data) {
+            var _html = '';
+            data.forEach(function (el, i) {
+                var posterUrl = el.imageList[1] ? el.imageList[1].posterUrl : el.recommendImage
+                    .posterUrl;
+                posterUrl = posterUrl ? CONFIGS.ip + '/' + el.recommendImage.posterUrl :
+                    "";
+                _html += '<div class="con-item" id="' + el.assetId + '" providerId="' + el
+                        .providerId + '"><h5 class="cont-section"><img src="' +
+                    posterUrl +
+                    '" ><h3 class="item-title ellipsis"><span>' + el.titleBrief.clip(12) + '</span></h3><h3 class="item-title hide"><span>' + el.titleBrief + '</span></h3></h5></div>'
+            })
+
+            ListCurrent.ListA.innerHTML = _html;
+            $("currPage" + tabId).innerHTML = current;
+            showPageIcon(current, ListCurrent.total, tabId);
+            setTimeout(function () {
+                ListCurrent.ListV.init(ListCurrent.ListA.getElementsByTagName('div'));
+                ListCurrent.ListV.focusByIndex(0);
+            }, 300)
+
+        })
+    }
+
+    function showPageIcon(current, total, tabId) {
+        if (total <= 1) {
+            $("pagePre" + tabId).style.visibility = "hidden";
+            $("pageNext" + tabId).style.visibility = "hidden";
+        } else if (current == 1) {
+            $("pagePre" + tabId).style.visibility = "hidden";
+            $("pageNext" + tabId).style.visibility = "visible";
+        } else if (current == total) {
+            $("pagePre" + tabId).style.visibility = "visible";
+            $("pageNext" + tabId).style.visibility = "hidden";
+        } else {
+            $("pagePre" + tabId).style.visibility = "visible";
+            $("pageNext" + tabId).style.visibility = "visible";
+        }
+    }
+</script>
+</body>
+
+</html>

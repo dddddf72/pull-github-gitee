@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="1280*720; text/html; charset=utf-8">
+    <meta name="viewport" content="width=1280,user-scalable=no">
+    <title>马鞍山-列表</title>
+    <link href="css/main.css" type="text/css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="css/menu.css?verSion=20220501"> -->
+    <style>
+        .side {
+            float: left;
+            box-sizing: border-box;
+            width: 180px;
+            height: 100%;
+            padding: 30px 0;
+        }
+
+
+        /* .search {
+            display: block;
+            width: 132px;
+            height: 44px;
+            background: url('./img/list_search.png') center top;
+            margin: 0 auto;
+        }
+
+        .search.focus {
+            background: url('./img/list_search.png') center 44px;
+        } */
+
+        .title {
+            font-size: 36px;
+            color: #fff;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            /* padding-right: 30px; */
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .list {
+            height: 500px;
+            overflow: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+
+        .item {
+            display: block;
+            height: 42px;
+            width: 180px;
+            line-height: 42px;
+            margin-bottom: 28px;
+            font-size: 24px;
+            padding: 0 15px 0 15px;
+            box-sizing: border-box;
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #fff;
+        }
+
+        .item.current {
+            color: #fd6f01;
+        }
+
+        .item.focus {
+            background: #fd6f01;
+            color: #fff;
+        }
+
+        .content {
+            position: relative;
+            float: left;
+            width: 1100px;
+            height: 720px;
+        }
+
+        .con-wrap {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .con-wrap.show {
+            display: block;
+        }
+
+        .con-list {
+            height: 600px;
+            /* padding: 68px 0 0 10px; */
+            padding: 93px 0 0 10px;/* 调整list与icon距离 */
+        }
+
+        .con-item {
+            position: relative;
+            float: left;
+            width: 195px;
+            height: 288px;
+            background: #111;
+            margin: 0 8px 8px 0;
+        }
+
+        .con-item img {
+            width: 100%;
+            height: 250px;
+        }
+
+
+        .cont-section {
+            position: relative;
+            width: 195px;
+            height: 250px;
+        }
+
+        .item-title {
+            position: absolute;
+            display: block;
+            top: 250px;
+            left: 10px;
+            width: 175px;
+            height: 38px;
+            line-height: 38px;
+            /*padding: 0 10px;*/
+            box-sizing: border-box;
+            text-align: center;
+            white-space: nowrap;
+            font-size: 22px;
+            color: #ababab;
+        }
+
+        .item-title.ellipsis {
+            /*text-overflow: ellipsis;*/
+            overflow: hidden;
+        }
+
+        .item-title.hide {
+            visibility: hidden;
+        }
+
+        .item-title span {
+            white-space: nowrap;
+        }
+
+        .con-item.focus .item-title {
+            background: #950000;
+            color: #fff;
+        }
+
+        .con-item.focus {
+            outline: 5px solid #950000;
+            background-color: #950000;
+            font-size: 22px;
+        }
+
+        .con-item {
+            /*background: url('./img/img03.png');*/
+            background: #283b41;
+        }
+
+        .list-con {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* menu part */
+        .menu-icon {
+            position: absolute;
+            top: 0;
+            left: 880px;
+        }
+        .menu-icon div{
+            width: 92px;
+            height: 92px;
+            margin: 18px 16px 0 16px;
+            float: left;
+            /* before */
+            /* width: 55.2px;
+            height: 55.2px;*/
+        }
+
+        .icon-item.focus {
+            /*outline: 5px solid #950000;*/
+        }
+
+    .icon-item .iconImg {
+      display: block;
+      margin: 0 auto;
+    }
+    .icon-item .iconTxt {
+      display: block;
+      margin-top: 5px;
+      text-align: center;
+    }
+
+        .menu-icon .iconImg {
+          /* width: 34.8px;
+          height: 34.8px; */
+          /* before */
+          width: 58px;
+          height: 58px;
+        }
+        .menu-icon .iconTxt {
+            width: 100%;
+            font-size: 13.2px;
+            color: #ababab;
+            text-align: center;
+        }
+        .menu-icon .focus .iconTxt {
+            color: #38b336;
+        }
+      .icon0.focus .iconImg {
+          background: url("./img/icon_0.png");
+      }
+      .icon1.focus .iconImg {
+          background: url("./img/icon_1.png");
+      }
+      .icon2.focus .iconImg {
+          background: url("./img/icon_2.png");
+      }
+
+      .icon0 .iconImg {
+           background: url("./img/icon_00.png");
+      }
+      .icon1 .iconImg {
+          background: url("./img/icon_10.png");
+      }
+      .icon2 .iconImg {
+          background: url("./img/icon_20.png");
+      }
+        /* exit-ad part */
+        
+        .exit-ad {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1280px;
+            height: 720px;
+            z-index: 99;
+            display: none;
+            background: url("./img/exit_bg.png");
+        }
+
+        .exit-ad.focus {
+            display: block;
+        }
+
+        .exit-ad div {
+            position: relative;
+            top: 280px;
+            left: 730px;
+            width: 252px;
+            height: 55px;
+            font-size: 30px;
+            text-align: center;
+            line-height: 55px;
+            background-color: #323635;
+            margin-bottom: 15px;
+        }
+
+        .exit-item.focus {
+            background-color: #37aa33;
+        }
+/* page part */
+        .pagePre {
+            position: absolute;
+            top: 27px;
+            left: 0;
+            width: 95%;
+            text-align: center;
+            visibility: hidden;
+        }
+
+        .pageNext {
+            position: absolute;
+            top: 680px;
+            left: 0;
+            width: 95%;
+            text-align: center;
+            visibility: hidden;
+        }
+
+        .pageTurn {
+            display: inline-block;
+            width: 41px;
+            height: 40px;
+        }
+
+        .pagePre span {
+            background: url("./img/arrow-up.png");
+        }
+
+        .pageNext span {
+            background: url("./img/arrow-down.png");
+        }
+
+        .pageNum {
+            position: absolute;
+            top: 93px;
+            left: 1030px;
+            width: 44px;
+            height: 584px;
+        }
+
+        .pageNum .line {
+            position: absolute;
+            top: 0;
+            left: 20px;
+            width: 4px;
+            height: 100%;
+            background-color: #fff;
+        }
+
+        .pageNum .box {
+            position: absolute;
+            top: 225px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            font-size: 30px;
+            text-align: center;
+            background-color: #950000;
+        }
+    </style>
+</head>
+
+<body onload="initTopIcon()">
+<div class="main">
+    
+    <div class="side">
+        <!-- <div id="search">
+            <div class="search"></div>
+        </div> -->
+        <div class="title" id="title"></div>
+
+        <div class="list">
+            <div class="list-con" id="nav"></div>
+        </div>
+    </div>
+    <div class="content" id="con">
+      
+    </div>
+    <div class="logo" id="left-pic" style="position:absolute;top:0;">
+        <!--div class="left-pic" style="width:230px;height:60px;background: url('./img/logo.png');"></div-->
+    </div>
+    <div class="menu-icon" id="menu-icon" style="z-index: 101;">
+        <div class="icon-item icon0" data-type="history"><span class="iconImg"></span><span class="iconTxt">观看记录</span></div>
+        <div class="icon-item icon1 search" id="search" data-type="search"><span class="iconImg"></span><span class="iconTxt">搜索</span></div>
+        <div class="icon-item icon2"  data-type="favorite"><span class="iconImg"></span><span class="iconTxt">我的收藏</span></div>
+    </div>
+    
+    <!--<div id="pagePre"><span class="pageTurn"></span></div>
+    <div id="pageNext"><span class="pageTurn"></span></div>
+    <div id="pageNum"><div class="line"></div><div class="box"><div id="currPage"></div><div>/</div><div id="totalPage"></div></div></div>-->
+</div>
+
+<!-- <div class="exit-ad" id="exit-ad">
+
+</div> -->
+<!-- <script type="text/javascript" src="./js/smoothscroll.min.js"></script> -->
+<script type="text/javascript" src="./js/json2.min.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+
+<script type="text/javascript" src="./js/base.js"></script>
+<script type="text/javascript" src="./js/view.js"></script>
+<!-- script type="text/javascript" src="./js/common.js"></script -->
+<script type="text/javascript" src="./js/main.js"></script>
+
+<script>
+    //获取assetId
+var nev = {
+	"data":'<NavCheck deviceId="' + getSmartCardId()+'" client="' + getSerialNum() + '"/>',
+	"callBack":function (_dataJson){
+		var userId = _dataJson.account;
+		console.log('NavCheck--data--callback');
+		setGlobalVar('userId',userId);
+	}
+};
+IEPG.getData("/NavCheck",nev)
+var assetId = CONFIGS.assetId;
+console.log('var--assetId'+assetId)
+var newAssetId = assetId;
+console.log('var--newAssetId'+newAssetId)
+//add
+//        var curCloumnId = localStorage.getItem("curCloumnId");
+    
+//        if(!curCloumnId){
+//            localStorage.setItem("curCloumnId",assetId);
+//        }else{
+//             if(assetId != curCloumnId){
+//                localStorage.removeItem("nav");
+//                localStorage.removeItem("list");
+//             }
+//        }
+    //焦点记录
+    var navIndex = getGlobalVar('Lnav') || 0;
+    var listIndex = getGlobalVar('Llist') || -1;
+    var listPage = getGlobalVar('Lpage') || 1;
+
+    //var params = window.location.href.split('?')[1];
+    //var PARAMS = parseStrObjByRegExp(params);
+	//var assetId = PARAMS.id;
+    var Nav = $('nav');
+    // var Search = $('search');
+
+    //title part
+    var Title = $('title');
+    // Title.innerHTML = decodeURI(PARAMS.title);
+
+    var Con = [];
+    var List = {}; //内容区域
+    var Page = {};
+    /*Vnav*/
+    var Vnav = new View(Nav);
+    
+    /*Vsearch*/
+    // var Vsearch = new View(Search);
+
+    // Vsearch.init(Search.getElementsByTagName('div'));
+//add
+    //exit part
+    // var Exit = $('exit-ad');
+    // var Vexit = new View(Exit);
+    
+    var Icon = $("menu-icon");
+        var VIcon = new View(Icon);
+        var iconIndex = getGlobalVar('icon') || -1;
+
+
+    function initTopIcon(){
+      // initAdExit()     
+	initIconFirst()
+}
+function initIconFirst(){
+      setTimeout(function () {
+          VIcon.init(Icon.getElementsByTagName('div'));
+          VIcon.saveCurrent = true;
+          if(iconIndex != -1) VIcon.focusByIndex(iconIndex);
+          VIcon.ok = function (el) {
+              var type = el.getAttribute('data-type');
+              setGlobalVar('nav', 0);
+              setGlobalVar('list', -1);
+              setGlobalVar('icon', VIcon.focusId);
+              if (type) {
+                  localStorage.setItem("preUrl", './' + type +
+                      '.html');
+                  location.href = './' + type + '.html';
+              }
+          };
+
+          // VIcon.right = function() {
+          //     if (List[Vnav.focusItem().id].V) {
+          //         List[Vnav.focusItem().id].V.onfocus();
+          //     }
+          // }
+
+          // VIcon.up = function() {
+              // Vnav.onfocus();
+          // }
+          VIcon.down = function() {
+            // debugger//Icon向下移动
+              Vnav.onfocus();
+          }
+
+
+          VIcon.back = function () {
+              Vnav.onfocus();
+          }
+      }, 300)
+    }
+API.GetNav({
+	id:assetId,
+},function(data){
+	newAssetId=data[0].assetId
+	console.log('Nav1--newAssetId'+newAssetId)
+	getView()
+})
+function getView(){
+    //获取栏目
+    API.GetNav({
+        id: newAssetId,
+//id: 'MANU0000000000050140',
+
+    }, function (data) {
+console.log('nav2--newAssetId'+newAssetId)
+        var html_nav = '';
+        var html_con = '';
+        data.forEach(function (el) {
+            html_nav += '<div class="item" id="' + el.assetId + '">' + el.displayName + '</div>';
+            html_con += '<div class="con-wrap" id="tab' + el.assetId +
+                '"><div class="con-list" id="list' + el.assetId +
+                '"><div class="loading">正在加载...</div></div>';
+            html_con += '<div class="pagePre" id="pagePre' + el.assetId + '"><span class="pageTurn"></span></div>';
+            html_con += '<div class="pageNext" id="pageNext' + el.assetId + '"><span class="pageTurn"></span></div>';
+            html_con += '<div class="pageNum"><div class="line"></div><div class="box"><div id="currPage' + el.assetId + '">1</div><div>/</div><div id="totalPage' + el.assetId + '">1</div></div></div></div>';
+            List[el.assetId] = {};
+        });
+
+        var Con = $('con');
+        Nav.innerHTML = html_nav;
+        Con.innerHTML = html_con;
+
+        setTimeout(function () {
+            Vnav.init(Nav.getElementsByTagName('div'));
+            Vnav.scrollY = true;
+            Vnav.saveCurrent = true;
+            Vnav.focusByIndex(navIndex);
+
+            // Vsearch.down = function () {
+            //     Vnav.onfocus();
+            // }
+
+            // Vsearch.ok = function () {
+            //     //alert($('search').innerHTML)
+            //     location.href = './search.html';
+            // }
+
+            Vnav.right = function (el) {
+                if (List[el.id].ListV) {
+                    List[el.id].ListV.onfocus();
+                }
+            };
+
+            Vnav.back = function () {
+                setGlobalVar('Lnav', 0);
+                setGlobalVar('Llist', -1);
+                setGlobalVar('Lpage', 1);
+                history.go(-1);
+            }
+
+            Vnav.up = function (el) {
+                // Vsearch.onfocus();
+                VIcon.onfocus();
+            };
+
+
+            Vnav.move = function (prev, current) {
+                removeClass($("tab" + prev.id), 'show');
+                getList(current.id);
+
+            }
+                  //add
+                  // Vnav.back = function (prev, current) {
+                  //     Vexit.onfocus();
+                  //     showAdExit()
+                  // }
+
+
+            var current = Vnav.focusItem().id;
+            getList(current);
+            listPage = 1;
+        }, 300)
+
+
+    })
+}
+
+
+    //获取推荐
+    function getList(tabId, calback) {
+        addClass($("tab" + tabId), 'show');
+        var ListCurrent = List[tabId];
+        if (!ListCurrent.ListA) {
+            ListCurrent.currentPage = listPage;
+            API.GetList({
+                id: tabId,
+                page: ListCurrent.currentPage,
+                pageSize: 10
+            }, function (data, total) {
+                ListCurrent.total = Math.ceil(total / 10) || 1;
+                ListCurrent.ListA = $("list" + tabId);
+                var _html = '';
+                data.forEach(function (el, i) {
+                    var posterUrl = el.imageList[1] ? el.imageList[1].posterUrl : el.recommendImage.posterUrl;
+                    posterUrl = posterUrl ? CONFIGS.ip + '/' + el.recommendImage.posterUrl : "";
+                    _html += '<div class="con-item" id="' + el.assetId + '" providerId="' + el.providerId + '"><h5 class="cont-section"><img src="' +
+                        posterUrl +
+                        '" alt="33" /><h3 class="item-title ellipsis"><span>' + el.titleBrief.clip(13) +
+                        '</span></h3><h3 class="item-title hide"><span>' + el.titleBrief + '</span></h3></h5></div>'
+                })
+
+                if (!calback) {
+                    ListCurrent.ListA.innerHTML = _html;
+                }
+                $("currPage" + tabId).innerHTML = ListCurrent.currentPage;
+                $("totalPage" + tabId).innerHTML = ListCurrent.total;
+                showPageIcon(ListCurrent.currentPage, ListCurrent.total, tabId);
+
+                ListCurrent.ListV = new View(ListCurrent.ListA);
+
+                setTimeout(function () {
+                    ListCurrent.ListV.init(ListCurrent.ListA.getElementsByTagName('div'));
+
+                    ListCurrent.ListV.cellFocus = function (ele) {
+                        try {
+                            var title = ele.getElementsByTagName("h3")[0],
+                                hideTextEle = ele.getElementsByTagName("h3")[1].getElementsByTagName('span')[0],
+                                text = hideTextEle.innerHTML,
+                                textWidth = hideTextEle.offsetWidth,
+                                textLen = hideTextEle.innerHTML.len();
+                            parentWidth = title.offsetWidth;
+                            console.log(ele.getElementsByTagName("h3")[1].getElementsByTagName('span')[0].innerHTML)
+                            // alert(textWidth + "," + parentWidth)
+                            if (textLen > 13) {
+                                title.innerHTML = '<marquee>' + text + '</marquee>';
+                            }
+                        } catch (e) {
+                        }
+
+                    }
+                    ListCurrent.ListV.cellBlur = function (ele) {
+                        try {
+                            var title = ele.getElementsByTagName("h3")[0],
+                                text = title.innerText;
+                            if (title.getElementsByTagName('marquee').length > 0) {
+                                title.innerHTML = text.clip(13);
+                            }
+                        } catch (e) {
+
+                        }
+
+                    }
+
+
+                    if (listIndex >= 0) {
+                        ListCurrent.ListV.focusByIndex(listIndex);
+                        listIndex = -1;
+                    }
+                    ListCurrent.ListV.back = function () {
+                        Vnav.onfocus()
+                    }
+                    ListCurrent.ListV.up = function () {
+                    }
+
+                    ListCurrent.ListV.ok = function (el) {
+                        API.GetDetail({
+                            id: el.id
+                        }, function (_data) {
+
+                            if (_data.isOver) {
+                                showMessage('该媒资已下架！');
+                            } else {
+                                setGlobalVar('Lnav', Vnav.focusId);
+                                setGlobalVar('Llist', ListCurrent.ListV.focusId);
+                                setGlobalVar('Lpage', ListCurrent.currentPage);
+                                localStorage.setItem("preUrl", "./list.html?id=" +
+					assetId);
+                                   // PARAMS.id +
+                                   // '&title=' + PARAMS.title);
+                                location.href = './details.html?id=' + el.id;
+                            }
+                        })
+
+
+                    }
+
+                    ListCurrent.ListV.down = function () {
+                        if (ListCurrent.currentPage == ListCurrent.total) {
+                            return;
+                        }
+                        ListCurrent.currentPage++;
+                        turnPage(ListCurrent.currentPage, tabId);
+                    };
+                    ListCurrent.ListV.up = function () {
+                      // debugger//data向上移动
+                        if (ListCurrent.currentPage == 1) {
+                          // add
+                          VIcon.onfocus();
+                            return;
+                        }
+                        ListCurrent.currentPage--;
+                        turnPage(ListCurrent.currentPage, tabId);
+                    };
+                    ListCurrent.ListV.left = function () {
+                        Vnav.onfocus();
+                    }
+
+                }, 300)
+
+
+            })
+        }
+    }
+
+    //翻页
+    function turnPage(current, tabId) {
+        var ListCurrent = List[tabId];
+        ListCurrent.ListA.innerHTML = '<div class="loading">正在加载...</div>'
+        API.GetList({
+            id: tabId,
+            page: current,
+            pageSize: 10
+        }, function (data) {
+            var _html = '';
+            data.forEach(function (el, i) {
+                var posterUrl = el.imageList[1] ? el.imageList[1].posterUrl : el.recommendImage
+                    .posterUrl;
+                posterUrl = posterUrl ? CONFIGS.ip + '/' + el.recommendImage.posterUrl :
+                    "";
+                _html += '<div class="con-item" id="' + el.assetId + '" providerId="' + el
+                        .providerId + '"><h5 class="cont-section"><img src="' +
+                    posterUrl +
+                    '" ><h3 class="item-title ellipsis"><span>' + el.titleBrief.clip(12) + '</span></h3><h3 class="item-title hide"><span>' + el.titleBrief + '</span></h3></h5></div>'
+            })
+
+            ListCurrent.ListA.innerHTML = _html;
+            $("currPage" + tabId).innerHTML = current;
+            showPageIcon(current, ListCurrent.total, tabId);
+            setTimeout(function () {
+                ListCurrent.ListV.init(ListCurrent.ListA.getElementsByTagName('div'));
+                ListCurrent.ListV.focusByIndex(0);
+            }, 300)
+
+        })
+    }
+
+    function showPageIcon(current, total, tabId) {
+        if (total <= 1) {
+            $("pagePre" + tabId).style.visibility = "hidden";
+            $("pageNext" + tabId).style.visibility = "hidden";
+        } else if (current == 1) {
+            $("pagePre" + tabId).style.visibility = "hidden";
+            $("pageNext" + tabId).style.visibility = "visible";
+        } else if (current == total) {
+            $("pagePre" + tabId).style.visibility = "visible";
+            $("pageNext" + tabId).style.visibility = "hidden";
+        } else {
+            $("pagePre" + tabId).style.visibility = "visible";
+            $("pageNext" + tabId).style.visibility = "visible";
+        }
+    }
+    //add
+    // function initAdExit() {
+    //   showLog('initAdExit--start')
+    //     Exit.innerHTML = '<div class="exit-item">再看一会儿</div><div class="exit-item">退出不看了</div>';
+    //     setTimeout(function () {
+    //         Vexit.init(Exit.getElementsByTagName('div'));
+    //         Vexit.ok = function (el) {
+    //             if(Vexit.focusId) {
+    //                 setGlobalVar('nav', 0);
+    //                 setGlobalVar('list', -1);
+    //                 setGlobalVar('icon', -1);
+    //                 window.history.go(-2);
+    //                 try{
+    //                     JSEngine.ioctl('exit');
+    //                 } catch (e) {
+    //                 }
+    //             } else {
+    //                 Vnav.onfocus();
+    //             }
+    //         };
+
+
+    //         Vexit.back = function () {
+    //             Vnav.onfocus();
+    //         }
+    //     }, 300)
+    //     showLog('initAdExit---end')
+    // } 
+
+    // function showAdExit() {
+    //     setTimeout(function () {
+    //         Vexit.init(Exit.getElementsByTagName('div'));
+    //     }, 300);
+    // }
+</script>
+</body>
+
+</html>

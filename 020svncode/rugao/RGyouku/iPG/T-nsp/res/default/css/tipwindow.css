@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+/*弹出窗口样式*/
+.tipcover{width:1280px;height:720px;background:url(../images/tips/coverbj.png) no-repeat;position:absolute;top:0px;left:0px;z-index:99;}
+.tipupbox{width:831px;height:439px;background:url(../images/tips/tck_bg1.png) no-repeat;position:absolute;top:130px;left:266px;}
+.tiptitle{display:inline;float:left;width:338px;height:40px;line-height:40px;text-align:center;font-size:31px;color:#ffffff;margin-top:3px;padding-left:225px;}
+.text{width:158px;height:165px;margin:50px auto auto 630px;padding-top:25px;color:#000; font-size: 20px;}
+.textbutton{clear:both;width:135px;height:52px;margin:80px auto auto 607px;padding-top:25px;color:#000}
+.textbutton2{clear:both;width:270px;height:52px;margin:80px auto auto 607px;padding-top:25px;color:#000}
+.textbutton3{clear:both;width:405px;height:52px;margin:80px auto auto 607px;padding-top:25px;color:#000}
+
+.textbutton li,.textbutton2 li,.textbutton3 li{width:88px;height:38px;margin:0px 5px;float:left;}
+.textbutton li input:focus,.textbutton2 li input:focus,.textbutton3 li input:focus{background:url(../images/tips/focusbut.png) no-repeat; width:88px;height:38px}
+.textbutton li input,.textbutton2 li input,.textbutton3 li input {width:88px;height:38px;font-size:20px;color:#1b1102;border:none;background:url(../images/tips/defaultbut.png) no-repeat;text-align:center;line-height:33px;outline:none;}
+.oneBun{margin-left: 50px;width:88px;height:38px;font-size:20px;color:#1b1102;border:none;background:url(../images/tips/defaultbut.png) no-repeat;text-align:center;line-height:33px;outline:none;}
+.vodad{position:absolute;left:268px;top:182px;color:#000;font-size:24px;width: 597px;height: 366px; z-index:99;}

@@ -1,0 +1,64 @@
+/**
+ * 
+ * @reset.css
+ *
+**/
+body{font-family:Helvetica; -webkit-font-smoothing: antialiased; color: #fff;}
+h1,h2,h3,h4,h5,h6{font-size:100%; margin:0; font-weight:400;}
+body,form,ul,ol,dl,dd,p{margin:0;}
+ul,ol{list-style-type:none; padding: 0;}
+img{border:0 none;vertical-align:middle;}
+a{text-decoration:none;outline: 0;}
+textarea{ overflow:auto; resize: vertical;}
+table {border-collapse:collapse;border-spacing:0;}
+:active,:focus{ outline: 0;}
+input::-ms-clear{display:none;}
+.mfix:before{content:'';display:inline-block; width:0; height:100%; vertical-align:middle;}
+.mfix>*{display:inline-block;vertical-align:middle;}
+a,button,input,textarea{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 2dppx){ 
+    /* Retina 下仍使用默认字体渲染 */
+	body { -webkit-font-smoothing: subpixel-antialiased; }
+}
+
+
+/** 通用 **/
+.main{ position: absolute; left: 0; top: 0; width: 1280px; height: 720px;}
+.logo{ position: absolute; }
+.indo{ text-align: right; position: absolute; right: 30px; top: 40px; color: #f2f2f2;}
+.info_weather{ font-size: 30px;}
+.info_data{ font-size: 30px;}
+.info_week{ font-size: 30px; padding: 0 25px;}
+.footer{ position: absolute; left: 0; right: 0; bottom: 20px; height: 60px; line-height: 60px; background: url('../img/shadow01.png') ;}
+.notice{ box-sizing: border-box; width:60px; height:60px;font-size: 24px; margin-left:80px; background: url('../img/ico.png') left center no-repeat;}
+.marquee{ position: absolute; margin-left: 150px; left: 0; top: 0; right:0; font-size: 20px; height: 60px; line-height: 60px; }
+/** nav **/
+.nav{ position: absolute; font-size: 0;  right: 0; padding-left:33px;}
+.nav a{ display: inline-block; position:relative;  color: #f2f2f2;  height: 44px; line-height: 44px; text-align: center;  }
+.nav a.focus{ color: #feb500;}
+.nav a.current:before{ content:''; position:absolute; left: 50%;z-index: 10;bottom: -20px;margin-left: -80px; width:160px; height:63px; background:url('../img/focus.png'); color: #33d6ff;}
+/* main */
+.maincon{ position: absolute; left: 0; top: 80px; right: 0; bottom: 80px; }
+.main_list{ display: none; position: absolute; left: 0; top: 0; bottom: 0; right: 0;}
+.main_list.current{ display:block;}
+.main_cell{ float: left; position: relative; border-radius: 20px; overflow: hidden;}
+.main_cell img{ border-radius: 20px; overflow: hidden;}
+.main_cell.focus:before{ content:''; position:absolute; left:0; top:0; bottom:0; right:0; border-radius: 20px;  border:3px solid #00FF00; }
+.main_cell.fr{ float: right; margin: 20px 20px 0 0;}
+.tabloading{ line-height: 680px; text-align: center; font-size: 40px;}
+
+/*.nav a{ display: inline-block; position:relative; font-size: 29px; color: #f2f2f2; margin: 0 19px; width: 100px; height: 44px; line-height: 44px; text-align: center; }*/
+.main_cell{ float: left; position: relative; border-radius: 5px; overflow: hidden;}
+.main_cell img{ border-radius: 5px; overflow: hidden;}
+.main_cell.focus:before{ content:''; position:absolute; left:0; top:0; bottom:0; right:0; border-radius: 5px;  border:5px solid #00FF00; }
+.info_weather{ font-size: 20px;}
+.info_city{ font-size: 15px;}
+.info_tempr{ font-size: 20px;}
+.info_exp_city{ font-size: 20px;margin-right: 10px;}
+.info_date{ font-size: 20px;}
+.info_week{ font-size: 20px; }
+.info_weather_image{height:32px;width:32px;vertical-align:middle; margin:0 10px;}
+.indo_wrap{ display:block;width:280px; word-break:keep-all; /* 不换行 */ white-space:nowrap; /* 不换行 */ text-align:center;}
+.indo_wrap span{ display:inline-block;}
+.search{ position: absolute; left: 550px; top: 40px; width: 181px; height: 26px;}
+.indo{ text-align: right; position: absolute; right: 30px; top: 30px; color: #f2f2f2;}

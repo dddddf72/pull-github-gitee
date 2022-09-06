@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>没卡弹出框</title>
+		<style>
+			body {
+				margin: 0px;
+				padding: 0px;
+				font-size: 24px;
+				color: #FFF;
+				background: transparent;
+			}
+			ul, p, h1, h6 {
+				margin: 0px;
+				padding: 0px;
+			}
+			li {
+				list-style: none;
+			}
+			img {
+				border: 0;
+			}
+			input {
+				outline: none;
+			}
+			.tip_window h1 {
+				width: 740px;
+				height: 65px;
+				line-height: 65px;
+				text-align: center;
+				margin: 0px;
+				padding: 0px;
+				color: #fff;
+				font-size: 36px;
+				position: absolute;
+				left: 5px;
+				top: 5px;
+			}
+			.tip_window h6 {
+				width: 740px;
+				height: 58px;
+				line-height: 58px;
+				color: #fff;
+				font-size: 26px;
+				position: absolute;
+				left: 60px;
+				top: 80px;
+			}
+			.tip_window p {
+				width: 500px;
+				line-height: 40px;
+				color: #FFF;
+				position: absolute;
+				left: 150px;
+				top: 180px;
+				word-wrap: break-word;
+				overflow: hidden;
+			}/* 提示信息 */
+			.tip_window {
+				width: 750px;
+				height: 464px;
+				background: url(../images/tip_box.png) no-repeat;
+				position: absolute;
+				left: 270px;
+				top: 130px;
+				z-index: 3;
+			}
+			.cover {
+				width: 1280px;
+				height: 720px;
+				background: url(../images/cover.png) no-repeat;
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				overflow: hidden;
+				z-index: 3;
+			}
+			.tip_button {
+				width: 740px;
+				height: 45px;
+				position: absolute;
+				left: 5px;
+				top: 415px;
+			}
+			.tip_button li {
+				float: left;
+				color: #FFCD00;
+			}
+			.tip_button li input {
+				width: 76px;
+				height: 39px;
+				font-size: 22px;
+				border: none;
+				outline: none;
+				margin: 0px 20px;
+				padding: 0px;
+				color: #fff;
+				background: url(../images/tip_focus.png) no-repeat;
+			}
+			.tip_button ul.one_button {
+				position: absolute;
+				left: 320px;
+				top: 3px;
+			}	/* 一个按扭定位 */
+		</style>
+		<script>
+			function setGlobalVar(_sName, _sValue) {
+				try {
+					_sValue = _sValue + "";
+					if(Utility.setEnv) {
+						Utility.setEnv(_sName, _sValue);
+					} else {
+						SysSetting.setEnv(_sName, "" + encodeURIComponent(_sValue));
+						//9101
+					}
+				} catch(e) {
+					document.cookie = escape(_sName) + "=" + escape(_sValue);
+				}
+			}
+
+			function getGlobalVar(_sName) {
+				var result = "";
+				try {
+					if(Utility.getEnv) {
+						result = Utility.getEnv(_sName);
+					} else {
+						result = decodeURIComponent(SysSetting.getEnv(_sName));
+						//9101
+					}
+					if(result == "undefined") {
+						result = "";
+					}
+				} catch (e) {
+					var aCookie = document.cookie.split("; ");
+					for(var i = 0; i < aCookie.length; i++) {
+						var aCrumb = aCookie[i].split("=");
+						if(escape(_sName) == aCrumb[0]) {
+							result = unescape(aCrumb[1]);
+							break;
+						}
+					}
+				}
+				return result;
+			}
+
+			function goToPortal() {
+				//clearUrlPath(); //清除路径
+				location.href = getGlobalVar("PORTAL_ADDR");
+			}
+
+			document.onkeypress = grabEvent;
+			function grabEvent(e) {
+				onKeyUp = false;
+				e = (e) ? e : window.event;
+				var val = e.which || e.keyCode;
+				switch (val) {
+					case 13:
+						goToPortal();
+						break;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="tip_visibility">
+			<!-- 遮盖层 -->
+			<!-- 			<div class="cover"></div> -->
+			<!-- ajax请求数据层 -->
+			<div class="tip_window">
+				<h1>温馨提示</h1>
+				<h6>尊敬的用户：</h6>
+				<p id="message">
+					未插卡，请插入有效智能卡！插卡后请重启机顶盒。
+				</p>
+				<div class="tip_button">
+					<ul class="one_button">
+						<li>
+							<input name="" type="button" value="确认" id="OKButton" onclick="closeTip();"/>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

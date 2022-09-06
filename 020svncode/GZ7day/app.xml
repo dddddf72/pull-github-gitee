@@ -1,0 +1,36 @@
+<applicationList>
+	<application>
+		<applicationName lang="zho">
+	  		<multilingualStr>moui201807101748</multilingualStr> 
+	  	</applicationName>
+		<applicationIdentifier>
+		  <orgId>1</orgId> 
+		  <appId>GZ7day</appId> 
+	  	</applicationIdentifier>
+		<applicationDescriptor>
+		  <type>HTML</type> 
+		  <visibility>VISIBLE_ALL</visibility> 
+		  <priority>1</priority> 
+		  <version>804</version> 
+		  <size>51642</size> 
+		  <bootPath>entrance.html</bootPath> 
+		  <classPath>/</classPath> 
+	  	</applicationDescriptor>
+		<applicationTransport type="OCTransportType">
+		  <OrigNetId>1</OrigNetId> 
+		  <TSId>6</TSId> 
+		  <ServiceId>1</ServiceId> 
+		  <componentTag>8</componentTag> 
+		</applicationTransport>
+		<applicationProvider lang="zho">
+	  		<multilingualStr>GCable</multilingualStr> 
+	  	</applicationProvider>
+		<applicationInstallDescriptor>
+	  		<powerOnRunType>0</powerOnRunType> 
+	  		<autoRunOrder>200099</autoRunOrder> 
+	  		<uiVisible>true</uiVisible> 
+	  		<publishTime>2011-10-12 21:12:54</publishTime> 
+	  		<category>system</category> 
+	  	</applicationInstallDescriptor>
+	  </application>
+	</applicationList>

@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+</head>
+<body style="background:transparent;">
+<script type="text/javascript">
+	function getParameter(param){
+		param = param.toLowerCase();
+		var query = window.location.search; //获取URL"?"后面的字符串
+		if(query.length==0){
+			return "";
+		}else{
+			query = query.toLowerCase();
+			var iLen = param.length;
+			var iStart = query.indexOf(param);
+			if (iStart == -1) //判断是否有那个需要查询值的传递参数
+				return ""; //没有就返回一个空值
+			iStart += iLen + 1;
+			var iEnd = query.indexOf("&", iStart); //判断是不是带有多个参数   &为多个参数的连接符号
+			if (iEnd == -1) {
+				return query.substring(iStart);
+			}
+			return query.substring(iStart, iEnd);
+		}
+	}
+	var channelId = getParameter("channelId");
+	//if(channelId){
+		//var playChannelId = {channelId:channelId};
+		//SysSetting.setEnv("play_channelId",JSON.stringify(playChannelId));
+	//}
+	var type = getParameter("type");
+	if(type){
+		SysSetting.setEnv("OTHERTOPALYTV",type);
+	}
+	SysSetting.setEnv("PAGEFOCUSINDEX","play_tv");
+	SysSetting.setEnv("MAINPAGE", "1");
+	window.location.href = "../index.html?page=play_tv&channelId="+channelId+"&type="+type;
+</script>
+</body>
+</html>

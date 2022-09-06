@@ -1,0 +1,50 @@
+/**
+ * 
+ * @reset.css
+ *
+**/
+body{font-family:Helvetica; -webkit-font-smoothing: antialiased; color: #fff;}
+h1,h2,h3,h4,h5,h6{font-size:100%; margin:0; font-weight:400;}
+body,form,ul,ol,dl,dd,p{margin:0;}
+ul,ol{list-style-type:none; padding: 0;}
+img{border:0 none;vertical-align:middle;}
+a{text-decoration:none;outline: 0;}
+textarea{ overflow:auto; resize: vertical;}
+table {border-collapse:collapse;border-spacing:0;}
+:active,:focus{ outline: 0;}
+input::-ms-clear{display:none;}
+.mfix:before{content:'';display:inline-block; width:0; height:100%; vertical-align:middle;}
+.mfix>*{display:inline-block;vertical-align:middle;}
+a,button,input,textarea{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 2dppx){ 
+    /* Retina 下仍使用默认字体渲染 */
+	body { -webkit-font-smoothing: subpixel-antialiased; }
+}
+/** 通用 **/
+.main{ position: absolute; left: 0; top: 0; width: 1280px; height: 720px; background: url('../img/bg.jpg');}
+.side_con{ position: absolute; overflow: hidden; left: 0; top: 108px; bottom: 0; width: 330px; background: url('../img/shadow.png')}
+.side_list{ position: relative; text-align: center; font-size: 24px; padding: 30px 0 0 0;}
+.side_list li{ height: 90px; line-height: 90px; margin-top: -26px;}
+.side_list li.focus{ background: url('../img/side_focus.png') center center no-repeat;}
+.side_list li.current{ color: #ffec1a;}
+.page{ position: absolute; left: 360px; bottom: 20px; width: 339px; height: 30px; background: url('../img/page.png');}
+.content{ position: absolute; width: 782px; height: 544px; top:108px; left: 360px; }
+.main_con{ width: 100%; height: 100%; display: none;}
+.list_item{ margin-bottom: 10px; position: relative; box-sizing: border-box; height: 54px; padding-right: 100px; line-height: 54px; font-size: 22px; color: #fff; background: url('../img/shadow01.png'); }
+.list_item span{ font-size: 18px;}
+.list_item i{ display: block; font-style: normal; height: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-left: 66px; background: url('../img/ico01.png') 10px -50px no-repeat; }
+.list_date{ position: absolute; right: 30px; top: 0; font-size: 18px;}
+.list_wrap{position: relative;}
+.list_item.focus{ color: #ffec1a; background: url('../img/shadow.png'); }
+.list_item.focus i{ background: url('../img/ico01.png') 10px 0px no-repeat;}
+.sub_page{position: absolute; left: 0; width: 100%; bottom: 0; text-align: center;font-size: 18px;}
+.video_list{ position: relative; height: 100%; margin-right: -10px;}
+.video_list li{ float: left; width: 188px; height: 250px; margin: 0 10px 10px 0;}
+.video_list img{ width: 100%; height: 100%; object-fit: cover;}
+.video_list li.focus{ outline: 4px solid #ffec1a;}
+.pop_window{ display: none; position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: url('../img/shadow02.png')}
+.pop_con{ position: absolute; left: 280px; top:150px;  width: 720px; height: 450px; background:url('../img/pop_bg.png');}
+.pop_hd{ height: 66px; line-height: 66px; text-align: center; font-size: 24px;}
+.pop_con .sub_page{ bottom: 18px;}
+.pop_con .list_item{ margin-bottom: 0; background: none; margin: 0 29px; border-bottom: 1px solid #94481d; font-size: 20px;}
+.pop_con .list_item i{ margin-left: -20px;}

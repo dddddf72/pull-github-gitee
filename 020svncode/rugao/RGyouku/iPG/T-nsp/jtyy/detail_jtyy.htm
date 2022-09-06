@@ -1,0 +1,560 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="1280*720; text/html; charset=utf-8">
+    <meta name="viewport" content="width=1280,user-scalable=no">
+    <title>芒果TV</title>
+    <script src="../res/default/js/global.js"></script>
+    <script src="../res/default/js/commonAPI.js"></script>
+    <script src="../res/default/js/menu.js"></script>
+    <link href="../res/default/css/common.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="../../../scan/js/scan_code.js"></script>
+    <script type="text/javascript" src="../res/default/js/json2.min.js"></script>
+    <style>
+        body{font-family:Helvetica; -webkit-font-smoothing: antialiased; color: #fff;}
+        h1,h2,h3,h4,h5,h6{font-size:100%; margin:0; font-weight:400;}
+        body,form,ul,ol,dl,dd,p{margin:0;}
+        ul,ol{list-style-type:none; padding: 0;}
+        img{border:0 none;vertical-align:middle;}
+        a{text-decoration:none;outline: 0;}
+        textarea{ overflow:auto; resize: vertical;}
+        table {border-collapse:collapse;border-spacing:0;}
+        :active,:focus{ outline: 0;}
+        input::-ms-clear{display:none;}
+        a,button,input,textarea{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+        @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 2dppx){
+            /* Retina 下仍使用默认字体渲染 */
+            body { -webkit-font-smoothing: subpixel-antialiased; }
+        }
+        ::-webkit-scrollbar
+        {
+            width: 0px;
+            height: 0px;
+        }
+        ::-webkit-scrollbar-track-piece
+        {
+            background: none;
+            border-radius: 0px;
+        }
+        ::-webkit-scrollbar-thumb:vertical
+        {
+            height: 0px;
+            background: none;
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb:horizontal
+        {
+            width: 0px;
+            background: none;
+            border-radius: 6px;
+        }
+        /** 通用 **/
+        .main{ position: absolute; left: 0; top: 0; width: 1280px; height: 720px; overflow: hidden; background: url('../res/default/img/bg.jpg');}
+        .side>h2{ font-size: 50px; color: #bdb1c0; line-height: 150px;}
+        .side>ul{ position: relative; z-index: 1;}
+        .side>ul>li{ line-height: 55px; font-size: 30px; color: #bdb1c0; margin-bottom: 10px;}
+        .side>ul>li.focus{ background: #2c94e9; color: #fff;}
+        .detail-top{ padding: 28px 66px; overflow: hidden;}
+        .detail-title{ padding: 20px 0;}
+        .detail-title>strong{ font-weight: normal; font-size: 40px; color: #ab97be; padding-right: 15px;}
+        .detail-title>span{ font-size: 25px; color: #7f728e;}
+        .detail-img{ float: left; width: 170px; height: 250px; }
+        .detail-info-con{ overflow: hidden;padding-left: 38px;}
+        .detail-info-con>h2{ font-size: 25px; color: #a697b6; padding-bottom: 5px;}
+        .detail-info-con>p{ font-size: 18px; line-height: 28px; color: #a697b6; padding-top: 5px;}
+        .detail-act{ padding-top: 30px;margin-left: -15px;}
+        /*.detail-act>a{ font-size: 20px; height: 42px; line-height: 42px; color: #a697b6; padding-left: 36px; padding-right: 12px; border-radius: 10px; margin-right: 15px; background: url('../res/default/img/play-ico.png') left top no-repeat #373550; }*/
+        .detail-act>.detail_a{ font-size: 20px; height: 42px; line-height: 42px; color: #a697b6; padding-left: 36px;margin-left: 15px; background: url('../res/default/img/play-ico.png') left top no-repeat #373550;display: inline-block;}
+
+        .detail-act>.detail_a>.div-i{ display: inline-block; width:12px; }
+        .detail-act>.play-ico02{ background-position: left -42px;}
+        .detail-act>.play-ico03{ background-position: left -84px;}
+        .detail-act>.play-ico04{ background-position: left -126px;}
+        .detail-act>.detail_a.focus{ background-color: #ff9700; color: #fff;}
+        .detail-main{ background: linear-gradient(#312a3c,transparent 350px); padding: 0 56px;}
+        .detail-tag{ position: relative; height: 29px; line-height: 29px; background: url('../res/default/img/tag-bg.png') left center no-repeat; font-size: 20px; padding-left: 15px;}
+        .detail-tag-after{ position: absolute; left: 121px; right: 0; height: 1px; background: #bdb1c0; top: 14px;}
+        .rel-con{ padding-top: 20px;}
+        .rel-list{ font-size: 0; padding-top: 20px;width: 2000px;}
+        .rel-list>.assetLi{position: relative; width: 140px; height: 230px; margin-right: 65px;list-style: none;float: left;}
+        .rel-list>.assetLi .assetImg{width: 140px; height: 180px;}
+        .rel-list>.assetLi>.assetH2{ line-height: 40px; color: #fff; font-size: 18px; text-align: center;}
+        .rel-list>.assetLi.focus{  }
+        .rel-list>.assetLi.focus>.focusBox{border: 5px solid #fe961b;width: 140px;height: 230px;position: absolute;top: 0px;left: 0px;box-sizing: border-box;}
+        .main-wrap{position: relative;top:0px;}
+    </style>
+</head>
+
+<body onload="initPage();">
+<div class="main">
+    <div id="wrap" class="main-wrap">
+        <div class="detail-top">
+            <h2 class="detail-title">
+                <strong id="itemTitle"></strong>
+                <span id="totalEp"></span>
+            </h2>
+            <div class="detail-info" id="detailInfo">
+                <img id="poster" class="detail-img" src="" >
+                <div class="detail-info-con">
+                    <h2 id="director"></h2>
+                    <h2 id="actor"></h2>
+                    <p id="info"></p>
+                    <div class="detail-act">
+                        <div id="div_0_0" class="play-ico01 detail_a"><span id="div_0_0_text">播放</span><div class="div-i"></div></div>
+                        <div id="div_0_1" class="play-ico01 detail_a">试看<div class="div-i"></div></div>
+                        <div id="div_0_2" class="play-ico03 detail_a"><span id="div_0_1_text">收藏</span><div class="div-i"></div></div>
+                        <div id="div_0_3" class="play-ico02 detail_a">我的空间<div class="div-i"></div></div>
+                        <div id="div_0_4" class="play-ico04 detail_a">搜索<div class="div-i"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="detailMain" class="detail-main">
+            <div class="rel-con">
+                <div class="detail-tag">相关推荐<div class="detail-tag-after"></div></div>
+                <div id="relatedList" class="rel-list">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- 弹出窗口-->
+<div id="tip_visibility" class="tipcover">
+    <div class="tipupbox" id="tip_window"></div>
+</div>
+</body>
+<script type="text/javascript">
+    var dataJson;
+    var client=cardId;
+    var STR_LENGTH = 7;
+    var focusIndex=0;
+    var areaCode=0;
+    var espTab = 0;
+    var currentTab = 0;
+    var startAt = 1;
+    var bookmarksFalg = false;  //是否已收藏
+    var Buy;
+    var columnMapId = getQueryStr(location.href, "titleAssetId");
+    var columnId = getQueryStr(location.href, "folderAssetId");
+    var serviceId = getQueryStr(location.href, "serviceId");
+    var providerId = getQueryStr(location.href, "providerId");
+    var assetId = columnMapId;
+    var resumePoint;
+    var recommentList;
+    var folderAssetId = columnId;
+    var titleAssetId = columnMapId;
+    var detailJson;
+    var buyJson;
+    function initPage() {
+        try {
+            media.AV.close();
+        }catch (e) {
+
+        }
+
+        if(getGlobalVar("db_isBack"+titleAssetId)=="Y"){
+            getGlobal();
+            clearGlobal();
+        }
+
+        IEPG.getData("/GetItemData", VOD_getAssetDetail);
+        getAssociatedFolderContents();
+
+    }
+
+    var VOD_getAssetDetail = {//媒资详情
+        "data":"<GetItemData  folderAssetId=\""+columnId +"\" titleProviderId=\"" + providerId + "\" titleAssetId=\"" + columnMapId + "\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId +"\"/>",
+        "callBack" : getAssetDetail
+    };
+
+    function getAssetDetail(_dataJson) {//获取详情数据
+        if(_dataJson.code){
+            showMsg(tipUrl + "T-nsp/tip/error_info.htm","媒资已下架！");//局方需求，当此媒资都不存在了，提示”媒资已下架“
+            return;
+        }
+
+        _dataJson = _dataJson.selectableItem;
+
+        //jtyy_detailJson= _dataJson.selectableItem;
+        var posterPic = defaultPic;
+        try {
+            if(_dataJson.imageList[0]) {
+                posterPic = getPoster(_dataJson.imageList, 200, 300) ;
+            }else{
+                posterPic = defaultPic;
+            }
+        }catch (e) {
+            posterPic = defaultPic;
+        }
+        // $("poster").src = posterPic;
+        //var posterPic = getPoster(_dataJson.imageList, 200, 300);  //节目海报
+
+        // $("package_id").innerHTML = _dataJson.folderName;
+        if(_dataJson.rentaInfo){
+            hasBookmark = _dataJson.rentaInfo.resumePoint>0?"Y":"N ";
+            resumePoint = _dataJson.rentaInfo.resumePoint;
+        }else{
+            hasBookmark = "N";
+            resumePoint = "";
+        }
+        var assettypes="";
+        if(_dataJson.selectionChoice&&_dataJson.selectionChoice.length>0){
+            var originalPrice = _dataJson.selectionChoice[0].displayPrice;
+        }else{
+            var originalPrice = "";
+        }
+
+        if(_dataJson.director&&_dataJson.director.length>0){
+            var director = _dataJson.director[0].name;
+        }else{
+            var director = "";
+        }
+        var playType;
+        if(hasBookmark=="Y"){
+            playType = "1";
+        }else{
+            playType = "0";
+        }
+
+        detailJson = {
+            "columnName" : _dataJson.folderName,                  //影片栏目ID
+            "columnId" :columnId,                    //影片所在栏目名称
+            "assetName" : _dataJson.titleFull,                      //影片名称
+            "titleFull":_dataJson.titleFull,
+            "chapters" : _dataJson.chapter,                        //影片总集数，默认一集
+            "director" : director,                        //导演
+            "actorsDisplay" : _dataJson.actorsDisplay,              //主演
+            "recommendLevel" : _dataJson.recommandRating||0,          //推荐星级
+            "userRecommendLevel" : _dataJson.recommandTimes,         //用户推荐人气
+            "playCount" : parseInt(_dataJson.favorRating,10)||0,        //点播人气
+            "summaryShort" : _dataJson.summarMedium,                //剧情介绍
+            "hasBookmark" : hasBookmark,                            //是否有书签
+            "resumePoint": resumePoint,                             //断点时间
+            "chargeMode": _dataJson.chargeMode,
+            "playTime" : parseInt(_dataJson.displayRunTime,10)||0,     //片长
+            "originalPrice" : originalPrice,                        //影片原价
+            "providerId" : _dataJson.providerId,
+            "recordType" : _dataJson.serviceType,                    //节目类型VOD：点播(默认值)  BTV：回看  nPVR：个人录像  VODPkg：媒资包
+            "chargeModel" : _dataJson.chargeModel,                  //销售策略   0:一次性费用 1:周期性费用
+            "resourceId" : _dataJson.assetId,                       //资产id
+            "assetId":_dataJson.assetId,
+            "columnMapId" : _dataJson.folderAssetId,                     //节目上架id
+            "goodsId" : _dataJson.serviceId,                          //商品id
+            "buyPlayType" : playType,                                  //是否续看1续看 ,0 非续看
+            "assettypes" : assettypes,
+            "posterPic" : posterPic,
+            "isPackage":_dataJson.isPackage,
+            "showType":_dataJson.showType,
+            "columnPath":_dataJson.columnPath
+            //"purchaseToken":_dataJson.purchaseToken
+        };
+        console.log(_dataJson);
+        $("itemTitle").innerHTML = detailJson.assetName;
+        // var postUrl = defaultPic;
+        // try {
+        //     postUrl = goUrl+'/'+detailJson.posterUrl;
+        // }catch (e) {
+        //     postUrl = defaultPic;
+        // }
+
+        $("poster").src = detailJson.posterPic;
+
+
+        $("director").innerHTML = "导演："+detailJson.director;
+
+        $("actor").innerHTML = "主演："+detailJson.actorsDisplay;
+        $("info").innerHTML = detailJson.summaryShort;
+        //setEspList();
+        getBookmarks();
+        buyJson = detailJson;
+        Buy = new IEPG.BUY(detailJson);
+
+        if (areaCode == 0) {
+            addClass($('div_'+areaCode+'_'+focusIndex),"focus");
+        } else {}
+
+        var VOD_checkBookmark = { //folderAssetId用资源包assetId
+            'data':'<CheckSavedProgram  folderAssetId="'+columnId+'" portalId="'+portalId+'" client="'+cardId+'" account="'+userId+'" assetId="'+titleAssetId+'" />',
+            "callBack" : checkBookmark
+        };
+        IEPG.getData(URL.VOD_checkBookmark, VOD_checkBookmark);
+    }
+    function checkBookmark(_dataJson) {
+        var CurrentResumePoint = _dataJson.timePosition;
+        if(bookmarkFlag="true" && CurrentResumePoint>0){
+            var CurrentTime;
+            var  minute = parseInt( CurrentResumePoint / 60 );
+            var  second = parseInt( CurrentResumePoint % 60 );
+
+            if(minute > 0){
+
+                CurrentTime = " "+minute+"分"+second+"秒";
+
+            }else{
+                CurrentTime = " "+second+"秒";
+            }
+            $('div_0_0_text').innerHTML = '继续播放'+CurrentTime;
+        }else{
+            $('div_0_0_text').innerHTML = '播放';
+        }
+    }
+    function getDetail() {
+        var VOD_getFolderContents = {
+            "data":'<GetFolderContents assetId="'+assetId+'" portalId="1" account="'+userId+'" client="'+client+'"  includeFolderProperties="Y" includeSubFolder="Y"  includeSelectableItem="Y" startAt="'+startAt+'"  maxItems="6"/>',
+            "callBack" : setDetail
+        }
+        IEPG.getData("/GetFolderContents", VOD_getFolderContents);
+    }
+    // <GetAssociatedFolderContents  quickId="PAKG1013772297082153" targetLabel="A" startAt="1" maxItems="12" associatedType="1" portalId="102" client="8001002110042106" account="8001002110042106" mergeTV="1"/>
+    function getAssociatedFolderContents() {
+        var VOD_getAssociatedFolderContents = {
+            "data":'<GetAssociatedFolderContents startAt="1" maxItems="7" associatedType="1" portalId="102" client="'+client+'" account="'+userId+'" mergeTV="1" quickId="'+folderAssetId+'" folderAssetId="'+folderAssetId+'"/>',
+            "callBack" : setRecommend
+        }
+        IEPG.getData("/GetAssociatedFolderContents", VOD_getAssociatedFolderContents);
+    }
+
+    function addBookMark() {
+        var VOD_addBookMark = {
+            "data":'<AddBookmark titleAssetId="'+assetId+'" portalId="1" client="'+client+'" account="'+userId+'" folderAssetId="'+columnId+'"/>',
+            "callBack" : bookMarkAdded
+        }
+        IEPG.getData("/AddBookmark", VOD_addBookMark);
+    }
+
+    function getBookmarks() {
+        var VOD_getSavedProgram = {
+            "data":'<GetBookmarks startAt="1" portalId="' + portalId +'" client="' + client +'" account="' + userId +'"/>',
+            "callBack" : checkBookmarks
+        };
+        IEPG.getData("/GetBookmarks", VOD_getSavedProgram);
+    }
+
+    function deleteBookmark() {
+        // <DeleteBookmark titleAssetId="GZGD1000000000001965" custom="VOD" portalId="1" client="'+client+'" account="'+userId+'"/>
+        //var titleAssetId = conVal[type+'Item'][curFocus].selectableItem[0].assetId;
+        //var custom = conVal[type+'Item'][curFocus].selectableItem[0].serviceType;
+        var VOD_deleteBookmark = {
+            "data":'<DeleteBookmark titleAssetId="'+assetId+'" custom="VOD" portalId="1" client="'+client+'" account="'+userId+'"/>',
+            "callBack" : bookmarkDeleted
+        };
+        IEPG.getData("/DeleteBookmark", VOD_deleteBookmark);
+    }
+
+    function checkBookmarks(_dataJson){
+        var tempJson = _dataJson.bookmarkedItem;
+        for(var i = 0; i< _dataJson.bookmarkedItem.length ; i++){
+            if(_dataJson.bookmarkedItem[i].selectableItem[0].assetId == assetId){
+                //document.getElementById("infoBtns_dsjc_ysc").style.visibility="visible";
+                bookmarksFalg = true;
+                $("div_0_1_text").innerHTML = "已收藏";
+            }
+        }
+    }
+
+    function bookMarkAdded(_dataJson) {
+        console.log(_dataJson);
+        $("div_0_1_text").innerHTML = "已收藏";
+    }
+
+    function bookmarkDeleted(_dataJson) {
+        $("div_0_1_text").innerHTML = "收藏";
+    }
+
+    function setRecommend(_dataJson) {
+
+        recommentList = _dataJson.selectableItem;
+        for(var i=0;i<recommentList.length;i++){
+            if(recommentList[i].assetId == assetId){
+                recommentList.splice(i,1);
+            }
+        }
+        if(recommentList.length == 7){
+            recommentList.pop();
+        }
+        var html="";
+        for(var i=0;i<recommentList.length;i++){
+            var poster = defaultPic;
+            try{
+                if(recommentList[i].imageList[0]) {
+                    poster = getPoster(recommentList[i].imageList, 140, 180);
+                }else{
+                    poster = defaultPic;
+                }
+            }catch(e){
+                poster = defaultPic;
+
+            }
+
+            var title = recommentList[i].titleFull;
+            try{
+                if(title.length > STR_LENGTH){
+                    title = title.substring(0,STR_LENGTH-1)+"...";
+                }
+            }catch(e){
+
+            }
+            html += '<div class="assetLi" id="div_1_'+i+'">';
+            html +=     '<div class="assetImg" style="background: url('+poster+')"><img class="assetImg" src="'+poster+'"></div>';
+            html +=     '<div class="assetH2" id="itemH2_'+i+'">'+title+'</div>';
+            html +=     '<marquee id="itemMq_'+i+'" style="font-size:20px;display:none;line-height: 40px;white-space: nowrap;">'+recommentList[i].titleFull+'</marquee>';
+            html +=     '<div class="focusBox"></div>';
+            html += '</div>';
+        }
+
+        $("relatedList").innerHTML = html;
+        if (areaCode == 1) {
+            addClass($('div_'+areaCode+'_'+focusIndex),"focus");
+            marqueeStart();
+        } else {}
+    }
+
+    function changeEsp() {
+
+    }
+
+    function formNum(num) {
+        if (num < 10) {
+            return "0"+num;
+        }
+        return num;
+    }
+
+    function moveLeft() {
+        addClassCheckNext("div_"+areaCode+"_"+(focusIndex-1), "focus", function(argument) {
+            removeClass($("div_"+areaCode+"_"+focusIndex),"focus");
+            if (areaCode == 1) {
+                marqueeStop();
+            }
+
+            focusIndex --;
+            if (areaCode == 1) {
+                marqueeStart();
+            }
+        });
+    }
+
+    function moveRight() {
+        addClassCheckNext("div_"+areaCode+"_"+(focusIndex+1), "focus", function(argument) {
+            removeClass($("div_"+areaCode+"_"+focusIndex),"focus");
+            if (areaCode == 1) {
+                marqueeStop();
+            }
+
+            focusIndex ++;
+            if (areaCode == 1) {
+                marqueeStart();
+            }
+        });
+    }
+
+    function moveUp() {
+        addClassCheckNext("div_"+(areaCode-1)+"_0", "focus", function(argument) {
+            removeClass($("div_"+areaCode+"_"+focusIndex),"focus");
+            marqueeStop();
+            areaCode --;
+            focusIndex = 0;
+        });
+    }
+
+    function moveDown() {
+
+        addClassCheckNext("div_"+(areaCode+1)+"_0", "focus", function(argument) {
+            removeClass($("div_"+areaCode+"_"+focusIndex),"focus");
+            areaCode ++;
+            focusIndex = 0;
+            marqueeStart();
+        });
+    }
+
+    function marqueeStart() {
+        try{
+            if(document.getElementById('itemMq_'+focusIndex).innerHTML.length > STR_LENGTH){
+                document.getElementById('itemMq_'+focusIndex).style.display = "block";
+                document.getElementById('itemH2_'+focusIndex).style.display = "none";
+                document.getElementById('itemMq_'+focusIndex).start();
+            }
+        }catch(e){
+
+        }
+    }
+    function marqueeStop() {
+        try{
+            if(document.getElementById('itemMq_'+focusIndex).innerHTML.length > STR_LENGTH){
+                document.getElementById('itemMq_'+focusIndex).stop();
+                document.getElementById('itemMq_'+focusIndex).style.display = "none";
+                document.getElementById('itemH2_'+focusIndex).style.display = "block";
+            }
+        }catch(e){
+
+        }
+    }
+    var tryflag = false;
+    function doConfirm() {
+        if(areaCode == 0){
+            if ( focusIndex == 0) {
+                saveGlobal();
+                playOnclick();
+            }else if ( focusIndex == 2) {
+                if ($("div_0_1_text").innerHTML=="收藏") {
+                    addBookMark();
+                } else {
+                    deleteBookmark();
+                }
+            }else if(focusIndex == 3){
+                goToMyZone();
+            }else if(focusIndex == 4){
+                goToMySearch();
+            }else if(focusIndex==1){
+                tryflag = true;
+                saveGlobal();
+                playOnclick();
+            }
+        } else {
+            folderAssetId = recommentList[focusIndex].folderAssetId;
+            assetId = recommentList[focusIndex].assetId;
+            providerId = recommentList[focusIndex].providerId;
+            serviceId = recommentList[focusIndex].serviceId;
+
+            var url="";
+            url = "detail_jtyy.htm?userId=" + userId + "&folderAssetId=" + folderAssetId +"&titleAssetId="+assetId+"&providerId="+providerId+"&serviceId="+serviceId;
+            location.href = url;
+        }
+    }
+
+    function playOnclick(){
+        if(checkUser()){
+            //修改播放方法,hasBookmark == "y"续播，hasBookmark == "N" 新播
+            if(hasBookmark == "Y"){
+                //续播
+                Buy.buyPlayType = "1";
+            }else{
+                //新播
+                Buy.buyPlayType = "0";
+            }
+            Buy.checkBuy();
+        }
+    }
+
+    function saveGlobal() {
+        setGlobalVar('playType','');
+        setGlobalVar("db_isBack"+titleAssetId, "Y");
+        setGlobalVar("db_focusIndex"+titleAssetId, focusIndex);
+        setGlobalVar("db_areaCode"+titleAssetId, areaCode);
+    }
+
+    function getGlobal() {
+        focusIndex=parseInt(getGlobalVar("db_focusIndex"+titleAssetId));
+        areaCode=parseInt(getGlobalVar("db_areaCode"+titleAssetId));
+    }
+
+    function clearGlobal(){
+        setGlobalVar("db_isBack"+titleAssetId, "");
+        setGlobalVar("db_focusIndex"+titleAssetId, "");
+        setGlobalVar("db_areaCode"+titleAssetId, "");
+    }
+</script>
+</html>

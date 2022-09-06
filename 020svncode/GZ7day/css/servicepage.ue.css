@@ -1,0 +1,948 @@
+body{
+    position: absolute;
+    top:0;
+    left:0;
+    width:1280px;
+    height:720px;
+    margin: 0;
+    overflow: hidden;
+}
+#ue2_servicepage_bg,#ue2_servicepage_bg2,#ue2_servicepage_bg3{
+    position: absolute;
+    top:0;
+    left:0;
+    width:1280px;
+    height:720px;
+}
+
+#ue2_systemset_bg{
+    position: absolute;
+    top:112px;
+    left:82px;
+    width:1138px;
+    height:484px;
+    background-color: #3c6783;
+    display: none;
+}
+
+#ue2_servicepage_bg{
+     background-image: url(../images/service_ue/bg_star.png);
+ }
+
+#ue2_servicepage_bg2{
+    background-image: url(../images/service_ue/bg_zz.png);
+    display: none;
+}
+
+.ue2_servicepage_class{
+    position: absolute;
+    width:1280px;
+    left:0px;
+}
+
+#ue2_servicepage_title{
+    top:0;
+    height:55px;
+    /*background-color: #384567;*/
+    border-bottom: 2px solid #384567;
+    color:white;
+}
+
+#ue2_servicepage_logo{
+    position: absolute;
+    top:20px;
+    left:80px;
+    width:34px;
+    height:30px;
+    background-image: url(../images/main_page/logo.png);
+}
+
+#ue2_servicepage_logo_txt{
+    position: absolute;
+    top:20px;
+    left:130px;
+    width:100px;
+    height:30px;
+    line-height: 30px;
+    color: #d2dce6;
+    font-size: 16px;
+}
+
+#ue2_servicespage_email_tip{
+    position: absolute;
+    top:25px;
+    left:735px;
+    width:35px;
+    height:25px;
+    background-image: url(../images/main_page/mail.png);
+
+}
+
+#ue2_srvicespage_weather{
+    position: absolute;
+    top:25px;
+    left:780px;
+    width:100px;
+    height:20px;
+    line-height: 20px;
+    text-align: right;
+    font-size: 20px;
+    visibility: hidden;
+}
+
+#ue2_servicespage_temp{
+    position: absolute;
+    top:30px;
+    left:900px;
+    width:100px;
+    height:16px;
+    line-height: 16px;
+    text-align: left;
+    font-size: 16px;
+    visibility: hidden;
+}
+
+#ue2_servicespage_time{
+    position: absolute;
+    top:25px;
+    left:1040px;
+    width:100px;
+    height:20px;
+    line-height: 20px;
+    text-align: left;
+    font-size: 20px;
+}
+
+#ue2_servicespage_date{
+    position: absolute;
+    top:30px;
+    left:1110px;
+    width:150px;
+    height:16px;
+    line-height: 16px;
+    text-align: left;
+    font-size: 16px;
+}
+
+#ue2_servicepage_content{
+    top:57px;
+    height:600px;
+    /*background-color: yellow;*/
+}
+
+#u2_servicepage_content_main{
+    position: absolute;
+    top:0px;
+    left:0px;
+    height:610px;
+    width:1280px;
+}
+
+#ue2_servicepage_content_leftlist{
+    position: absolute;
+    top:57px;
+    left:82px;
+    width:257px;
+    height:484px;
+    background-color: #3c6783;
+}
+
+.ue2_servicepage_content_leftlist_item{
+    position: absolute;
+    width:192px;
+    height:42px;
+    left:30px;
+    border:2px solid #427592;
+    border-radius:22px;
+}
+#ue2_servicepage_content_leftlist_item_focus{
+    position: absolute;
+    top:43px;
+    width:236px;
+    height:89px;
+    left:10px;
+    background-image: url(../images/service_ue/servic_box_focus.png);
+    z-index:33;
+}
+#ue2_servicepage_content_leftlist_item_0{
+    top:59px;
+    /*background-image: url(../images/service_ue/service_box.png);*/
+}
+
+#ue2_servicepage_content_leftlist_item_1{
+    top:133px;
+    /*background-image: url(../images/service_ue/service_box.png);*/
+}
+
+#ue2_servicepage_content_leftlist_item_2{
+    top:207px;
+    /*background-image: url(../images/service_ue/service_box.png);*/
+}
+
+#ue2_servicepage_content_leftlist_item_3{
+    top:281px;
+    /*background-image: url(../images/service_ue/service_box.png);*/
+}
+
+#ue2_servicepage_content_leftlist_item_4{
+    top:355px;
+    /*background-image: url(../images/service_ue/service_box.png);*/
+}
+.ue2_service_content_leftlist_item_txt{
+    position: absolute;
+    left:60px;
+    top:8px;
+    color: white;
+    font-size: 22px;
+}
+.ue2_service_content_leftlist_item_icon{
+    position: absolute;
+    width:19px;
+    height:17px;
+    top:11px;
+    left:20px;
+}
+
+#ue2_service_content_leftlist_item_icon_0{
+    background-image: url(../images/service_ue/tvhall.png);
+}
+
+#ue2_service_content_leftlist_item_icon_1{
+    background-image: url(../images/service_ue/selfcheck.png);
+}
+
+#ue2_service_content_leftlist_item_icon_2{
+    background-image: url(../images/service_ue/mannul.png);
+}
+
+#ue2_service_content_leftlist_item_icon_3{
+    background-image: url(../images/service_ue/contectus.png);
+}
+
+#ue2_service_content_leftlist_item_icon_4{
+    background-image: url(../images/service_ue/systemsetting.png);
+}
+
+#ue2_servicepage_content_poster_item_focus_0{
+    position: absolute;
+    top:4px;
+    left:319px;
+    width:950px;
+    height:420px;
+    background-image: url(../images/service_ue/big_poster_focus.png);
+    display:none;
+}
+
+.ue2_servicepage_content_poster_down_focus{
+    position: absolute;
+    top:369px;
+    width:310px;
+    height:190px;
+    background-image: url(../images/service_ue/small_poster_focus.png);
+    display: none;
+}
+
+#ue2_servicepage_content_poster_item_focus_1{
+    left:348px;
+}
+#ue2_servicepage_content_poster_item_focus_2{
+    left:634px;
+}
+#ue2_servicepage_content_poster_item_focus_3{
+    left:922px;
+}
+#ue2_servicepage_content_poster_item_0{
+    position: absolute;
+    top:57px;
+    left:368px;
+    width:853px;
+    height:314px;
+}
+
+.ue2_servicepage_content_poster_down{
+    position: absolute;
+    top:389px;
+    width:272px;
+    height:152px;
+}
+
+#ue2_servicepage_content_poster_item_1{
+    left:368px;
+}
+
+#ue2_servicepage_content_poster_item_2{
+    left:654px;
+}
+
+#ue2_servicepage_content_poster_item_3{
+    left:942px;
+}
+
+#ue2_servicepage_footer{
+    top:648px;
+    height:70px;
+    background-image: url(../images/main_page/bottom_bg.png);
+}
+
+.ue2_service_footer_class{
+    position: absolute;
+    top:1px;
+    width:125px;
+    height:55px;
+}
+
+#ue2_service_footer_item_0{
+    left:116px;
+    background-image: url(../images/main_page/history.png);
+}
+
+#ue2_service_footer_item_1{
+    left:296px;
+    background-image: url(../images/main_page/search.png);
+}
+
+#ue2_service_footer_item_2{
+    left:503px;
+    background-image: url(../images/service_ue/service_disable.png);
+}
+
+.ue2_service_footer_class2{
+    position: absolute;
+    top:10px;
+    height:20px;
+}
+
+#ue2_service_footer_item_3{
+    width:540px;
+    line-height: 20px;
+    left:630px;
+    font-size: 20px;
+    color:white;
+    overflow: hidden;
+}
+
+#scroll_text{
+    position:absolute;
+    top:0px;
+    left:0px;
+}
+#test_str_len0{
+    position:absolute;
+    left:0px;
+    top:0px;
+    line-height:30px;
+    white-space:nowrap;
+    visibility:hidden;
+}
+
+#ue2_service_footer_item_4{
+    width:24px;
+    left:1190px;
+    background-image: url(../images/main_page/notice_icon.png);
+}
+
+.ue2_systemset_content{
+    position: absolute;
+    top:57px;
+    height:484px;
+}
+
+#ue2_systemset_content_0{
+    left:82px;
+    width:258px;
+}
+#ue2_systemset_content_1{
+    left:340px;
+    width:880px;
+}
+
+#ue2_systemset_content_2{
+    position: absolute;
+    top:46px;
+    height:500px;
+    left:1210px;
+    width:20px;
+    background-image: url(../images/service_ue/scroll_bg.png);
+    display: none;
+}
+
+#ue2_systemset_content_3{
+    position: absolute;
+    top:46px;
+    height:40px;
+    left:1205px;
+    width:30px;
+    background-image: url(../images/service_ue/scroll_bar.png);
+    display: none;
+}
+
+.ue2_systemset_leftlist_item{
+    position:absolute;
+    left:0px;
+    height:24px;
+    width:258px;
+    line-height: 24px;
+    color:#d2dce6;
+    font-size: 20px;
+    text-align: center;
+    overflow: hidden;
+}
+#ue2_systemset_leftlist_item_0{
+    top:46px;
+}
+#ue2_systemset_leftlist_item_1{
+    top:92px;
+}
+#ue2_systemset_leftlist_item_2{
+    top:138px;
+}
+#ue2_systemset_leftlist_item_3{
+    top:184px;
+}
+#ue2_systemset_leftlist_item_4{
+    top:230px;
+}
+#ue2_systemset_leftlist_item_5{
+    top:276px;
+}
+#ue2_systemset_leftlist_item_6{
+    top:322px;
+}
+#ue2_systemset_leftlist_item_7{
+    top:368px;
+}
+#ue2_systemset_leftlist_item_8{
+    top:414px;
+}
+
+#ue2_systemset_leftlist_item_focus{
+    position: absolute;
+    top:10px;
+    left:-15px;
+    width:283px;
+    height:95px;
+    background-image: url(../images/service_ue/leftlist_focus.png);
+    overflow: hidden;
+}
+
+#ue2_systemset_leftlist_item_focus_bg{
+    position: absolute;
+    top:10px;
+    left:10px;
+    width:246px;
+    height:47px;
+    background-image: url(../images/service_ue/leftlist_focus_bg.png);
+    overflow: hidden;
+    visibility: hidden;
+}
+
+#ue2_systemset_subpage_main,#ue2_systemset_subpage_list{
+    position: absolute;
+    top:0px;
+    height:484px;
+    left:0px;
+    width:880px;
+}
+
+#ue2_systemset_subpage_list{
+    /*background-image: url(../images/service_ue/base_info_bg.png);*/
+}
+
+.ue2_systemset_subpage_list_item{
+    position: absolute;
+    left:40px;
+    width:800px;
+    height:24px;
+    line-height: 24px;
+    color:#d2dce6;
+    font-size: 20px;
+    /*background-color: yellowgreen;*/
+    text-align: left;
+}
+
+.ue2_systemset_subpage_applist_item{
+    position: absolute;
+    left:40px;
+    width:800px;
+    height:24px;
+    line-height: 24px;
+    color:#d2dce6;
+    font-size: 20px;
+    /*background-color: yellowgreen;*/
+    text-align: left;
+}
+
+.ue2_systemset_subpage_applist_button_0, .ue2_systemset_subpage_applist_button_1{
+    position: absolute;
+    height:24px;
+    width:50px;
+    /*background-image: url(../images/service_ue/applist_focus.png);*/
+    /*background-color: red;*/
+    text-align: center;
+    display:none;
+
+}
+
+.ue2_systemset_subpage_applist_button_0{
+    left:660px;
+}
+
+.ue2_systemset_subpage_applist_button_1{
+    left:730px;
+}
+
+.ue2_systemset_subpage_applist_subitem_0,
+.ue2_systemset_subpage_applist_subitem_1,
+.ue2_systemset_subpage_applist_subitem_2,
+.ue2_systemset_subpage_applist_subitem_3{
+    position: absolute;
+    height:24px;
+    width:160px;
+    text-align: center;
+}
+
+.ue2_systemset_subpage_applist_subitem_0{
+    left:0px;
+}
+.ue2_systemset_subpage_applist_subitem_1{
+    left:160px;
+}
+.ue2_systemset_subpage_applist_subitem_2{
+    left:320px;
+}
+.ue2_systemset_subpage_applist_subitem_3{
+    left:480px;
+}
+
+.ue2_systemset_subpage_applist_bottom{
+    position: absolute;
+    top:430px;
+    width:150px;
+    height:90px;
+    line-height: 24px;
+    color:#d2dce6;
+    font-size: 20px;
+    /*background-color: yellowgreen;*/
+    text-align: center;
+    z-index: 99;
+}
+
+#ue2_systemset_subpage_applist_bottom_item_0{
+    left:150px;
+}
+
+#ue2_systemset_subpage_applist_bottom_item_1{
+    left:300px;
+}
+
+#ue2_systemset_subpage_applist_bottom_item_2{
+    left:450px;
+}
+
+#ue2_systemset_subpage_applist_item_focus{
+    position: absolute;
+    top:430px;
+    width:150px;
+    height:90px;
+    left:150px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.ue2_systemset_subpage_list_hr{
+    position: absolute;
+    left:40px;
+    width:800px;
+    height:13px;
+    background-image: url(../images/service_ue/hr_bar.PNG);
+}
+
+#ue2_systemset_subpage_list_focus{
+    position: absolute;
+    top:7px;
+    left:6px;
+    width:870px;
+    height:99px;
+    /*background-image: url(../images/service_ue/base_info_focus.png);*/
+    display: none;
+    z-index:99
+}
+
+/*#ue2_systemset_subpage_list_item_0{
+    top:46px;
+}
+#ue2_systemset_subpage_list_item_1{
+    top:92px;
+}
+#ue2_systemset_subpage_list_item_2{
+    top:138px;
+}
+#ue2_systemset_subpage_list_item_3{
+    top:184px;
+}
+#ue2_systemset_subpage_list_item_4{
+    top:230px;
+}
+#ue2_systemset_subpage_list_item_5{
+    top:276px;
+}
+#ue2_systemset_subpage_list_item_6{
+    top:322px;
+}
+#ue2_systemset_subpage_list_item_7{
+    top:368px;
+}
+#ue2_systemset_subpage_list_item_8{
+    top:414px;
+}*/
+
+.ue2_systemset_subpage_title_list{
+    position: absolute;
+    width:800px;
+    height:24px;
+    left:40px;
+}
+
+#ue2_systemset_subpage_title_list_title{
+    top:46px;
+}
+
+#ue2_systemset_subpage_title_list_focus_line{
+    top:71px;
+    height:13px;
+    background-image: url(../images/service_ue/hr_bar.PNG);
+}
+
+#ue2_systemset_subpage_title_list_infolist{
+    top:108px;
+    height:350px;
+}
+
+.ue2_systemset_subpage_title_list_title_item{
+    position: absolute;
+    top:0px;
+    height:24px;
+    line-height: 24px;
+    text-align: center;
+    color:#d2dce6;
+    font-size: 20px;
+    width:160px;
+}
+
+#ue2_systemset_subpage_title_list_focus_line_focus{
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:15px;
+    height:13px;
+    background-image: url(../images/service_ue/hr_focus.PNG);
+}
+
+#ue2_sytemset_tip_page_title,#ue2_sytemset_tip_page_info{
+    position: absolute;
+    width:280px;
+    left:300px;
+    top:92px;
+    height:24px;
+    line-height: 24px;
+    color:#d2dce6;
+    font-size: 22px;
+    text-align: center;
+}
+
+#ue2_sytemset_tip_page_info{
+    width:800px;
+    left:40px;
+    line-height: 48px;
+    top:184px;
+    height:144px;
+    text-align: left;
+}
+
+#ue2_sytemset_tip_page_button_0,#ue2_sytemset_tip_page_button_1{
+    position: absolute;
+    top:368px;
+    left:240px;
+    width:150px;
+    height:90px;
+    /*background-image: url(../images/service_ue/button_bg.png);*/
+    line-height: 90px;
+    color:white;
+    font-size: 22px;
+    text-align: center;
+}
+
+#ue2_sytemset_tip_page_button_1{
+    left:490px;
+}
+
+.ue2_systemset_input_base_item{
+    position: absolute;
+    left:40px;
+    height:484px;
+    width:800px;
+    top:0px;
+    /*background-color: red;*/
+    color:#d2dce6;
+    font-size: 20px;
+}
+
+.ue2_systemset_input_name{
+    position: absolute;
+    left:100px;
+    height:24px;
+    line-height: 24px;
+    width:220px;
+
+}
+
+.ue2_systemset_input_select_remark{
+    position: absolute;
+    left:600px;
+    height:24px;
+    line-height: 24px;
+    width:200px;
+    font-size: 16px;
+    color:#939aa1;
+}
+
+.ue2_systemset_input_select{
+    position: absolute;
+    left:300px;
+    height:100px;
+    width:320px;
+    background-repeat: no-repeat;
+    background-image: url(../images/service_ue/select.png);
+    background-position: center;
+
+}
+
+.ue2_systemset_input_select_txt{
+    position: absolute;
+    left:35px;
+    height:24px;
+    width:245px;
+    line-height: 24px;
+    text-align: center;
+}
+
+#ue2_systemset_input_focus{
+    position: absolute;
+    left:330px;
+    height:100px;
+    width:320px;
+    /*background-repeat: no-repeat;
+    background-image: url(../images/service_ue/select_focus.png);
+    background-position: center;*/
+    display: none;
+}
+
+#width_calc{
+    visibility: hidden;
+    white-space: nowrap;
+    display: inline;
+}
+
+#ue2_systemset_subpage_calist_showpage{
+    position: absolute;
+    top:112px;
+    left:82px;
+    width:1138px;
+    height:484px;
+    background-color: #3c6783;
+    z-index: 100;
+    display: none;
+    color:#d2dce6;
+    font-size: 20px;
+}
+
+#ue2_systemset_subpage_calist_showpage_title{
+    position: absolute;
+    top:52px;
+    left:519px;
+    width:100px;
+    height:24px;
+    color:#d2dce6;
+    font-size: 20px;
+}
+
+#ue2_systemset_subpage_calist_showpage_names{
+    position: absolute;
+    top:110px;
+    left:169px;
+    width:800px;
+    height:24px;
+
+}
+#ue2_systemset_subpage_calist_showpage_names_hr{
+    position: absolute;
+    top:130px;
+    left:169px;
+    width:800px;
+    height:13px;
+    background-image: url(../images/service_ue/hr_bar.PNG);
+}
+
+#ue2_systemset_subpage_calist_showpage_content{
+    position: absolute;
+    top:112px;
+    left:129px;
+    width:880px;
+    height:400px;
+}
+
+.ue2_systemset_subpage_calist_showpage_right,.ue2_systemset_subpage_calist_showpage_wallet{
+    position: absolute;
+    top:0;
+    height: 24px;
+    line-height: 24px;
+    width:250px;
+    text-align: center;
+}
+
+.ue2_systemset_subpage_calist_showpage_wallet{
+    width:267px;
+}
+
+#ue2_systemset_subpage_calist_showpage_right_0{
+    left:0;
+}
+#ue2_systemset_subpage_calist_showpage_right_1{
+    left:170px;
+}
+#ue2_systemset_subpage_calist_showpage_right_2{
+    left:350px;
+}
+#ue2_systemset_subpage_calist_showpage_right_3{
+    left:570px;
+}
+
+#ue2_systemset_subpage_calist_showpage_wallet_0{
+    left:0;
+}
+#ue2_systemset_subpage_calist_showpage_wallet_1{
+    left:267px;
+}
+#ue2_systemset_subpage_calist_showpage_wallet_2{
+    left:533px;
+}
+
+.ue2_sytemset_timeset_timeinput{
+    position: absolute;
+    height:57px;
+    left:0;
+    width:800px;
+    color:#d2dce6;
+    font-size: 20px;
+}
+
+#ue2_sytemset_timeset_timeinput_name{
+    position: absolute;
+    height:57px;
+    line-height: 57px;
+    top:0;
+    left:120px;
+    width:242px;
+    text-align: left;
+}
+
+.ue2_sytemset_timeset_timeinput_item{
+    position: absolute;
+    height:94px;
+    line-height: 94px;
+    top:-15px;
+    width:101px;
+}
+
+#ue2_sytemset_timeset_timeinput_item_0,
+#ue2_sytemset_timeset_timeinput_item_1,
+#ue2_sytemset_timeset_timeinput_item_2,
+#ue2_sytemset_timeset_timeinput_item_3{
+    background-image: url(../images/service_ue/work_time_set.png);
+    text-align: center;
+}
+
+#ue2_sytemset_timeset_timeinput_item_0{
+    left:340px;
+}
+#ue2_sytemset_timeset_timeinput_item_1{
+    left:420px;
+}
+#ue2_sytemset_timeset_timeinput_item_2{
+    left:520px;
+}
+#ue2_sytemset_timeset_timeinput_item_3{
+    left:600px;
+}
+
+#ue2_sytemset_timeset_timeinput_item_4{
+    left:430px;
+}
+
+#ue2_sytemset_timeset_timeinput_item_5{
+    left:501px;
+}
+
+#ue2_sytemset_timeset_timeinput_item_6{
+    left:610px;
+}
+
+.ue2_systemset_message_box_base{
+    position: absolute;
+    top:215px;
+    left:379px;
+    width:521px;
+    height:289px;
+    background-image: url(../images/service_ue/messagebox_bg.png);
+    z-index:101;
+}
+
+.ue2_systemset_message_box_tip_title,
+.ue2_systemset_message_box_tip_msg,
+.ue2_systemset_message_box_tip_okbut,
+.ue2_systemset_password_box_okbut,
+.ue2_systemset_password_box_celbut{
+    position: absolute;
+    top:40px;
+    left:210px;
+    width:150px;
+    height:289px;
+    color:#d2dce6;
+    font-size: 20px;
+    text-align: center;
+}
+
+.ue2_systemset_message_box_tip_msg{
+    top:80px;
+    left:40px;
+    width:441px;
+    height: 120px;
+}
+
+.ue2_systemset_message_box_tip_okbut{
+    top:190px;
+    left:185px;
+    width:150px;
+    height: 90px;
+    line-height: 90px;
+    background-image: url(../images/service_ue/button_bg.png);
+}
+
+.ue2_systemset_password_box_okbut{
+    top:190px;
+    left:85px;
+    width:150px;
+    height: 90px;
+    line-height: 90px;
+    /*background-image: url(../images/service_ue/button_bg.png);*/
+}
+
+.ue2_systemset_password_box_celbut{
+    top:190px;
+    left:285px;
+    width:150px;
+    height: 90px;
+    line-height: 90px;
+   /* background-image: url(../images/service_ue/button_bg.png);*/
+}
+

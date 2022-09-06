@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="history" content="no-history">
+    <meta name="page-view-size" content="1280*720">
+    <title>播放</title>
+    <script type="text/javascript" src="js/json2.min.js"></script>
+    <link href="css/base.css" rel="stylesheet" type="text/css" />
+    <!-- coship盒子 -->
+    <link href="css/play.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="js/base.js"></script>
+    <script src="js/common.js"></script>
+
+    <!--<script src="js/countControl.js"></script>-->
+    <script src="js/main.js"></script>
+    <script src="js/timeControl.js"></script>
+    <script src="js/voices.js"></script>
+
+    <style>
+        .window {
+            background: url("images/tip.png");
+            width: 382px;
+            height: 226px;
+            position: absolute;
+            top: 247px;
+            left: 449px;
+            display: none;
+        }
+
+        .window .text-area {
+            position: absolute;
+            top: 75px;
+            width: 382px;
+            height: 102px;
+            overflow: hidden;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            text-align: center;
+        }
+
+        .window .button-area {
+            width: 382px;
+            margin-top: 176px;
+            height: 46px;
+            position: relative;
+        }
+
+        .window .button-enter {
+            position: absolute;
+            width: 101px;
+            height: 43px;
+            left: 40px;
+            background: url("images/y_button.png");
+        }
+
+        .window .button-enter.focus {
+            background: url("images/y_button_s.png");
+        }
+
+        .window .button-cancel {
+            position: absolute;
+            width: 102px;
+            height: 44px;
+            left: 240px;
+            background: url("images/c_button.png");
+        }
+
+        .window .button-cancel.focus {
+            background: url("images/c_button_s.png");
+        }
+
+
+        /* coship */
+
+        .video-tip {
+            position: absolute;
+            top: 184px;
+            left: 411px;
+            width: 543px;
+            height: 301px;
+            background: url("images/player-img/box_bg.gif");
+            width: 361px;
+            height: 202px;
+            font-size: 24px;
+            display: none;
+        }
+
+        .tip-title {
+            width: 100%;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .tip-content {
+            width: 100%;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            padding-top: 10px;
+        }
+
+        #location_div #txtInput {
+            display: inline-block;
+            width: 80px;
+            height: 26px;
+            font-size: 26px;
+            line-height: 26px;
+            float: left;
+            vertical-align: middle;
+        }
+
+        #location_div span {
+            display: inline;
+            position: relative;
+            vertical-align: middle;
+        }
+
+        #pop {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            z-index: 999;
+            background-color: rgba(0, 0, 0, 9);
+            color: #fff;
+            font-size: 24px;
+        }
+        .movie_name {
+            position: absolute;
+            left: 40px;
+            top: 40px;
+            font-size: 24px;
+            color: #fff;
+        }
+    </style>
+
+</head>
+
+<body onload="init();" onunload="exitPage()" bgColor="transparent">
+    <!-- <div id="pop"></div> -->
+    <div id="test" style="position:absolute;"></div>
+    <div id="mutePic"
+        style="visibility:hidden;background:url(images/static_bg.png) no-repeat;position:absolute;left:220px;top:80px;width:78px;height:64px;">
+    </div>
+    <div id="g_track"
+        style="visibility:hidden;background:url(images/track_bg.png) no-repeat;position:absolute;left:900px;top:63px;width:155px;height:62px;font-size:26px;line-height:62px;text-align:center;">
+    </div>
+    <div id="g_button"><img id="imgStatus" src="images/button_q.png" width="76" height="75" />
+    </div>
+    <div id="g_speed"></div>
+    <div class="countDown" id="countDown"></div>
+    <div id="input_box" style="visibility:hidden;">
+        <div id="location_bg"><img src="images/l_position.png" />
+        </div>
+        <div id="location_div">
+            <div id="txtInput" style="border:0px;width:80px;color:#fff;outline: #000;display:inline-block;">
+            </div>
+            分
+        </div>
+        <div id="locationTip"
+            style="visibility:hidden;position:absolute;left:730px;top:324px;color:red;font-size:26px;width:260px;">
+            输入时间比总时间长。
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="movie_name" id="movie_name"></div>
+        <!--end_定位时间-->
+        <p
+            style="position:absolute;left:100px;top:488px;background:url(images/g_bg_1.png) no-repeat;width:1037px;height:162px;">
+        </p>
+        <div id="live_p"></div>
+        <div id="begin_time">
+
+        </div>
+        <div id="end_time">
+
+        </div>
+        <div id="play_time">
+        </div>
+        <div id="play_program">按<img src="images/left.png" style='vertical-align:middle;' height="40" width="27"/>键快退，按<img src="images/ok.png" height="40" width="38" style='vertical-align:middle;'/>键暂停，按<img src="images/right.png" height="40" width="27" style='vertical-align:middle;'/>键快进，按<img src="images/down.png" height="35" width="56" style='vertical-align:middle;'/>键选时 </div>
+        <div id="begin_end_time"></div>
+    </div>
+    <div id="dv_voice" style="display:none;color:#ffffff;"></div>
+    <div id="checkout" style="visibility:hidden;">
+        <!--退出-->
+        <ul style="padding-left:119px;">
+            <li id="btnColse">
+                <a href="#"><img src="images/y_button_s.png" name="Image1" width="101" height="43" border="0"
+                        id="Image1" /></a>
+            </li>
+        </ul>
+    </div>
+    <div id="checkoutContent" style=" text-align:center;visibility:hidden;">
+        <p>
+            无权限播控！
+        </p>
+    </div>
+    <!-- 弹框 -->
+    <div class="window" id="window">
+        <div class="text-area">
+            是否停止播放当前节目？
+        </div>
+        <div class="button-area">
+            <div class="button-enter focus" id="button-enter"></div>
+            <div class="button-cancel" id="button-cancel"></div>
+        </div>
+
+    </div>
+
+    <div id="imgBj" style="position:absolute;left:0px;top:0px;">
+        <img src="images/wait.jpg" width="1280" height="720" />
+        <div id="imgProcess" style="position:absolute;left:582px;top:200px;">
+            <!-- <img id="countdown" src="images/d.gif" align="middle" width="114" height="102" /> -->
+        </div>
+    </div>
+
+
+</body>
+<script type="text/javascript" src="./js/util.js"></script>
+<script src="js/vodPlay.js"></script>
+
+
+</html>

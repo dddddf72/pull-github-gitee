@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<link id="loading" type="text/css" rel="stylesheet" href="css/loading.css" />
+<style>
+    body{ margin:0; overflow: hidden; }
+    ul{ list-style: none; margin:0; padding: 0; }
+    img{ vertical-align: top; }
+    .middle_box{ }
+    .recpic{}
+    .box_image{}
+    .recpic ul{}
+    .recpic ul li{}
+    .recpic .dotblur{position:absolute;left:246px;top:-17px;width:30px;height:30px;background:url(img/round_blur.png) no-repeat;}
+    .recpic .dotfocus{position:absolute;left:246px;top:-12px;width:25px;height:25px;background:url(img/round_focus.png) no-repeat;}
+    .rectxt{position:absolute;left:300px;top:682px;width:1280px;height:50px;list-style: none;}
+    .rectxt .dotImg{position:absolute;left:240px;top:-8px;line-height:30px;font-size:18px;height: 30px;padding-left:10px;}
+    .rectxt .dotImg li{float:left;background:url(img/round.png) no-repeat; width: 30px; height:25px; }
+    .rectxt .txt{position:absolute;left:95px;top:2px;line-height:50px; font-size:18px;padding-left:10px;width:480px;text-align: center;}
+    .pic_box{position:absolute;left:0px;top:340px;width:1280px;height:242px;margin:5px auto;}
+    .pic_box li{float:left;width:171px;height:242px;}
+    .pic_box li img{border:0px solid #636363;}
+    .txt_box{position:absolute;left:-1px;top:545px;width:1280px;font-weight:bold; font-size:20px; text-align:center;}
+    .txt_box li{float:left;width:171px;height:42px;line-height:36px;background:url(img/poster_txt.png) no-repeat;}
+    .txt_box li span{width:171px;display:block;}
+    #loading{z-index:1;padding:5px 0 5px 29px; background:url(img/loading.gif) no-repeat 10px top;left:620px;top:320px;width:48px; position:fixed; height:48px}
+
+
+</style>
+<head>
+    <meta charset="utf-8">
+    <meta name="page-view-size" content="1280*720">
+    <title>幻灯片入口页</title>
+</head>
+
+<body>
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+    <div class="load_title">加载中...</div>
+</div>
+<div class="middle_box">
+    <div class="recpic" id="recpic" >
+        <div class="rectxt" id="recDot">
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    var adObj;
+    window.onload = initPage;
+    function initPage(){
+        $("loader-wrapper").style.display="block";
+        if(SysSetting.getEnv("preparesRestartFlag")!="Y")
+        {
+            getAdData();
+        }else
+        {
+            window.location.href = "main://index.html";
+        }
+    }
+    function showAd(adData) {
+        var adData =  JSON.parse(adData).rotationList;
+        var config = {
+            "data" : adData,
+            "container" : "recpic",
+            "pageSize" : 1,
+            "dataIndex" : 0,
+            "focusIndex" : 0,
+            "viewStyle" : "auto",
+            "imageWidth": 1280,
+            "imageHeight": 720,
+            "autoTime":4000,
+            "dot_focusLeft":243,
+            "isJump":true,
+            "JumpUrl":"welcome.html"
+        };
+        adObj = new ViewImage(config);
+        adObj.initImage();
+        $("loader-wrapper").style.display="none";
+    }
+    function getAdData(){
+        var smartCardId = getSmartCardId();
+        ajax({
+            type: "GET",
+            url: iepgIP +'getRotation?&appType=welcome&smartCardId='+smartCardId,
+            error: function () {
+                $("loader-wrapper").style.display="none";
+                 gotoWelcome();
+            },
+            success: function (data) {
+               if(JSON.parse(data).rotationList!="")
+               {
+                    showAd(data);
+                }
+               else
+               {
+                   $("loader-wrapper").style.display="none";
+                   gotoWelcome();
+                }
+            }
+        });
+    }
+
+    function gotoWelcome(){
+        var goUrl = location.href.split("/entrance.html")[0];
+        var welcomeUrl = goUrl + "/welcome.html";
+        location.href= welcomeUrl;
+    }
+    //拦截退出和返回按键
+    document.onkeypress = function() {
+        return false;
+    }
+</script>
+<script type="text/javascript" src="moui_files/base.js?20161255"></script>
+<script type="text/javascript" src="moui_files/json2.min.js?20161255"></script>
+<script type="text/javascript" src="moui_files/main.js?20161255"></script>
+<script type="text/javascript" src="moui_files/data.js?20161255"></script>
+<script type="text/javascript" src="moui_files/viewImage.js?20161255"></script>
+</html>

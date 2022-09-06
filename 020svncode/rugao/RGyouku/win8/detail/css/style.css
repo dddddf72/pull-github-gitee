@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document */
+* {list-style:none; vertical-align:top; margin:0; padding:0; font-family:'方正准圆_GBK' !important;}
+body {width:1280px; height:720px; overflow:hidden;}
+.home {width:1280px; height:720px; overflow:hidden; background:url(../images/home_bg.jpg) no-repeat;}
+
+.rcmd , .rcmd ul{width:780px; height:488px; position:absolute; top:0; left:0;}
+.rcmd ul,.rcmd li {display:block; position:absolute;}
+.rcmd_2 {left:264px; top:117px; width:240px; height:320px; z-index:3; background:;}
+
+.rcmd_1,.rcmd_3 {left:155px; top:137px; width:224px; height:280px; z-index:2; }
+.rcmd_0,.rcmd_4 {left: 73px; top:144px; width:214px; height:267px; z-index:1; background:}
+.rcmd img {display:block;  width:100%; height:100%; background:#ccc;}
+.rcmd_3 {left:390px;}	.rcmd_4 {left:481px;}
+#rcmd_focus {position:absolute; width:100%; height:100%; background:url(../images/rcmd_blur.png) no-repeat; top:0; left:0; z-index:4;}
+#rcmd_focus.focus {background:url(../images/rcmd_focus.png) no-repeat; visibility:visible;}
+
+.info {position: absolute; left: 780px; top: 30px; width: 450px; z-index:1;}
+.info span { height: 36px; display: block; color: #fff; font-size: 24px; line-height: 36px; overflow:hidden;}
+#rcmd_title {font-size:28px; margin:10px 0 15px; }
+.comment {width:361px; height:223px; padding:23px 20px 0; margin:32px 0 0 16px; font-size:24px; line-height:32px; text-indent:2em; letter-spacing:1px; overflow:hidden; color:#fff;}
+
+.columns , .columns ul {position:absolute; left:105px; top:555px; width:1068px; height:70px;}
+.columns ul { left:0; top:0; z-index:2;}
+.columns li{display:block; float:left; width:178px; height:70px; color:#fff; font-size:32px; text-align:center; line-height:70px; letter-spacing:2px;}
+.columns li.focus {color:#000;}
+.nav_focus { position: absolute; left: 3px; top: -40px !important; width: 170px; height: 155px; background: url(../images/nav_focus.png) no-repeat; z-index: 1; }
+
+.star1 { position:absolute; left:1133px; top:94px; width:70px; height:93px; display:block; z-index:0;}
+.star2 { position:absolute; left: 620px; top:460px; width:60px; height:80px; display:block; z-index:0;}

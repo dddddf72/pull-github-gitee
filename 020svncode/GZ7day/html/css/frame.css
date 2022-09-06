@@ -1,0 +1,170 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.g_com_input{
+	width:1083px;
+    height:66px;
+}
+.f_select_com{
+	position:absolute;
+	left:505px;
+	margin:10px;
+	float:left; 
+	line-height:45px;
+	height:45px;
+	width:246px;
+	overflow: hidden;
+}
+.g_button_div_left{
+	 height:66px;
+	 float:left;
+	 width:541px;
+ }
+.g_btn_child_left{
+  width:300px; float:right;height:66px;
+}
+.g_button_div_right{
+	 height:66px;
+	 float:left;
+	 width:542px;
+	 margin:auto;
+}
+.g_btn_child_right{
+  width:300px; float:left;height:66px;
+}
+.f_tag{
+	margin-left:160px;
+	color:#1E2737;
+	font-size:32px;
+	float:left;
+	text-align:right;
+	height:66px;
+	width:293px;
+	line-height:66px;
+	
+}
+
+.f_input_blur {
+	margin-top:12px;
+	margin-left:63px;
+	float:left;
+	line-height:45px;
+	height:45px;
+	color: #000000;
+	width:246px;
+	background:url(../images/input/input_blur.png) no-repeat;
+	text-align:center;
+	letter-spacing:0px;
+
+}
+
+.f_input_focus {
+	margin-top:12px;
+	margin-left:63px;
+	float:left; 
+	line-height:45px;
+	height:45px;
+	color: #000000;
+	width:246px;
+	background:url(../images/input/input_focus.png) no-repeat;
+	text-align:center;
+	letter-spacing:0px;
+}
+.f_btn{
+	width:190px;
+	height:60px;
+	margin-top:10px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+/*无焦点 下拉框  开始*/ 
+.f_select_blur {
+	line-height:45px;
+	width:246px;
+	height:45px;
+	background:url(../images/input/select_blur.png) no-repeat;
+	text-align:center;
+	letter-spacing:8px;
+}
+.f_select_focus {
+	line-height:45px;
+	width:246px;
+	height:45px;
+	background:url(../images/input/select_focus.png) no-repeat;
+	text-align:center;
+	letter-spacing:8px;
+}
+.f_option_blur{
+	line-height:39px;
+	width:246px;
+	height:39px;
+	background-image: url(../images/input/option_blur.png);
+	text-align:center;
+	letter-spacing:8px;
+}
+.f_option_focus{
+	line-height:39px;
+	width:246px;
+	height:39px;
+	background-image: url(../images/input/option_focus.png);
+	text-align:center;
+	letter-spacing:8px;
+}
+.f_remark{
+  float:left;
+  margin-left:10px;
+  color:#616775;
+  font-size:22px;
+  margin-top:22px;
+}
+
+.f_input_blur_short {
+	margin:10px;
+	float:left;
+	line-height:45px;
+	height:45px;
+	color: #000000;
+	width:62px;
+	background:url(../images/input/input_short_blur.png) no-repeat;
+	text-align:center;
+	letter-spacing:2px;
+
+}
+
+.f_input_focus_short {
+	margin:10px;
+	float:left; 
+	line-height:45px;
+	height:45px;
+	color: #000000;
+	width:62px;
+	background:url(../images/input/input_short_focus.png) no-repeat;
+	text-align:center;
+	letter-spacing:2px;
+}
+.f_input_blur_short_split {
+	margin-top:10px;
+	float:left;
+	line-height:45px;
+	height:45px;
+	color: #000000;
+	width:20px;
+	text-align:center;
+	letter-spacing:4px;
+
+}
+.f_view_info{
+  padding-left:5px;
+  color:#616775;
+  font-size:28px; 
+  float:left;
+  margin-top:10px;
+  margin-left:63px;
+  line-height:45px;
+  height:45px;
+  letter-spacing:4px;
+}
+.text_selected{
+  background-color:#004ba0;
+  color:#ffffff;
+}

@@ -1,0 +1,16 @@
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+</head>
+<body style="background:transparent;">
+<script type="text/javascript">
+	if(window.location.search.indexOf("10001")>-1){//喜爱频道
+		SysSetting.setEnv("PAGEFOCUSINDEX","liketv");
+	}else{
+		SysSetting.setEnv("PAGEFOCUSINDEX","channel_list");
+	}
+	SysSetting.setEnv("MAINPAGE", "1");
+	window.location.href = "../index.html";
+</script>
+</body>
+</html>

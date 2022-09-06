@@ -1,0 +1,1162 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>电影</title>
+<style>
+    * {margin:0px; padding:0px; border:0px;}
+    body  {background:url(images/movie/bg.png) no-repeat; font-family:"微软雅黑","黑体";overflow: hidden;}
+    ul,li{ list-style:none;}
+    /*图片列表*/
+    .pic_box{position:absolute;left:45px;top:103px;width:1189px;height:579px; z-index:1}
+    .pic_box .list_focus{position:absolute;width:172px;height:232px;opacity:1;left:-2px;top:-2px; display:none;}
+
+    .pic_box li{float:left;width:198px;height:285px;position:relative;visibility:hidden;}
+    .pic_box li .poster{width:172px;height:232px;position:absolute;left:12px;top:12px;}
+    .pic_box li .mydiv1{width:200px;height:40px;line-height:50px;font-size:24px;color:#607b8f;word-wrap:break-word;;position:absolute;left: 0px;top: 240px;text-align:center; font-weight:normal;}
+    .pic_box li .mydiv{display:block;width:172px;height:232px;opacity:0;position:absolute;left:3px;top:8px;z-index:-1;text-align: center;}
+    .pic_box li.picfocus{position: relative;}		/*右侧图片焦点*/
+    .pic_box li.picfocus img{width:220px;height:290px;position:absolute;left:-15px;top:-6px;}
+    .pic_box li.picfocus .mydiv1{width:220px;height:50px;line-height:50px;font-size:24px;color:#fff;word-break:break-all;position:absolute;left: -15px;top: 242px;text-align:center; font-weight:bold;z-index: 8;}
+    .pic_box li.picfocus .mydiv{width:275px;height:352px;opacity:1;background:url(images/movie/listfocus.jpg) no-repeat;left:-43px;top:-35px;z-index: 2;}
+    .pic_box li.picfocus marquee{height: 20px;line-height: 20px;white-space: nowrap;}
+    .pic_box.icons { z-index:2;}
+    .icons img{position:absolute;}
+    .icons li{position:relative; background:none;}
+    .tip_hd{ right: 17px; top: 13px; visibility: hidden;}
+    .tip_hd_max{ right:-5px; top: -4px; visibility: hidden;}
+
+    .page_number {position:absolute;left:190px;top:678px;width:150px;height:35px; font-size:16px;color:#fff;text-align: center;}
+    .page { position:absolute;left:150px;top:678px; width:150px;height:30px;font-size:16px;color:#fff;text-align: center;}
+    .pageinfo { position:absolute;left:168px;top:678px; width:150px;height:30px;font-size:16px;color:#fff;text-align: center;}
+
+    .barList{position:absolute;left:280px; top:35px;width:980px;height:55px;}
+    .barList li{ display: inline-block;float:left; letter-spacing: normal ;line-height:45px; font-size: 24px;text-align:center;width:136px;height:80px;color: #b7b7b7;}
+    .barList li.menufocus{background:url(images/movie/epg_focus.png) no-repeat;color:#fff;}
+    .barList li.menublur{color:#fff;}
+
+    .text2{position:absolute;left:94px;top:144px;width:234px;height:429px;}
+    .text2 li{text-align:center;color:#FFF;line-height:52px;font-size:26px;}
+    .text2 .curr{background:url(../../images/curr-01-01.png) no-repeat;color:#000;}
+    .text2 .curr2{background:url(../../images/curr-01.png) no-repeat;color:#000;}
+    /*.logo{ margin-left:60px; margin-top:15px;width:92px;height:35px;background:url(images/movie/logo1.png) no-repeat;}*/
+    .logo{ margin-left:50px; margin-top:30px;width: 200px;height: 50px;}
+    .logoimg{width: 100%;height: 100%;}
+    .search{ margin-left:60px; margin-top:15px;width:177px;height:33px;background:url(images/movie/search.png) no-repeat; text-align: center;font-size: 18px;color: #51c8f4;padding-top: 0px;line-height: 35px;}
+    .search.focus{ background: url('images/movie/search_focus.png')}
+    .weather{position:absolute;left:930px;top:15px;width:130px;height:31px;color: #fff;}
+    .weather #weatherIcon {position:absolute;left:140px;width:36px; height:31px;border:0;color: #fff;}
+    .weather .weatherInfo{position:absolute;left:1px;top:0px;width:140px;height:31px; text-align:right;line-height:31px;font-size:17px;overflow:hidden;color: #fff;}
+    #time{position:absolute; top:15px; left:1080px;text-align:left; width:176px; height:31px; line-height:31px;font-size: 17px;color: #fff;}
+    .footer{ text-align: right; position: absolute; left: 0; right: 40px; bottom: 17px;top:662px;}
+    .ico_vip{ margin-right: 100px;}
+    .left_up{position:absolute;left:30px;top:360px;}
+    .left_down{position:absolute;left:1225px;top:360px;}
+
+
+
+    .pageBubble{
+        position:absolute;
+        left:30px;
+        top:660px;
+    }
+
+    .PFont{
+        position:absolute;
+        left:1000px;
+        top:678px;
+        color:#FFFFFF;
+        font-size:16px;
+    }
+
+    .PInput{
+
+        position:absolute;
+        left:1130px;
+        top:678px;
+        width:50px;
+        height:30px;
+        font-size:20px;
+        color:#fff;
+        text-align:right;
+
+
+
+    }
+
+    .fCurPage{
+        position:absolute;
+        left:1130px;
+        top:678px;
+        width:50px;
+        height:30px;
+        font-size:20px;
+        color:#fff;
+        text-align:right;
+
+    }
+
+
+    .fCountPage{
+        position:absolute;
+        left:1180px;
+        top:678px;
+        width:50px;
+        height:30px;
+        font-size:20px;
+        color:#fff;
+        text-align:left;
+
+    }
+
+    .myzone{width:100px;height:50px;;position: absolute;left: 1160px;top: 32px;line-height: 50px;color: white;font-size: 20px;}
+    .myzone.focus{color: #51c8f4;}
+
+    /*.page{ position: absolute; width: 14px; height: 39px; top: 20px; background: url('../iPG/T-nsp/res/default/img/page.png')}*/
+    /*.page-left{ left: 30px;}*/
+    /*.page-right{ left: 1150px; background: url('../iPG/T-nsp/res/default/img/page.png') 14px 0;}*/
+
+
+    .pageA{ position: absolute; width: 14px; height: 39px; top: 50%; margin-top: -20px; background: url('../iPG/T-nsp/res/default/img/page.png')}
+    .page-s{ position: absolute; width: 39px; height: 14px; left: 50%; margin-left: -20px; background: url('../iPG/T-nsp/res/default/img/page-s.jpg')}
+    .page-up{ top: 30px;}
+    /*.page-down{ bottom: 30px; background-position: bottom center;}*/
+    .page-down{ position: absolute; width: 40px; height: 28px;left: 640px; top: 680px; background: url('../iPG/T-nsp/res/default/img/page-d.png');}
+    .page-size{ position: absolute; right: 60px; bottom: 40px; font-size: 24px; color: #2c94e9;}
+
+</style>
+<!--<link id="tipwindowLink" type="text/css" rel="stylesheet" href="detail/css/tipwindow.css" />-->
+    <link href="../iPG/T-nsp/res/default/css/common.css" type="text/css" rel="stylesheet">
+<script src="js/global.js"></script>
+<script src="js/ajaxList.js"></script>
+<script src="js/commonAPI.js"></script>
+<script src="js/menu.js"></script>
+
+<script>
+var columnList={
+    "childFolderList": [
+        {
+            "assetId": "MANU0000000006507019",
+            "displayName": "推荐",
+            "serviceId": "6501219"
+        },
+        {
+            "assetId": "MANU0000000006504620",
+            "displayName": "电影",
+            "serviceId": "6501219"
+        },
+        {
+            "assetId": "MANU0000000006504622",
+            "displayName": "连续剧",
+            "serviceId": "6500815"
+        },
+
+		{
+            "assetId": "MANU0000000000080001",
+            "displayName": "回看影院",
+            "serviceId": "6501213"
+        },
+		{
+            "assetId": "MANU0000000006504624",
+            "displayName": "体验专区",
+            "serviceId": "6505624"
+        },
+		{
+            "assetId": "MANU0000000006500846",
+            "displayName": "动作战争",
+            "serviceId": "6501219"
+        },
+        {
+            "assetId": "MANU0000000006500847",
+            "displayName": "文艺喜剧",
+            "serviceId": "6501219"
+        },
+        {
+            "assetId": "MANU0000000006500848",
+            "displayName": "悬疑科幻",
+            "serviceId": "6501219"
+        },
+    ]
+};
+var weatherUrl = "http://172.30.70.100:80/wfs/weather/stb/weatherdata/getWeatherN.action?&cityId=468";//获取天气预报数据地址
+var columnId = getQueryStr(location.href, "columnId");
+var subCateId = getQueryStr(location.href, "subCateId");
+var navObj, navData, listObj, listData, delayNavTime, delayListTime, VOD_getAssetList, countPage, rootName;
+var areaTip = 0, curPage = 1, listFocus = 0, navFocus = 0, navIndex = 0, listPageSize = 12;
+var splitNum = parseInt(listPageSize / 2);
+var isTV=0;//是否是电视剧
+var startAt=1;
+var serviceId;
+var menuSize=6;
+var VOD_getChildColumnList = {
+    "data":"<GetFolderContents  mergeTV=\"1\"  includeFolderProperties=\"Y\" includeSubFolder=\"Y\" assetId=\"" + columnId + "\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId +"\"/>",
+    "callBack" : getChildColumn
+};
+
+var VOD_getSubColumnList = {
+    "data":"<GetFolderContents  mergeTV=\"1\"  includeFolderProperties=\"Y\" includeSubFolder=\"Y\" assetId=\"" + columnId + "\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId +"\"/>",
+    "callBack" : getSubColumn
+};
+window.onload = function() {
+
+    //refreshTime();
+	//initOther();
+    if(checkUser()){
+        initPage();
+    }else{
+
+    };
+
+};
+
+function initPage(){
+
+    if(getGlobalVar("isBack") == "Y") {
+        areaTip = getGlobalVar("navDy_areaTip") == "" ? 0 : parseInt(getGlobalVar("navDy_areaTip"));
+        curPage = getGlobalVar("navDy_curPage") == "" ? 1 : parseInt(getGlobalVar("navDy_curPage"));
+        listFocus = getGlobalVar("navDy_listFocus") == "" ? 0 : parseInt(getGlobalVar("navDy_listFocus"));
+        navFocus = getGlobalVar("navDy_navFocus") == "" ? 0 : parseInt(getGlobalVar("navDy_navFocus"));
+        navIndex = getGlobalVar("navDy_navIndex") == "" ? 0 : parseInt(getGlobalVar("navDy_navIndex"));
+        setGlobalVar("isBack", "");
+
+    }
+
+    if(areaTip==2){
+        $("myzone").className = "myzone focus";
+    }
+    if(subCateId!="")
+    {
+        //getSubColumn();
+
+        IEPG.getData(URL.VOD_getChildColumnList, VOD_getSubColumnList);
+    }
+    else
+    {
+        startAt = (curPage - 1) * listPageSize + 1;
+
+        var config = {
+            nav: {
+                "menuIndex": navIndex,
+                "menuFocus": navFocus,
+                "moveDir": "H",
+                "menuSize": menuSize,
+                "onFocus": onNavFocus,
+                "onBlur": onNavBlur,
+                "iterator": showNav
+//            "focusId" : "menu_focus",
+//            "focusTop" : 270,
+//            "focusStep" : 126,
+//            "isFocusLoop" : false
+            },
+            list: {
+                "pageSize": listPageSize,
+                "iterator": showList,
+                "updateData": getListData,
+                "onFocus": onListFocus,
+                "onBlur": onListBlur,
+                "isTurnPage": "",
+                "isLoop": false
+            }
+        };
+        listObj = new IEPG.AjaxList(config.list);
+        navObj = new IEPG.Menu(config.nav);
+        //getChildColumn();
+        IEPG.getData(URL.VOD_getChildColumnList, VOD_getChildColumnList);
+
+    }
+}
+function getSubColumn(_dataJson) {
+
+
+    navData = _dataJson.childFolderList;
+
+       for (var i = 0;i < navData.length; i++) {
+            if (navData[i].assetId == subCateId) {
+
+                navIndex = i;
+                if(i>menuSize-1) {
+                    navFocus = menuSize - 1;
+                }
+                else{
+                    navFocus =i;
+                }
+            }
+        }
+    startAt = (curPage - 1)*listPageSize + 1;
+
+    var config = {
+        nav : {
+            "menuIndex" : navIndex,
+            "menuFocus" : navFocus,
+            "moveDir" : "H",
+            "menuSize" : menuSize,
+            "onFocus" : onNavFocus,
+            "onBlur" : onNavBlur,
+            "iterator" : showNav
+//            "focusId" : "menu_focus",
+//            "focusTop" : 270,
+//            "focusStep" : 126,
+//            "isFocusLoop" : false
+        },
+        list: {
+            "pageSize": listPageSize,
+            "iterator": showList,
+            "updateData": getListData,
+            "onFocus": onListFocus,
+            "onBlur": onListBlur,
+            "isTurnPage": "",
+            "isLoop": false
+        }
+    };
+    listObj = new IEPG.AjaxList(config.list);
+    navObj = new IEPG.Menu(config.nav);
+    navObj.initData(navData);
+}
+function getChildColumn(_dataJson) {
+   //serviceId = _dataJson.folderFrame.serviceId;
+    setUrl();
+
+
+    //navData = columnList.childFolderList;
+    navData = _dataJson.childFolderList;
+
+    navObj.initData(navData);
+
+
+
+}
+function setUrl(){
+    var as=document.getElementsByTagName("a");
+    for(var i=0;i<as.length;i++){
+        var hrefs=as[i].getAttribute("href")+"&isTV="+isTV;
+        as[i].setAttribute("href",hrefs);
+    }
+}
+
+function showNav(_dataItem, _dataIndex, _focusIndex) {
+    if(_dataItem) {
+        $('menu_' + _focusIndex).innerHTML = IEPG.subText(_dataItem.displayName, 10, 0);
+    } else {
+        //$('menu_' + _focusIndex).innerHTML = "menublur";
+    }
+}
+
+function onNavFocus(_focusIndex, _dataIndex) {
+    $('loading').style.display = 'block';
+    clearTimeout(delayNavTime);
+        navFocus = _focusIndex;
+        navIndex = _dataIndex;
+    $("menu_" + navFocus).innerHTML = IEPG.subText1(navData[navIndex].displayName, 10, 1,120,42);
+    if(areaTip == 0) {
+        $("menu_" + navFocus).className = "menufocus";
+        $("menu_" + navFocus).style.color = "#fff";
+    }else{
+        $("menu_" + navFocus).className = "menublur";
+    }
+    startAt = (curPage - 1)*listPageSize + 1;
+
+    VOD_getAssetList = {
+        "data":"<GetFolderContents  mergeTV=\"1\"  includeSelectableItem=\"Y\" maxItems=\"" + listPageSize + "\" startAt=\"" + startAt + "\"  includeFolderProperties=\"Y\" includeSubFolder=\"Y\" assetId=\"" + navData[navIndex].assetId + "\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId +"\"/>",
+        "callBack" : getAsset
+    };
+    delayNavTime = setTimeout(function() {
+        IEPG.getData(URL.VOD_getAssetList, VOD_getAssetList);
+    }, 150);
+}
+
+function onNavBlur(_focusIndex, _dataIndex) {
+    //$("pic_box").style.display="block";
+    $("menu_" + navFocus).innerHTML = IEPG.subText(navData[navIndex].displayName, 10, 0);
+    $("menu_" + navFocus).className = "";
+    $("menu_" + navFocus).style.color = "#b7b7b7";
+}
+
+
+
+function getAsset(_dataJson) {
+
+    countPage = Math.ceil(_dataJson.totalResults / listPageSize);
+
+    listData = _dataJson.selectableItemList;
+
+    rootName=_dataJson.folderFrame.displayName;
+
+
+
+    //$("rootName").innerHTML = rootName;
+    clearClass();
+    if(listFocus>listData.length){
+        listFocus = listData.length-1;
+    }
+
+    listObj.initData(listData, curPage, countPage, listFocus);
+    $('loading').style.display = 'none';
+    //listObj.setPageInfo("pageInfo");
+
+	setPageInfo(curPage);
+
+}
+
+function clearClass(){
+    for(var i=0;i<12;i++){
+        $("listFocus_" + i).className = "";
+    }
+}
+
+function showList(_dataItem, _dataIndex, _focusIndex) {
+
+    if(_dataItem) {
+        if(_dataItem.videoType == "2"){
+            $("4K_" + _focusIndex).style.visibility = "visible";
+        }else{
+            $("4K_" + _focusIndex).style.visibility = "hidden";
+        }
+        $("listFocus_" + _focusIndex).style.visibility = "visible";
+        $("img_" + _focusIndex).src = getPoster(_dataItem.imageList, 200, 300);
+
+        $("listName_" + _focusIndex).innerHTML = IEPG.subText(_dataItem.titleFull, 14, 0);
+    } else {
+        $("4K_" + _focusIndex).style.visibility = "hidden";
+        $("4K_M_" + _focusIndex).style.visibility = "hidden";
+        $("img_" + _focusIndex).src = "";
+        $("listName_" + _focusIndex).innerHTML = "";
+        $("listFocus_" + _focusIndex).style.visibility = "hidden";
+    }
+}
+function getListData(_curPage) {
+    $("loading").style.display = 'block';
+    clearTimeout(delayListTime);
+    curPage = _curPage;
+    startAt = (_curPage - 1)*listPageSize + 1;
+    VOD_getAssetList = {
+        "data":"<GetFolderContents  mergeTV=\"1\" includeSelectableItem=\"Y\" maxItems=\"" + listPageSize + "\" startAt=\"" + startAt + "\"  includeFolderProperties=\"Y\" includeSubFolder=\"Y\" assetId=\"" + navData[navIndex].assetId + "\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId +"\"/>",
+        "callBack" : getAsset
+    };
+    delayListTime = setTimeout(function() {
+        IEPG.getData(URL.VOD_getAssetList, VOD_getAssetList);
+    }, 150);
+}
+function onListFocus(_focusIndex) {
+    listFocus = _focusIndex;
+    if(listData.length > 0) {
+        if(areaTip==1)
+        {
+            if(listData[listFocus].videoType==2)
+            {
+                $("4K_" + listFocus).style.visibility="hidden";
+                $("4K_M_" + listFocus).style.visibility="visible";
+            }
+            $("listName_" + listFocus).innerHTML = IEPG.subText(listData[listFocus].titleFull, 14, 1);
+            $("listFocus_" + listFocus).className = "picfocus";
+        }
+
+    } else {
+        $("listFocus_" + listFocus).className = "";
+    }
+}
+function onListBlur(_focusIndex) {
+    if(listData[listFocus].videoType==2)
+    {
+        $("4K_" + listFocus).style.visibility="visible";
+        $("4K_M_" + listFocus).style.visibility="hidden";
+    }
+    $("listFocus_" + listFocus).className = "";
+    $("listName_" + listFocus).innerHTML = IEPG.subText(listData[listFocus].titleFull, 14, 0);
+}
+
+
+
+function moveUp() {
+    if(areaTip == 1)
+    {
+        if(listFocus < splitNum)
+        {
+                areaTip=0;
+                $("menu_" + navFocus).className = "menufocus";
+                $("menu_" + navFocus).style.color = "#fff";
+               $("listFocus_" + listFocus).className = "";
+                onListBlur(listFocus);
+        }
+        else if(listFocus >= splitNum) {
+            onListBlur(listFocus);
+            listFocus = listFocus - splitNum;
+            onListFocus(listFocus);
+            listObj.currIndex = listFocus;
+        }
+
+    }
+
+}
+
+function moveDown() {
+    if(areaTip == 0) {
+        if(listData.length > 0) {
+            areaTip = 1;
+            $("menu_" + navObj.menuFocus).className = "menublur";
+            $("menu_" + navObj.menuFocus).innerHTML = IEPG.subText(navData[navObj.menuIndex].displayName, 10, 0);
+            onListFocus(listFocus);
+        }
+    }
+  else  if(areaTip == 1)
+    {
+        if(listFocus < splitNum) {
+            onListBlur(listFocus);
+            listFocus = listFocus + splitNum;
+            if(listFocus > listData.length - 1) {
+                listFocus = listFocus - splitNum;
+                if(countPage > 1 && listObj.isLoop) {
+                    curPage++;
+                    listObj.pageDown();
+                    return;
+                }
+            }
+            onListFocus(listFocus);
+            listObj.currIndex = listFocus;
+        } else if(listFocus >= splitNum) {
+            listObj.pageDown();
+        }
+    }else
+    {
+        if(listData.length > 0) {
+            areaTip=1;
+            $("myzone").className = "myzone";
+            onListFocus(listFocus);
+        }
+    }
+}
+
+function moveLeft() {
+    if(areaTip == 0)
+    {
+        if(navIndex==0)
+        {
+            // areaTip=2;//搜索区域
+            // $("search").className = "search focus";
+            // $("menu_" + navFocus).style.color = "#fff";
+            // $("menu_" + navFocus).className = "menublur";
+        }else
+        {
+            curPage = 1;
+            listFocus = 0;
+            //$("menu_" + navFocus).className = "menublur";
+            navObj.menuUp();
+        }
+
+    }
+    else if(areaTip == 1)
+    {  
+        listObj.up();
+    }else if(areaTip==2)
+    {
+        areaTip=0;
+        $("myzone").className = "myzone";
+        $("menu_" + navFocus).style.color = "#fff";
+        $("menu_" + navFocus).className = "menufocus";
+    }
+}
+
+
+function moveRight() {
+  
+    if(areaTip == 0) {
+        if(navIndex>=navData.length-1){
+            areaTip=2;//我的空间区域
+            $("myzone").className = "myzone focus";
+            $("menu_" + navFocus).style.color = "#fff";
+            $("menu_" + navFocus).className = "menublur";
+        }else {
+            curPage = 1;
+            listFocus = 0;
+            //$("menu_" + navFocus).className = "menublur";
+            navObj.menuDown();
+        }
+    }else if(areaTip==2)
+    {
+        //areaTip=0;
+        //$("search").className = "search";
+        //$("menu_" + menuIndex).style.color = "#fff";
+        //$("menu_" + navFocus).className = "menufocus";
+    }else {
+	    
+        listObj.down();
+    }
+}
+
+
+
+function turnNextPage() {
+
+    if(areaTip == 1) {
+        listObj.pageDown();
+    }
+}
+
+function turnPrevPage() {
+
+    if(areaTip == 1) {
+        listObj.pageUp();
+    }
+}
+
+function saveGlobalVar() {
+   
+    setGlobalVar("navDy_areaTip", areaTip);
+    setGlobalVar("navDy_curPage", curPage);
+    setGlobalVar("navDy_listFocus", listFocus);
+    setGlobalVar("navDy_navFocus", navFocus);
+    setGlobalVar("navDy_navIndex", navIndex);
+	
+}
+
+function doConfirm() {
+    if(areaTip == 1 && listData.length > 0) {
+        saveUrlPath();
+        saveGlobalVar();
+        if(listData[listFocus].isPackage=="1"){
+            if(listData[listFocus].folderAssetId=="MANU0000000000050478") {
+                window.location.href =epgVodUrl+ "iPG/T-nsp/zyxq/detail_zyxq.htm?providerId="+listData[listFocus].providerId+"&serviceId="+navData[navIndex].serviceId+"&titleAssetId=" + listData[listFocus].assetId +"&folderAssetId="+listData[listFocus].folderAssetId+"&folderColumnId="+columnId;
+            }else{
+                window.location.href = epgVodUrl + "iPG/T-nsp/dsjc/detail_dsjc.htm?providerId=" + listData[listFocus].providerId + "&serviceId=" + navData[navIndex].serviceId + "&titleAssetId=" + listData[listFocus].assetId + "&folderAssetId=" + listData[listFocus].folderAssetId + "&folderColumnId=" + columnId;
+            }
+        }else{
+            window.location.href = epgVodUrl+ "iPG/T-nsp/jtyy/detail_jtyy.htm?providerId="+listData[listFocus].providerId+"&serviceId="+navData[navIndex].serviceId+"&titleAssetId=" + listData[listFocus].assetId +"&folderAssetId="+listData[listFocus].folderAssetId+"&folderColumnId="+columnId;
+        }
+    }else if(areaTip==2)
+    {
+        saveUrlPath();
+        saveGlobalVar();
+        location.href=epgVodUrl+"iPG/T-nsp/myzone/Favorite.htm";
+    }
+
+}
+
+function refreshTime(){
+    var today = new Date();
+    var days = today.getDay();
+    days++;
+    var week = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+    for(var i=0; i<7; i++){
+        days--;
+        var date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        month = month < 10 ? "" + month : month;
+        day = day < 10 ? day = "" + day : day;
+        if(days<0)days = 6;
+        // $("time_"+i).innerHTML =month +" "+ day;// week[days];
+        // timeData[i] = year + "." + month + "." + day;
+    }
+    var hour = today.getHours();
+    var minute = today.getMinutes();
+    hour = hour < 10 ? "0" + hour : hour;
+    minute = minute < 10 ? "0" + minute : minute;
+    //$("time").innerHTML =month +"月"+ day +"日"+"&nbsp;&nbsp;"+week[days-1]+"&nbsp;&nbsp;"+ hour + ":" + minute ;
+    setTimeout(function(){refreshTime()}, 60000);
+}
+
+function doNumberKey(d,d) {
+    // saveUrlPath();
+    // saveGlobalVar();
+    //goToRec(listData);
+    // listFocus = keycode;
+}
+
+
+function doReturnKey() {
+    setGlobalVar("isBack", "Y");//页面返回标示，Y如果是从其他页面返回到当前页则取保存的机顶盒变量
+    clearGlobalVar();
+    goReturnUrlPath();
+}
+
+function doPortalKey(){//按主页键清除全局变量，返回至portal页
+    //clearGlobalVar();//页面重写此方法
+    goToPortal();
+}
+
+/** @description goToPortal 返回portal处理函数*/
+function goToPortal() {//清除路径
+    clearUrlPath();
+    clearGlobalVar(); clearUrlTopPath();
+    location.href = getGlobalVar("PORTAL_ADDR");
+}
+
+function  clearGlobalVar(){
+    setGlobalVar("navDy_listFocus","");
+    setGlobalVar("navDy_areaTip","");
+    setGlobalVar("navDy_curPage","");
+    setGlobalVar("navDy_navFocus","");
+    setGlobalVar("navDy_navIndex","");
+}
+
+function setPageInfo(num){
+	if(countPage <= 0) {
+		curPage = 0;
+		countPage = 0;
+	}
+	document.getElementById("fCurPage").innerHTML = num;
+	document.getElementById("fCountPage").innerHTML = "/"+countPage;
+	// document.getElementById("pageInfo").innerHTML =  num + "/" + countPage;
+}
+
+//用于数字翻页
+function show(pageNum){
+    
+  var tmpCurPage =  pageNum;
+  
+  if(tmpCurPage == ""){
+	
+    tmpCurPage = curPage;
+	
+  }else if(tmpCurPage >  countPage){
+
+	tmpCurPage = countPage;
+  
+  }else if(tmpCurPage < 0 ){
+  
+    tmpCurPage = 1;
+  }
+
+  curPage = tmpCurPage;
+  
+  getListData(curPage);
+  
+  
+  //setGlobalVar("navPic_curPage", curPage);
+  
+  str = "";
+  document.getElementById("PInput").innerHTML = str;
+  
+  
+}
+
+document.onkeydown = grabEvent;
+function grabEvent(_e) {
+    keycode = _e.keyCode || _e.which;
+
+    if(tipFlag) {
+        switch(keycode) {
+            case KEY.BACK:
+            case KEY.RETURN:
+            case KEY.QUIT:
+            case KEY.RETURN_RG:
+                _e.preventDefault();
+                if(searchTipFlag) {//搜索弹出框按返回时的处理
+                    if(($("search_Input").value).length != 0) {
+                        deleteValue();
+                    } else {
+                        closeTip();
+                    }
+                } else {//弹出框默认处理
+                    closeTip();
+                }
+                break;
+        }
+    } else if(mediaTipFlag) {//弹出集数选择框
+        switch(keycode) {
+            case KEY.ENTER:
+            case KEY.ENTER_N:
+                doMediaConfirm();
+                break;
+            case KEY.BACK:
+            case KEY.RETURN:
+            case KEY.QUIT:
+            case KEY.RETURN_RG:
+                _e.preventDefault();
+                closeTip();
+                break;
+            case KEY.LEFT:
+            case KEY.LEFT_N:
+            case KEY.LEFT_RG:
+                _e.preventDefault();
+                moveMediaLeft();
+                break;
+            case KEY.RIGHT:
+            case KEY.RIGHT_N:
+            case KEY.RIGHT_RG:
+                _e.preventDefault();
+                moveMediaRight();
+                break;
+            case KEY.NEXT:
+            case KEY.NEXT_N:
+                turnNextMediaPage();
+                break;
+            case KEY.PREV:
+            case KEY.PREV_N:
+                turnPrevMediaPage();
+                break;
+        }
+    } else {
+        switch(keycode) {
+            case KEY.ONE:
+            case KEY.TWO:
+            case KEY.THREE:
+            case KEY.FOUR:
+            case KEY.FIVE:
+            case KEY.SIX:
+            case KEY.SEVEN:
+            case KEY.EIGHT:
+            case KEY.NINE:
+            case KEY.ZERO:
+
+                downAction(keycode);
+                //doNumberKey(keycode,KEY.ZERO);
+                break;
+            case KEY.HOME://主页
+                goToPortal();
+                break;
+            case KEY.UP:
+            case KEY.UP_N:
+            case KEY.UP_RG:
+                moveUp();
+                break;
+            case KEY.DOWN:
+            case KEY.DOWN_N:
+            case KEY.DOWN_RG:
+                moveDown();
+                break;
+            case KEY.LEFT:
+            case KEY.LEFT_N:
+            case KEY.LEFT_RG:
+                moveLeft();
+                break;
+            case KEY.RIGHT:
+            case KEY.RIGHT_N:
+            case KEY.RIGHT_RG:
+                moveRight();
+                break;
+            case KEY.NEXT:
+            case KEY.NEXT_N:
+                turnNextPage();
+                break;
+            case KEY.PREV:
+            case KEY.PREV_N:
+                turnPrevPage();
+                break;
+            case KEY.ENTER:
+            case KEY.ENTER_N:
+                doConfirm();
+                break;
+            case KEY.PLAY:
+            case KEY.PLAY1:
+            case KEY.PLAY_N:
+                doPlayKey();
+                break;
+            case KEY.BACK:
+            case KEY.RETURN:
+            case KEY.RETURN_N:
+            case KEY.RETURN_RG:
+                doReturnKey();
+                _e.preventDefault();
+                break;
+            case KEY.RED:
+            case KEY.RED_N:
+            case KEY.RED_T:
+                doRedKey();
+                break;
+            case KEY.YELLOW:
+            case KEY.YELLOW_N:
+            case KEY.YELLOW_T:
+                doYellowKey();
+                break;
+            case KEY.BLUE:
+            case KEY.BLUE_N:
+            case KEY.BLUE_T:
+                doBlueKey();
+                break;
+            case KEY.GREEN:
+            case KEY.GREEN_N:
+            case KEY.GREEN_T:
+                _e.preventDefault();
+                doGreenKey();
+                break;
+            case KEY.QUIT_N:
+            case KEY.QUIT:
+                _e.preventDefault();
+                doPortalKey();
+                break;
+            case KEY.SEARCH:
+                _e.preventDefault();
+                doPositionKey();
+                break;
+            case KEY.STATIC:
+                if(videoObj != undefined){
+                    videoObj.resetStatic();
+                }
+                break;
+            case KEY.VOICEUP:
+            case KEY.VOICEDOWN:
+                if(videoObj != undefined){
+                    if(!isDisplayVoice()){
+                        voice.displayVoice(true);
+                    }else{
+                        doVoice(keycode, _e);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+}
+//用来记住输入数字
+var str = "";
+
+//window.onkeydown = downAction;
+function downAction(e)
+{
+ 
+
+ var val = e;
+ switch(val)
+ {
+ 
+  case 48:   //0
+  str = str + "" + (val - 48);
+  changePage();
+  break;
+  
+  case 49:   //1
+  str = str + "" + (val - 48);
+  changePage();
+  break;
+  
+  case 50:   //2
+  str = str + "" + (val - 48);
+  changePage();
+  break;
+  
+  case 51:   //3
+  str = str + "" + (val - 48);
+  changePage();
+  break;
+  
+  case 52:   //4
+  str = str + "" + (val - 48);
+  changePage();
+  break;
+  
+  case 53:   //5
+  str = str + "" + (val - 48);
+  changePage();
+  break;
+  
+  case 54:   //6
+  str = str + "" + (val - 48);
+  changePage();
+  break;
+  
+  case 55:   //7
+  str = str + "" + (val - 48);
+  changePage();
+  break;
+  
+  case 56:   //8
+  str = str + "" + (val - 48);
+  changePage();
+  break;
+  
+  case 57:   //9
+  str = str + "" + (val - 48);
+  changePage();  
+  break;
+  
+ 
+ 
+ }
+}
+
+function changePage (){
+
+  document.getElementById("fCurPage").innerHTML = "";
+  document.getElementById("PInput").innerHTML = str;
+
+  setTimeout("show("+parseInt(str)+")",2000);
+  
+}
+
+
+</script>
+</head>
+<body>
+
+
+<!--一级栏目焦点-->
+<!--<div class="menufocus" id="menu_focus"></div>-->
+<!--一级栏目-->
+<ul class="barList" id="menu">
+    <li id="menu_0"></li>
+    <li id="menu_1"></li>
+    <li id="menu_2"></li>
+    <li id="menu_3"></li>
+    <li id="menu_4"></li>
+    <li id="menu_5"></li>
+    <li id="menu_6"></li>
+    <li id="menu_7"></li>
+    <li id="menu_8"></li>
+</ul>
+
+<div class="pic_box">
+    <div class="list_focus" id="list_focus"></div>
+    <ul>
+        <li id="listFocus_0">
+            <img id="img_0" class="poster" src="" width="172px" height="232px" onerror="this.src='images/show_pic.jpg';">
+            <p id="listName_0" class="mydiv1"></p>
+            <p class="mydiv"></p>
+        </li>
+        <li id="listFocus_1">
+            <img id="img_1" class="poster" src="" width="172px" height="232px" onerror="this.src='images/show_pic.jpg'"/>
+            <p id="listName_1" class="mydiv1"></p>
+            <p class="mydiv"></p>
+        </li>
+        <li id="listFocus_2">
+            <img id="img_2" class="poster" src="" width="172px" height="232px" onerror="this.src='images/show_pic.jpg'"/>
+            <p id="listName_2" class="mydiv1"></p>
+            <p class="mydiv"></p>
+        </li>
+        <li id="listFocus_3">
+            <img id="img_3" class="poster" src="" width="172px" height="232px" onerror="this.src='images/show_pic.jpg'"/>
+            <p id="listName_3" class="mydiv1"></p>
+            <p class="mydiv"></p>
+        </li>
+        <li id="listFocus_4">
+            <img id="img_4" class="poster" src="" width="172px" height="232px" onerror="this.src='images/show_pic.jpg'"/>
+            <p id="listName_4" class="mydiv1"></p>
+            <p class="mydiv"></p>
+        </li>
+        <li id="listFocus_5">
+            <img id="img_5" class="poster" src="" width="172px" height="232px" onerror="this.src='images/show_pic.jpg'"/>
+            <p id="listName_5" class="mydiv1"></p>
+            <p class="mydiv"></p>
+        </li>
+        <li id="listFocus_6">
+            <img id="img_6" class="poster" src="" width="172px" height="232px" onerror="this.src='images/show_pic.jpg'"/>
+            <p id="listName_6" class="mydiv1"></p>
+            <p class="mydiv"></p>
+        </li>
+        <li id="listFocus_7">
+            <img id="img_7" class="poster" src="" width="172px" height="232px" onerror="this.src='images/show_pic.jpg'"/>
+            <p id="listName_7" class="mydiv1"></p>
+            <p class="mydiv"></p>
+        </li>
+        <li id="listFocus_8">
+            <img id="img_8" class="poster" src="" width="172px" height="232px" onerror="this.src='images/show_pic.jpg'"/>
+            <p id="listName_8" class="mydiv1"></p>
+            <p class="mydiv"></p>
+        </li>
+        <li id="listFocus_9">
+            <img id="img_9" class="poster" src="" width="172px" height="232px" onerror="this.src='images/show_pic.jpg'"/>
+            <p id="listName_9" class="mydiv1"></p>
+            <p class="mydiv"></p>
+        </li>
+        <li id="listFocus_10">
+            <img id="img_10" class="poster" src="" width="172px" height="232px" onerror="this.src='images/show_pic.jpg'"/>
+            <p id="listName_10" class="mydiv1"></p>
+            <p class="mydiv"></p>
+        </li>
+        <li id="listFocus_11">
+            <img id="img_11" class="poster" src="" width="172px" height="232px" onerror="this.src='images/show_pic.jpg'"/>
+            <p id="listName_11" class="mydiv1"></p>
+            <p class="mydiv"></p>
+        </li>
+    </ul>
+</div>
+
+
+<div class="pic_box icons" id="icons" style="display: none;">
+    <ul>
+        <li>
+            <img src="images/4k.png" id="4K_0" class="tip_hd" onerror="this.src='images/show_pic.jpg'"/>
+            <img src="images/4k_focus.png" id="4K_M_0" class="tip_hd_max" onerror="this.src='images/show_pic.jpg'"/>
+        </li>
+        <li>
+            <img src="images/4k.png" id="4K_1" class="tip_hd" onerror="this.src='images/show_pic.jpg'"/>
+            <img src="images/4k_focus.png" id="4K_M_1" class="tip_hd_max" onerror="this.src='images/show_pic.jpg'"/>
+        </li>
+        <li>
+            <img src="images/4k.png" id="4K_2" class="tip_hd" onerror="this.src='images/show_pic.jpg'"/>
+            <img src="images/4k_focus.png" id="4K_M_2" class="tip_hd_max" onerror="this.src='images/show_pic.jpg'"/>
+        </li>
+        <li>
+            <img src="images/4k.png" id="4K_3" class="tip_hd" onerror="this.src='images/show_pic.jpg'"/>
+            <img src="images/4k_focus.png" id="4K_M_3" class="tip_hd_max" onerror="this.src='images/show_pic.jpg'"/>
+        </li>
+        <li>
+            <img src="images/4k.png" id="4K_4" class="tip_hd" onerror="this.src='images/show_pic.jpg'"/>
+            <img src="images/4k_focus.png" id="4K_M_4" class="tip_hd_max" onerror="this.src='images/show_pic.jpg'"/>
+        </li>
+        <li>
+            <img src="images/4k.png" id="4K_5" class="tip_hd" onerror="this.src='images/show_pic.jpg'"/>
+            <img src="images/4k_focus.png" id="4K_M_5" class="tip_hd_max" onerror="this.src='images/show_pic.jpg'"/>
+        </li>
+        <li>
+            <img src="images/4k.png" id="4K_6" class="tip_hd" onerror="this.src='images/show_pic.jpg'"/>
+            <img src="images/4k_focus.png" id="4K_M_6" class="tip_hd_max" onerror="this.src='images/show_pic.jpg'"/>
+        </li>
+        <li>
+            <img src="images/4k.png" id="4K_7" class="tip_hd" onerror="this.src='images/show_pic.jpg'"/>
+            <img src="images/4k_focus.png" id="4K_M_7" class="tip_hd_max" onerror="this.src='images/show_pic.jpg'"/>
+        </li>
+        <li>
+            <img src="images/4k.png" id="4K_8" class="tip_hd" onerror="this.src='images/show_pic.jpg'"/>
+            <img src="images/4k_focus.png" id="4K_M_8" class="tip_hd_max" onerror="this.src='images/show_pic.jpg'"/>
+        </li>
+        <li>
+            <img src="images/4k.png" id="4K_9" class="tip_hd" onerror="this.src='images/show_pic.jpg'"/>
+            <img src="images/4k_focus.png" id="4K_M_9" class="tip_hd_max" onerror="this.src='images/show_pic.jpg'"/>
+        </li>
+        <li>
+            <img src="images/4k.png" id="4K_10" class="tip_hd" onerror="this.src='images/show_pic.jpg'"/>
+            <img src="images/4k_focus.png" id="4K_M_10" class="tip_hd_max" onerror="this.src='images/show_pic.jpg'"/>
+        </li>
+        <li>
+            <img src="images/4k.png" id="4K_11" class="tip_hd" onerror="this.src='images/show_pic.jpg'"/>
+            <img src="images/4k_focus.png" id="4K_M_11" class="tip_hd_max" onerror="this.src='images/show_pic.jpg'"/>
+        </li>
+    </ul>
+</div>
+
+
+<!--<div class="left_up" id="point_up"><img src="images/movie/left.png"  /></div>-->
+<!--<div class="left_down" id="point_down"><img src="images/movie/right.png"  /></div>-->
+
+<!--气泡翻页-->
+<div class="pageBubble" id="pageBubble">
+    <!--<img src="images/pageBubble.png"  />-->
+</div>
+<div class="PFont" id="PFont">按遥控器数字键翻页</div>
+<div><font class = "PInput" id = "PInput"></font></div>
+
+<div class="page_number" id="countPage"></div>
+<div class="page" id="currPage"></div>
+<div><font class = "fCurPage" id = "fCurPage"></font><font class = "fCountPage" id = "fCountPage"></font></div>
+
+<div class="logo" id="logo"><img class="logoimg" src="images/movie/svlogo.png"></div>
+<!--<div class="search" id="search">三生三世</div>-->
+<div class="myzone" id="myzone">我的空间</div>
+<!--div class="weather">
+    <div class="weatherInfo"><span id="weatherDesc"></span>&nbsp;&nbsp;<span id="weathertemp"></span></div>
+    <img src="" id="weatherIcon"/>
+</div-->
+<div id="time"></div>
+
+<!--<div class="footer">-->
+    <!--<span class="ico_vip"><img src="images/movie/vip.png" ></span>-->
+    <!--<span><img src="images/movie/ico01.png" ></span>-->
+    <!--<span><img src="images/movie/ico02.png" ></span>-->
+    <!--<span><img src="images/movie/ico03.png" ></span>-->
+<!--</div>-->
+<div class="page-down"></div>
+<!--<div id="tip_visibility" class="tipcover">-->
+    <!--<div class="tipupbox" id="tip_window"></div>-->
+<!--</div>-->
+<div id="tip_visibility" class="tip_visibility">
+    <div class="cover"></div>
+    <div class="tip_window" id="tip_window"></div>
+</div>
+<!-- 弹出窗口结束 -->
+<div class="loadingBg" id="loading" style="background: url('images/movie/bg.png');width: 1280px;height: 630px;position: absolute;top: 90px;left:0;display: none;z-index: 2;">
+    <div class="loading" style="width: 580px;height: 435px;position: absolute;top: 98px;left: 350px;color: white;text-align: center;line-height: 435px;">正在加载......</div>
+</div>
+</body>
+</html>

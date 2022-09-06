@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="1280*720; text/html; charset=utf-8">
+    <meta name="viewport" content="width=1280,user-scalable=no">
+    <title>江苏有线</title>
+    <link href="css/main.css" type="text/css" rel="stylesheet">
+</head>
+
+<script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript" src="js/global.js" ></script>
+<script type="text/javascript" src="js/lowBoxJsCommon.js" ></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/json2.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/data.js"></script>
+<script type="text/javascript" src="js/xml2json.js"></script>
+<script type="text/javascript" src="js/focusLogo.js"></script>
+<script type="text/javascript" src="js/carousel.js"></script>
+<script type="text/javascript" src="js/keyboard.js"></script>
+<script type="text/javascript" src="js/marquee.js"></script>
+<script type="text/javascript" src="js/dataReport.js"></script>
+<body onload="initPage();" bgcolor="#000000">
+    <div id="bg" class="main" >
+        <!-- logo  -->
+        <h1 class="logo" id="logo"></h1>
+        <!-- <div class="focusLogoContainer" id="focusLogoContainer">
+            <div class="focusLogo" id="history">
+
+            </div>
+            <div class="focusLogo" id="search">
+
+            </div>
+        </div> -->
+        
+        <!-- 导航 -->
+        <div class="nav" id="RoleTab">
+            <!-- <a id="nav0" class="current" style="margin-left: 57.6667px; margin-right: 57.6667px;">test1</a> -->
+        </div>
+        <!-- 主体 -->
+        <div class="maincon" id="TabCell">
+            <div class="main_list current" style="left:0px" id="tab0">
+                
+            </div>
+        </div>
+        <!-- 跑马灯  -->
+        <div class="footer" id="footer">
+			<div class="notice"></div>
+			<div class="marquee" id="marquee">
+				<span></span>
+			</div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    
+    var tabId = getQueryString("tabId");
+    var planId = getQueryString("planId");
+    var cellId = getQueryString("cellId") || 0;
+    var canPreview = getQueryString("isTest");
+
+    var CellArr = [];
+    var tabIndex = 0;
+    var liveArr = [];//直播窗口对象数组  
+
+    var isBack="n";
+
+    function initPage() {
+        initCellData();
+        initMarqueeData();
+    }
+
+    function initCellData() {
+        ajax({
+            type:"GET",
+            url: iepgIP+'getTabCell?planId='+planId+'&tabId=' + tabId+'&isTest='+canPreview,
+            success: function (data) {
+                var cells = JSON.parse(data).tabCell;
+                var cellIndex = getCellIndex(cells);
+                initCell(JSON.parse(data).tabCell[cellIndex].tabCell,0);
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function getCellIndex(cells){
+        for (var i = cells.length - 1; i >= 0; i--) {
+            if(cells[i].cellId == cellId){
+                return i;
+            }
+        }
+    }
+
+    ScrollHView.prototype.onkey = function (action) {
+        
+        var scrollview = this.id;
+        var lastFocusId = parseInt(this.focusId);
+        var current = this.map[this.focusId][action];
+        //判下一个资源块能否获得焦点
+        if (current){
+            this.onblur();
+            if(this.map[current.cellId]['canGetFocus'] === 0){
+                current = this.map[current.cellId][action];
+            }
+            confirmUrl = current.intent;
+            var link = $(current.cellId).getAttribute("link");
+            if(link!=null && link.length>0){
+                confirmUrl = link;
+            }
+            this.focusId = current.cellId;
+            var left = parseInt($(scrollview).style.left);
+            if (current.cellX + current.width + left > 1920){
+                $(scrollview).style.left = (1920 - current.cellX - 180 - current.width) + 'px';
+            }
+            if (current.cellX + left < 0) {
+                $(scrollview).style.left = (180 - current.cellX) + 'px';
+            }
+
+            var currentBak = JSON.parse(JSON.stringify(current));
+            if($(current.cellId+"").style.display === "none"){//如果下一个资源块为隐藏状态，则默认将焦点移到滑动资源块数组第0个上
+                currentBak = rollArr[0];
+            //  rollArrIndex = 0;
+            }
+            confirmUrl = currentBak.intent;
+            this.focusId = currentBak.cellId;
+
+            this.onfocus();
+        }
+        cellCheckCarouse(lastFocusId,current);
+    }
+
+    document.onkeydown = function (event) {
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+        isAutoGoPlay = false;
+
+        switch (e.keyCode) {
+            case KEY.LEFT:
+            case KEY.LEFT_N:
+                moveLeft(); 
+                isKeyUp = false;
+                break;
+            case KEY.UP:
+            case KEY.UP_N:
+                moveUp();
+                isKeyUp = false;
+                break;
+            case KEY.RIGHT:
+            case KEY.RIGHT_N:
+                moveRight();
+                isKeyUp = false;
+                break;
+            case KEY.DOWN:
+            case KEY.DOWN_N:
+                moveDown();
+                isKeyUp = false;
+                break;
+            case KEY.ENTER:
+            case KEY.ENTER_N:
+                doConfirm();
+                break;
+            case KEY.BACK:
+                keyBack();
+                break;
+            case KEY.key_4:
+                confKey++;
+                break;
+            case KEY.RETURN:
+            case KEY.QUIT_NJ:
+                location.href="index.htm";
+                //e.preventDefault();
+                break;
+            default:
+                for (var i = 0; i < keyBoardConfArr.length; i++) {
+                    var key = keyBoardConfArr[i].key;
+                    if (KEY["key_"+key] == e.keyCode) {
+                        href = keyBoardConfArr[i].value;
+                        stopLivePlay();
+                        location.href = href;
+                    }
+                }
+            break;
+        }
+    };
+
+    function saveData(){}
+</script>
+
+</html>

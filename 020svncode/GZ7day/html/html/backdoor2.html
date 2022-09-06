@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	
+    <title>测试“高清互动”的跳转</title>
+    <style>
+        #bg{
+            position: absolute;
+            top:20px;
+            left:100px;
+            width:200px;
+            height:100px;
+			color:red;
+        }
+		#list li{
+			list-style: none;
+			text-align: center;
+			width: 250px;
+			height: 20px;											
+			line-height:20px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap	;
+		}
+		
+    </style>
+</head>
+<body>
+<div id="bg">
+	<ul id="list">
+		<li></li><li></li><li></li><li></li><li></li>
+		<li></li><li></li><li></li><li></li><li></li>
+		<li></li><li></li><li></li><li></li><li></li>
+		<li></li><li></li><li></li><li></li><li></li>
+		<li></li><li></li><li></li><li></li><li></li>
+		<li></li><li></li><li></li><li></li><li></li>
+	</ul>
+</div>
+<script src="../../js/lib/core.js?1911" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/lib/extension.js?1911" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/controls/sublist.js?1911" type="text/javascript" charset="utf-8"></script>
+
+<script src="../js/global2.0.js?1911" type="text/javascript" charset="utf-8"></script>
+<script>
+    var PORTAL_ADDR = "http://" + DataAccess.getInfo("VodApp", "PortalAddress") + ":" + DataAccess.getInfo("VodApp", "PortalPort");
+	var testData = {
+		"Name": "高清互动",
+		"VarsId": 5,
+		"VarsArray": [
+			{
+				"Name": "新片大片",
+				"UserType": 1,
+				"Addr": "/NewFrameWork/newWeb/html/singleDemand/html/index.html",
+				"LogoAddr": ""
+			}, {
+				"Name": "最新上线",
+				"UserType": 1,
+				"Addr": "/NewFrameWork/newWeb/html/latestOnline/onLine_index.html",
+				"LogoAddr": ""
+			}, {
+				"Name": "天华专区",
+				"UserType": 1,
+				"Addr": "/NewFrameWork/newWeb/html/highClear.v2.html",
+				"LogoAddr": ""
+			}, {
+				"Name": "华数专区",
+				"UserType": 1,
+				"Addr": "/NewFrameWork/newWeb/html/huashu_new/wasu_index.html",
+				"LogoAddr": ""
+			}, {
+				"Name": "文广专区",
+				"UserType": 1,
+				"Addr": "/NewFrameWork/newWeb/html/demo/index.html",
+				"LogoAddr": ""
+			}, {
+				"Name": "欧美高清专区",
+				"UserType": 1,
+				"Addr": "/NewFrameWork/newWeb/html/tiantian/tt_index.html",
+				"LogoAddr": ""
+			}, {
+				"Name": "央视专区",
+				"UserType": 1,
+				"Addr": "/NewFrameWork/newWeb/html/CCTV/index.html",
+				"LogoAddr": ""
+			}, {
+				"Name": "芒果TV专区",
+				"UserType": 1,
+				"Addr": "/NewFrameWork/web/mgtv/html/index.html",
+				"LogoAddr": ""
+			}, {
+				"Name": "粤语专区",
+				"UserType": 1,
+				"Addr": "/NewFrameWork/web/yueyuList.html",
+				"LogoAddr": ""
+			}, {
+				"Name": "体验专区",
+				"UserType": 1,
+				"Addr": "/NewFrameWork/newWeb/html/monolithic_demand.v2.html?type\u003dtiyan",
+				"LogoAddr": ""
+			}, {
+				"Name": "我的收藏",
+				"UserType": 1,
+				"Addr": "/NewFrameWork/web/collectList.html",
+				"LogoAddr": ""
+			}, {
+				"Name": "最近点播",
+				"UserType": 1,
+				"Addr": "/NewFrameWork/web/onDemand.html",
+				"LogoAddr": ""
+			}
+		]
+	};
+	
+	
+	var originalArray = null;
+	var dataArr;
+	function checkServiceInfoFile(){   //读取配置表中的数据
+		originalArray = null;
+		try {
+			var str = readFile("/storage/storage0/siConfig/ServiceInfo.json", 3);
+			if(isObject(str)){
+				originalArray = str;
+			}else{
+				originalArray = JSON.parse(str);
+			}	
+		}catch(e){
+			SumaJS.debug("infoList get ServiceInfo.json has problem e="+ e.toString());
+			alert("new error");
+		}
+	}
+	checkServiceInfoFile();
+	function pathInitialization(str){
+		var tempStr = ""
+		if(typeof str != "string"){return "";}
+		if(str[0] != "/"){
+			tempStr = str;
+		}else{
+			tempStr = PORTAL_ADDR + str;
+		}
+		return tempStr;
+	}
+	
+	function isObject(obj){
+		return typeof obj == "object" && obj.constructor == Object;
+	}
+	
+	var groupListObj = new function(){ //分组列表对象
+		var self = this;
+		this.colorArr = ["#d2dce6","#ffffff"];  //颜色数组，第一个为非选中颜色，第二个为选中颜色
+		var cfg = {
+			items:[],
+			type: 2,
+			pageSize: 30,
+			uiObj: {
+				nameArray: SumaJS.$("#list li")
+			},
+			showData: function(subItems, uiObj, lastFocusPos, focusPos, isUpdate){						
+				if (!subItems) {
+					for (var i = 0; i < uiObj.nameArray.length; ++i) {
+						uiObj.nameArray[i].innerHTML = "";
+					}
+				} else {
+					if(isUpdate){
+						for (var i = 0; i < uiObj.nameArray.length; ++i) {
+							if(subItems[i]){
+								uiObj.nameArray[i].innerHTML = subItems[i].Name;
+							}else{
+								uiObj.nameArray[i].innerHTML = "";
+							}
+						}
+					}
+					else if(lastFocusPos > -1){
+						self.lostStyle(lastFocusPos);
+					}
+					if(focusPos > -1){
+						self.setStyleOnFocus(focusPos);
+					}
+				}
+			},
+			onSelect:function(item){
+				//alert(pathInitialization(item.Addr));
+				if(typeof item.Addr == "string"){
+					window.location.href = pathInitialization(item.Addr);		
+				}								
+			}
+		};
+		this.listObj = new SubList(cfg);		
+		this.initial = function(){					
+			SumaJS.debug("groupListObj initial entered");
+		};
+		this.setStyleOnFocus = function(pos){  //获焦时样式设置
+			self.listObj.uiObj.nameArray[pos].style.border = "5px solid red";
+		};
+		this.lostStyle = function(pos){  //失焦时的样式变化
+			self.listObj.uiObj.nameArray[pos].style.border="";
+		};
+	};
+	
+	
+	if(originalArray && typeof originalArray.VarsInfo != "undefined"){
+		var varsInfo = originalArray.VarsInfo;
+		for(var i=0;i<varsInfo.length;i++){
+			if(varsInfo[i].Name == "高清互动"){
+				dataArr = varsInfo[i];
+			}
+		}
+		
+	}else{
+		alert("!originalArray");
+	}
+	
+	if(dataArr && dataArr.VarsArray){
+		var arr = dataArr.VarsArray;
+		groupListObj.listObj.resetData({index:0, items:arr});
+	}
+	
+	document.onkeypress = function(event){
+		var val = event.which | event.keyCode;
+		switch(val){
+			case 8:   //返回
+				backToMain();
+				return 0;
+				break;
+			case 87:   //上
+				groupListObj.listObj.up();
+				return 0;
+				break;
+			case 83:   //下
+				groupListObj.listObj.down();
+				return 0;
+				break;			
+			case 13:   //确定键
+				groupListObj.listObj.select();
+				return 0;
+				break;
+			case 55:  //7
+				window.location.href = "backdoor2.html";
+				return false;
+		}
+	}
+	
+</script>
+</body>
+</html>

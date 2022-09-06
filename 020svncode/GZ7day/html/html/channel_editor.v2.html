@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />  
+<script src="../js/keyDefine.js"></script>
+<script src="../js/global2.0.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+	//SET ADD
+	
+	ADD_MO = "chan_editor";
+	ADD_MONAME = "自助服务"
+	ADD_LE = 30;
+	ADD_PA = "channel_editor";
+	ADD_NAME = "频道编辑";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+	
+</script>
+
+</head>
+<body>
+
+<div class="systel_bg" style="background:url(../images/channel_manager.jpg)">
+  <div class="system_con_focus_01" id="focus_list"></div>
+  <div class="system_time">
+		<div  class="weather"></div>
+  		<div id="time_HMS"></div><div id="time_YMDW"></div>
+  
+  </div>
+  <div class="system_menu_text_box"> 频道编辑管理</div>
+  <div class="system_con_focus"></div>
+  <div class="system_con_box">
+    <table width="1083" border="0" cellspacing="0" cellpadding="0" class="system_menu_table">
+      <tr>
+        <td width="373" height="68"  class="system_con_text_left font32" id="field1_0">频道编辑</td>
+        <td width="710" class="system_con_text_right font22" id="field2_0">设置频道喜爱、删除、锁定、移动</td>
+      </tr>
+      <tr>
+        <td width="422" height="68"  class="system_con_text_left" id="field1_1">频道音量偏移编辑</td>
+        <td width="661"  class="system_con_text_right" id="field2_1">设置频道音量偏移</td>
+      </tr>
+
+    </table>
+  </div>
+<div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="166"><table width="166" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+          </tr>
+        </table></td>
+        <td width="170">&nbsp;</td>
+        <td width="166">&nbsp;</td>
+        <td width="170">&nbsp;</td>
+        <td width="174">&nbsp;</td>
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+global_control_mode = 1;
+
+try{
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	switch(val){
+		case ROC_IRKEY_DOWN: 
+		break;
+	}
+	return true;
+}
+}catch(e){}
+
+function grabEvent(event){
+	page.grabEvent.Listener(event);
+	return true;
+}
+
+function page_systemevent_handler(event){
+	page.grabEvent.Listener(event);
+	return true;
+}
+
+function pageObj(){
+
+	this.editorList = new editorList();
+	function editorList(){
+		this.index = 0;
+		this.focusBarTop = 222;
+		this.focusbarHeight = 66;
+		this.init = function(){
+			this.index = 0;
+		}
+		this.focusOn = function(focusTop){
+			$("focus_list").style.top = focusTop+"px";
+		}
+		this.up = function(){
+			this.Blur(this.index);
+			if( this.index == 0){
+				this.index = 1;
+			}else{
+				this.index --;
+			}
+			this.focusOn(this.focusBarTop + this.index * this.focusbarHeight );
+			this.Focus(this.index); 
+		}
+		this.down = function(){
+			this.Blur(this.index);
+			if( this.index == 1){
+				this.index = 0;
+			}else{
+				this.index ++;
+			}
+			this.focusOn(this.focusBarTop + this.index * this.focusbarHeight );
+			this.Focus(this.index);
+		}
+		this.Blur = function(val){
+			$("field1_"+val).className="system_con_text_left";
+			$("field2_"+val).className="system_con_text_right";
+		}
+		this.Focus = function(val){
+			$("field1_"+val).className="system_con_text_left font32";
+			$("field2_"+val).className="system_con_text_right font22";
+		} 
+		this.href = function(){
+			if( this.index == 0 ){
+				this.goPage("channel_manager.v2.html"); 
+			}else if(this.index == 1 ){
+				if(VOLUME_HANDLE.enableGlobalVolume())
+				{
+					this.goPage("channel_voice.v2.html");
+				}
+				else
+				{
+					globalAlert.hide();
+					showErrorMsg("系统音量中的统一控制处于关闭状态，无法使用该功能");
+				}
+			}
+		}
+		this.goPage = function(_url){
+			window.location.href=_url;
+		}
+		this.Listener = function(event){
+			var val = event.which | event.keyCode; 
+			switch(val){
+				case ROC_IRKEY_UP:
+					this.up();
+					return false;
+					break;
+				case ROC_IRKEY_DOWN:
+					this.down();
+					return false;
+					break; 	
+				case ROC_IRKEY_SELECT:
+					this.href();
+					return false;
+					break; 
+			}  
+			return true;
+		} 
+	} 
+	this.init = function(){ 
+		this.editorList.init();
+		showDateTime(); 
+	} 
+} 
+
+//try{
+//注册页面
+var pageObj = new pageObj();
+page.regedit(pageObj.editorList);  
+pageObj.init();
+DataCollection.collectData(["01","main://html/html/channel_editor.v2.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"频道编辑"]);
+SysSetting.setEnv("SOURCE_PATH","main://html/html/channel_editor.v2.html"+window.location.search);
+//}catch(e){alert(e.message)}	
+ 
+</script>
+
+<script src="../js/ADD_C.js"></script>
+ 
+</body>
+</html>

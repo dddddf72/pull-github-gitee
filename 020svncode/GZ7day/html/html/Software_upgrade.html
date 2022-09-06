@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />
+<script src="../js/keyDefine.js"></script>
+<script src="../js/config.js"></script>                                                           
+<script src="../js/global2.0.js"></script>
+<script src="../js/GKey.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+ADD_MO = "system";
+ADD_MONAME = "自助服务|系统设置"
+ADD_LE = 30;
+ADD_PA = "system";
+ADD_NAME = "软件升级";
+ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+
+/*增加焦点移动代码以及对global.js中是否根据10703消息设置了全局变量的判断 @2011-07-09*/
+var button_area = ["confirm", "cancel"];
+var button_pic = [["../images/ok.png", "../images/ok_02.png"],
+			      ["../images/cancel.png", "../images/cancel_02.png"]];
+
+function back_to_mainpage()
+{
+	window.location.href = "system.v2.html?type=2";
+}				  
+
+function button_focus(button_num)
+{
+	$(button_area[button_num]).src = button_pic[button_num][1];
+}
+
+function button_blur(button_num)
+{
+	$(button_area[button_num]).src = button_pic[button_num][0];
+}
+
+var tuneFlag = false;
+function button_click(button_num)
+{
+	if (button_num == 0)
+	{
+		var upgradeFreq = SysSetting.getEnv("UPGRADE_FREQ");
+		if (upgradeFreq == "") {
+			globalAlert.init({"val":"暂时没有更新的软件版本","timeout":2000});	
+		} else {
+			var upgradeFreqObj = eval("(" + upgradeFreq + ")");
+			DVB.tune(upgradeFreqObj.frequency, upgradeFreqObj.symbolRate, upgradeFreqObj.modulation);
+			tuneFlag = true;
+		}
+	}
+	else
+	{
+		back_to_mainpage();
+	}
+}
+
+function doUpgrade() {
+	var global_var = SysSetting.getEnv("OTA_GOT_10703");
+	if(typeof(global_var)=="string" && global_var=="1"){
+		Upgrade.startLater();
+		setTimeout("Upgrade.start()", 10000);
+		document.onkeypress = function(){};
+		document.onsystemevent = function(){};
+		globalAlert.init({"val":"机顶盒即将重启并执行OTA升级","timeout":0});
+	}
+	else
+	{
+		globalAlert.init({"val":"暂时没有更新的软件版本","timeout":2000});
+	}	
+}
+
+function keyprocess_handler(event)
+{
+	/*is blockEvet == 1 means browser can process this key*/
+	var isBlockEvent =0;
+	var val = event.which | event.keyCode;
+   	switch( val )
+	{
+	case ROC_IRKEY_UP:
+    	isBlockEvent=1;
+		break;
+	case ROC_IRKEY_DOWN:
+    	isBlockEvent=1;
+		break;
+    case ROC_IRKEY_RIGHT:
+        isBlockEvent=1;
+        break;
+    case ROC_IRKEY_LEFT:
+        isBlockEvent=1;
+        break;
+    case ROC_IRKEY_SELECT:
+		isBlockEvent=1;
+        break;
+	case ROC_IRKEY_MENU:
+		window.location.href="../index.html";
+		isBlockEvent =1;
+		break;
+    case ROC_IRKEY_BACK:
+        back_to_mainpage();
+        isBlockEvent =1;
+        break;
+	default:
+		break;
+	}
+	return isBlockEvent;
+}
+
+function sysEvent_handler(event) {
+	var val = event.which;
+	switch (val) {
+		case ROC_SYSEVENT_DVB_TUNE_SUCCESS:
+			if (tuneFlag) {
+				tuneFlag = false;
+				doUpgrade();
+			}
+			break;
+		case ROC_SYSEVENT_DVB_TUNE_FAILED:
+			globalAlert.init({"val":"暂时没有更新的软件版本","timeout":2000});
+			break;	
+	}
+}
+
+document.onkeypress = keyprocess_handler;
+document.onsystemevent = sysEvent_handler;
+
+window.onload = initPage;
+function initPage()
+{
+	showDateTime(); 
+	DataCollection.collectData(["01","main://html/html/Software_upgrade.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"软件升级"]);	
+	SysSetting.setEnv("SOURCE_PATH","main://html/html/Software_upgrade.html"+window.location.search);	 
+}
+</script>
+<style>
+.sytem_background{
+	width:1116px;
+	height:402px;
+	background:#d6dce3;
+	position: absolute;
+	top:221px;
+	left:81px;	
+}	
+.sytem_Software{width:877px; height:141px; font-family:'黑体'; line-height:47px;; font-size:28px;  color:#306294;padding:74px 0px 0px 118px;}
+.button{width:401px; height:28px; position:absolute;top:350px;left:372px;}	
+	
+	
+	
+
+</style>
+
+</head>
+
+
+<body>
+<div class="systel_bg">
+  <div class="system_time">
+    <div  class="weather"></div>
+    <div id="time_HMS"></div><div id="time_YMDW"></div>
+  </div>
+  <div class="system_menu_text_box"> 本机设置-软件升级</div>
+  <div class="sytem_background">
+  <div class="sytem_Software">    
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;机顶盒软件进行升级，升级后主菜单在不进行操作的情况下，15秒钟后将自动转到上一次观看的频道。</p></div>
+</div ><!----------------------------------------------------#sytem_background---------------------------------------------------->
+  <div class="button">
+  <div class="tip_box_button_01">
+  	<a href="javascript:button_click(0);" onmouseover="button_focus(0);" onmouseout="button_blur(0);">
+  	<img src="../images/ok.png" width="190" height="60" id="confirm"/>
+	</a>
+  </div>
+  <div class="tip_box_button_02">
+  	<a href="javascript:button_click(1);" onmouseover="button_focus(1);" onmouseout="button_blur(1);">
+  	<img src="../images/cancel.png" width="190" height="60" id="cancel"/>
+	</a>
+  </div>     
+  </div><!----------------------------------------------------#tip_box------------------------------------------------------------>
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+          </tr>
+        </table></td>
+        <td width="165">&nbsp;</td>
+        <td width="166">&nbsp;</td>
+        <td width="170">&nbsp;</td>
+        <td width="174">&nbsp;</td>
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+</body>
+</html>

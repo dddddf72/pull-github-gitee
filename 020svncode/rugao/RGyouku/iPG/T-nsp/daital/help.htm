@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="1280*720; text/html; charset=utf-8" />
+		<title>操作帮助</title>
+        <script src="../../common/js/common_cs_cst.js"></script>
+		<script src="../../common/js/commonAPI.js"></script>
+	<style>
+	body{margin:0px;padding:0px;font-size:24px; color:#fff}
+	ul,p,h1,h2,h3,h4,h5,h6{margin:0px;padding:0px;}
+	li{list-style:none;list-style-type:none;}
+	img{border:0;}
+	input{outline:none;}
+	a{text-decoration:none; color:#FFF;}
+	.bg{ margin:0 0; background:url(skin/images/help.jpg) no-repeat; width:1280px; height:720px;}
+	</style>
+    <script type="text/javascript">
+        var helpFlag = getQueryStr(location.href,"helpFlag");
+		function doConfirm(){
+			goTo.back();
+		}	
+        function init(){
+          if(helpFlag=="npvr"){
+              $("bg").style.background="url(skin/images/help2.jpg) no-repeat";
+          }else if(helpFlag=="wddb"){
+              $("bg").style.background="url(skin/images/help1.jpg) no-repeat";
+          }else if(helpFlag=="npvrgl"){
+              $("bg").style.background="url(skin/images/help3.jpg) no-repeat";
+          }else if(helpFlag=="md"){
+              $("bg").style.background="url(skin/images/help4.jpg) no-repeat";
+          }else if(helpFlag=="pd"){
+              $("bg").style.background="url(skin/images/help5.jpg) no-repeat";
+          }else if(helpFlag=="hwnc"){
+              $("bg").style.background="url(skin/images/help6.jpg) no-repeat";
+          }else if(helpFlag=="nl"){
+              $("bg").style.background="url(skin/images/help7.jpg) no-repeat";
+          }
+        }
+        
+	</script>
+	</head>
+	<body  onload="init()">
+	<div class="bg" id="bg">
+    </div>
+	</body>
+</html>

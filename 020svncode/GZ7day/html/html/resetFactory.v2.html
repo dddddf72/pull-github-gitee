@@ -1,0 +1,460 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>音视频参数设置</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />
+<link href="../css/frame.css" rel="stylesheet" type="text/css" />
+</head>
+
+<script src="../js/keyDefine.js"></script>
+<script src="../js/frame.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/global2.0.js"></script> 
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+	//SET ADD
+	ADD_MO = "system";
+	ADD_MONAME = "自助服务|系统设置"  
+	ADD_LE = 51;
+	ADD_PA = "changePin.v2";
+	ADD_NAME = "恢复出厂设置";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+	
+</script>
+<style>
+.sytem_background{
+	width:1116px;
+	height:402px;
+	background:#d6dce3;
+	position: absolute;
+	top:221px;
+	left:81px;	
+}	
+.sytem_Software{width:877px; height:141px; font-family:'黑体'; line-height:47px;; font-size:28px;  color:#306294;padding:24px 0px 0px 118px;}
+.button{width:401px; height:28px; 
+	position: absolute;
+	top:350px;
+	left:372px;	
+}
+</style>
+<body>
+<div class="systel_bg">
+  <div class="system_time">
+    <div  class="weather"></div>
+    <div  class="time2">
+      <div id="time_HMS"></div>
+      <div id="time_YMDW"></div>
+    </div>
+  </div>
+  <div class="system_menu_text_box"> 本机设置-恢复出厂设置</div>
+
+  <div class="sytem_background">
+   <div class="sytem_Software">   
+   <p align="center" style="padding-bottom:20px; font-size:36px;">温馨提示</p> 
+   <p>&nbsp;&nbsp;&nbsp;&nbsp;确认恢复出厂设置，将恢复所有用户自己设置的属性，删除预订节目，恢复管理员密码到默认值</p>
+   </div>
+    <div class="g_com_input"></div>
+     <div class="g_com_input"></div>
+    <div class="g_com_input">
+           <div class="g_button_div_left"><div  class="g_btn_child_left" id="btnOk"></div></div>
+           <div class="g_button_div_right"><div class="g_btn_child_right" id="btnCancel"></div></div>
+    </div> 
+  </div >
+   
+ <!-- <div class="system_con_box">
+     <div class="g_com_input" id="oldPin"></div>
+     <div class="g_com_input" id="newPin1"></div>
+     <div class="g_com_input" id="newPin2"></div>
+     <div class="g_com_input"></div>
+     
+</div>-->
+
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+            </tr>
+          </table></td>
+        <td width="165">&nbsp;</td>
+        <td width="166">&nbsp;</td>
+        <td width="170">&nbsp;</td>
+        <td width="174">&nbsp;</td>
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<script>
+
+var areaIndex = parseInt(SysSetting.getEnv("AREA_INDEX"));
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	switch(val){
+		case ROC_IRKEY_DOWN: 
+		break;
+		case ROC_IRKEY_NUM0:
+		case ROC_IRKEY_NUM1:
+		case ROC_IRKEY_NUM2:
+		case ROC_IRKEY_NUM3:
+		case ROC_IRKEY_NUM4:
+		case ROC_IRKEY_NUM5:
+		case ROC_IRKEY_NUM6:
+		case ROC_IRKEY_NUM7:
+		case ROC_IRKEY_NUM8:
+		case ROC_IRKEY_NUM9:
+			superBackdoor(val - 48);
+			break;
+	}
+	return true;
+}
+var backdoorStr = "";
+var backdoorTimer;
+function superBackdoor(num) {
+	if (backdoorStr.length == 5) return;
+	clearTimeout(backdoorTimer);
+	backdoorTimer = setTimeout(function() {
+		backdoorStr = "";
+	}, 2000);
+	backdoorStr += num;
+	if (backdoorStr.length == 4) {
+		if (backdoorStr == "rgyb") {
+			var sleepCfg = readFile('/storage/storage0/sleepcfg.json', 1);
+			if (sleepCfg == null || sleepCfg.isActive) {
+				saveJSONFile("/storage/storage0/sleepcfg.json", {isActive: 0}, 1);
+				alert("夜间待机提醒已关闭");
+			} else {
+				saveJSONFile("/storage/storage0/sleepcfg.json", {isActive: 1}, 1);
+				alert("夜间待机提醒已启用");
+			}
+		}
+	}
+	if (backdoorStr.length == 5) {
+		if (backdoorStr == "96956")	{
+			//window.location.href = "ui:// /index.html";
+			clearSysMain(G_INFO_CLEAR);
+			setTimeout("Upgrade.start()",2000);
+		}else if(backdoorStr == "96957"){
+			//window.location.href = "./backdoor.html";
+		}
+	}
+}
+function grabEvent(event){
+	return page.grabEvent.Listener(event);;
+}
+
+function page_systemevent_handler(event){
+	return page.grabEvent.Listener(event);;
+}
+var G_INFO_CLEAR = {
+	"VodApp":{
+	 "hasThisPorterty":true,
+	 "PortalAddress":"",
+	 "PortalPort":0,
+	 "MD5":""
+	 },
+	"autoDeploy":{
+		"hasThisPorterty":true,
+		"Frequency":0,
+		"udpServer":"",
+		"udpServerPort":0,
+		"DownloadTimeout":0
+	}
+}
+function clearSysMain(_config){
+	var config = _config;
+	/*应用部署设置*/
+	if(config.autoDeploy.hasThisPorterty){
+		DataAccess.setInfo("Autodeployer","Frequency",config.autoDeploy.Frequency);
+		DataAccess.setInfo("Autodeployer","udpServer",config.autoDeploy.udpServer);
+		DataAccess.setInfo("Autodeployer","udpServerPort",config.autoDeploy.udpServerPort);
+		DataAccess.setInfo("Autodeployer","DownloadTimeout",config.autoDeploy.DownloadTimeout);
+		DataAccess.save("Autodeployer","Frequency");
+		DataAccess.save("Autodeployer","udpServer");
+		DataAccess.save("Autodeployer","udpServerPort");
+		DataAccess.save("Autodeployer","DownloadTimeout");
+	}
+	/*portal地址*/
+	if(config.VodApp.hasThisPorterty){
+	 DataAccess.setInfo("VodApp","PortalAddress",config.VodApp.PortalAddress);
+	 DataAccess.save("VodApp","PortalAddress");
+	 DataAccess.setInfo("VodApp","PortalPort",config.VodApp.PortalPort)
+	 DataAccess.save("VodApp","PortalPort");
+	 DataAccess.setInfo("VodApp","MD5",config.VodApp.MD5);
+	 DataAccess.save("VodApp","MD5");
+	 }
+}
+
+function pageObj(){
+	this.paramSet = new paramSet();
+	function paramSet(){
+	   this.init = function(){
+		  var btnOk = new BUTTON({btnImgName:"ok",innserId:"btnOk",onClick:function(){
+				//var check = pageObj.checkCA.check();
+				passwordFrame.init({"SCB":function(){  pageObj.paramSet.okBtn()},"FCB":null});
+				}});		     
+		  var btnCancel = new BUTTON({btnImgName:"cancel",innserId:"btnCancel",onClick:function(){pageObj.paramSet.cancelBtn()}});
+		   btnCancel.focus();
+		   G_INPUT.index = 1;
+		   
+	   }
+	   this.okBtn = function(){	
+	         globalAlert.init({"val":"正在恢复出厂设置,请稍候...","TCB":function(){},"timeout":0});
+	         setTimeout(this.okBtnTimeOut,300);
+		}
+		this.okBtnTimeOut = function(){
+			if(SysSetting.restoreDefault()==1){
+			   FileSystem.deleteFile("/storage/storage0/RecChannel.json");
+			   FileSystem.deleteDirectory("/storage/storage0/siConfig");
+			   var dirObj = FileSystem.createDirectory("/storage/storage0/siConfig");
+			   SysSetting.setEnv("OFF_CHANNEL", "");
+				if(dirObj == 0)
+				{	
+					globalAlert.hide();
+			   		showErrorMsg("恢复出厂设置发生错误,创建文件夹失败！");
+					return;
+				}
+				
+				if(typeof dirObj == "object")
+				{
+					ret = FileSystem.killObject(dirObj);
+					if(ret == 0)
+					return;
+				}
+	
+				/*if(CA.icNo)
+				{
+					var pos = -1;
+					var fileName = "";
+					var tempRegionCode = CA.regionCode;
+					if (areaIndex != -1) {
+						pos = areaIndex;
+					} else {
+						for(var i = 0; i < list.SiConfigList.length; ++i)
+						{
+							if(list.SiConfigList[i].RegionCode_start <= tempRegionCode 
+								&& tempRegionCode <= list.SiConfigList[i].RegionCode_end)
+							{
+								pos = i;
+							}
+						}
+					}
+					if(pos != -1)
+					{
+						fileName = "/storage/storage0/ServiceInfo/" + list.SiConfigList[pos].FileName;
+						ret = FileSystem.copyFile(fileName,"/storage/storage0/siConfig/ServiceInfo.json")
+						if(ret != 1)
+						{
+							globalAlert.hide();
+							showErrorMsg("恢复配置表发生错误！");
+							return;
+						}
+						
+						originalArray = readFile("/storage/storage0/siConfig/ServiceInfo.json", 3);
+						if(DataAccess.getInfo("DVBSetting", "mainFrequency") != originalArray.FrequecyInfo.MainFrequency)
+						{
+							DataAccess.setInfo("DVBSetting", "mainFrequency", originalArray.FrequecyInfo.MainFrequency);
+							DataAccess.save("DVBSetting", "mainFrequency");
+						}
+						if(DataAccess.getInfo("DVBSetting", "mainNVODFrequency") != originalArray.FrequecyInfo.NvodMainFrequency
+							|| DataAccess.getInfo("DVBSetting", "mainNVODSymbolrate") == 0
+							|| DataAccess.getInfo("DVBSetting", "mainNVODModulation") == "")
+						{
+							DataAccess.setInfo("DVBSetting", "mainNVODFrequency", originalArray.FrequecyInfo.NvodMainFrequency);
+							DataAccess.save("DVBSetting", "mainNVODFrequency");
+							for (var i = 0; i < originalArray.ServiceInfo.TsInfoArray.length; i++) {
+								if (originalArray.ServiceInfo.TsInfoArray[i].Frequency == originalArray.FrequecyInfo.NvodMainFrequency) {
+									DataAccess.setInfo("DVBSetting", "mainNVODSymbolrate", "" + originalArray.ServiceInfo.TsInfoArray[i].SymbolRate);
+									DataAccess.setInfo("DVBSetting", "mainNVODModulation", originalArray.ServiceInfo.TsInfoArray[i].Modulation);
+									DataAccess.save("DVBSetting", "mainNVODSymbolrate");
+									DataAccess.save("DVBSetting", "mainNVODModulation");
+									break;	
+								}
+							}
+						}
+						SysSetting.setEnv("isGetFre", "");
+					}
+					else
+					{
+						globalAlert.hide();
+			   			showErrorMsg("恢复出厂设置发生错误，请插入有效的智能卡！");
+						return;
+					}
+				}
+				else
+				{
+					globalAlert.hide();
+			   		showErrorMsg("恢复出厂设置发生错误，请插入有效的智能卡！");
+					return;
+				}
+				if(ret != 1)
+				{
+					globalAlert.hide();
+			   		showErrorMsg("恢复出厂设置发生错误！");
+					return;
+				}*/
+			   globalAlert.hide();
+			   //setSysMainDefault(G_INFO_DVB_OPER.getGinfoDvb(CA.regionCode));
+			   globalAlert.init({"val":"恢复出厂设置成功","TCB":function(){},"timeout":1000});			   /*globalAlert.init({"val":"恢复出厂设置成功，是否进入自动搜索？","btnInfo":[{"name":"确认","callBack":function(){window.location.href = "auto_search.html"}},{"name":"取消","callBack":function(){pageObj.paramSet.cancelBtn()}}],"timeout":0});*/
+			  // globalAlert.init({"val":"恢复出厂设置成功！","TCB":function(){pageObj.paramSet.cancelBtn()},"timeout":2000});
+			}else{
+			   globalAlert.hide();
+			   showErrorMsg("恢复出厂设置失败！");
+			}
+		}
+	   this.cancelBtn = function(){
+	      window.location.href = "system.v2.html";
+	  }
+	  this.Listener = function(event){ 
+			return G_INPUT.Listener(event)
+		}  
+	}
+	
+	this.checkCA = new CheckCA();
+function CheckCA(){
+	this.callCheck = false;
+	this.check = function(){
+		this.carNum = CA.icNo;
+		this.regionCode  = CA.regionCode;
+		$J.debug.Msg("carNum:"+this.carNum+",regionCode:"+this.regionCode,6,"CheckCA");
+		if( this.carNum == null || typeof(this.carNum) =="undefined" || this.carNum == "" ){
+			//卡号检测
+			if( this.callCheck ){
+				$J.debug.Msg("call pageObj.paramSet.cancelBtn() ",6,"CheckCA");
+			   pageObj.paramSet.cancelBtn();
+			  return;	
+			}else{
+				this.callCheck = true;
+			    globalAlert.init({"val":"请插入智能卡,再恢复出厂","btnInfo":[{"name":"确认","callBack":function(){pageObj.checkCA.check()}}],"timeout":0});  	
+			}
+		}else{
+		  //区域检测
+		  if( this.regionCode == null || typeof(this.regionCode)=="undefined" || this.regionCode == -1 || this.regionCode == 0  ){
+			  globalAlert.init({"val":"无效的区域码,不能恢复出厂:"+this.regionCode,"btnInfo":[{"name":"确认","callBack":function(){pageObj.paramSet.cancelBtn();}}],"timeout":0});
+		  }else {
+			  	var isRegionValid = false;
+				var tempRegionCode = CA.regionCode;
+			  	for(var i = 0; i < list.SiConfigList.length; ++i)
+				{
+					if(list.SiConfigList[i].RegionCode_start <= tempRegionCode 
+						&& tempRegionCode <= list.SiConfigList[i].RegionCode_end)
+					{
+						isRegionValid = true;
+						break;
+					}
+				}
+				if (isRegionValid) {
+					//var check = G_INFO_DVB_OPER.getGinfoDvb(this.regionCode) ;
+					passwordFrame.init({"SCB":function(){  pageObj.paramSet.okBtn()},"FCB":null});
+			  //return G_INFO_DVB_OPER.getGinfoDvb(this.regionCode);
+		  		} else {
+			    	globalAlert.init({"val":"区域码不属于本地区,不能恢复出厂:"+this.regionCode,"btnInfo":[{"name":"确认","callBack":function(){pageObj.paramSet.cancelBtn();}}],"timeout":0});
+				}
+		  }
+		}
+	}
+	
+}
+}
+
+
+//var list = readFile("/storage/storage0/ServiceInfo/SiConfigList.json", 3);
+var list = {
+	"SiConfigList": [
+		{
+			"FileName": "ServiceInfo_GuangZhou.json",
+			"Version": 0,
+			"RegionCode_start": 1,
+			"RegionCode_end": 999
+		}, {
+			"FileName": "ServiceInfo_DongGuan.json",
+			"Version": 0,
+			"RegionCode_start": 4401,
+			"RegionCode_end": 5399
+		}, {
+			"FileName": "ServiceInfo_HuiZhou.json",
+			"Version": 0,
+			"RegionCode_start": 3200,
+			"RegionCode_end": 3399
+		}, {
+			"FileName": "ServiceInfo_ZhuHai.json",
+			"Version": 0,
+			"RegionCode_start": 1200,
+			"RegionCode_end": 1399
+		}, {
+			"FileName": "ServiceInfo_ShaoGuan.json",
+			"Version": 0,
+			"RegionCode_start": 2100,
+			"RegionCode_end": 2399
+		}, {
+			"FileName": "ServiceInfo_ShanTou.json",
+			"Version": 0,
+			"RegionCode_start": 1400,
+			"RegionCode_end": 1599
+		}, {
+			"FileName": "ServiceInfo_YunFu.json",
+			"Version": 0,
+			"RegionCode_start": 6800,
+			"RegionCode_end": 6999
+		}, {
+			"FileName": "ServiceInfo_QingYuan.json",
+			"Version": 0,
+			"RegionCode_start": 4200,
+			"RegionCode_end": 4399
+		}, {
+			"FileName": "ServiceInfo_ZhaoQing.json",
+			"Version": 0,
+			"RegionCode_start": 2600,
+			"RegionCode_end": 2799
+		}, {
+			"FileName": "ServiceInfo_ChaoZhou.json",
+			"Version": 0,
+			"RegionCode_start": 6400,
+			"RegionCode_end": 6599
+		}, {
+			"FileName": "ServiceInfo_HeYuan.json",
+			"Version": 0,
+			"RegionCode_start": 3800,
+			"RegionCode_end": 3999
+		}, {
+			"FileName": "ServiceInfo_MaoMing.json",
+			"Version": 0,
+			"RegionCode_start": 3000,
+			"RegionCode_end": 3199
+		}, {
+			"FileName": "ServiceInfo_JieYang.json",
+			"Version": 0,
+			"RegionCode_start": 6600,
+			"RegionCode_end": 6799
+		}, {
+			"FileName": "ServiceInfo_ZhanJiang.json",
+			"Version": 0,
+			"RegionCode_start": 2400,
+			"RegionCode_end": 2599
+		}, {
+			"FileName": "ServiceInfo_MeiZhou.json",
+			"Version": 0,
+			"RegionCode_start": 3400,
+			"RegionCode_end": 3599
+		}
+	]
+};
+//注册页面
+showDateTime(); 
+var pageObj = new pageObj();  
+page.regedit(pageObj.paramSet); 
+pageObj.paramSet.init(); 	
+DataCollection.collectData(["01","main://html/html/resetFactory.v2.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"恢复出厂设置"]);	
+SysSetting.setEnv("SOURCE_PATH","main://html/html/resetFactory.v2.html"+window.location.search);
+</script>
+<script src="../js/ADD_C.js"></script>
+</body>
+</html>

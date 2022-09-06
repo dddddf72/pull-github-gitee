@@ -1,0 +1,53 @@
+@charset "utf-8";
+/*播放器单用 */
+
+*{ margin:0; padding:0;}
+
+ul,li{ list-style-type:none; float:left;}
+
+span,strong,em,i{ font-weight:normal; font-style:normal; display:block;}
+.clerar{ clear:both; overflow:hidden; width:100%; height:0; line-height:0; font-size:0;}
+
+.play{ position:relative; width:1280px; height:720px; }
+.play .play_top{ width:1280px; height:138px; position:absolute; top:0; left:0; z-index:12; background:url(../images/jingdu/play_top.png) no-repeat;}
+.play .play_bot{ width:1280px; height:272px; position:absolute; bottom:0; left:0; z-index:12; background:url(../images/jingdu/play_bot.png) no-repeat;}
+
+.logo{ position:absolute; right:30px; top:20px; z-index:11;}
+.logo img{ width:110px; height:50px;}
+
+/*loaging*/
+.loading{ width:185px; height:195px; position:absolute; left:50%; top:50%; margin:-97px 0 0 -93px;z-index:2; background:url(../images/jingdu/loading_bg.png) no-repeat;}
+.loading .loadImg{ width:76px; height:76px;position:absolute; left:50%; margin-left:-38px; top:10%; z-index:2}
+.loading .speed,.loading .loadTips{width:100%;height:30px; font-size:22px; text-align:center; position:absolute; left:0;bottom:30%;font-weight:bold; color:#f1f1f1;}
+.loading .loadTips{bottom:10%;}
+
+/*播放器*/
+.player{ }
+/*播放滚动条*/
+.progress{width:1280px; height:134px; position:absolute; bottom:5px; left:0; z-index:16; color:#b0afaf;}
+.progress .start_time{ width:115px; font-size:24px; height:24px; line-height:24px; text-align:right; position:absolute; left:0; top:61px;}
+.progress .plan_time{position:absolute; right:0; top:61px; text-align:left; width:115px; font-size:24px; height:24px; line-height:24px;}
+.progress .progress_show{ width:1010px; height:11px; background:url(../images/jingdu/progress01.png) no-repeat; position:absolute; left:133px; top:69px;}
+.progress_show .curve{ width:1010px; height:11px; background:url(../images/jingdu/progress02.png) no-repeat; position:absolute; left:0; top:0px;}
+.curve_time{ width:140px; height:60px; background:url(../images/jingdu/curve_time.png) center center no-repeat; position:absolute; right:-80px; top:-62px; font-size:25px; line-height:50px; color:#212121; text-align:center;}
+/*快进 快退 暂停*/
+.function{ width:146px; height:141px; position:absolute; left:50%; top:50%; margin:-70px 0 0 -73px; z-index:888;}
+.function span{width:146px; height:141px;}
+.function .backward{ background:url(../images/jingdu/backward.png) no-repeat;}
+.function .forward{ background:url(../images/jingdu/forward.png) no-repeat;}
+.function .pause{ background:url(../images/jingdu/pause.png) no-repeat;}
+
+/*---音量-----*/
+.vol{ width:56px; height:440px; position:absolute; top:153px; left:48px;}
+.volunm_strip{ width:56px; height:374px; background:url(../images/jingdu/volunm.png) no-repeat; position:relative;}
+.volunm_strip span{ width:8px; height:297px; position:absolute; left:23px; top:25px; background:url(../images/jingdu/VolunmStrip.png) no-repeat;}
+.volunm_strip span strong{ width:6px; position:absolute; left:1px; bottom:0; background:#fff; border-radius:4px;}
+.volunm_strip .vol_price{ width:100%; height:24px; line-height:24px; font-size:24px; color:#fff; text-align: center; position:absolute; left:0; bottom:18px; }
+.volunm_sign{ width:56px; height:55px; background:url(../images/jingdu/volunm_sign1.png) no-repeat; margin-top:10px; position:relative;}
+.volunm_sign em{ width:38px; height:39px; position:absolute; left:8px; top:8px; z-index:222;}
+.volunm_sign em.SoundIcon{ background:url(../images/jingdu/SoundIcon.png) no-repeat;}
+.volunm_sign em.SoundIcon-no{ background:url(../images/jingdu/SoundIcon2.png) no-repeat;}
+
+/*提示 音量增减 快进快退 提示*/
+.Player-tips{ width:672px; height:35px; position:absolute; bottom:11px; right:26px; z-index:11111; zoom:1;}
+.Player-tips img{width:672px; height:35px;}

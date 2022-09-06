@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="1280*720; text/html; charset=utf-8">
+    <meta name="viewport" content="width=1280,height=720,user-scalable=no">
+    <title>党的二十大</title>
+    <link href="./css/common.css" type="text/css" rel="stylesheet">
+    <style>
+        .content {
+            position: absolute;
+            top: 125px;
+            height: 720px;
+            overflow: hidden;
+        }
+        
+        .leftarrow {
+            position: absolute;
+            left: 40px;
+        }
+        
+        .rigarrow {
+            position: absolute;
+            right: 40px;
+        }
+        
+        .cell-item {
+            float: left;
+            width: 258px;
+            height: 210px;
+            margin-top: 7px;
+            margin-right: 10px;
+            margin-left: 12px;
+            margin-bottom: 77px;
+        }
+        
+        #textcd {
+            background-color: blue;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 22px;
+            overflow: hidden;
+        }
+        
+        .cell-item img {
+            width: 258px;
+            height: 160px;
+        }
+        /* :before */
+        
+        .cell-item.focus {
+            /* content: '';
+            position: absolute;
+            width: 250px;
+            height: 200px;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            border-radius: 8px; */
+            /* border: 6px solid #fcfc03; */
+            /* outline: 6px solid #fcfc03; */
+            /* color: #950000; */
+            /* font-size: 22px; */
+            /* background-color: red; */
+            outline: 5px solid #fcfc03;
+            /* width: 250px; */
+            height: 210px;
+            font-size: 22px;
+        }
+        
+        .cell-item.focus #textcd {
+            background-color: red;
+            /* animation: move 8s linear infinite; */
+        }
+        
+        .cell-item.focus #textcd span {
+            /* color: black; */
+            /* animation: move 5s linear infinite; */
+        }
+        
+        @keyframes move {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        .item-title {
+            position: absolute;
+            display: block;
+            top: 250px;
+            left: 10px;
+            width: 175px;
+            height: 38px;
+            line-height: 38px;
+            /*padding: 0 10px;*/
+            box-sizing: border-box;
+            text-align: center;
+            white-space: nowrap;
+            font-size: 22px;
+            color: #ababab;
+        }
+        
+        .title-menu {
+            min-width: 144px;
+            text-align: center;
+            font-size: 24px;
+            padding: 0 10px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 25px;
+            background-color: #2d7fff;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        
+        .list-item {
+            position: relative;
+            float: left;
+            height: 40px;
+            line-height: 40px;
+            font-size: 24px;
+            width: 270px;
+            padding: 0 8px;
+            margin: 0 10px 10px 0;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            border: 3px solid transparent;
+        }
+        
+        .list-item:before {
+            float: left;
+            content: "";
+            width: 24px;
+            height: 24px;
+            margin: 8px 8px;
+            background: url("images/bus.png");
+        }
+        
+        .list {
+            position: relative;
+            float: left;
+            width: 1120px;
+            height: 480px;
+        }
+        
+        .list-item.focus {
+            border: 3px solid #fff03f;
+            border-radius: 5px;
+        }
+        /* .hide { */
+        /* visibility: hidden; */
+        /* } */
+    </style>
+</head>
+
+<body onload="initTopIcon()">
+    <div class="main set-bg">
+        <div class="content" id="content">
+            <div class="viewParent" id="viewParent" style="width: 1280px;height: 470px;left: 80px;">
+                <!-- <div class="cell-item" id="cell-item-0" style="width: 272px;height: 128px;"><img id="cell-img-0" src="images/send-bg.jpg" /> </div>
+                <div class="cell-item" id="cell-item-1" style="width: 272px;height: 128px;"><img id="cell-img-1" src="images/send-bg.jpg" /> </div>
+                <div class="cell-item" id="cell-item-2" style="width: 272px;height: 128px;"><img id="cell-img-2" src="images/send-bg.jpg" /> </div> -->
+            </div>
+            <div class="leftarrow" id="leftarrow"><img src="./images/arrow.png" alt="" style="width: 25px;"></div>
+            <div class="rigarrow" id="rigarrow"><img src="./images/arrow.png" alt="" style="width: 25px;"></div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./common/global.js"></script>
+<script type="text/javascript" src="./common/utils.js"></script>
+<script type="text/javascript" src="./common/keyAction.js"></script>
+<script type="text/javascript" src="./common/view.js"></script>
+<script type="text/javascript" src="./common/serverAPI.js"></script>
+<script>
+    function initTopIcon() {
+        List.getChannel();
+    }
+
+    function exitPage() {
+        stopLivePlay();
+    }
+
+    var List = {
+        data: [],
+        index: 0,
+        focus: 0,
+        start: 0,
+        focusobj: null,
+        eles: [],
+        total: 0,
+        model: $("viewParent"),
+        contentId: '',
+        xjp: '',
+        init: function() {
+            this.getChannel();
+        },
+        getChannel: function() {
+            console.log('11111', location.search.slice(4));
+            contentId = location.search.slice(4);
+            MonitorAPI.getColumnsone(contentId, function(res) {
+                if (res) {
+                    List.menu = eval('(' + res + ')');
+                     console.log('res', List.menu.selectableItemList.length);
+                    List.initData();
+                }
+            })
+        },
+
+        initData: function() {
+            var html = '';
+            var pic = '';
+            var title = '';
+            for (var i = 0; i < List.menu.selectableItemList.length; i++) {
+                pic = Config.monitorUrl + List.menu.selectableItemList[i].imageList[0].posterUrl;
+                title = List.menu.selectableItemList[i].summarMedium;
+                titlecd = List.menu.selectableItemList[i].summarMedium.length;
+                // console.log(title.slice(11));
+                xjp = title.slice(11);
+                html += '<div class="cell-item" id="cell-item-' + i + '"><img src="' + pic + '">';
+                html += '<h3 id="textcd"><span>' + title + '</span></h3>';
+                html += '</div>';
+            }
+            List.model.innerHTML = html;
+            setTimeout(function() {
+                List.initFocus();
+            }, 500)
+        },
+
+          initFocus: function() {
+            var self = this;
+            this.eles = List.model.getElementsByTagName('div');
+            this.focusobj = new View(List.model);
+            this.focusobj.init(this.eles);
+            this.focusobj.scrollY = true;
+            this.focusobj.up = function() {
+                self.up();
+            };
+            this.focusobj.ok = function() {
+                self.ok();
+            };
+            this.focusobj.down = function() {
+                self.down();
+            };
+            this.focusobj.cellBlur = function(ele) {
+                self.cellBlur(ele);
+            };
+            this.focusobj.cellFocus = function(ele) {
+                self.cellFocus(ele);
+            };
+            this.focusobj.move = function(pre, cur) {
+                self.move(pre, cur);
+            };
+            setTimeout(function() {
+                var cacheIndex = getGlobalVar('position') || 0;
+                List.focusobj.focusByIndex(cacheIndex);
+            }, 500)
+        },
+        getIndex: function(id) {
+            var arr = id.split('-');
+            this.index = Number(arr[arr.length - 1]);
+        },
+        move: function(pre, cur) {
+            this.getIndex(cur.id);
+        },
+        up: function() {
+
+        },
+        down: function() {
+
+        },
+        cellBlur: function(ele) {
+            console.log('cellBlur', ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerText.length);
+            ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerHTML = ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerText;
+        },
+        cellFocus: function(ele) {
+            console.log('cellFocus', ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerText.length);
+            if (ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerText.length > 13) {
+                ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerHTML = '<marquee scrollamount="4">' + ele.getElementsByTagName("h3")[0].getElementsByTagName('span')[0].innerText + '</marquee>'
+            }
+        },
+        pageUp: function() {
+            this.up();
+        },
+        pageDown: function() {
+            this.down();
+        },
+        ok: function() {
+            setGlobalVar('position', this.index);
+            ServerAPI.getPlayURL(List.menu.selectableItemList[this.index].assetId, function(res) {
+                var video = eval('(' + res + ')').palyURL;
+                console.log('video', video);
+                window.location.href = 'play/play.html' + '?playUrl=' + video;
+            })
+        },
+        onKey: function(action) {
+            this.focusobj.onkey(action);
+        }
+    };
+
+    function moveLeft() {
+        List.onKey('left');
+    }
+
+    function moveUp() {
+        List.onKey('up');
+    }
+
+    function moveRight() {
+        List.onKey('right');
+    }
+
+    function moveDown() {
+        List.onKey('down');
+    }
+
+    function doConfirm() {
+        List.onKey('ok');
+    }
+
+    function pageUp() {
+        List.pageUp();
+    }
+
+    function pageDown() {
+        List.pageDown();
+    }
+</script>
+
+</html>

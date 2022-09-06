@@ -1,0 +1,82 @@
+<html>
+<head>
+<title></title>
+<style type="text/css">.C00000001css{ width: 1280px; height: 720px; background-image: url(waiting.gif); background-size:100% 100%; background-repeat:no-repeat; position:absolute; left:0px; top:0px}
+</style>
+</head>
+<script>
+Request = {
+    QueryString : function(item){
+    var svalue = location.search.match(new RegExp("[\?\&]" + item + "=([^\&]*)(\&?)","i"));
+    return svalue ? svalue[1] : svalue;
+    }
+}
+var hrefUrl;
+var backUrl;
+var timer = -1;
+var timeoutTimer = -1;
+function debugs(str) {
+    if (typeof Utility != "undefined" && typeof Utility.println != "undefined") {
+        Utility.println(str);
+    } else if (typeof RocME != "undefined" && typeof RocME.debug != "undefined") {
+        RocME.debug(str);
+    } else if (typeof console != "undefined") {
+        console.debug(str);
+    } else {}
+}
+function checkOrJump(){
+	SysSetting.sendAppEvent(21004, JSON.stringify({"TellJavaTune":"rojao"}), 0, 0);
+    hrefUrl = Request.QueryString("hrefUrl");
+    debugs("rojao hrefUrl:"+hrefUrl);
+    backUrl = Request.QueryString("backUrl");
+    debugs("rojao backUrl:"+backUrl);
+    if(hrefUrl){
+        timer = setInterval("checkData()",100);
+        timeoutTimer = setTimeout("timeOutBack()",30000);
+    }
+    else{
+        if(backUrl){
+            window.parent.document.location.href = backUrl;
+        }
+    }
+}
+
+function checkData(){
+    if(hrefUrl){
+        if(FileSystem.existlocalFile(hrefUrl)){
+			var hyperUrl = hrefUrl+"?backUrl="+backUrl;
+			debugs("rojao hyperUrl:"+hyperUrl);
+            window.parent.document.location.href=hyperUrl;
+            clearInterval(timer); 
+            clearTimeout(timeoutTimer);           
+        }        
+    }    
+}
+
+function timeOutBack(){
+    clearInterval(timer); 
+    clearTimeout(timeoutTimer);
+    window.parent.document.location.href = backUrl;    
+}
+
+document.onkeypress=grabEvent;
+function grabEvent(event) {
+	var key = event.which|event.keycode;
+	switch (key){
+        case 8:            
+        case 27:                        
+            debugs("grabEvent rojao backUrl:"+backUrl);
+            if(backUrl){
+                window.parent.document.location.href=backUrl;
+            }
+            break;          
+        default:
+            break;
+    }
+}
+</script>
+<body leftmargin="0" topmargin="0" style="overflow:hidden" onload="checkOrJump()">
+<div class="C00000001css"> </div>
+</body>
+
+</html>

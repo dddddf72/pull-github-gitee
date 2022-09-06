@@ -1,0 +1,618 @@
+#shouye_mask_layer{
+	position:fixed;
+	width:1280px;
+	height:720px;	
+	top:0px;
+	left:0px;
+	z-index:10;
+	background-image: url(../images/tv_page/mask_layer.png);
+	display:none;
+}
+#tv_page_group_select_focus{
+	position:absolute;
+	top:220px;
+	left:130px;
+	width:253px;
+	height:96px;
+	display:none;	
+	background-image: url(../images/tv_page/often_watch_extend1.png);
+	/*background-color:red;*/
+	z-index:100;
+}
+#tv_page_group_select_name{
+	position:absolute;
+	/*	top:22px;
+	left:23px;  */
+	top:24px;
+	left: 20px;
+	width:230px;
+	height:47px;
+	color:#ffffff;
+	text-align:center;
+	line-height:47px;
+	font-size:22px;
+	font-weight:bold;
+}
+
+/***  频道列表 start    ***/
+#tv_page_channel_name_list1{
+	position:absolute;
+	left:357px;
+	top:-25px;
+	width:867px;
+	height:512px;		
+	z-index:100;
+	background-image: url(../images/tv_page/often_watch_extend2.png); 
+	display:none; 
+}
+#tv_page_channel_name_list1 .focus{
+	position:absolute;
+	left:22px;
+	width:260px;
+	height:100px;
+	background-image:url(images/tv_page/often_watch_focus.png);
+	z-index:100;
+}
+
+/****   常看设置图标   start     ***/
+#often_watch_tip,#often_watch_tip_focus{
+	position:absolute;
+/*	top: 344px;   */
+	left:25px;
+	width:185px;
+	height:46px;
+	font-size:20px;
+	color: #d2dce6;
+/*	background-color:red;  */
+	z-index:100;
+}
+#often_watch_tip{
+	display:none;
+	color: #d2dce6;
+}
+#often_watch_tip_focus{
+	display:none;
+	color: #ffffff;
+}
+#often_watch_tip_bg{
+	position:absolute;
+	top:6px;
+	left:55px;
+	width:134px;
+	height:34px;
+/*	background-color:red; */
+	z-index:110;
+}
+#often_watch_tip_img, #often_watch_tip_img_focus{
+	position:absolute;
+/*	top: 14px;  */
+	top: 12px;
+	left:65px;
+	width:17px;
+	height:17px;
+/*	background-color:red;  */
+	z-index:110;
+}
+#often_watch_tip_text, #often_watch_tip_text_focus{
+	position:absolute;
+	left:95px;
+	width:150px;
+	height:46px;
+	line-height:46px;
+	z-index:110;
+}
+
+#often_watch_tip_bg_focus{
+	position:absolute;
+	top:-18px;
+	left:35px;
+	width:180px;
+	height:82px;
+	z-index:110;
+}
+
+/****   常看设置图标   end     ***/
+
+#tv_page_channel_name_list1 .rightArrow{
+	position:absolute;
+	z-index:100;	
+	position: absolute;
+	left: 250px;
+	top:10px;
+	width:9px;
+	height:15px;
+	display:none;
+}
+#tv_page_channel_name_list1_context{
+	position:absolute;
+	left:22px;
+	top:62px;
+	width:300px;
+	height:387px;
+	display:block;
+	z-index:100;
+}
+.kandian_icon{
+	position: absolute;
+	left: 24px;
+	width:20px; 
+	height:45px;
+	line-height:46px; 
+	border:0px;	
+}
+.channelname{
+	position: absolute;
+/*	left: 44px;   */
+	left:40px;
+	width:185px;
+	height:46px; 
+	line-height:46px; 	
+	color:#fff899;	
+	border:0px;
+}
+.rightarrow_icon{
+	position: absolute;
+	left: 250px;
+	top:10px;
+	line-height:46px; 
+	width:9px;
+	height:15px;
+	display:none;
+}
+.timeshift_icon{
+	position: absolute;
+	left: 232px;  
+	width: 60px; 
+	height:45px; 
+	line-height:46px; 
+}
+.timeshift_icon img{
+	width:107px;
+	height:74px;
+	margin-top: -14px;
+}
+#tv_page_channel_name_list1_cursor_slider,#set_list_cursor_slider{
+	position:absolute;
+	left:341px;
+	top:14px;
+	width:30px;
+	height:40px;
+	background-image: url(../images/tv_page/cursor_slider.png);  
+}
+#setting_menu_panel{
+	position:absolute; 
+	/*
+	top:210px;
+	left:10px; 
+	*/
+	top:232px;
+	left:35px;	
+	width:230px;
+	height:120px;
+	background:url(../images/tv_page/often_set_box_bg.png) no-repeat; 
+	font-size:20px; 
+	display:none;
+	z-index:110;
+}
+
+#setting_focus{
+	position:absolute; 
+	left:-15px;
+	top:45px;
+	width:260px; 
+	height:80px; 
+	background:url(../images/tv_page/often_set_box_focus.png) no-repeat center;
+	visibility:hidden;
+}
+
+#setting_menu_0{
+	position: absolute; 
+	left: 0px; 
+	top: -48px;
+	height:58px;
+	width:230px; 
+	letter-spacing:10px;
+	line-height:65px;
+	background:url(../images/tv_page/often_set_box_bg.png) no-repeat;
+	overflow: hidden;
+	text-align:center; 
+	border:0px;
+	z-index:-1;
+}
+
+#setting_menu_1{
+	position: absolute; 
+	left: 0px; 
+	top: 10px;
+	height:50px; 
+	width:230px;
+	letter-spacing:10px; 
+	line-height:40px;
+	text-align:center; 
+	border:0px;
+}
+#setting_menu_2{
+	position: absolute;
+	left: 0px;
+	top: 60px;
+	height:50px;
+	width:230px;
+	letter-spacing:10px;
+	line-height:40px;
+	text-align:center;
+	border:0px;
+}
+
+#tv_page_epg{
+	position:absolute;
+	/*
+    top:0px;
+    left:330px;
+	*/
+	top:22px;
+    left:355px;
+    width:435px;
+    height:360px;
+    z-index: 100;
+}
+
+#tv_page_epg_now{
+	position:absolute;
+    top:32px;
+    left:32px;
+    width:370px;
+	height: 45px;
+	font-size: 20px;
+	color:#D2DCE6;
+}
+#tv_page_epg_now_text{
+	position:absolute;
+    left:0px;
+}
+#tv_page_epg_now_time{
+	position:absolute;
+    left:56px;
+}
+#tv_page_epg_now_type{
+	position:absolute;
+    left:140px;
+}
+#tv_page_epg_now_name{
+	position:absolute;
+    left:155px;
+}
+#tv_page_epg_progress{
+	position:absolute;
+	top:82px;
+    left:88px;
+    height:10px;
+    width:120px;
+}
+#tv_page_epg_list{
+	position:absolute;
+	top:100px;
+    left:88px;
+	color:#D2DCE6;
+}
+.epg_event_time{
+	position: absolute;
+	line-height:27px;
+	left: 0px;
+}
+.epg_event_type{
+	position: absolute;
+	line-height:27px;
+	left: 80px; 
+}
+.epg_event_name{
+	position: absolute;
+	line-height:27px;
+	left: 97px;
+}
+
+#tv_page_epg_recommend{
+     position:absolute;
+     top:232px;
+     left:32px;
+     width:250px;
+     height: 200px;
+     font-size: 20px;
+     color:#D2DCE6;
+ }
+
+#tv_page_epg_recommend_tip{
+    position:absolute;
+    left:0px;
+}
+
+#tv_page_epg_recommend_img{
+    position:absolute;
+    left:0px;
+    top:40px;
+    width:107px;
+    height:160px;
+}
+
+#tv_page_epg_recommend_title{
+    position:absolute;
+    left:135px;
+    top:45px;
+    width:200px;
+    height:25px;
+}
+
+#tv_page_epg_recommend_content{
+    position:absolute;
+    left:135px;
+    top:80px;
+    width:250px;
+    height:120px;
+    line-height: 30px;
+    font-size: 16px;
+}
+/***  频道列表   end    ***/
+
+
+
+/***  常看设置列表  start    ***/
+#tv_page_channel_name_list2{
+	position:absolute;
+	left:357px;
+	top:-25px;
+	width:867px;
+	height:512px;	
+	z-index:100;
+	background-image: url(../images/tv_page/often_watch_extend3.png); 
+	display:none; 
+}
+#tv_page_channel_name_list2 .focus{
+	position:absolute;
+	left:20px;
+/*	top:20px;  */
+	width:331px;
+	height:94px;
+	z-index:100; 	
+	background-image: url(../images/often_watch/often_order_focus.png);
+}
+
+#tv_page_set_list{
+	position:absolute;
+	left:22px;
+	top:65px;
+	width:300px;
+	height:387px;
+	display:block;
+	line-height: 27px;
+	z-index:110;
+}
+#set_list_text{
+	position: absolute;
+	/*
+	left:20px;
+	top: 430px;	
+	*/
+	left:48px;
+	top: 440px;	
+	width:215px;
+	height:46px;
+	text-align:center;
+	line-height: 46px;	
+	font-size:20px;
+	z-index:100;
+	color:#fff899;
+}
+#set_list_ad{
+	position: absolute;
+	left:400px;
+	top: 55px;	
+	width:385px;
+	height:385px;
+}
+.set_channelname{
+	position: absolute;
+	left: 45px;
+	height:46px; 	
+	line-height:46px; 
+	width:180px;
+	color:#fff899;
+}
+.set_choose_icon{
+	position: absolute;
+	left: 260px;
+	height:46px;
+	line-height:46px;
+	z-index:100;
+}
+.set_choose_icon img{
+	margin-top: -14px;
+}
+/***  常看设置列表  end    ***/
+
+
+
+/***  全部频道  start    ***/
+#tv_page_channel_name_list3{
+	position:absolute;
+	left:357px;
+	top:-25px;
+	width:867px;
+	height:512px;	
+	z-index:100;
+	background-image: url(../images/tv_page/all_service_extend.png); 
+	display:none;   
+}
+#tv_page_channel_name_list3 .focus{
+	position:absolute;
+	z-index:100;
+	display:none;
+}
+
+/*
+#tv_page_channel_name_list3_context{
+	position:absolute;
+	left:25px;
+	top:35px;
+	width:767px;
+	height:450px;
+	background-color:grey;  
+}
+*/
+
+.tv_page_colume{
+	position:absolute;
+	/*top: 60px;*/
+	top: 57px;
+}
+#tv_page_colume_1{
+	left: 70px;
+}
+#tv_page_colume_2{
+	left: 310px;
+}
+#tv_page_colume_3{
+	left: 550px;
+}
+.ch_num{
+	position:absolute;
+	left:0px;
+	width:40px;
+	height:47px;
+	line-height:47px;
+}
+.ch_name{
+	position:absolute;
+/*	width:100px;  */
+	width:90px;
+	height:47px;
+	left:40px;
+	overflow:hidden;
+/*	text-overflow:ellipsis;  
+	text-overflow:hidden;*/
+	white-space:nowrap;
+	line-height:47px;
+}
+.ch_right{
+	position:absolute;
+	left:142px;
+	width:9px;
+	height:15px;
+	line-height:47px;
+	display:none;
+}
+.ch_flag{
+	position:absolute;
+	left:100px;  
+	width: 60px; 
+	height:47px; 
+	line-height:47px;
+}
+.ch_flag img{
+	width:107px;
+	height:74px;
+	margin-top: -14px;
+}
+
+#tv_page_channel_name_list3_flip_point{
+	position:absolute;
+	top:165px;
+/*	left:760px; */
+	left: 770px;
+	width:20px;
+	height:200px;
+}
+#tv_page_channel_name_list3_flip_point .flip_point{
+	width:15px;
+/*	height:15px;  */
+	line-height:28px;
+	display:none;
+}
+
+
+/***  全部频道  end    ***/
+
+/**  清理面板 start **/
+#tv_page_clear_Panel{
+	position:absolute;
+	left:260px;
+	height:386px;
+	width:600px;
+	background-color:#465a8c;
+	z-index: 100;
+	color:#d2dce6;
+	font-size:22px;
+	display:none;
+}
+.panel_title{
+	position:absolute;
+	left:0px;
+	width:100%;
+	height:40px;
+	top:50px;
+	text-align:center;
+	line-height:40px;
+}
+
+.panel_left_ul{
+	position:absolute;
+	width:210px;
+	height:200px;
+	left:35px;
+	top: 100px;
+	list-style-type:none;
+}
+
+.panel_right_ul{
+	position:absolute;
+	width:230px;
+	height:200px;
+	left:345px;
+	top: 100px;
+	list-style-type:none;
+}
+
+#tv_page_clear_Panel li{
+	height:40px;
+	line-height:40px;	
+}
+
+#tv_page_clear_Panel img{
+	margin-left:4px;
+	vertical-align:middle;	
+}
+
+#tv_page_clear_Panel span{
+	width:180px;
+	display:block;
+	float:left;
+}
+
+#panel_enter_but{
+	position:absolute;
+	left:110px;
+	top:311px;
+	width:120px;
+	height:40px;
+	border:#536aa6 solid 3px;
+	border-radius:6px;
+	line-height:40px;
+	text-align:center;
+}
+
+#panel_cancel_but{
+	position:absolute;
+	left:390px;
+	top:311px;
+	width:120px;
+	height:40px;
+	border:#536aa6 solid 3px;
+	border-radius:6px;
+	line-height:40px;
+	text-align:center;
+}
+
+/**  清理面板 end **/
+
+
+
+
+

@@ -1,0 +1,165 @@
+<!--a_searchTip-->
+<div>
+	<div class="box_title">
+		影片搜索
+	</div>
+	<div class="box_txt">
+		提示：支持拼音首字母输入，例子：搜索“水浒”,输入“SH”。
+	</div>
+	<div class="box_input">
+		<input name="" id="search_Input" type="text" class="box_input_focus"/>
+	</div>
+	<div class="box_num_search">
+		<input name="" id="search" type="button" value="搜 索"  onclick="doSearch()" onfocus="this.className='box_num_search_focus'" onblur="this.className='box_num_search_blur'" class="box_num_search_blur"/>
+	</div>
+	<div class="box_letter">
+		<ul>
+			<li>
+				<input id="A" name="" type="button" value="A"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="B" name="" type="button" value="B"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="C" name="" type="button" value="C"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="D" name="" type="button" value="D"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="E" name="" type="button" value="E"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="F" name="" type="button" value="F"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="delete" name="" type="button" value="删除"  onclick="deleteValue()" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<input id="G" name="" type="button" value="G"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="H" name="" type="button" value="H"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="I" name="" type="button" value="I"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="J" name="" type="button" value="J"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="K" name="" type="button" value="K"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="L" name="" type="button" value="L"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="delete_all" name="" type="button" value="清空"  onclick="deleteAll()" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<input id="M" name="" type="button" value="M"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="N" name="" type="button" value="N"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="O" name="" type="button" value="O"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="P" name="" type="button" value="P"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="Q" name="" type="button" value="Q"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="R" name="" type="button" value="R"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="S" name="" type="button" value="S"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<input id="T" name="" type="button" value="T"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="U" name="" type="button" value="U"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="V" name="" type="button" value="V"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="W" name="" type="button" value="W"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="X" name="" type="button" value="X"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="Y" name="" type="button" value="Y"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="Z" name="" type="button" value="Z"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+		</ul>
+	</div>
+	<div class="box_num">
+		<ul>
+			<li>
+				<input id="1" name="" type="button" value="1"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="2" name="" type="button" value="2"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="3" name="" type="button" value="3"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<input id="4" name="" type="button" value="4"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="5" name="" type="button" value="5"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="6" name="" type="button" value="6"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<input id="7" name="" type="button" value="7"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="8" name="" type="button" value="8"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input id="9" name="" type="button" value="9"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<input id="0" name="" type="button" value="0"  onclick="onSearchButton(this.id)" onfocus="this.className='box_num_focus'" onblur="this.className='box_num_blur'" class="box_num_blur"/>
+			</li>
+			<li>
+				<input name="" type="button" value=""  class="box_num_blur" disabled="true"/>
+			</li>
+			<li>
+				<input name="" type="button" value=""  class="box_num_blur"disabled="true"/>
+			</li>
+		</ul>
+	</div>
+	<div class="box_tip_img"><img src="images/search_tip.png" width="64" height="32" />
+	</div>
+	<div class="box_tip">
+		切换输入法
+	</div>
+	<div class="box_back_img"><img src="images/tip_back_point.png" width="64" height="32" />
+	</div>
+	<div class="box_back">
+		返回
+	</div>
+</div>

@@ -1,0 +1,911 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>电视剧详情</title>
+<link type="text/css" rel="stylesheet" href="../skin/css/tipwindow.css" />
+<style>
+    body{margin:0px;padding:0px;font-size:24px; color:#fff}
+    ul,p,h1,h2,h3,h4,h5,h6{margin:0px;padding:0px;}
+    li{list-style:none;list-style-type:none;}
+    img{border:0;}
+    input{outline:none;}
+    a{text-decoration:none; color:#FFF;}
+    .bg{width:1280px;height:720px;background:url(img/detail_bg.jpg) no-repeat;overflow:hidden;}
+    .logo{position:absolute;width:1280px;height:80px;left: 0px;	top: 0px;}
+    .logo div{ float:left; line-height:80px;}
+    .logo img{ margin-left:35px;}
+    .poster{position:absolute;width:230px;height:328px;left: 35px;	top: 102px;}
+    .con_left{position:absolute;width:263px;height:160px;left: 35px;top: 435px;}
+    .con_left li { line-height:30px;}
+    .con_left li span{ font-size:20px;}
+    .con_center{position:absolute;width:754px;height:280px;left: 296px;	top: 102px;}
+    .con_center .information{ width:248px; height:225px;}
+    .con_center .information div{ line-height:36px;}
+    .con_center .actor{position:absolute;width:176px;height:107px;left: 70px;top: 86px;color:#b8babd;font-size:24px;}
+    .con_center .actor li{ float:left; width:88px;}
+    .con_center .demand{position:absolute;top: 194px;width: 248px;}
+    .con_center .recommended{position:absolute;top: 230px;width: 248px;}
+    .con_center .connent{position:absolute;width:500px;height:222px;left: 255px;top:51px;font-size:24px;line-height:36px;overflow:hidden;}
+    .con_center .star{position:absolute;width:117px;height:19px;left: 633px;top: 53px;}
+    .post1,.post2,.post3,.post4{position:absolute;width:170px;height:268px;}
+    .post1 .mask,.post2 .mask,.post3 .mask,.post4 .mask{ margin:-238px 0px 0px 0px;}
+    .post1 .name,.post2 .name,.post3 .name,.post4 .name{margin:-62px 0px 0px 0px; text-align:center; font-size:20px;}
+    .post1 .num,.post2 .num,.post3 .num,.post4 .num{margin:-225px 0px 0px 145px; font-size:20px; }
+    .post1 .commendSign,.post2 .commendSign,.post3 .commendSign,.post4 .commendSign{margin:-235px 0px 0px 100px;}
+    .post1{left: 1082px;top: 124px;}
+    .post2{left: 1082px;top: 377px;}
+    .pakage_bg{position:absolute;width:760px;height:277px;background:url(../skin/images/pakage_bg.png) no-repeat;top:380px;left:293px;}
+    .tvSet{position:absolute;width:757px;height:224px;left: 296px;top: 377px;}
+    .tvSet li{ float:left; width:52px; height:38px; margin:6px 11px; text-align:center; line-height:38px;display:none; color:#333;}
+    .tvSet li.before{background:url(../skin/images/buttenBefore.png) no-repeat;}
+    .tvSet li.after{background:url(../skin/images/buttenAfter.png) no-repeat;}
+    .tvSet li.current{ background:url(../skin/images/buttenCurrent.png) no-repeat;}
+    .listFocus{position:absolute;width:96px;height:63px;left: 293px;top: 382px;background:url(../skin/images/choose_focus.png) no-repeat;display:none;}
+    .butten1,.butten2{position:absolute;width:63px;height:35px;background:url(../skin/images/button_blur1.png) no-repeat;font-size:20px;text-align:center;line-height:33px;}
+    .butten1{left:693px;top: 609px;}
+    .butten2{left:784px;top: 609px;}
+    .pages{position:absolute;width:100px;height:30px;left:866px;top: 613px;font-size:20px;line-height:30px;}
+    .buttonbg{position:absolute;width:525px;height:46px;left:35px;top: 604px; background:url(../skin/images/buttenPakbg.png) no-repeat;}
+    .buttonbg li{ width:131px; line-height:46px; font-size:22px; float:left; text-align:center;}
+    .buttonFocus{position:absolute;width:174px;height:89px;left:16px;top: 583px;background:url(../skin/images/buttonFoucs.png) no-repeat;display:none;}
+    .bottom_div{position:absolute;width:1257px;left:20px;top:80px;height: 636px;}
+    .bottom_box{ float:left;margin:600px 0px 0px 10px;height:22px;font-size:22px;line-height:22px; width:670px;}
+    .bottom_box li{float:left;padding:0px 10px 0px 35px;text-align:center; margin-right:30px;}
+    .bottom_box li.red{background:url(../skin/images/tip_red.png) no-repeat;}
+    .bottom_box li.yellow{background:url(../skin/images/tip_yellow.png) no-repeat;}
+    .bottom_box li.blue{background:url(../skin/images/tip_blue.png) no-repeat;}
+    .bottom_box li.green{background:url(../skin/images/tip_green.png) no-repeat;}
+    .bottom_right_box{margin:585px 10px 0px 0px;height:38px;font-size:22px;line-height:38px; float:left; width:500px; float:right;}
+    .bottom_right_box li{float:right;padding:0px 15px 0px 40px;text-align:center;}
+    .bottom_right_box li.choose{background:url(../skin/images/tip_choose.png) no-repeat; margin-right:12px;}
+    .bottom_right_box li.choose_no_v{background:url(../skin/images/tip_choose.png) no-repeat;}
+    .bottom_right_box li.ok{background:url(../skin/images/tip_ok.png) no-repeat;}
+    .bottom_right_box li.tip_num{ padding-left:10px;}
+    .bottom_right_box .tip_num img{ margin-bottom:-2px;}
+</style>
+<script src="../../../common/js/common_cs_cst.js"></script>
+<script src="../../../common/js/commonAPI.js"></script>
+<script src="../../../common/js/dataMove.js"></script>
+<script src="../../../common/js/showMedia.js"></script>
+<script>
+var listConfig, listObj;
+var listPos = {
+    "initTop": 382,
+    "initLeft": 293,
+    "leftStep": 74,
+    "topStep": 50
+};
+var detailData,recData, recSize = 2;
+var recLength, showSize, buttonFocus = 0;
+var areaTip = 2; // 0：预览/收藏/推荐/返回上级 1：上页/下页 2：子集列表
+var listFocus = 0; // 子集下标
+var listSize = 40;
+var pageFocus = 0; // 0 上页 1 下页
+var generData; // 子集列表数据
+var tryFlag = true;
+var buyFlag = false;
+var curPage = 1, pageSize = listSize, totalPage, totalSize;
+var serviceCode = getQueryStr(location.href, "serviceCode") || "sjdxxzq";
+var columnId = getQueryStr(location.href, "columnId");
+var assetId = getQueryStr(location.href, "assetId");
+var providerId = getQueryStr(location.href, "providerId");
+var saleType = getQueryStr(location.href, "saleType");
+var purchaseServiceId = ""; // 子集在线订购使用
+var collectFlag = false; //是否收藏 默认false
+Object.extend(MultiMove, List);
+
+window.onload = function() {
+    if(getGlobalVar("isBack") == "Y"){
+        listFocus = getGlobalVar("listFocus" + columnId) != "" ? parseInt(getGlobalVar("listFocus" + columnId)) : 0;
+        curPage = getGlobalVar("curPage" + columnId) != "" ? parseInt(getGlobalVar("curPage" + columnId)) : 1;
+        buttonFocus = getGlobalVar("buttonFocus" + columnId) != "" ? parseInt(getGlobalVar("buttonFocus" + columnId)) : 1;
+        areaTip =  getGlobalVar("areaTip" + columnId) != "" ? parseInt(getGlobalVar("areaTip" + columnId)) : 2;
+        pageFocus = getGlobalVar("pageFocus" + columnId) != "" ? parseInt(getGlobalVar("pageFocus" + columnId)) : 0;
+        setGlobalVar("isBack","");
+    }
+    setGlobalVar("reportVodPackageJson","");
+    AppManager.invoke("TVRating", "addAction", "{\"action\":\"page\",\"data\":[\"E1\",\""+serviceCode+"\",\"E2\",\"pakg_detail\",\"E3\",\""+columnId+"\",\"E4\",\"1\",\"D1\",\"0000\",\"D2\",\""+encodeURI("电视剧详情")+"\",\"D3\",\""+curPage+"\",\"T\",\"P\"]}");
+    listConfig = {
+        "focusId": "newListFocusId",
+        "focusIndex": listFocus,
+        "size": listSize,
+        "iterator": showList,
+        "onFocus": onListFocus,
+        "onBlur": onListBlur,
+        "isLoop": true,
+        "isSplitPage": true,
+        "isMultSplit": true,
+        "splitNum": 10,
+        "updateData": reGetData,
+        "focusLeft": listPos.initLeft,
+        "focusTop": listPos.initTop,
+        "focusLeftStep": listPos.leftStep,
+        "focusStep": listPos.topStep
+    }
+    listObj = New(MultiMove, listConfig);
+    getData.detail({
+        "columnId": columnId,
+        "assetId": assetId,
+        "providerId": providerId,
+        "callBack": function(_dataJson) {
+            detailData = _dataJson.selectableItem;
+            validate();//页面鉴权 显示是否订购和判断能否播放
+            showRec(); // 展示推荐媒资
+            getGenerList(); // 展示子集列表
+        }
+    });
+}
+function validate(){
+    getDataWmj.validatePlayEligibility({
+        "columnId":columnId,
+        "callBack": function(_dataJson){
+            if(_dataJson.orderFlag == "Y"){
+                hasBuy = "Y";
+            }
+            showDetail(); // 展示媒资包详情
+        }
+    });
+}
+/****************************************电视剧下一集开始**************************************************/
+var nextListFocus; // 下一集播放媒资的焦点
+var nextCurPage; // 下一个子集所在的页码
+var nextGenerData; // 下一个子集所在页码的所有子集列表
+var iCountdown = 10;
+var countdownTimer;
+function checkNextMedia(){
+    var isPlayOver = getGlobalVar("vod_play_over");// Y 子集影片正常播完
+    if(!isPlayOver || getGlobalVar("prePlayFlag") == "Y"){ // 预览不用自动播放
+        return;
+    }
+    setGlobalVar("vod_play_over", ""); // 一定要置空
+    if((curPage - 1) * pageSize + listFocus + 2 > totalSize){ // 不存在下一个子集
+        //showMsgWmj("", '您好！整部已播放完毕。');
+    } else {
+        if(listFocus == pageSize - 1){ //需要翻页
+            nextListFocus = 0;
+            nextCurPage = curPage + 1;
+            getDataWmj.getChildAssetList({ // 为了获取下一个子集的名字
+                "assetId": assetId,
+                "providerId": providerId,
+                "curPage": nextCurPage,
+                "pageSize": pageSize,
+                "callBack": function(_dataJson) {
+                    nextGenerData = _dataJson.selectableItemList;
+                    showNextAssetTip();
+                }
+            });
+        } else {
+            nextListFocus = listFocus + 1;
+            nextCurPage = curPage;
+            nextGenerData = generData;
+            showNextAssetTip();
+        }
+    }
+}
+function QuitCountDown() {
+    iCountdown--;
+    var obj = $("countdown");
+    if (obj != null){
+        obj.innerText = iCountdown;
+    }
+    if (iCountdown <= 0) {
+        clearInterval(countdownTimer);
+        closeTip();
+    }
+}
+function showNextAssetTip(){
+    var nextAssetName = nextGenerData[nextListFocus].titleFull;
+    var tipMsg = "您好！当前节目已播放完毕，请您确认是否继续观看下一节目《" + nextAssetName + "》?"+
+        "( <span id='countdown'>" + iCountdown + "</span>s )";
+    countdownTimer = setInterval("QuitCountDown()", 1000);
+    showMsgWmj("a_playNext.htm", tipMsg);
+}
+function playNext() { // 观看下一集
+    doPlayAction("nextPlay");
+}
+/****************************************电视剧下一集结束**************************************************/
+function closeTip() {//关闭提示信息
+    clearInterval(closeTimer);
+    closeCount = 0;
+    var tipDiv = $(tipDivId);
+    var tipWindow = $(messInfoId);
+    if(tipWindow) {
+        tipDiv.style.visibility = "hidden";
+        tipWindow.innerHTML = "";
+    }
+    tipFlag = false;
+    mediaTipFlag = false;
+    searchTipFlag = false;
+    enabledAll();
+}
+function getGenerList() {
+    getDataWmj.getChildAssetList({
+        "assetId": assetId,
+        "providerId": providerId,
+        "curPage": curPage,
+        "pageSize": pageSize,
+        "callBack": function(_dataJson) {
+            generData = _dataJson.selectableItemList;
+            totalSize = parseInt(_dataJson.totalResults);
+            totalPage = totalSize % pageSize == 0 ? parseInt(totalSize / pageSize) : parseInt(totalSize / pageSize) + 1;
+            listObj.initListData(generData, curPage, totalPage);
+            listObj.setPageInfo("pageInfo");
+            if(listObj.data.length == 0 || areaTip == 0){ // 子集为空或者本身焦点就在四个按钮上
+                areaTip = 0;
+                $("buttonFocus").style.display = "block";
+                $("buttonFocus").style.left = (145 + 131 * (buttonFocus - 1)) + "px";
+            } else if (areaTip == 1){ // 焦点在上下页上
+                pageButtonFocus(pageFocus);
+            } else { // 焦点默认在子集列表上  areaTip == 2
+                listObj.initFocus();
+            }
+            checkNextMedia(); // 提示是否自动播放下一集
+            if(totalSize > 0){
+                showFirstChildAssetPrice();
+                $("mediaSize").innerHTML = totalSize + "集";
+            }
+        }
+    });
+}
+function showDetail() {
+    if(hasBuy == "Y"){ // 已订购
+        buyFlag = true;
+        $("price").innerHTML="已订购";
+    } else {
+        buyFlag = false;
+        if(detailData.chargeMode == "1"){ // 包月
+            var show = "未订购";
+            $("price").innerHTML = show;
+        }
+    }
+    if(buyFlag){ //如果已订购，没有预览按钮
+        $("button_0").style.color = "#666";
+        tryFlag = false;
+    }
+    var columnPath = detailData.columnPath; // 展示媒资包所在栏目
+    if(columnPath.indexOf("/") != -1){
+        var showList = columnPath.split("/");
+        $("menuParentTitle").innerHTML = showList[showList.length - 2];
+        $("menuTitle").innerHTML = showList[showList.length - 1];
+    }else{
+        $("menuTitle").innerHTML = detailData.folderName;
+    }
+    $("posterPic").src = getPoster(detailData.imageList, 230, 328);
+    $("area").innerHTML = subText(detailData.originName,12,0);
+    $("startTime").innerHTML = detailData.publishDate || ""; // 天津使用publishData作为上线日期，下线日期不设置
+    $("assertName").innerHTML=subText(detailData.titleFull,24,1);//1013超长标题滚动
+    $("director").innerHTML=subText(detailData.director[0].name,12,0);
+    $("actor").innerHTML=subText(detailData.actorsDisplay,40,0);
+    var pCount = detailData.favorRating ==""? 0:detailData.favorRating;
+    if(pCount){
+        $("playCount").innerHTML = 50 + parseInt(pCount)*3;
+    }
+    $("userRecmLevel").innerHTML = detailData.recommandTimes;
+    $("summaryShort").innerHTML = subText(detailData.summarMedium,216,0);
+    var recommendLevel = detailData.recommendLevel || "0";
+    $("recmStar").src = "../"+skinImgUrl + "star_" +  parseInt(recommendLevel) + ".png";
+}
+function convertTime(time){
+    var newTime = time.substr(0,4) + "-" + time.substr(4,2) + "-" + time.substr(6,2);
+    return newTime;
+}
+function showRec() {
+    getData.recList({
+        "assetId": detailData.assetId,
+        "listPageSize":2,
+        "callBack": function(_dataJson) {
+            recData = _dataJson.selectableItem;
+            recLength = recData.length;
+            showSize = Math.min(recLength, recSize);
+            for (i = 0; i < recSize; i++) {
+                if (i < showSize) {
+                    $("recName_" + i).innerHTML = subText(recData[i].titleFull,10,0);
+                    $("recPic_" + i).src = getPoster(recData[i].imageList, 166, 238);
+                } else {
+                    $("munID_"+ i).innerHTML="";
+                    $("recName_" + i).innerHTML = "";
+                    $("recPic_" + i).src = defaultPic;
+                }
+            }
+        }
+    });
+}
+getData.recList = function(_config) {
+    var assetId =  _config.assetId || "";
+    var listPageSize = _config.listPageSize || 2;
+    var columnId = "MANU6616830";
+    var VOD_getAssociatedAsset = {//关联媒资
+        "data":"<GetAssociatedFolderContents  mergeTV=\"1\"  folderAssetId=\"" + columnId + "\" quickId=\"" +assetId + "\" targetLabel=\"A" + "\" startAt=\"1"  + "\" maxItems=\"" +listPageSize + "\" associatedType=\"2" + "\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId +"\"/>",
+        "callBack" : _config.callBack
+    };
+    IEPG.getData(URL.VOD_getAssociatedAsset, VOD_getAssociatedAsset);
+}
+function resetObjStyle() {
+    $(listObj.focusId).style.top = listPos.initTop + "px";
+    $(listObj.focusId).style.left = listPos.initLeft + "px";
+}
+function moveRight() {
+    if(tipFlag){return;}
+    if (areaTip == 0) { // 预览/收藏/推荐/返回上级
+        if (buttonFocus == 3) {
+            $("buttonFocus").style.display = "none";
+            pageButtonFocus(0); // 上页获焦
+            areaTip = 1;
+        } else {
+            moveButton(1);
+        }
+    } else if (areaTip == 1) { // 上下页
+        if (pageFocus == 1) {
+            pageButtonFocus(0);
+        } else {
+            pageButtonFocus(1);
+        }
+    } else if (areaTip == 2) { // 子集框
+        listObj.moveList(1);
+    }
+}
+function moveLeft() {
+    if(tipFlag){return;}
+    if (areaTip == 0) { // 预览/收藏/推荐/返回上级
+        moveButton(-1);
+    } else if (areaTip == 1) { // 上下页
+        if (pageFocus == 0) {
+            changebuttonBg("button_blur");
+            areaTip = 0;
+            buttonFocus = 3; // 上页 -> 返回上级
+            $("buttonFocus").style.display = "block";
+            $("buttonFocus").style.left = (145 + 131 * (buttonFocus - 1)) + "px";
+        } else if (pageFocus == 1) {
+            pageButtonFocus(0);
+        }
+    } else if (areaTip == 2) { // 子集框
+        listObj.moveList( - 1);
+    }
+}
+function moveUp() {
+    if(tipFlag){return;}
+    if (areaTip != 2 && listObj.data.length > 0 ) {
+        $("buttonFocus").style.display = "none";
+        changebuttonBg("button_blur");
+        areaTip = 2;
+        listObj.showFocus();
+        listObj.setFocus();
+    } else if (areaTip == 2) { //剧集区
+        listObj.multiSplit( - 1);
+    }
+}
+function moveDown() {
+    if (areaTip == 2){
+        if (listObj.curCol == Math.ceil(listObj.data.length / 10)) {
+            if(!tryFlag && buttonFocus == 0){ // 无预览功能
+                buttonFocus = 1;
+            }
+            listObj.hideFocus();
+            listObj.setBlur();
+            areaTip = 0;
+            $("buttonFocus").style.display = "block";
+            $("buttonFocus").style.left = (145 + 131 * (buttonFocus - 1)) + "px";
+        } else {
+            listObj.multiSplit(1);
+        }
+    }
+}
+function moveButton(offset){ // 四个按钮焦点左右移动
+    if(tipFlag){return;}
+    buttonFocus += offset;
+    if (!tryFlag) {
+        if (buttonFocus == 0) {
+            buttonFocus = 1;
+        }
+    }
+    if (buttonFocus < 0) {
+        buttonFocus = 0;
+    } else if (buttonFocus >= 3 && offset > 0) {
+        buttonFocus = 3;
+    }
+    $("buttonFocus").style.left = (145 + 131 * (buttonFocus - 1)) + "px";
+}
+function reGetData(_curPage) {
+    if (_curPage <= 0) {
+        curPage = 1;
+    } else {
+        curPage = _curPage;
+    }
+    getGenerList();
+}
+function showList(_data, _focusIndex) {
+    if (_data) {
+        if(!_data.playFlag){
+            _data.playFlag = "0";
+        }
+        initStatus(_data.playFlag,_focusIndex);
+        $("media" + _focusIndex).style.display = "block";
+        $("media" + _focusIndex).style.color  = "#000";
+        $("media" + _focusIndex).innerHTML = (curPage-1)*pageSize+_focusIndex+1;//_data.ordinal;
+    } else {
+        $("media" + _focusIndex).style.display = "none";
+        $("media" + _focusIndex).innerHTML = '';
+    }
+}
+function initStatus(flag,focusIndex){
+    if(flag =="0"){
+        $("media" + focusIndex).className = "after";
+    }else if(flag =="1"){
+        $("media" + focusIndex).className = "before";
+    }else if(flag =="2"){
+        $("media" + focusIndex).className = "current";
+    }
+}
+function onListFocus(_focusIndex) {
+    var _data = generData[_focusIndex];
+    listFocus = _focusIndex;
+    if(detailData.saleType == "1"){
+        if(_data.buyFlag == "true"){
+            $("disableTime").innerHTML = "有效期至";
+            $("bugStatus").innerHTML = "已订购";
+        }else{
+            $("disableTime").innerHTML = "下线时间";
+            $("bugStatus").innerHTML = "未订购";
+        }
+    }
+    $("media" + _focusIndex).className = "";
+    $("media" + _focusIndex).style.color  = "#FFF";
+}
+function onListBlur(_focusIndex) {
+    var _data = generData[_focusIndex];
+    initStatus(_data.playFlag,_focusIndex);
+    $("media" + _focusIndex).style.color  = "#000";
+}
+function changebuttonBg(imgPre) {
+    var buttonImg = "../" + skinImgUrl + imgPre + "1.png";
+    changeBg("pageButton_" + pageFocus, buttonImg);
+}
+function pageButtonFocus(pf){ // pf 0 上页 1 下页
+    changebuttonBg("button_blur");
+    pageFocus = pf;
+    changebuttonBg("button_focus");
+}
+function doConfirm() {
+    if (areaTip == 0) { // 焦点在预览、收藏、推荐、返回上级
+        switch (buttonFocus) {
+            case 0:
+                //预览
+                doPrePlay();
+                break;
+            case 1: //收藏
+                if (detailData.hasCollect == 1 || collectFlag == true) {
+                    showMsgWmj("", "对不起，您已经收藏了本节目！");
+                }
+                else {
+                    getData.collectList({
+                        "columnId": columnId,
+                        "assetId": assetId,
+                        "callBack": function (_dataJson) {
+                            if (_dataJson.bookmarkedId == "0") {
+                                collectFlag = true;
+                                var message = '您好！节目《"' + detailData.titleFull + '"》已经放入[我的点播>点播节目收藏]。';
+                                showMsgWmj("", message);
+                            } else if (_dataJson.code) { // 存在错误码
+                                showMsgWmj("", "收藏失败，" + _dataJson.message);
+                            } else {
+                                showMsgWmj("", "收藏失败，系统异常！");
+                            }
+                        }
+                    });
+                }
+                break;
+            case 2: //推荐
+                getData.recommendProgram({
+                    "assetId" : assetId,
+                    "providerId" : providerId || detailData.providerId,
+                    "callBack" : function(_dataJson) {
+                        if(_dataJson.recommandTimes){
+                            showMsgWmj("","推荐成功，此节目已被推荐" + _dataJson.recommandTimes + "次！");
+                        } else if(_dataJson.code){ // 存在错误码
+                            showMsgWmj("","推荐失败，" + _dataJson.message);
+                        } else {
+                            showMsgWmj("","推荐失败！");
+                        }
+                    }
+                });
+                break;
+            case 3:
+                //返回
+                doEvent.back();
+                break;
+        }
+    }else if(areaTip == 2){	 // 焦点在子集列表上
+        doPlay();
+    }else if(areaTip == 1){ // 焦点在上页、下页
+        if (pageFocus == 0) {
+            turnPage(-1);
+        } else if (pageFocus == 1) {
+            turnPage(1);
+        }
+    }
+}
+function createBreakTime(second){
+    var s = parseInt(second);
+    var h = s / 3600 > 0 ? parseInt(s / 3600) : 0;
+    s -= h * 3600;
+    var m = s / 60 > 0 ? parseInt(s / 60) : 0;
+    s -= m * 60;
+    var time = "";
+    if(h > 0){
+        time += h + "小时";
+    }
+    if(m > 0){
+        time += m + "分钟";
+    }
+    if(s > 0){
+        time += s + "秒";
+    }
+    return time;
+}
+function doBreakPlay(){ // 弹出框 a_playBreakWmj.htm 使用：点击播放时若发现子集存在书签，会提示是否进行续看
+    doPlayAction("breakPlay");
+}
+function doTipPlay(){ // 弹出框 a_playBreakWmj.htm 使用：如果不选择续看，可以选择重新播放
+    doPlayAction("tipPlay");
+}
+function doPrePlay(){ // 预览第一集子集
+    doPlayAction("prePlay");
+}
+function doPlay(){ // 点击子集直接播放
+    doPlayAction("play");
+}
+function doPlayAction(type){ // 子集播放：play 播放下一集：nextPlay 子集预览：prePlay 子集续看：breakPlay 弹出框点播：tipPlay
+    var childAssetId;
+    var childProviderId;
+    if(type == "prePlay"){ // 预览，播放第一集
+        childAssetId = generData[0].assetId;
+        childProviderId = generData[0].providerId;
+    } else if(type == "nextPlay"){ // 播放下一集，不用再走断点续播（书签）
+        childAssetId = nextGenerData[nextListFocus].assetId;
+        childProviderId = nextGenerData[nextListFocus].providerId;
+    } else { // 正常播放，需要判断是否有书签
+        childAssetId = generData[listFocus].assetId;
+        childProviderId = generData[listFocus].providerId;
+    }
+    var usage = "Start";
+    if(type == "breakPlay"){
+        usage = "Resume";
+    }
+    if(hasBuy == "Y" || type == "prePlay"){
+                setGlobalVar("videoPlayType","1"); //播放类型，1:VOD点播 2:直播  3:回看
+                setGlobalVar("assetId", childAssetId);
+                setGlobalVar("providerId", childProviderId);
+                setGlobalVar("vod_ctrl_rtsp","");
+                getData.detail({ // 为了获取子集断点时间
+                    "assetId": childAssetId,
+                    "providerId": childProviderId,
+                    "callBack": function(_dataJson){
+                        var breakTime = _dataJson.selectableItem.rentaInfo.resumePoint;
+                        setGlobalVar("displayName", encodeURIComponent(_dataJson.selectableItem.titleFull));
+                        if(breakTime > 0 && type == "play"){
+                            var msg = "您好！[续看]功能记录了您上次在观看《"+ _dataJson.selectableItem.titleFull +"》时在节目进行到"
+                                + createBreakTime(breakTime) +"处中止了节目播放，请您选择是否从上次中止时间继续观看。";
+                            showMsgWmj("a_playBreakWmj.htm", msg);
+                        } else {
+                            if(type == "prePlay"){
+                                setGlobalVar("prePlayFlag", "Y");
+                                var isPreview  = "Y";
+                            } else {
+                                setGlobalVar("prePlayFlag", "N");
+                                var isPreview = "N";
+                            }
+                            getDataWmj.selectionStart({
+                                "isPreview": isPreview,
+                                "folderAssetId":columnId,
+                                "assetId": childAssetId,
+                                "providerId": childProviderId,
+                                "callBack": function(_dataJson){
+                                    if(_dataJson.rtsp && _dataJson.purchaseToken){
+                                        setGlobalVar("purchaseToken", _dataJson.purchaseToken);
+                                        setGlobalVar("vod_ctrl_rtsp", encodeURIComponent(_dataJson.rtsp));
+                                        getDataWmj.getPlayList({
+                                            "purchaseToken": _dataJson.purchaseToken,
+                                            "usage": usage,
+                                            "callBack": function (_dataJson) {
+                                                if(type == "nextPlay"){ // 播放下一集，需要重新设置子集焦点
+                                                    listFocus = nextListFocus;
+                                                    curPage = nextCurPage;
+                                                }
+												setAdGlobalVars(_dataJson.contentRefList);
+                                                saveGlobalVar();
+                                                setGlobalVar("reportVodPackageJson",getVodPakgJson());
+                                                setGlobalVar("vod_ctrl_backurl", location.href);
+                                                if(type == "breakPlay"){
+                                                    location.href = epgUrl + vodPath + "?breakTime=" + breakTime;
+                                                } else {
+                                                    location.href = epgUrl + vodPath;
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        showMsgWmj("","没有拿到播放串！");
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            } else {
+                getData.detail({ // 为了获取子集关联的媒资
+                    "assetId": childAssetId,
+                    "providerId": childProviderId,
+                    "callBack": function(_dataJson){
+                        var serviceId = _dataJson.selectableItem.serviceId || "";
+                        var assetName = _dataJson.selectableItem.titleFull;
+                        var playTime = convertSecondToMinute(_dataJson.selectableItem.displayRunTime);
+                        getDataWmj.getProductPrice({
+                            "serviceId": serviceId,
+                            "callBack": function(_dataJson){
+                                if(_dataJson.chargeTermUnit == "3"){ // 包月
+                                    showMsgWmj("a_buyPackTip.htm","",{
+                                        "assetName":  assetName,
+                                        "productName": _dataJson.title,
+                                        "productPrice": _dataJson.displayPrice
+                                    });
+                                } else if(_dataJson.chargeTermUnit == "1"){ // 单片按次
+                                    purchaseServiceId = serviceId;
+                                    showMsgWmj("a_buyTip.htm","",{
+                                        "assetName": assetName,
+                                        "playTime": playTime,
+                                        "price": _dataJson.displayPrice,
+                                        "effectTime": _dataJson.chargeTerm
+                                    });
+                                } else {
+                                    showMsgWmj("","您没有观看权限！");
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        }
+function showFirstChildAssetPrice(){ // 拿到第一集子集的按次产品价格（子集只能关联按次）
+    getData.detail({
+        "assetId": generData[0].assetId,
+        "providerId": generData[0].providerId,
+        "callBack": function(_dataJson){
+            var serviceId = _dataJson.selectableItem.serviceId || "";
+            getDataWmj.getProductPrice({
+                "serviceId": serviceId,
+                "callBack": function(_dataJson){
+                    if(_dataJson.chargeTermUnit == "1"){ // 单片按次
+                        $("price").innerHTML = parseFloat(_dataJson.displayPrice) + "元/集/次·未订购";
+                    }
+                }
+            });
+        }
+    });
+}
+function purchaseAsset(){ // 购买媒资子集（单片）
+    getDataWmj.purchase({
+        "assetId": generData[listFocus].assetId,
+        "buyMode": "2",
+        "callBack": function (_dataType) {
+            if(_dataType.code == "0"){
+                showMsgWmj("","订购成功！");
+            } else {
+                if(_dataType.message == ""){
+                    var message = "订购失败" + "，错误码为【" + _dataType.code + "】";
+                } else {
+                    var message = _dataType.message + "，错误码为【" + _dataType.code + "】";
+                }
+                showMsgWmj("", message);
+            }
+        }
+    });
+}
+function convertSecondToMinute(second){
+    var s = parseInt(second) || 0;
+    return parseInt(s / 60 + 1);
+}
+function turnPage(offset) {
+    if(totalPage > 1) {
+        listObj.turnPage(offset);
+        listObj.focusIndex = 0;
+    }
+}
+function turnPrevPage(){ //子集列表上一页
+    if(areaTip == 2){
+        turnPage(-1);
+    }
+}
+function turnNextPage(){ //子集列表下一页
+    if(areaTip == 2){
+        turnPage(1);
+    }
+}
+function doGreenKey() { //操作帮助
+    saveGlobalVar();
+    globalPath.setUrl();
+    location.href = epgUrl+"template/1NHD_blue/help.htm?helpFlag=pd";
+}
+function doYellowKey() { //套餐订购
+    if(saleType=="2"){
+        saveGlobalVar();
+        globalPath.setUrl();
+        goTo.orderList();
+    }
+}
+function doBlueKey() { //我的空间
+    saveGlobalVar();
+    globalPath.setUrl();
+    location.href = epgUrl+"template/1NHD_blue/myZone.htm";
+}
+function doRedKey() { //排行榜
+    saveGlobalVar();
+    globalPath.setUrl();
+    location.href = epgUrl+"template/1NHD_blue/top.htm?columnId=1";
+}
+function doNumberKey() { //数字键
+    if(showSize > 0){ // showSize 推荐媒资的实际个数
+        keycode = keycode - 49 >= 0 ? keycode - 49 : -1;
+        if(showSize - 1 < keycode||keycode<0){
+            return;
+        } else {
+            saveGlobalVar();
+            globalPath.setUrl();
+            var columnId = recData[keycode].folderAssetId;
+            var assetId = recData[keycode].assetId;
+            var providerId = recData[keycode].providerId;
+            var isPack = recData[keycode].isPackage; //是否资源包标识，1-是，0-否
+            goTo.detail(columnId,assetId,providerId,isPack);
+        }
+    }
+}
+function saveGlobalVar() {
+    setGlobalVar("listFocus" + columnId, listFocus);
+    setGlobalVar("areaTip" + columnId, areaTip);
+    setGlobalVar("curPage" + columnId, curPage);
+    setGlobalVar("buttonFocus" + columnId, buttonFocus);
+    setGlobalVar("pageFocus" + columnId, pageFocus);
+}
+function clearGlobalVar() {
+    setGlobalVar("listFocus" + columnId, "");
+    setGlobalVar("areaTip" + columnId, "");
+    setGlobalVar("curPage" + columnId, "");
+    setGlobalVar("buttonFocus" + columnId, "");
+    setGlobalVar("pageFocus" + columnId, "");
+}
+function getVodPakgJson() {
+    var eId = 11004;
+    var videoId = generData[listFocus].assetId+","+generData[listFocus].providerId;
+    var rName = generData[listFocus].titleFull;
+    var coId = detailData.folderAssetId;
+    var coName = detailData.columnPath;
+    var videoDuration = generData[listFocus].displayRunTime;
+    if (videoDuration !=""){
+        videoDuration = videoDuration.substring(0,videoDuration.length-1);
+    }
+    var eStatus = "1";
+    var uuid = getUUid();
+    var productCode = detailData.serviceId;
+    var pVideoId = detailData.assetId;
+    var videoIndex = (curPage-1)*pageSize+listFocus+1;
+    var packageJson ="{\"eType\":\"play\",\"eId\":"+eId+",\"tId\":\""+tId+"\",\"tType\":\"0\",\"tProtocol\":\"0\",\"login\":\"B\",\"uc\":\""+uc+"\",\"tModel\":\""+tModel+"\",\"videoId\":\""+videoId+"\",\"rName\":\""+rName+"\",\"coId\":\""+coId+"\",\"coName\":\""+coName+"\",\"videoDuration\":"+videoDuration+",\"rFlag\":\"2\",\"pVideoId\":\""+pVideoId+"\",\"videoIndex\":\""+videoIndex+"\",\"eStatus\":\""+eStatus+"\",\"uuid\":\""+uuid+"\",\"productCode\":\""+productCode+"\"}";
+    return packageJson;
+}
+</script>
+</head>
+<body>
+<div class="bg">
+    <div class="logo"><div><img src="../skin/images/logo1.png" style="margin-top:18px;"/></div>
+        <div><span style="font-size:32px;" id="menuParentTitle">高清点播</span><span style="font-size:32px;">></span><span id="menuTitle"></span></div></div>
+    <div class="poster"><img src="" width="230" height="328" id="posterPic" class="imgborder" /></div>
+    <ul class="con_left" style="overflow:hidden;">
+        <li><span>产　　地</span>：<span id="area"></span></li>
+        <li><span>上线日期</span>：<span id="startTime"></span></li>
+        <li><span>全　　集</span>：<span id="mediaSize"></span></li>
+        <li><span id="disableTime">下线时间</span>：</li>
+        <li><span>价格</span>：<span id="price"></span></li>
+    </ul>
+    <div class="con_center">
+        <div style="font-size:40px; height:50px; line-height:50px;" id="assertName"></div>
+        <div class="information">
+            <div class="director">导演：<span style="color:#b8babd; font-size:24px;" id="director"></span></div>
+            <div>主演：
+                <ul class="actor" id="actor" style="overflow:hidden; line-height:36px;">
+                </ul>
+            </div>
+            <div class="demand">点播人气：<span style="color:#b8babd;" id="playCount"></span></div>
+            <div class="recommended">推荐人气：<span style="color:#b8babd;"id="userRecmLevel"></span></div>
+        </div>
+        <div class="connent">
+            <div>内容简介：</div>
+            <div style="color:#b8babd; font-size:22px;" id="summaryShort"></div>
+        </div>
+        <div class="star"><img src="" width="117" height="19" id="recmStar"/></div>
+    </div>
+    <!--海报-->
+    <div class="post1" id="recDiv_0"><img src="" width="166" height="238" id="recPic_0" class="imgborder"/><img src="../skin/images/mask.png" width="170" height="268" class="mask"/><div class="name" id="recName_0"></div><div class="num" id="munID_0">1</div></div>
+    <div class="post2" id="recDiv_1"><img src="" width="166" height="238"  id="recPic_1" class="imgborder"/><img src="../skin/images/mask.png" width="170" height="268" class="mask"/><div class="name" id="recName_1"></div><div class="num" id="munID_1">2</div></div>
+    <!--按钮-->
+    <div class="pakage_bg" ></div>
+    <div class="tvSet">
+        <ul style="margin:12px 0px 0px 8px;" id="generId">
+            <li class="before" id="media0"></li>
+            <li class="before" id="media1"></li>
+            <li class="before" id="media2"></li>
+            <li class="before" id="media3"></li>
+            <li class="before" id="media4"></li>
+            <li class="before" id="media5"></li>
+            <li class="before" id="media6"></li>
+            <li class="before" id="media7"></li>
+            <li class="before" id="media8"></li>
+            <li class="before" id="media9"></li>
+            <li class="before" id="media10"></li>
+            <li class="before" id="media11"></li>
+            <li class="before" id="media12"></li>
+            <li class="before" id="media13"></li>
+            <li class="before" id="media14"></li>
+            <li class="before" id="media15"></li>
+            <li class="before" id="media16"></li>
+            <li class="before" id="media17"></li>
+            <li class="before" id="media18"></li>
+            <li class="before" id="media19"></li>
+            <li class="before" id="media20"></li>
+            <li class="before" id="media21"></li>
+            <li class="before" id="media22"></li>
+            <li class="before" id="media23"></li>
+            <li class="before" id="media24"></li>
+            <li class="before" id="media25"></li>
+            <li class="before" id="media26"></li>
+            <li class="before" id="media27"></li>
+            <li class="before" id="media28"></li>
+            <li class="before" id="media29"></li>
+            <li class="before" id="media30"></li>
+            <li class="before" id="media31"></li>
+            <li class="before" id="media32"></li>
+            <li class="before" id="media33"></li>
+            <li class="before" id="media34"></li>
+            <li class="before" id="media35"></li>
+            <li class="before" id="media36"></li>
+            <li class="before" id="media37"></li>
+            <li class="before" id="media38"></li>
+            <li class="before" id="media39"></li>
+        </ul>
+    </div>
+    <!--获焦焦点--><div class="listFocus" id="newListFocusId"></div>
+</div>
+<div class="butten1" id="pageButton_0">上页</div>
+<div class="butten2" id="pageButton_1">下页</div>
+<div class="pages" id="pageInfo">第1/1页</div>
+<div class="buttonbg">
+    <li id="button_0">预览</li>
+    <li id="button_1">收藏</li>
+    <li id="button_2">推荐</li>
+    <li id="button_3">返回上级</li>
+</div>
+<div class="buttonFocus" id="buttonFocus"></div>
+<!--色键，提示键-->
+<div class="bottom_div">
+    <div class="bottom_box">
+        <ul>
+            <li class="red">排行榜</li>
+            <li class="green">操作帮助</li>
+            <li class="yellow" id="yellow">套餐订购</li>
+            <li class="blue">我的点播</li>
+        </ul>
+    </div>
+    <div class="bottom_right_box">
+        <ul>
+            <li class="tip_num">按<img src="../skin/images/numKey2.png" width="30" height="16" />数字键直接进入 </li>
+            <li class="ok">进入</li>
+            <li class="choose">选择</li>
+        </ul>
+    </div>
+</div>
+<!-- 弹出框start -->
+<div id="tip_visibility" class="tip_visibility">
+    <!-- ajax请求数据层 -->
+    <div class="tip_window" id="tip_window">
+    </div>
+</div>
+<!-- 弹出框end -->
+</body>
+</html>

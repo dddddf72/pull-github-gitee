@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>打开网址</title>
+<script>
+function backToMain(){
+	window.location.href = "index.html";
+}
+
+function openURL(n){
+    var url = document.getElementById('url'+n).value;
+    if(url!=""){
+        window.location.href = url;
+    }
+}
+
+document.onkeypress = function(event){
+	var val = event.which | event.keyCode;
+	switch(val){
+		case 8:
+			backToMain();
+			return 0;
+			break;
+	}
+}
+
+function getFavorite(){
+    var favorite = SysSetting.getEnv("favorite");
+	if(typeof(lastTV)=="undefined" || lastTV==""){
+		
+	}
+	else{
+		document.getElementById("fav0").value = favorite;
+	}
+}
+
+function setFavorite(){
+	var text = document.getElementById("fav0").value;
+	if(typeof(text)!="undefined"||text!=null||text!=""){
+		SysSetting.setEnv("favorite", text)
+		var WKUrl = text + "rukou2.html";
+		System.addWKUrl(WKUrl);
+		WKUrl = text + "rukou2.html";
+		System.addWKUrl(WKUrl);
+		document.getElementById("fav_rst").innerHTML = "<font color='green'>已收藏!</font>";
+	}
+	else{
+		document.getElementById("fav_rst").innerHTML = "<font color='red'>收藏失败!</font>";
+	}
+}
+
+function doDHCP()
+{
+	var eth0 = Network.ethernets[0];
+	eth0.DHCPEnable = 1;
+}
+
+function openPortal()
+{
+	var portalIP = DataAccess.getInfo("VodApp", "PortalAddress");
+	var portalPort = DataAccess.getInfo("VodApp", "PortalPort");
+	var portalPath = "http://" + portalIP + ":" + portalPort;
+	window.location.href = portalPath + "/index.html";
+}
+document.onsystemevent = function()
+{
+	var keyCode = event.which;	
+	
+	switch(keyCode)
+	{
+	case 10508:
+	DVB.dvbGetChannels();
+	break;	
+	}
+}
+
+window.onload = initPage;
+
+function initPage(){
+	getFavorite();
+}
+</script>
+</head>
+
+<body leftmargin="50" topmargin="50">
+<h1><a href="html/system_set_network.html">IP设置</a></h1>
+<h1>打开网址</h1>
+<input id="url4" type="text" value="http://127.0.0.1" style="width:300px; font-size:28px" /> <input type="button" value="打开" style="font-size:32px" onclick="openURL(4);" /> <br>
+<input id="url0" type="text" value="http://172.30.56.201" style="width:300px; font-size:28px" /> <input type="button" value="打开" style="font-size:32px" onclick="openURL(0);" /> <br>
+<input id="url1" type="text" value="http://10.10.30.209" style="width:300px; font-size:28px" /> <input type="button" value="打开" style="font-size:32px" onclick="openURL(1);" /> <br>
+<input id="url2" type="text" value="http://192.168.1.1" style="width:300px; font-size:28px" /> <input type="button" value="打开" style="font-size:32px" onclick="openURL(2);"/>
+<input id="url3" type="text" value="http://10.0.2.1" style="width:300px; font-size:28px" /> <input type="button" value="打开" style="font-size:32px" onclick="openURL(3);"/>
+
+<br>
+<input type="button" value="返回主页" style="font-size:32px" onclick="backToMain()" />
+<hr>
+<input id="fav0" type="text" value="http://172.30.56.201" style="width:300px; font-size:28px" /> <input type="button" value="收藏" style="font-size:32px" onclick="setFavorite();" /> <span id="fav_rst"></span><br>
+<input type="button" value="DHCP"  style="font-size:32px" onclick="doDHCP();" /><span>  </span><input type="button" style="font-size:32px" value="打开portal" onclick="openPortal();" />
+</body>
+</html>

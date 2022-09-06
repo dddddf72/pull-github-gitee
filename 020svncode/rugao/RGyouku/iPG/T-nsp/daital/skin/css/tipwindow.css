@@ -1,0 +1,181 @@
+@charset "gb2312";
+/* CSS Document */
+/* 共用弹出框背景开始 */
+.tip_visibility{visibility:hidden;width:1280px;height:720px;background:url(../images/cover.png) no-repeat;position:absolute;left:0px;top:0px;overflow:hidden;z-index:3;}
+.tip_window{
+	width:580px;
+	height:336px;
+	position:absolute;
+	left:355px;
+	top:142px;
+	z-index:3;
+}
+/* 共用弹出框背景结束 */
+/* 初始加载弹出框背景图，默认隐藏（hidden），页面重载显示（visible） */
+.tip_window .sort{
+	position:absolute;
+	height:40px;
+	width:263px;
+	left:160px;
+	top:126px;
+	color:#FFF;
+	background:url(../btvImg/sort_slip.png) 0px 3px no-repeat;
+}
+.tip_window h1{
+	width:580px;
+	height:51px;
+	line-height:50px;
+	text-align:center;
+	margin:0px;
+	padding:5px 0 0 20px;
+	color:#fff;
+	font-size:32px;
+	position:absolute;
+	left:0px;
+	top:0px;
+	background:url(../btvImg/sort_logo.png) 195px 10px no-repeat;
+}
+.tip_window h3{
+	width:550px;
+	line-height:40px;
+	color:#FFF;
+	position:absolute;
+	left:13px;
+	top:104px;
+	word-wrap:break-word;
+	overflow:hidden;
+	height: 183px;
+	text-indent:2em;
+	font-size:22px;
+}
+.tip_window h2{
+	width:430px;
+	height:40px;
+	line-height:40px;
+	text-align:left;
+	color:#fff;
+	font-size:24px;
+	position:absolute;
+	left:15px;
+	top:73px;
+}
+.tip_window p{
+	width:550px;
+	line-height:40px;
+	color:#FFF;
+	position:absolute;
+	left:13px;
+	top:110px;
+	word-wrap:break-word;
+	overflow:hidden;
+	height: 183px;
+	text-indent:2em;
+	font-size:18px;
+}	/* 提示信息 */
+
+
+/* 弹出框按扭，操作提示区域开始========================================================================================================================= */
+.tip_button{
+	width:450px;
+	height:45px;
+	position:absolute;
+	left:53px;
+	top:263px;	
+}
+/* 共用按扭开始 */
+.tip_button li{float:left;color:#FFCD00;}
+.tip_button li input{width:126px;height:40px;font-size:18px;border:none;outline:none;margin:0px 0px;padding:0px;color:#fff;background:url(../images/button_blur2.png) 0 4px no-repeat;font-size:20px;}
+.tip_button li input:focus{ color:#FFF;background:url(../images/button_focus2.png) 0 4px no-repeat;}	/* 按扭焦点 */
+.two_button_s{ margin-left:73px;}
+.two_button_s li input{background:url(../images/series_but_focus.png) 0 4px no-repeat; width:152px; font-size:18px;height:40px;}
+.two_button_s li input:focus{background:url(../images/series_but.png) 0 2px no-repeat;}
+/* 共用按扭结束 */
+
+/* 按扭及操作提示定位开始 */
+.tip_button ul.one_button{
+	position:absolute;
+	left:168px;
+	top:3px;
+	width:287px;
+}	/* 一个按扭定位 */
+.tip_button ul.two_button{
+	position:absolute;
+	left:108px;
+	top:23px;
+	width: 373px;
+	height: 79px;
+}	/* 二个按扭定位 */
+.tip_button ul.two_button_2{
+	position:absolute;
+	left:108px;
+	top:23px;
+	width: 373px;
+	height: 79px;
+}	/* 二个按扭定位(8字) */
+.tip_button ul.three_button{position:absolute;left:60px;top:3px;}	/* 三个按扭定位 */
+.tip_button ul.one_point{position:absolute;left:150px;top:3px;}		/* 一个操作提示定位 */
+.tip_button ul.two_point{position:absolute;left:80px;top:3px;}		/* 二个操作提示定位 */
+.tip_button ul.four_point{position:absolute;left:0px;top:3px;}		/* 四个操作提示定位 */
+/* 按扭及操作提示定位结束 */
+
+/* 操作提示:1个及2个;4个部分 */
+.tip_button ul.one_point li,.tip_button ul.two_point li,.tip_button ul.four_point li{float:left;padding-left:0px;height:36px;line-height:40px;margin:0px 20px;}
+.tip_button ul.two_point li.tip_ok_point,.tip_button ul.four_point li.tip_ok_point{background:url(../images/tip_ok_point.png) no-repeat 0px 4px;}
+.tip_button ul.one_point li.tip_back_point,.tip_button ul.two_point li.tip_back_point,.tip_button ul.four_point li.tip_back_point{background:url(../images/tip_back_point.png) no-repeat 0px 4px;}
+
+/* 操作提示：4个 */
+.tip_button ul.four_point li{margin:0px 5px;}
+.tip_button ul.four_point li.tip_page{padding-left:35px;background:url(../images/tip_page.png) no-repeat 0px 10px;}
+/* 弹出框按扭，操作提示区域结束========================================================================================================================= */
+
+/* 选集开始 */
+.tip_series{width:700px;height:245px;position:absolute;left:25px;top:150px;}
+.tip_series input{float:left;width:70px;height:49px;font-size:24px;color:#fff;border:none;outline:none;background:none;}
+.tip_series input:focus{color:#000;background:url(../images/tip_series_focus.png) no-repeat;}	/* 焦点 */
+/* 选集结束 */
+
+/* 购买按扭开始 */
+.tip_buy_button{width:226px;height:87;position:absolute;left:265px;top:200px;}
+.tip_buy_button input{width:226px;height:47px;font-size:24px;color:#000;margin:10px 0px;border:none;outline:none;background:url(../images/tip_buy_blur.png) no-repeat;}
+.tip_buy_button input:focus{color:#fff;background:url(../images/tip_buy_focus.png) no-repeat;}	/* 焦点 */
+/* 购买按扭结束 */
+
+/*搜索提示框start*/
+/*.box_bg{position:absolute;left:266px;top:126px;background:url(../images/search_bj.png) no-repeat;width:762px;height:481px;}
+.box_title{width:762px;height:60px;line-height:80px;text-align:center;font-size:34px;}
+.box_txt{width:762px;height:60px;line-height:80px;text-align:center;font-size:24px;color:#FFF;}
+.box_input{position:absolute;left:81px;top:153px;width:435px;height:40px;}
+.box_input_focus{background:url(../images/search_input.png) no-repeat;width:435px;height:40px;border:none;}
+.box_letter{position:absolute;left:30px;top:210px;}
+.box_letter ul{margin-bottom:9px;float:left;}
+.box_letter ul li{float:left;padding-right:9px;width:59px;height:40px;font-size:24px;text-align:center;line-height:21px;}
+.box_num_focus{background:url(../images/search_on.png) no-repeat;width:59px;border:none;color:#FFF;height:40px;}
+.box_num_blur{background:url(../images/search_normal.png) no-repeat;width:59px;color:#FFF;border:none;height:40px;}
+.box_num_search{position:absolute;left:530px;top:153px;width:137px;text-align:center;line-height:114px;height:42px;}
+.box_num_search_focus{background:url(../images/search_long_on.png) no-repeat;width:137px;border:none;color:#FFF;font-size:24px;height:42px;}
+.box_num_search_blur{background:url(../images/search_long_normal.png) no-repeat;width:137px;border:none;color:#FFF;font-size:24px;height:42px;}
+.box_num{position:absolute;left:530px;top:210px;}
+.box_num ul{margin-bottom:9px;float:left;}
+.box_num ul li{float:left;padding-right:9px;width:59px;height:40px;font-size:24px;text-align:center;line-height:21px;}
+.box_tip{position:absolute;left:243px;top:424px;line-height:32px;color:#FF6;}
+.box_tip_img{position:absolute;left:173px;top:424px;}
+.box_back{position:absolute;left:528px;top:424px;line-height:32px;color:#FF6;}
+.box_back_img{position:absolute;left:458px;top:424px;}*/
+/*搜索提示框end*/
+
+/* 换肤模块开始 */
+.tip_skin{width:750px;height:283px;position:absolute;left:0px;top:130px;color:#fff;}
+.tip_skin li{float:left;width:110px;height:120px;margin:10px 0px 0px 25px;border:#fff solid 5px;}
+.tip_skin li img{width:110px;height:120px;}
+.imgborder{ border:1px #999 solid;}
+/* 换肤模块结束 */
+
+/*订购时机顶盒密码提示框*/
+.text_pwd{ position:relative;width:160px;height:20px;line-height:20px;outline:none;border:#4f73a4 solid 1px;text-align:left;}
+.pwd_button{
+	width:450px;
+	height:45px;
+	position:absolute;
+	left:200px;
+	top:163px;
+}

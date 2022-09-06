@@ -1,0 +1,142 @@
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+	<link href="css/pub.css?1927" rel="stylesheet" type="text/css">
+</head>
+<body style="background:transparent;">
+<script src="js/keyDefine.js"></script>
+<script src="js/global2.0.js"></script>
+<script src="js/config.js"></script>
+<script src="js/GKey.js"></script>
+<script src="js/JAlex.js"></script>
+<script type="text/javascript">
+//var page = new JPage();
+var portalAddr = DataAccess.getInfo("VodApp","PortalAddress");
+var portalPort = DataAccess.getInfo("VodApp","PortalPort");
+var vodAddr = "http://"+portalAddr+":"+portalPort+"/NewFrameWork/newWeb/html/turn2vod.html";
+console.debug("changePage.html");
+function initPage(){
+	console.debug(">>>>> url="+window.location.search);
+	var type = getParameter('type');
+	console.debug("changePage.html  type = "+type);
+	if(1 == type){
+		console.debug("change page to live play");
+		//var p_fre = getParameter('tv_freq');
+		//var p_sym = getParameter('tv_SymbolRate');
+		//var p_mod = getParameter('tv_Modulation');
+		var p_chanId = getParameter('tv_ProgramNumber');
+		//var p_chanId = getParameter('tv_ChannelID');
+		//var p_vId = getParameter('tv_VideoPID');
+		//var p_aId = getParameter('tv_AudioPID');
+		//<Frequency>, <SymbolRate>, <Modulation>, <ProgramNumber>, <VideoPID>, <AudioPID>
+		
+		var allChannelGroupList = getGroupList(allChannelGroupID);
+		var flag = false;
+		console.debug(" changePage.html allChannelGroupList.GroupInfo.length"+allChannelGroupList.GroupInfo.length);
+		for(var i = 0; i < allChannelGroupList.GroupInfo.length; ++i){
+			var currService = allChannelGroupList.GroupInfo[i];
+			if(p_chanId && currService['ChannelId'] && p_chanId==currService['ChannelId']){
+				flag = true;
+				var changePage_playParam = {
+					serviceInfo:{
+						TSID:currService['TsId'],
+						serviceID:currService['ServiceId'],
+						networkID:currService['NetworkId']
+					}
+				};
+				var playStr = JSON.stringify(changePage_playParam);
+				console.debug(" changePage.html playParam = "+playStr);
+				console.debug(" changePage.html switch to index.html play_tv param :  usedEnvWifi=1");
+				SysSetting.setEnv("PAGEFOCUSINDEX","play_tv");
+				SysSetting.setEnv("MAINPAGE", "1");
+				SysSetting.setEnv("changePage_playParam",playStr);
+				window.location.replace('../index.html?page=play_tv');
+				break;
+			}
+		}
+		/*if(!flag){
+		for(var i = 0; i < allChannelGroupList.GroupInfo.length; ++i){
+			var currService = allChannelGroupList.GroupInfo[i];
+			if(p_fre==currService['Frequency'] && p_serId==currService['ServiceId']){
+				flag = true;
+				var changePage_playParam = {
+					serviceInfo:{
+					TSID:currService['TsId'],
+					serviceID:currService['ServiceId'],
+					networkID:currService['NetworkId']
+					}
+				};		
+				var playStr = JSON.stringify(changePage_playParam);
+				console.debug(" changePage.html playParam = "+playStr);
+				console.debug(" changePage.html switch to index.html play_tv param :  usedEnvWifi=1");
+				SysSetting.setEnv("PAGEFOCUSINDEX","play_tv");
+				SysSetting.setEnv("MAINPAGE", "1");
+				SysSetting.setEnv("changePage_playParam",playStr);
+				window.location.replace('../index.html?page=play_tv');
+				break;
+				}
+			}
+		}*/
+		if(!flag) {
+			console.debug("changePage.html can't find this service");
+			//alert("无效的频道或频道不在频道列表中!");
+			//window.location.replace('../index.html?page=play_tv');//没有找到节目，返回上一个页面
+            var _JSON = {
+                "val": "无效的频道或频道不在频道列表中!",
+                "btnInfo": [
+                    {
+                        "name": "确认",
+                        "callBack": function () {window.location.replace('../index.html?page=play_tv')}
+                    }],
+                "TCB": function () {
+                    window.location.replace('../index.html?page=play_tv')
+                },
+                "timeout": 5000
+            }
+            globalAlert.init(_JSON);
+		}
+	} else if(type == 2){
+		var vodPlayAddr = vodAddr + window.location.search;
+		console.debug("WIFI vodPlayAddr = " + vodPlayAddr);
+		window.location.replace(vodPlayAddr);
+	}else{
+        var _JSON = {
+            "val": "暂不支持该类型视频播放",
+            "btnInfo": [
+                {
+                    "name": "确认",
+                    "callBack": function () {window.location.replace('../index.html?page=play_tv')}
+                }],
+            "TCB": function () {
+                window.location.replace('../index.html?page=play_tv')
+            },
+            "timeout": 5000
+        }
+        globalAlert.init(_JSON);
+		//alert("暂不支持该类型视频播放");
+	}
+}
+
+function getParameter(param){
+	var query = window.location.search; //获取URL"?"后面的字符串
+	if(query.length==0){
+		return "";
+	}
+	else{
+		var iLen = param.length;
+		var iStart = query.indexOf(param);
+		if (iStart == -1) //判断是否有那个需要查询值的传递参数
+			return ""; //没有就返回一个空值
+		iStart += iLen + 1;
+		var iEnd = query.indexOf("&", iStart); //判断是不是带有多个参数   &为多个参数的连接符号
+		if (iEnd == -1) {
+			return query.substring(iStart);
+		}
+		return query.substring(iStart, iEnd);
+	}
+}
+
+window.onload = initPage;
+</script>
+</body>
+</html>

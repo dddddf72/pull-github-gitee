@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="../css/pub.css" rel="stylesheet" type="text/css" />
+    <script src="../js/keyDefine.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/global2.0.js"></script>
+    <script src="../js/GKey.js"></script>
+    <script src="../js/JAlex.js"></script>
+    <script src="../js/ajax_1.0.js"></script>
+    <script src="../js/DataCollection.js"></script>
+    <style>
+        #bg{
+            position: absolute;
+            top:100px;
+            left:100px;
+            width:200px;
+            height:100px;
+            /*background-color: red;*/
+        }
+        #but1{
+            position: absolute;
+            top:0px;
+            left:0px;
+            width:350px;
+            height:30px;
+        }
+    </style>
+</head>
+<body>
+<div id="bg">
+<input id="but1" type="button" value="u盘更新二级菜单配置表(配置表名称initialData.json)" onclick="but1_onclick()">
+</div>
+<script>
+    var sublistMenuName = "initialData.json";
+    function getUPath(){
+        var infos = StorageService.getStorageInfos();
+        if(infos && infos.length > 0){
+            var patitions = infos[0].getPartitionsInfo();
+            if(patitions && patitions.length > 0){
+                var path = patitions[0].path;
+                if(path){
+                    return path;
+                }else{
+                    alert("未找到U盘路径");
+                }
+            }else{
+                alert("未找到U盘分区对象");
+            }
+        }else{
+            alert("未找到U盘对象");
+        }
+        return null;
+    }
+    function but1_onclick(){
+        var path = getUPath();
+        if(path){
+            var isFileHas = FileSystem.getFile(path+"/"+sublistMenuName);
+            if(typeof(isFileHas) == "object"){
+                FileSystem.deleteFile("/storage/storage0/menu/"+sublistMenuName);
+                var ret = FileSystem.copyFile(path+"/"+sublistMenuName,"/storage/storage0/menu/"+sublistMenuName);
+                if(ret == 1){
+                    alert("更新成功");
+                    SysSetting.setEnv("BACKDOOR_SUBMENULIST_UPDATE","0");
+                }else{
+                    alert("更新失败 ret="+ret);
+                }
+            }else{
+                alert("没有找到"+sublistMenuName+"文件");
+            }
+        }
+    }
+    document.onkeypress = function(event){
+        var code = event.which;
+        if(code == ROC_IRKEY_BACK || code == ROC_IRKEY_EXIT){
+            window.location.href = "../../servicepage.v2.ue.html";
+            return false;
+        }else if(code == ROC_IRKEY_NUM0){
+            window.location.reload();
+        }
+    }
+</script>
+</body>
+</html>

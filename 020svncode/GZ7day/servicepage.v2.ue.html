@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+   	<meta charset="utf-8">
+	<meta name="page-view-size" content="1280*720">
+    <title></title>
+    <link href="./css/index.css" rel="stylesheet" type="text/css" />
+    <link href="./css/servicepage.ue.css" rel="stylesheet" type="text/css" />
+    <link href="./css/dvb_selfcheck.css" rel="stylesheet" type="text/css" />
+    <!--script src="./js/fakeJS.js"></script-->
+    <script src="./js/lib/core.js"></script>
+    <script src="./js/lib/extension.js"></script>
+    <script src="./html/js/version.js"></script>
+    <script src="./js/adapter/adapter_gd.js"></script>
+    <script src="./js/controls/sublist.js"></script>
+    <script src="./js/service/event_manager.js"></script>
+    <script src="./js/controls/webcontrol_messagebox.js"></script>
+    <script src="./js/service/DataCollection.js"></script>
+    <script>
+        //SET ADD
+
+        /*ADD_MO = "system";
+        ADD_MONAME = "自助服务";
+        ADD_LE = 30;
+        ADD_PA = "system";
+        ADD_NAME = "系统设置";
+        ADD_OT = SysSetting.getEnv("PORTAL_ADDR");*/
+
+    </script>
+	<style>
+		/*.focus-color{
+			border:3px solid #FFA50A; 
+			box-shadow:0 0 6px 3px #FFA50A;
+		}*/
+		.picture{
+			border-radius: 5px;
+		}
+	</style>
+</head>
+<body>
+<div id="width_calc"></div>
+<div id="ue2_servicepage_bg">
+    <div id="ue2_systemset_bg"></div>
+    <div id="ue2_servicepage_bg2"></div>
+    <div id="ue2_systemset_subpage_calist_showpage">
+        <div id="ue2_systemset_subpage_calist_showpage_title"></div>
+        <div id="ue2_systemset_subpage_calist_showpage_names"></div>
+        <div id="ue2_systemset_subpage_calist_showpage_names_hr"></div>
+        <div id="ue2_systemset_subpage_calist_showpage_content"></div>
+    </div>
+        <div id="ue2_servicepage_bg3">
+    <!--div class="ue2_servicepage_class" id="ue2_servicepage_title">
+        <div id="ue2_servicepage_logo"></div>
+        <div id="ue2_servicepage_logo_txt">广东广电网络</div>
+        <div id="ue2_servicespage_email_tip"></div>
+        <div id="ue2_srvicespage_weather">晴</div>
+        <div id="ue2_servicespage_temp">21~13°C</div>
+        <div id="ue2_servicespage_time">21:20</div>
+        <div id="ue2_servicespage_date">2月15日 星期五</div>
+    </div-->
+            <div id="header">
+                <div id="header_logo"></div>
+                <div id="header_logo_text"></div>
+                <!-- <div><img id="header_main_icon" class="header"/> </div>  -->
+                <div  id="header_main_icon" class="header"></div>
+                <div  id="header_main_icon_txt">9</div>
+                <div id="header_weather" >
+                    <div id="header_weather_status">晴</div>
+                    <div id="header_weather_temperature">21~13°C</div>
+                    <div id="header_weather_city">广州</div>
+                </div>
+                <div id="header_dateTime">
+                    <div id="header_time">16:22</div>
+                    <div id="header_date">2月23日 周五</div>
+                </div>
+            </div>
+            <div id="headerline"></div>
+    <div class="ue2_servicepage_class" id="ue2_servicepage_content"></div>
+    <!--div class="ue2_servicepage_class" id="ue2_servicepage_footer">
+        <div class="ue2_service_footer_class" id="ue2_service_footer_item_0"></div>
+        <div class="ue2_service_footer_class" id="ue2_service_footer_item_1"></div>
+        <div class="ue2_service_footer_class" id="ue2_service_footer_item_2"></div>
+        <div class="ue2_service_footer_class2" id="ue2_service_footer_item_3">
+            <div id="scroll_text"></div>
+            <div id="test_str_len0"></div>
+        </div>
+        <div class="ue2_service_footer_class2" id="ue2_service_footer_item_4"></div>
+    </div-->
+            <div id="footer">
+                <div id="footer_focus"></div>
+                <div id="footer_history" class="footer">
+                    <img class="footer_img" src="images/main_page/history_small.png">历史
+                </div>
+                <div id="footer_search" class="footer">
+                    <img class="footer_img" src="images/main_page/search_small.png">搜索
+                </div>
+                <div id="footer_service" class="footer">
+                    <img class="footer_img" src="images/service_ue/service_disable.png">服务
+                </div>
+                <div id="footer_notice">
+                    <div id="scroll_text"></div>
+                    <div id="test_str_len0"></div>
+                </div>
+                <div id="footer_notice_icon"></div>
+            </div>
+    </div>
+</div>
+<script src="./js/servicepage_ue.js"></script>
+<script>
+    DataCollection.collectData(["01","main://servicepage.v2.ue.html",SysSetting.getEnv("SOURCE_PATH"),"服务页"]);
+    SysSetting.setEnv("SOURCE_PATH","main://servicepage.v2.ue.html");
+    //FIXME:完全是为了防止js错误，服务页不使用eventManager对象，
+    SumaJS.eventManager = new EvtManager();
+	
+	var showNotice = new ShowNotice(PORTAL_ADDR,"scroll_text");
+    showNotice.getNoticeData();
+	
+   // SumaJS.loadModule("ue2_service_page");
+    //SumaJS.loadModule("ue2_systemset");
+    //SumaJS.loadModule("ue2_self_check");
+	
+	//解析从index页面传递的page参数。
+	var enterPara = getParameter("page");
+	if(enterPara){
+		enterPara = "&page="+enterPara;
+	}
+    var firstIndex ="";
+    var secondIndex ="";
+    if(SysSetting.getEnv("firstIndex") && SysSetting.getEnv("secondIndex")){
+        firstIndex = SysSetting.getEnv("firstIndex");
+        secondIndex = SysSetting.getEnv("secondIndex");
+        SysSetting.setEnv("firstIndex","");
+        SysSetting.setEnv("secondIndex","");
+    }else{
+        firstIndex = getParameter("firstIndex");
+        secondIndex = getParameter("secondIndex");
+    }
+
+//    var firstIndex = getParameter("firstIndex");  //选择哪个module
+//	var secondIndex = getParameter("secondIndex");  //服务页面:判断字符串长度,1-left, 2-title, 3-footer;  功能设置页面指的是正常index
+	if(firstIndex){                
+		switch(parseInt(firstIndex)){
+			case 0:
+				SumaJS.loadModule("ue2_service_page");				
+				break;
+			case 1:
+				SumaJS.loadModule("ue2_systemset");
+				break;
+			case 2:
+				SumaJS.loadModule("ue2_self_check");
+				break;
+			default:
+				SumaJS.loadModule("ue2_service_page");
+				break;
+		}
+	}else{
+		SumaJS.loadModule("ue2_service_page");
+	}
+
+</script>
+</body>
+</html>

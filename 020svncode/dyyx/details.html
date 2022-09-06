@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="1280*720; text/html; charset=utf-8">
+    <meta name="viewport" content="width=1280,user-scalable=no">
+    <title>马鞍山-详情</title>
+    <link href="css/main.css" type="text/css" rel="stylesheet">
+    <!-- showMsg -->
+		<link href="css/base.css" rel="stylesheet" type="text/css" />
+    <script src="js/common.js"></script>
+    <style>
+        .main {
+            /* overflow: auto; */
+            background: url('./img/bg_detail.jpg');
+        }
+
+        .info {
+            /* overflow: hidden; */
+            padding: 40px 60px 0px 60px;
+        }
+
+        .poster {
+            float: left;
+            width: 216px;
+            height: 300px;
+            background: #111;
+            margin-right: 40px;
+            background: url('./img/img04.png');
+        }
+
+        .poster-img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .info-text {
+
+            overflow: hidden;
+        }
+
+        .info-title {
+            height: 60px;
+            line-height: 60px;
+            font-size: 40px;
+            border-bottom: 2px solid #fd6f01;
+            margin-bottom: 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .info-p {
+            line-height: 34px;
+            font-size: 20px;
+        }
+
+        .action {
+            /* padding-top: 20px; */
+            width: 500px;
+            height: 64px;
+        }
+
+        .button {
+            position: relative;
+            box-sizing: border-box;
+            display: inline-block;
+            /* float: left; */
+            height: 42px;
+            border: 2px solid transparent;
+            color: #fff;
+            padding: 0 20px 0 50px;
+            margin-right: 20px;
+            font-size: 22px;
+            line-height: 38px;
+            width: 120px;
+        }
+
+        .icon {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            left: 20px;
+            top: 4px;
+        }
+
+        .icon-play {
+            background: url('./img/icon_play.png');
+        }
+
+        .icon-star {
+            background: url('./img/icon_star.png');
+        }
+
+        .button.focus {
+            background: #fd6f01;
+            border-color: #fd6f01;
+
+
+        }
+
+        .button.hasFollow>.icon-star {
+            background-position: left 30px;
+        }
+
+        .sub-title {
+            font-size: 28px;
+            padding: 0 60px;
+            clear: both;
+        }
+
+        .video-list {
+            position: relative;
+            padding: 20px 0 20px 60px;
+            box-sizing: border-box;
+            /* overflow: hidden; */
+            /* background: red; */
+        }
+
+        .video-num {
+            float: left;
+            width: 82px;
+            height: 70px;
+            text-align: center;
+            line-height: 70px;
+            font-size: 28px;
+            background: #3c404b;
+            margin: 0 15px 15px 0;
+            transition: .3s;
+        }
+
+        .art-list {
+            padding: 20px 0 20px 60px;
+            /* overflow: hidden; */
+        }
+
+        .art-item {
+            position: relative;
+            /* display: inline-block; */
+            box-sizing: border-box;
+            width: 380px;
+            height: 100px;
+            padding: 10px 25px;
+            box-sizing: border-box;
+            font-size: 18px;
+            line-height: 36px;
+            margin: 0 10px 10px 0;
+            background: #3c404b;
+            float: left;
+
+        }
+
+        .art-item p {
+            width: 330px;
+            height: 70px;
+            word-break: break-all;
+            overflow: hidden;
+        }
+
+        /*
+        .art-item:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            border: 5px solid #ff7000;
+            visibility: hidden;
+            opacity: 0;
+            transition: .3s;
+        }
+
+
+        .art-item.focus:after {
+            visibility: visible;
+            opacity: 1;
+        }
+        */
+
+        .art-item.focus {
+            outline: 5px solid #ff7000;
+        }
+
+        .video-num.focus {
+            background: #fd6f01;
+            font-size: 28px;
+        }
+
+        .rec-list {
+            width: 1280px;
+            padding: 20px 0 0 60px;
+            white-space: nowrap;
+            box-sizing: border-box;
+            height: 270px;
+        }
+
+        .con-item {
+            float: left;
+            position: relative;
+            width: 176px;
+            height: 250px;
+            background: #111;
+            margin: 0 20px 20px 0;
+        }
+
+        .con-item img {
+            width: 100%;
+            height: 100%;
+            /* object-fit: cover; */
+        }
+
+        .con-item h3 {
+            position: absolute;
+            width: 100%;
+            left: 0px;
+            top: 212px;
+            background: url('./img/title_bg.png');
+            height: 38px;
+            line-height: 38px;
+            padding: 0 10px;
+            box-sizing: border-box;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 22px;
+            z-index: 999;
+
+        }
+
+        .cont-section {
+            position: relative;
+            width: 176px;
+            height: 250px;
+        }
+
+        .con-item.focus {
+            float: left;
+            position: relative;
+            width: 176px;
+            height: 250px;
+            outline: 5px solid #ff7000;
+        }
+
+        .main.single #sub-title,
+        .main.single #list,
+        .main.single #sub-tab {
+            display: none;
+        }
+
+        .wrap {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+        }
+
+        .sub-tab {
+            padding: 20px 20px 0px 60px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .sub-tab-item {
+            /* float: left; */
+            font-size: 30px;
+            display: inline-block;
+            width: 108px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-right: 10px;
+            border-bottom: 5px solid transparent;
+            line-height: 60px;
+            height: 60px;
+            color: #fff;
+
+        }
+
+        .sub-tab-item.focus {
+            color: #ff7000;
+            border-bottom: 5px solid #ff7000;
+            font-size: 30px;
+        }
+
+        .sub-tab-item.current {
+            color: #ff7000;
+            font-size: 30px;
+        }
+
+        .con-wrap {
+            width: 1200px;
+            display: none;
+            text-align: left;
+            /* overflow: hidden; */
+            position: relative;
+            /* z-index: -1;
+            left: -2000px; */
+            /* background: blue; */
+        }
+
+
+        .con-wrap span {
+            color: #fff;
+        }
+
+        .con-wrap.show {
+            display: block;
+            /* left: 0px;
+            z-index: 10; */
+        }
+
+        .art-list,
+        .art-list .con-wrap {
+            width: 1280px;
+            text-align: left;
+        }
+
+        .info-exp {
+            height: 20px;
+            display: none;
+            position: relative;
+        }
+
+        .info-exp-btn {
+            /* float: right; */
+            line-height: 20px;
+            height: 20px;
+            padding: 0 15px;
+            position: absolute;
+            left: 810px;
+            top: 0px;
+        }
+
+        .info-exp-btn.focus {
+            color: #ff7000;
+        }
+
+        #summary {
+            overflow: hidden;
+        }
+
+        #summary.exp {
+            height: 68px;
+        }
+
+        .con-item {
+            background: url('./img/img05.png');
+        }
+
+        .clear {
+            display: block;
+            width: 800px;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+  <div id="checkoutAll" class="checkoutAll">
+    <div id="checkout" class="invisible">
+      <!--退出-->
+      <div id="btnCloseBg">
+        <!-- <div name="Image1" id="Image1" style="background: url('images/blank_btn.png');border:0;height:43px;width: 146px"></div> -->
+      </div>
+      <!-- <input name="Image1" type="button" id="closeButton" value="【确认】关闭 " style="background: url('images/blank_btn.png');border:0;height:43px;width: 146px"> -->
+      <div id="checkoutConTxt" class="">
+        <div>尊敬的用户：</div>
+        <div style="margin:0 36px;">
+          <div><span id="checkoutConText"></span>，请咨询广电营业厅或致电客服热线。</div>
+          <div>咨询电话：96599</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="main single" id="main" style="color: #FFF;">
+        <div class="wrap" id="wrap">
+            <div class="info" id="info">
+                <div class="poster">
+                    <img id="poster" class="poster-img">
+                </div>
+                <div class="info-text">
+                    <h3 class="info-title" id="title">加载中...</h3>
+                    <p class="info-p">时间：<span id="info-time"></span></p>
+                    <p class="info-p">类型：<span id="info-type"></span></p>
+                    <p class="info-p">导演：<span id="info-director"></span></p>
+                    <p class="info-p">主演：<span id="info-actor"></span></p>
+                    <p class="info-p" id="summary">详情：<span id="info-summary">加载中...</span></p>
+                    <div class="info-p info-exp" id="info-exp">
+                        <div class="info-exp-btn" id="info-exp-btn">更多></div>
+                    </div>
+                    <div class="action" id="action">
+                        <div class="button" id="btn-play">
+                            <p class="icon icon-play"></p>播放
+                        </div>
+                        <div class="button" id="btn-star">
+                            <p class="icon icon-star"></p>收藏
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sub-title" id="sub-title">剧集列表</div>
+            <div class="sub-tab" id="sub-tab">
+
+            </div>
+            <div class="video-list" id="list">
+
+            </div>
+
+            <div class="sub-title">相关视频推荐</div>
+            <div class="rec-list" id="rlist" tabindex="1">
+
+            </div>
+        </div>
+    </div>
+    <!-- <script type="text/javascript" src="./js/smoothscroll.min.js"></script> -->
+    <script type="text/javascript" src="./js/json2.min.js"></script>
+    <script type="text/javascript" src="./js/base.js"></script>
+    <script type="text/javascript" src="./js/view.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script>
+        //焦点记录
+        var vIndex = getGlobalVar('Plist') || -1;
+        // var vGroupe = getGlobalVar('Glist') || 0;
+        //alert(getUserId())
+        var main = $('main');
+        var info = $('info');
+        var wrap = $('wrap');
+        var action = $('action');
+        var tab = $('sub-tab');
+        var list = $('list');
+        var rlist = $('rlist');
+        var btnPlay = $('btn-play');
+        var btnStar = $('btn-star');
+        var poster = $('poster');
+        var exp = $('info-exp');
+        var expBtn = $('info-exp-btn');
+
+        var params = window.location.href.split('?')[1];
+        var PARAMS = parseStrObjByRegExp(params);
+        var assetId = PARAMS.id;
+        var title = $('title');
+        var infoTime = $('info-time');
+        var infoType = $('info-type');
+        var infoDirector = $('info-director');
+        var infoActor = $('info-actor');
+        var infoSummary = $('info-summary');
+        var summary = $('summary');
+        // var providerId = el.getAttribute("providerId");
+        // var folderAssetId = el.getAttribute("folderAssetId");
+        var vnums = 24; //剧集分页
+        var firstAseetId = assetId;
+        var List = {}; //内容区域
+        var Vtab = new View(tab);
+
+        
+        /**/
+        API.GetDetail({
+            id: assetId
+        }, function (data) {
+            // console.log(data);
+            var isArt = data.showType == '10'; //是否为综艺类型
+            var hasCollect = data.hasCollect == '1';
+            providerId = data.providerId;
+            folderAssetId = data.folderAssetId;
+            title.innerHTML = data.titleBrief;
+            infoTime.innerHTML = data.publishDate ? data.publishDate.slice(0, 4) : '无';
+            infoType.innerHTML = data.assetType || '无';
+            if (data.director) {
+                data.director.forEach(function (el, ind) {
+                    if (ind < data.director.length - 1) {
+                        infoDirector.innerHTML += el.name + ' ,   '
+                    } else {
+                        infoDirector.innerHTML += el.name
+                    }
+                })
+            } else {
+                infoDirector.innerHTML = ""
+            }
+            if (data.actor) {
+                data.actor.forEach(function (el, ind) {
+                    if (ind < data.actor.length - 1) {
+                        infoActor.innerHTML += el.name + ' ,   '
+                    } else {
+                        infoActor.innerHTML += el.name
+                    }
+                })
+            } else {
+                infoActor.innerHTML = ""
+            }
+            poster.src = data.recommendImage.posterUrl ? CONFIGS.ip + '/' + data.recommendImage.posterUrl :
+                "";
+            if (isArt) {
+                addClass(list, 'art-list');
+                vnums = 6;
+            }
+            if (hasCollect) {
+                btnStar.innerHTML = '<p class="icon icon-star"></p>已收藏';
+                btnStar.style.width = '142px';
+                addClass(btnStar, 'hasFollow');
+            }
+            //展开-收起
+            var Vexp = null;
+            var isExp = false;
+            if (data.summarMedium.length > 80) {
+                exp.style.display = 'block';
+                infoSummary.innerHTML = data.summarMedium.slice(0, 80) + '...';
+                Vexp = new View(exp);
+                Vexp.init(exp.getElementsByTagName('div'));
+                Vexp.down = function () {
+                    Vaction.onfocus();
+                }
+                Vexp.ok = function () {
+                    if (!isExp) {
+                        infoSummary.innerHTML = data.summarMedium;
+                        expBtn.innerHTML = '收起<';
+                    } else {
+                        infoSummary.innerHTML = data.summarMedium.slice(0, 80) + '...';
+                        expBtn.innerHTML = '展开>';
+                    }
+                    isExp = !isExp;
+                }
+            } else {
+                infoSummary.innerHTML = data.summarMedium;
+                action.style.paddingTop = '20px';
+            }
+            //播放-收藏
+            var Vaction = new View(action);
+            Vaction.init(action.getElementsByTagName('div'));
+            /*
+            btnStar.onClick = function () {
+                //影视播放
+                location.href = './play.html?id=' + assetId + "&providerId=" + providerId +
+                    "&folderAssetId=" + folderAssetId
+            }
+            */
+            //续看
+            API.CheckSavedProgram({
+                id: assetId,
+                isTV: data.isPackage == '1'
+            }, function (ms) {
+                if (ms.bookmarkFlag == "true") {
+                    btnPlay.innerHTML = '<p class="icon icon-play"></p>续看';
+                }
+                Vaction.ok = function (el) {
+                    if (el.id == 'btn-star') {
+                        if (hasClass(el, 'hasFollow')) {
+                            API.DeleteBookmark({
+                                id: assetId
+                            }, function (data) {
+                                if (data.code == "0") {
+                                    removeClass(el, 'hasFollow');
+                                    el.innerHTML = '<p class="icon icon-star"></p>收藏';
+                                    el.style.width = '120px';
+                                    showMessage('取消收藏');
+                                } else {
+                                    showMessage('取消收藏失败:' + data.message);
+                                }
+                            })
+                        } else {
+                            API.AddBookmark({
+                                id: assetId
+                            }, function (data) {
+                                if (data.bookmarkedId == "0") {
+                                    addClass(el, 'hasFollow');
+                                    el.innerHTML = '<p class="icon icon-star"></p>已收藏';
+                                    el.style.width = '142px';
+                                    showMessage('收藏成功');
+                                } else {
+                                    showMessage('收藏失败:' + data.message);
+                                }
+                            })
+                        }
+                    } else {
+                        // location.href = "./play.html";
+                        // //影视播放
+                        play({
+                            id: assetId,
+                            assetId: ms.bookmarkFlag == "true" ? ms.assetId : firstAseetId,
+                            providerId: providerId,
+                            folderAssetId: folderAssetId,
+                            timePosition: ms.timePosition,
+                            name: encodeURI(data.titleBrief)
+                        })
+                    }
+                }
+
+                if (data.isPackage == '1') {
+                    //媒资包
+                    removeClass(main, 'single');
+                    /*
+                    btnPlay.style.display = 'none';
+                    Vaction.focusByIndex(1);
+                    Vaction.map[1] = {
+                        left: null,
+                        right: null,
+                        up: null,
+                        down: null,
+                    }
+                    */
+
+                    //获取媒资包子集
+                    API.GetFolderList({
+                        id: assetId,
+                        page: 1,
+                        pageSize: vnums
+                    }, function (data, total) {
+                        var res = [];
+                        for (var i = 0; i < total; i += vnums) {
+                            res.push(i) // 每vnums项分成一组
+                        }
+                        var html_nav = '';
+                        var html_con = '';
+                        res.forEach(function (item, n) {
+                            var name = (n * vnums + 1) + '~' + ((n + 1) * vnums >
+                                total ? total : (n + 1) * vnums);
+                            html_nav += '<div class="sub-tab-item" id="' + (n) + '">' +
+                                name +
+                                '</div>';
+                            html_con += '<div class="con-wrap" id="tab' + (n) +
+                                '"><div class="loading">正在加载...</div></div>';
+                            List[n] = {};
+                        })
+                        tab.innerHTML = html_nav;
+                        list.innerHTML = html_con;
+                        setTimeout(function () {
+                            Vtab.init(tab.getElementsByTagName('div'));
+                            Vtab.saveCurrent = true;
+                            Vtab.up = function () {
+                                scroll(info);
+                                Vaction.onfocus();
+                            }
+                            Vtab.down = function (el) {
+                                if (List[el.id].V) {
+                                    List[el.id].V.onfocus();
+                                }
+                            }
+                            Vaction.down = function () {
+                                Vtab.onfocus();
+                            }
+                            Vtab.move = function (prev, current) {
+                                // removeClass($("tab" + prev.id), 'show');
+                                $("tab" + prev.id).style.display = 'none';
+                                getList(current.id - 0, isArt);
+                            }
+                            Vrlist.up = function () {
+                                List[Vtab.focusId].V.onfocus();
+                            }
+                            // Vrlist.back = function () {
+                            //     //setGlobalVar('Plist',-1);
+                            //     setGlobalVar('Plist', -1);
+                            //     //setGlobalVar('Glist', 0);
+                            //     history.go(-1);
+                            // }
+                            Vrlist.move = function (prev, next) {
+                                scroll(rlist);
+                            };
+                            // if(vIndex>=0){
+                            if (false) {
+                                var group = Math.floor((vIndex - 1) / vnums);
+                                var index = (vIndex - 1) % vnums;
+                                //console.log(group,index)
+                                Vtab.focusId = group;
+                                addClass($(group), 'current');
+                                getList(group, isArt, function (V, id) {
+                                    V.focusByIndex(index);
+                                    firstAseetId = id;
+                                });
+                            } else {
+                                if (ms.bookmarkFlag == "true") {
+                                    API.GetDetail({
+                                        id: ms.assetId
+                                    }, function (d) {
+                                        vIndex = d.chapter > 0 ? d.chapter : 1;
+                                        var group = Math.floor((vIndex - 1) /
+                                            vnums);
+                                        var index = (vIndex - 1) % vnums;
+                                        //console.log(group,index)
+                                        Vtab.focusId = group;
+                                        addClass($(group), 'current');
+                                        getList(group, isArt, function (V, id) {
+                                            V.focusByIndex(index);
+                                            firstAseetId = id;
+                                            V.timePosition = ms
+                                                .timePosition;
+                                            V.lastAssetId = ms.assetId;
+                                        });
+                                    })
+                                } else {
+                                    addClass($(0), 'current');
+                                    getList(0, isArt, function (V, id) {
+                                        V.focusByIndex(0);
+                                        firstAseetId = id;
+                                    });
+                                }
+                            }
+                        }, 300)
+                    })
+                } else {
+                    addClass(main, 'single');
+                    Vaction.down = function () {
+                        if (Vrlist.isRender) {
+                            Vrlist.onfocus();
+                            scroll(rlist);
+                        }
+                    }
+                    Vrlist.up = function () {
+                        Vaction.onfocus();
+                        scroll(info);
+                    }
+                }
+            })
+            Vaction.onfocus();
+            Vaction.up = function () {
+                if (Vexp) {
+                    Vexp.onfocus();
+                }
+            }
+            // Vaction.back = function () {
+            //     setGlobalVar('Plist', -1);
+            //     //setGlobalVar('Glist', 0);
+            //     history.go(-1);
+            // }
+        })
+        function scroll(el) {
+            var top = 720 - el.offsetTop - el.offsetHeight;
+            wrap.style.top = (top > 0 ? 0 : top) + 'px';
+        }
+
+        //推荐
+        var Vrlist = new View(rlist);
+        API.GetAssociaList({
+            id: assetId
+        }, function (data) {
+            var _html = '';
+            data.forEach(function (el) {
+                var src = "";
+                src = el.recommendImage.posterUrl ? CONFIGS.ip + '/' + el.recommendImage.posterUrl :
+                    "";
+                _html += '<div class="con-item" id="' + el.assetId + '" providerId="' + el
+                    .providerId +
+                    '" folderAssetId="' + el.folderAssetId +
+                    '"><h3>' + el.titleBrief + '</h3><img src="' +
+                    src + '" ></div>'
+            })
+            rlist.innerHTML = _html;
+            setTimeout(function () {
+                Vrlist.init(rlist.getElementsByTagName('div'));
+                Vrlist.isRender = true;
+                Vrlist.ok = function (el) {
+                    API.GetDetail({
+                        id: el.id
+                    }, function (_data) {
+                        if (_data.isOver) {
+                            showMessage('该媒资已下架！');
+                        } else {
+                            location.replace('./details.html?id=' + el.id)
+                        }
+                    })
+                }
+            }, 300)
+        })
+
+        //获取媒资包子集
+        function getList(page, isArt, calback) {
+            //addClass($("tab" + page), 'show');
+            $("tab" + page).style.display = 'block';
+            var ListCurrent = List[page];
+            if (!ListCurrent.A) {
+                ListCurrent.A = $("tab" + page);
+                API.GetFolderList({
+                    id: assetId,
+                    page: page + 1,
+                    pageSize: vnums
+                }, function (data) {
+                    //alert(data.length)
+                    // consoel.log(data)
+                    var _html = '';
+                    data.forEach(function (item, n) {
+                        _html += '<div class="' + (isArt ? "art-item" :
+                                "video-num") + '" id="' + item.assetId +
+                            '" providerId="' + item.providerId + '" folderAssetId="' +
+                            item.folderAssetId + '" chapter="' +
+                            item.chapter +  '" name="'+ item.titleBrief +  '" ><p>' + (isArt ? item.titleBrief :
+                                item.chapter) + '</p></div>';
+                    })
+                    _html += '<p class="clear"></p>';
+                    ListCurrent.A.innerHTML = _html;
+
+                    setTimeout(function () {
+                        // alert(ListCurrent.A)
+                        ListCurrent.V = new View(ListCurrent.A);
+                        ListCurrent.V.init(ListCurrent.A.getElementsByTagName('div'));
+                        if (calback) {
+                            calback(ListCurrent.V, data[0].assetId)
+                        }
+                        ListCurrent.V.up = function () {
+                            Vtab.onfocus();
+                        }
+                        ListCurrent.V.down = function () {
+                            Vrlist.onfocus();
+                            scroll(rlist);
+                        }
+                        ListCurrent.V.ok = function (el) {
+                            var providerId = el.getAttribute(
+                                'providerId');
+                            var folderAssetId = el.getAttribute(
+                                'folderAssetId');
+                            var name = el.getAttribute('name');
+                            //setGlobalVar('Glist', Vtab.focusId);
+                            // setGlobalVar('Plist', el.getAttribute('chapter'));
+                            //console.log(providerId,folderAssetId)
+                            //location.href = './play.html?id=' + el.id + "&providerId=" + providerId + "&folderAssetId=" + folderAssetId;
+                            play({
+                                id: assetId,
+                                assetId: el.id,
+                                providerId: providerId,
+                                folderAssetId: folderAssetId,
+                                name: encodeURI(name),
+                                timePosition: el.id == ListCurrent.V.lastAssetId ?
+                                    ListCurrent.V.timePosition : 0
+                            })
+                        }
+                        // ListCurrent.V.back = function () {
+                        //     setGlobalVar('Plist', -1);
+                        //     //setGlobalVar('Glist', 0);
+                        //     history.go(-1);
+                        // }
+                    }, 300)
+                })
+            }
+        }
+
+        //播放
+        function play(data) {
+            //先鉴权栏目，再鉴权节目
+            API.ValidatePlayEligibility({
+                id: data.folderAssetId,
+                isColumnAuth:'Y'
+            }, function (ms) {
+                if (ms.orderFlag == 'Y') {
+                    API.ValidatePlayEligibility({
+                        id: data.id,
+                        isColumnAuth:'N'
+                    }, function (ms) {
+                        if (ms.orderFlag == 'Y') {
+                            // return;
+                            location.href = './play.html?id=' + data.assetId + "&providerId=" + data
+                                    .providerId +
+                                "&folderAssetId="+ data.folderAssetId +
+                                "&name="+ data.name + "&timePosition=" + (data
+                                    .timePosition || 0);
+                        } else {
+                          showMsg('您未订购本节目');
+                        }
+                    })
+                } else {
+                  showMsg('您未订购本栏目');
+                }
+            })
+        }
+        
+    </script>
+    <script type="text/javascript">
+      // 播放按钮获取焦点
+      var iCount = 7;
+      var countTimer;
+      var errorCode = 0;
+      // lastObj
+      var lastObj;
+      lastObj = document.activeElement;
+      
+      // showMsg("您未订购本节目")
+
+      function showMsg(tip){  //弹窗出现的函数
+          countTimer = setInterval("QuitPage()", 1000);
+          if(tip != ""){
+              $("checkoutConText").innerText = tip;
+              addClass($("checkout"),'show')
+
+              // countTimer = setTimeout(function() {
+              //   doConfirmClose()
+              // }, 8000);
+          }else{
+              $("checkout").style.opacity = 0;
+              // $("checkoutConTxt").style.opacity = 0;
+          }
+          // 弹窗出现 "关闭弹窗"按钮获焦
+          // $("closeButton").focus()
+          // 点击关闭弹窗
+          // $("closeButton").onclick = function(){
+          //   console.log("点击确认关闭")
+          //   doConfirm();
+          // }
+      }
+        
+      function QuitPage() {
+				iCount--;
+				if(iCount <= 0) {
+					clearInterval(countTimer);
+					doConfirm();
+				}
+			}
+      function doConfirm() {
+        clearInterval(countTimer);
+        removeClass($("checkout"),'show')
+        removeClass($("checkoutConTxt"),'show')
+        iCount = 7;
+          // 焦点返回
+          lastObj.focus()// 
+      }
+    </script>
+</body>
+
+</html>

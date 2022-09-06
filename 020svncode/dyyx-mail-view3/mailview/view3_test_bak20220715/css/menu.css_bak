@@ -1,0 +1,64 @@
+
+      .menu-icon {
+          position: absolute;
+          top: 0;
+          right: 55px;
+          display: flex;
+      }
+      .menu-icon div{
+          width: 92px;
+          height: 92px;
+          transform: scale(0.6);
+          /* padding: 5px; */
+          /* margin-bottom: 44px; */
+      }
+
+      .icon-item.focus {
+          /*outline: 5px solid #950000;*/
+      }
+
+      .menu-icon span {
+          display: block;
+      }
+
+      .menu-icon .iconImg {
+          width: 58px;
+          height: 58px;
+          margin-left: 16px;
+          margin-bottom: 5px;
+      }
+      .menu-icon .iconTxt {
+          width: 100%;
+          font-size: 22px;
+          color: #ababab;
+          text-align: center;
+      }
+      .menu-icon .focus .iconTxt {
+          color: #38b336;
+      }
+
+      .icon0.focus .iconImg {
+          /* background: url("./img/icon_0.png"); */
+          background: url("../img/icon_0.png");
+      }
+      .icon1.focus .iconImg {
+          /* background: url("./img/icon_1.png"); */
+          background: url("../img/icon_1.png");
+      }
+      .icon2.focus .iconImg {
+          /* background: url("./img/icon_2.png"); */
+          background: url("../img/icon_2.png");
+      }
+
+      .icon0 .iconImg {
+          /* background: url("./img/icon_00.png"); */
+          background: url("../img/icon_00.png");
+      }
+      .icon1 .iconImg {
+          /* background: url("./img/icon_10.png"); */
+          background: url("../img/icon_10.png");
+      }
+      .icon2 .iconImg {
+          /* background: url("./img/icon_20.png"); */
+          background: url("../img/icon_20.png");
+      }

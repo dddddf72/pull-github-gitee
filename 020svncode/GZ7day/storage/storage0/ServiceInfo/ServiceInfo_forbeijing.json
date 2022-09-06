@@ -1,0 +1,717 @@
+{
+  "Version": 123,
+  "FrequecyInfo": {
+    "MainFrequency": 339000,
+    "NvodMainFrequency": 514000,
+    "NVODFrequency": [
+      514000,
+      522000
+    ],
+    "StockFrequency": 490000
+  },
+  "ServiceInfo": {
+    "TsInfoArray": [
+      {
+        "TsId": 3,
+        "NetworkId": 223,
+        "OriginalNetworkId": 223,
+        "Frequency": 339000,
+        "SymbolRate": 6875,
+        "Modulation": "64QAM"
+      },
+      {
+        "TsId": 22,
+        "NetworkId": 223,
+        "OriginalNetworkId": 223,
+        "Frequency": 267000,
+        "SymbolRate": 6875,
+        "Modulation": "64QAM"
+      }
+    ],
+    "NetworkArray": [
+      {
+        "NetworkId": 223,
+        "NetworkName": "广东有线"
+      },
+      {
+        "NetworkId": 225,
+        "NetworkName": "广东有线"
+      }
+    ],
+    "ServiceArray": [
+      {
+        "ServiceHandle": 10001,
+        "ServiceId": 2,
+        "ChannelId": 1231,
+        "TsId": 3,
+        "OriginalNetworkId": 223,
+        "ServiceName": "CCTV2",
+        "ServiceType": 1,
+        "PmtPid": 8189,
+        "VideoPid": 513,
+        "VideoType": 2,
+        "AudioArray": [
+          {
+            "AudioPid": 660,
+            "AudioType": 4,
+            "AudioName": "MPEG2"
+          }
+        ],
+        "PcrPid": 8190,
+        "BouquetId": 1,
+        "ReferServiceId": 0,
+        "TiShiServiceId": [
+          0
+        ],
+        "RegionCode": 0,
+        "Provider": "GDCATV"
+      },
+      {
+        "ServiceHandle": 10002,
+        "ServiceId": 3,
+        "ChannelId": 1212,
+        "TsId": 3,
+        "OriginalNetworkId": 223,
+        "ServiceName": "CCTV7",
+        "ServiceType": 1,
+        "PmtPid": 8189,
+        "VideoPid": 514,
+        "VideoType": 2,
+        "AudioArray": [
+          {
+            "AudioPid": 670,
+            "AudioType": 3,
+            "AudioName": ""
+          }
+        ],
+        "PcrPid": 8190,
+        "BouquetId": 1,
+        "ReferServiceId": 0,
+        "TiShiServiceId": [
+          0
+        ],
+        "RegionCode": 0,
+        "Provider": "GDCATV"
+      },
+      {
+        "ServiceHandle": 10003,
+        "ServiceId": 4,
+        "ChannelId": 1213,
+        "TsId": 3,
+        "OriginalNetworkId": 223,
+        "ServiceName": "CCTV2",
+        "ServiceType": 1,
+        "PmtPid": 8189,
+        "VideoPid": 515,
+        "VideoType": 2,
+        "AudioArray": [
+          {
+            "AudioPid": 680,
+            "AudioType": 4,
+            "AudioName": "MPEG2"
+          }
+        ],
+        "PcrPid": 8190,
+        "BouquetId": 1,
+        "ReferServiceId": 0,
+        "TiShiServiceId": [
+          0
+        ],
+        "RegionCode": 0,
+        "Provider": "GDCATV"
+      },
+      {
+        "ServiceHandle": 10004,
+        "ServiceId": 5,
+        "ChannelId": 1216,
+        "TsId": 3,
+        "OriginalNetworkId": 223,
+        "ServiceName": "CCTV11",
+        "ServiceType": 1,
+        "PmtPid": 8189,
+        "VideoPid": 516,
+        "VideoType": 2,
+        "AudioArray": [
+          {
+            "AudioPid": 690,
+            "AudioType": 4,
+            "AudioName": "MPEG2"
+          }
+        ],
+        "PcrPid": 8190,
+        "BouquetId": 1,
+        "ReferServiceId": 0,
+        "TiShiServiceId": [
+          0
+        ],
+        "RegionCode": 0,
+        "Provider": "GDCATV"
+      }
+    ]
+  },
+  "ServiceSortInfo": {
+    "ServiceSortArray": [
+      {
+        "ChannelNumber": "001",
+        "ServiceHandle": 10001
+      },
+      {
+        "ChannelNumber": "002",
+        "ServiceHandle": 10002
+      },
+      {
+        "ChannelNumber": "003",
+        "ServiceHandle": 10003
+      },
+      {
+        "ChannelNumber": "004",
+        "ServiceHandle": 10004
+      }
+    ]
+  },
+  "ServiceGroupInfo": {
+    "DVBGroupArray": [
+      {
+        "GroupId": 17,
+        "GroupName": "高清频道",
+        "GroupServices": [
+          {
+            "ServiceHandle": 10004
+          }
+        ]
+      },
+      {
+        "GroupId": 1,
+        "GroupName": "标清频道",
+        "GroupServices": [
+          {
+            "ServiceHandle": 10001
+          },
+          {
+            "ServiceHandle": 10002
+          },
+          {
+            "ServiceHandle": 10003
+          }
+        ]
+      }
+    ],
+    "NVODGroupArray": [
+      {
+        "NvodGroupId": 103,
+        "NvodGroupName": "新闻",
+        "NvodGroupFlag": 0,
+        "NvodGroupServices": [
+          10501,
+          10502,
+          10503,
+          10504,
+          10505,
+          10506,
+          10507,
+          10508,
+          10509,
+          10510,
+          10511,
+          10512,
+          10513,
+          10514,
+          10515,
+          10516,
+          10517,
+          10518
+        ]
+      },
+      {
+        "NvodGroupId": 104,
+        "NvodGroupName": "帮助",
+        "NvodGroupFlag": 0,
+        "NvodGroupServices": [
+          10524,
+          10532
+        ]
+      },
+      {
+        "NvodGroupId": 105,
+        "NvodGroupName": "电视剧",
+        "NvodGroupFlag": 0,
+        "NvodGroupServices": [
+          10533,
+          10534,
+          10537,
+          10538,
+          10539,
+          10540,
+          10541,
+          10542
+        ]
+      },
+      {
+        "NvodGroupId": 106,
+        "NvodGroupName": "电影",
+        "NvodGroupFlag": 0,
+        "NvodGroupServices": [
+          10573,
+          10574,
+          10575,
+          10576,
+          10577,
+          10578,
+          10579,
+          10580,
+          10581,
+          10582,
+          10583,
+          10584
+        ]
+      },
+      {
+        "NvodGroupId": 107,
+        "NvodGroupName": "精彩回放",
+        "NvodGroupFlag": 0,
+        "NvodGroupServices": [
+          10519,
+          10520,
+          10521,
+          10522,
+          10523,
+          10524,
+          10525,
+          10526,
+          10527,
+          10528,
+          10529,
+          10530,
+          10531,
+          10532
+        ]
+      }
+    ]
+  },
+  "ServiceFlag": {
+    "LogoDisplay": 0,
+    "MosiacFlag": 0,
+    "NVODFlag": 1,
+    "OCFlag": 0
+  },
+  "VarsInfo": [
+    {
+      "Name": "资讯360",
+      "VarsId": 1,
+      "VarsArray": [
+        {
+          "Name": "广东体育",
+          "UserType": 1,
+          "Addr": "http://172.16.147.82:80/index.html"
+        },
+        {
+          "Name": "幸福健身团",
+          "UserType": 1,
+          "Addr": "http://172.16.147.48:9090/health-bc-hd/login.jsp?jumptype\u003dnew"
+        },
+        {
+          "Name": "珠宝玉器专区",
+          "UserType": 1,
+          "Addr": "http://172.16.147.76/zbyq/index.html"
+        },
+        {
+          "Name": "电视读报",
+          "UserType": 1,
+          "Addr": "http://172.16.147.53/newspaper_app/index.htm",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "健康E站",
+          "UserType": 1,
+          "Addr": "http://172.16.147.7/csjk.htm",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "阳光政务",
+          "UserType": 1,
+          "Addr": "http://172.16.134.62/zixun/ygzw/index.htm",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "U互动.优生活",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/olympicSeason/html/index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "好摄之图",
+          "UserType": 1,
+          "Addr": "http://172.16.134.62/zixun/Photography/index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "☆优图☆",
+          "UserType": 1,
+          "Addr": "http://172.16.134.62/zixun/youtu/first.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "便民资讯",
+          "UserType": 1,
+          "Addr": "http://172.16.134.62/zixun/index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "为民e站",
+          "UserType": 1,
+          "Addr": "http://172.16.147.14:8088/",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "橙视圈",
+          "UserType": 1,
+          "Addr": "http://172.16.147.6/cspd.htm",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "白云机场商旅",
+          "UserType": 1,
+          "Addr": "http://172.16.147.12/cgishell/module/tv/index.pl",
+          "LogoAddr": ""
+        }
+      ]
+    },
+    {
+      "Name": "互联天地",
+      "VarsId": 2,
+      "VarsArray": [
+        {
+          "Name": "UTVGO",
+          "UserType": 1,
+          "Addr": "http://172.16.146.6",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "卡拉OK",
+          "UserType": 1,
+          "Addr": "http://172.16.147.48/gd-mp/home.jsp",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "游戏乐园",
+          "UserType": 1,
+          "Addr": "http://172.16.147.162/gd720p/Default.aspx",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "乐享音乐",
+          "UserType": 1,
+          "Addr": "http://172.16.147.163/epg",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "体感游戏",
+          "UserType": 1,
+          "Addr": "http://172.16.147.108/home/home.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "博展视界",
+          "UserType": 1,
+          "Addr": "http://172.16.147.83:8080/tvshop/bzhan/tvshop/index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "果果游戏",
+          "UserType": 1,
+          "Addr": "http://172.16.147.66:8080/",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "游戏视频",
+          "UserType": 1,
+          "Addr": "http://172.16.146.100:8080/Game_Video/auth.jsp",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "影视快搜",
+          "UserType": 1,
+          "Addr": "http://172.16.146.6/tvutvgo/quicksearch/index.action",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "视频应用",
+          "UserType": 1,
+          "Addr": "http://172.16.146.6/tvutvgo/index/videoApps.action",
+          "LogoAddr": ""
+        }
+      ]
+    },
+    {
+      "Name": "电视学堂",
+      "VarsId": 3,
+      "VarsArray": [
+        {
+          "Name": "开心宝宝",
+          "UserType": 1,
+          "Addr": "http://172.16.147.163:81/",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "百科学苑",
+          "UserType": 1,
+          "Addr": "http://172.16.147.80:80/index.jsp",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "市民学习",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/shimin/index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "教师培训",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/shimin_jiaoyu/index.html",
+          "LogoAddr": ""
+        }
+      ]
+    },
+    {
+      "Name": "金融广场",
+      "VarsId": 4,
+      "VarsArray": [
+        {
+          "Name": "电视购彩",
+          "UserType": 1,
+          "Addr": "http://172.16.147.110/gdsnm_cp.html?v\u003dngod\u0026ch\u003d1",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "邮储银行",
+          "UserType": 1,
+          "Addr": "http://172.16.134.62/tvbank/tvbank.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "南粤财经888",
+          "UserType": 1,
+          "Addr": "http://172.16.134.62/HTRDStock/htrdStock.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "橙视理财",
+          "UserType": 1,
+          "Addr": "http://172.16.147.6/cslc.htm",
+          "LogoAddr": ""
+        }
+      ]
+    },
+    {
+      "Name": "高清互动",
+      "VarsId": 5,
+      "VarsArray": [
+        {
+          "Name": "新片大片",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/singleDemand/html/index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "高清视界",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/gqsj/html/index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "最新上线",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/latestOnline/onLine_index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "天华专区",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/highClear.v2.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "华数专区",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/huashu_new/wasu_index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "文广专区",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/demo/index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "欧美高清专区",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/tiantian/tt_index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "央视专区",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/CCTV/index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "芒果TV专区",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/web/mgtv/html/index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "粤语专区",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/web/yueyuList.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "体验专区",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/monolithic_demand.v2.html?type\u003dtiyan",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "我的收藏",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/web/collectList.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "最近点播",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/web/onDemand.html",
+          "LogoAddr": ""
+        }
+      ]
+    },
+    {
+      "Name": "电视广播",
+      "VarsId": 6,
+      "VarsArray": [
+        {
+          "Name": "频道回看",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/web/backList.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "高清轮播",
+          "UserType": 1,
+          "Addr": "main://html/ChanList.v2.html?groupID\u003d10002",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "U.广州",
+          "UserType": 1,
+          "Addr": "http://172.16.130.101/gzzq/",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "栏目精选",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/columnSelection/column_index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "地市荟萃",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/web/localProgram/index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "节目指南",
+          "UserType": 1,
+          "Addr": "main://html/EPG.v2.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "喜爱频道",
+          "UserType": 1,
+          "Addr": "main://html/ChanList.v2.html?groupID\u003d10001",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "准视频点播",
+          "UserType": 1,
+          "Addr": "main://html/nvod_sort_ext.v2.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "音频广播",
+          "UserType": 1,
+          "Addr": "main://html/ChanList.v2.html?groupID\u003d2",
+          "LogoAddr": ""
+        }
+      ]
+    },
+    {
+      "Name": "自主服务",
+      "VarsId": 7,
+      "VarsArray": [
+        {
+          "Name": "电视营业厅",
+          "UserType": 1,
+          "Addr": "http://10.205.22.158/tvhall/",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "了解U互动",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/hudong/index.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "电视邮箱",
+          "UserType": 1,
+          "Addr": "main://html/email_manager.v2.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "频道预订",
+          "UserType": 1,
+          "Addr": "main://html/orderManager.v2.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "频道编辑",
+          "UserType": 1,
+          "Addr": "main://html/channel_editor.v2.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "系统设置",
+          "UserType": 1,
+          "Addr": "main://html/system.v2.html",
+          "LogoAddr": ""
+        },
+        {
+          "Name": "一键恢复",
+          "UserType": 1,
+          "Addr": "/NewFrameWork/newWeb/html/clearTSID.html",
+          "LogoAddr": ""
+        }
+      ]
+    }
+  ],
+  "VodInfo": {
+    "PortalAdress": "172.16.184.220",
+    "PortalPort": 80,
+    "NTPAdress": "172.16.184.220",
+    "NTPPort": 123
+  },
+  "UBAServer": {
+    "ServerAddress": "172.16.244.80:80",
+    "Count": "20"
+  },
+  "SleepConfig": {
+    "IsActive": true,
+    "Time": "03:00:00",
+    "TipContent": "尊敬的用户您好，现在夜已深了，在您休息的同时也要让您的机顶盒休息一下哦！请问您是否继续观看电视"
+  },
+  "DataCollection": {
+    "ServerAddress": "172.16.244.16",
+    "ServerPort": 8100
+  }
+}

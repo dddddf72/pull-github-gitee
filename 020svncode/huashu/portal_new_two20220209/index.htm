@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="page-view-size" content="1280*720"/>
+    <title>Title</title>
+    <script src="./js/showList.js"></script>
+    <script src="./js/common.js"></script>
+    <script src="./js/drawSquareObj.js"></script>
+    <!--<script src="./js/calendar.js"></script>
+    <script src="./js/play.js"></script>-->
+    <script src="./js/config.js"></script>
+    <script src="menu.js"></script>
+    <script src="js/index.js"></script>
+</head>
+<!--<body id="bg" style="background:url(images/bg1.png) no-repeat transparent" bgcolor="transparent" leftmargin="0" topmargin="0" onLoad="init()" onUnload="exitPage()">-->
+<body bgcolor="transparent" leftmargin="0" topmargin="0" onLoad="init()" onUnload="exitPage()">
+<div id="bgBox0" style="position:absolute; left:0px; top: 0px; width: 1280px; height: 720px; background:url(images/bg.jpg); visibility: visible;"></div>
+<div id="bgBox1" style="position:absolute; left:0px; top: 0px; width: 1280px; height: 720px; background:url(images/bg1.png); visibility: hidden;"></div>
+<div id="bgBox2" style="position:absolute; left:0px; top: 0px; width: 1280px; height: 720px; background:url(images/bg3.png); visibility: hidden;"></div>
+<div id="bgBox3" style="position:absolute; left:0px; top: 0px; width: 1280px; height: 720px; background:url(images/bg4.png); visibility: hidden;"></div>
+<!-- <div id="videoCover" style="position:absolute; left:75px; top: 123px; width: 441px; height: 301px; visibility: hidden;">
+    <img src="./images/bg0_1.png" width=440 height=300>
+</div> -->
+<div style="position:absolute;left:53px;top:33px;"><img src="./images/logo.png" width="249" height="61"></div>
+<div id="currTime" style="position:absolute; left:971px; top:42px; width:120px; height:48px; color:#ffffff; text-align:center; line-height:48px; font-size:38px;"></div>
+<!--<div id="date" style="position:absolute; left:992px; top:46px; width:107px; height:22px; line-height: 22px; font-size:17px; color:#ffffff; text-align:center;"></div>
+<div id="weekdays" style="position:absolute; left:992px; top:62px; width:107px; height:22px; line-height:22px; font-size:15.5px; color:#ffffff; text-align:center;"></div>-->
+<div style="position:absolute;left:1113px;top:43px;"><img src="./images/icon_tel.png" width="128" height="43"></div>
+
+<!--列表-->
+<div class="menuSquareBoxStyle" style="position: absolute; left: 73px; top: 120px; width: 1140px; height: 460px;"
+     id="menuSquareBox"></div>
+
+<!--底部导航-->
+<div id="navFocus"
+     style="position:absolute;left:495px;top:615px; width:278px; height:91px; background:url(./images/nav_f1.png); visibility: visible;"></div>
+<div id="menu" style="position:absolute;left:229px;top:600px; width:847px; height:110px;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%" style="text-align:center;">
+        <tr>
+            <td width="157"><img src="" width="157" height="110"></td>
+            <td width="157"><img src="" width="157" height="110"></td>
+            <td width="185"><img src="" width="157" height="110"></td>
+            <td width="174"><img src="" width="157" height="110"></td>
+            <td width="174"><img src="" width="157" height="110"></td>
+        </tr>
+    </table>
+</div>
+<!--焦点-->
+<div style="position: absolute; left: 70px; top: 120px; width: 450px; height: 310px;z-index: 99; visibility:hidden;"  id="subFocus">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%">
+        <tr>
+            <td width="50" height="50" style="background:url(images/focus01.png);"></td>
+            <td style="background:url(images/focus02.png);"></td>
+            <td width="50" height="50" style="background:url(images/focus03.png);"></td>
+        </tr>
+        <tr>
+            <td style="background:url(images/focus04.png);"></td>
+            <td></td>
+            <td style="background:url(images/focus05.png);"></td>
+        </tr>
+        <tr>
+            <td width="50" height="50" style="background:url(images/focus06.png);"></td>
+            <td style="background:url(images/focus07.png);"></td>
+            <td width="50" height="50" style="background:url(images/focus08.png);"></td>
+        </tr>
+    </table>
+</div>
+
+<div id="marqueeTxt" style="position:absolute; left:310px; top:51px; width:547px; font-size:24px; color:#ffffff; height: 29px;">
+  <!-- <marquee scrollamount="3"></marquee> -->
+</div>
+
+<div id="logText" style="position:absolute; width:1067px; height:24px; color:#FFFFFF; font-size:18px; overflow:visible; left: 93px; top: 16px; text-align:left; vertical-align:top; display:inline-block; word-wrap: break-word;"></div>
+
+
+</body>
+</html>
+
+<script type="text/javascript">
+//解决顶盒js文件不更新问题
+var jslist = document.getElementsByTagName("script");
+for(var i=0; i<jslist.length; i++){
+	//alert(jslist[i].getAttribute("src"));
+	document.writeln('\<script type=\"text/javascript\" src=\"'+ jslist[i].getAttribute("src") +'?ran='+ parseInt(Math.random()*1000) +'\"\>\</script\>');
+}
+</script>	

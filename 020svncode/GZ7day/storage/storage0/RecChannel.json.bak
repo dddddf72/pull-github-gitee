@@ -1,0 +1,17 @@
+{
+    "RecList": [
+        {
+            "StartTime": "1509935190000",
+            "EndTime": "1512613406000",
+            "SceneType": "8",
+            "ChannelId": "1216"
+        },
+        {
+            "StartTime": "1509935041000",
+            "EndTime": "1512613441000",
+            "SceneType": "7",
+            "ChannelId": "1218"
+        }
+    ],
+    "Version": "1509935084827"
+}

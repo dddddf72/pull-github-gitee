@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>选择</title>
+    <link id="tipwindowLink" type="text/css" rel="stylesheet" href="detail/css/tipwindow.css"/>
+    <style>
+        * {margin: 0px;padding: 0px;border: 0px;}
+
+        body {background: url(images/movie/bg.png) no-repeat;font-family: "微软雅黑", "黑体";}
+
+        ul, li {list-style: none;}
+
+        .app {width: 1280px;height: 720px;}
+
+        .logo {left: 80px;top: 30px;width: 145px;height: 55px;
+            background: url(images/movie/logo1.png) no-repeat;position: absolute;}
+
+        .center {width: 1000px;height: 500px;
+            margin: 100px auto;position: relative;}
+
+        .left {width: 300px;height: 450px;background: #999999;
+            left: 100px;top: 20px;position: absolute;}
+
+        .left.focus {border: 6px solid gold;left: 94px;top: 14px;width: 312px;height: 462px;box-sizing: border-box;}
+        .right.focus {border: 6px solid gold;left: 594px;top: 14px;width: 312px;height: 462px;box-sizing: border-box;}
+
+        .right {width: 300px;height: 450px;
+            background: #999999;left: 600px;top: 20px;position: absolute;}
+
+        .img1{width: 300px;height: 400px;background: #05aec7;}
+
+        .textA {
+            width: 300px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 36px;
+        }
+    </style>
+
+</head>
+<script src="js/global.js"></script>
+<script>
+    function doPortalKey() {//按主页键清除全局变量，返回至portal页
+        goToPortal();
+    }
+
+
+    function moveRight() {
+        $('left').className = 'left';
+        $('right').className = 'right focus';
+    }
+
+    function moveLeft() {
+        $('left').className = 'left focus';
+        $('right').className = 'right';
+    }
+
+    function doConfirm() {
+        if ($('left').className == 'left') {  //左边失焦点
+            saveUrlPath();
+            var columnId = 'MANU50473';
+            setGlobalVar('folderColumnId',columnId);
+            location.href = 'index_dy.htm?columnId='+columnId+'&subCateId=';
+            //location.href = 'index_zy.htm?columnId=MANU90000096000&subCateId=';
+            // location.href = 'index_zy.htm?columnId=MANU106537&subCateId=';
+            //location.href = 'index_zy.htm?columnId=MANU108500&subCateId=';
+        } else {
+            saveUrlPath();
+            var columnId = 'MANU50438';
+            setGlobalVar('folderColumnId',columnId);
+            location.href = 'index_dy.htm?columnId='+columnId+'&subCateId=';
+            //location.href = 'index_dy.htm?columnId=MANU90000065502&subCateId=';
+            //location.href = 'index_dy.htm?columnId=MANU106537&subCateId=';
+            //location.href = 'index_dy.htm?columnId=MANU108500&subCateId=';
+        }
+    }
+
+    var focus = 0;
+
+    function initPage() {
+
+        $('left').className = 'left focus';
+        if (window.navigator.userAgent.indexOf("Coship cooca") > -1){
+            console.log("=========Coship browser========");
+            Utility.setGlobalVar("PORTAL_ADDR","javascript:console.log('exit!!!');JSEngine.ioctl('exit');");
+        } else {
+            setGlobalVar("PORTAL_ADDR","ui://index.htm");
+        }
+    }
+
+    /** @description goToPortal 返回portal处理函数*/
+
+</script>
+</head>
+<body onload="initPage()">
+<div class="app">
+    <div class="logo" id="logo"></div>
+    <div class="center">
+        <div class="left" id="left">
+            <div class="img1"><img src="images/show_sy.jpg" width="100%" height="100%" alt=""/></div>
+            <div class="textA">包月</div>
+        </div>
+        <div class="right" id="right">
+            <div class="img1"><img src="images/show_zy.jpg" width="100%" height="100%" alt=""/></div>
+            <div class="textA">按次</div>
+        </div>
+    </div>
+</div>
+
+<div id="tip_visibility" class="tip_visibility">
+    <div class="cover"></div>
+    <div class="tip_window" id="tip_window"></div>
+</div>
+<!-- 弹出窗口结束 -->
+</body>
+</html>

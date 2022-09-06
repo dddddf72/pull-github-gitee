@@ -1,0 +1,13 @@
+<!-- a_buyWayTip -->
+<div class="dailog_background">
+<div id="dialog3" class="dailog_head_div">
+  <p class="dailog_head_p">温馨提示</p>
+  <p class="dailog_user_p" >尊敬的用户：</p>
+  <p class="dailog_body_p" >&nbsp;&nbsp;&nbsp;&nbsp;您好！您购买的《<span id="assetName"></span>》需要支付人民币<span id="price"></span>元，您的收视卡可用余额为：<span id="amounts"></span>，您购买的影片可在72小时内任何时间任意观看。请选择您的支付方式：<br />1、余额支付，将从您的可用余额中直接支付。<br />2、其他充值，您可以进行银联在线充值，也可以扫描屏幕中的微信、淘宝二维码进行相应充值。充值后请再次选择“余额支付”。</p>
+  <p class="btn_dailoglist">
+   <input type="button" class="dialog_btn2" style="width:170px; height:38px" value="余额支付" id="OKButton"  onclick="closeTip()"/>&nbsp;&nbsp
+   <input type="button" class="dialog_btn2" style="width:170px; height:38px" value="其他充值" id="YHKButton"  onclick="location.href='http://172.30.68.187:8080/HCTN_TVHALL/forvod.jsp'"/>&nbsp;&nbsp
+   <input type="button" class="dialog_btn" style="width:113px; height:38px" value="返回" id="cancle"  onclick="closeTip();"/>
+  </p>
+  </div>
+</div>

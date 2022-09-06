@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>选择</title>
+    <link id="tipwindowLink" type="text/css" rel="stylesheet" href="detail/css/tipwindow.css"/>
+    <style>
+        * {margin: 0px;padding: 0px;border: 0px;}
+
+        body {background: url(images/movie/bg.png) no-repeat;font-family: "微软雅黑", "黑体";}
+
+        ul, li {list-style: none;}
+
+        .app {width: 1280px;height: 720px;}
+
+        .logo {left: 80px;top: 30px;width: 145px;height: 55px;
+            background: url(images/movie/logo1.png) no-repeat;position: absolute;}
+
+        .center {width: 1000px;height: 500px;
+            margin: 100px auto;position: relative;}
+
+        .left {width: 300px;height: 450px;background: #999999;
+            left: 100px;top: 20px;position: absolute;}
+
+        .left.focus {border: 6px solid gold;left: 94px;top: 14px;width: 312px;height: 462px;box-sizing: border-box;}
+        .right.focus {border: 6px solid gold;left: 594px;top: 14px;width: 312px;height: 462px;box-sizing: border-box;}
+
+        .right {width: 300px;height: 450px;
+            background: #999999;left: 600px;top: 20px;position: absolute;}
+
+        .img1{width: 300px;height: 400px;background: #05aec7;}
+
+        .textA {
+            width: 300px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 36px;
+        }
+    </style>
+
+</head>
+<script src="../iPG/T-nsp/res/default/js/global.js"></script>
+<script src="../iPG/T-nsp/res/default/js/commonAPI.js"></script>
+
+<script src="../scan/js/scan_code.js"></script>
+<script>
+    function doPortalKey() {//按主页键清除全局变量，返回至portal页
+        goToPortal();
+    }
+
+
+    function moveRight() {
+        $('left').className = 'left';
+        $('right').className = 'right focus';
+    }
+
+    function moveLeft() {
+        $('left').className = 'left focus';
+        $('right').className = 'right';
+    }
+
+    function doConfirm() {
+        // if ($('left').className == 'left') {
+        //     saveUrlPath();
+        //
+        //
+        //     var columnId = 'MANU50447';
+        //     setGlobalVar('folderColumnId',columnId);
+        //
+        //
+        //
+        //     location.href = 'index_zy.htm?columnId='+columnId+'&subCateId=';
+        //     //location.href = 'index_zy.htm?columnId=MANU90000096000&subCateId=';
+        //     // location.href = 'index_zy.htm?columnId=MANU106537&subCateId=';
+        //     //location.href = 'index_zy.htm?columnId=MANU108500&subCateId=';
+        // } else {
+        //     saveUrlPath();
+        //     var columnId = 'MANU50438';
+        //     // var columnId = 'MANU50481';
+        //     setGlobalVar('folderColumnId',columnId);
+        //     location.href = 'index_dy.htm?columnId='+columnId+'&subCateId=';
+        //     //location.href = 'index_dy.htm?columnId=MANU90000065502&subCateId=';
+        //     //location.href = 'index_dy.htm?columnId=MANU106537&subCateId=';
+        //     //location.href = 'index_dy.htm?columnId=MANU108500&subCateId=';
+        // }
+
+    }
+
+    var focus = 0;
+    var columnId = 'MANU50438';
+    function initPage() {
+        var nev = {
+            "data":'<NavCheck deviceId="'+cardId+'" client="'+cardId+'"/>',
+            "callBack" :function (_dataJson) {
+                userId=_dataJson.account;
+                setGlobalVar('userId',userId);
+                doAuth();
+            }
+        };
+        IEPG.getData("/NavCheck",nev);
+
+        // $('left').className = 'left focus';
+
+    }
+    function doAuth() {
+        if (window.navigator.userAgent.indexOf("Coship cooca") > -1){
+            //console.log("=========Coship browser========");
+            // Utility.setGlobalVar("PORTAL_ADDR","javascript:console.log('exit!!!');JSEngine.ioctl('exit');");
+            //setGlobalVar("PORTAL_ADDR","javascript:console.log('exit!!!');JSEngine.ioctl('exit');");
+        } else {
+            setGlobalVar("PORTAL_ADDR","ui://index.htm");
+        }
+
+        var VOD_checkBuy = {  //鉴权
+            "data":"<ValidatePlayEligibility serviceId=\"\" assetId=\"" + columnId + "\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" isColumnAuth=\"Y\" account='"+userId+"'/>",
+            "callBack" : vailBack
+        };
+        IEPG.getData(URL.VOD_checkBuy, VOD_checkBuy);
+    }
+    function vailBack(_dataJson) {
+       if(_dataJson.orderFlag=='N'){
+            gotoScanCode();
+        }else{
+            setGlobalVar('folderColumnId',columnId);
+            location.href = goUrl+'/RGyouku/win8/index_dy.htm?columnId='+columnId+'&subCateId=';
+        }
+
+    }
+
+
+
+    function gotoScanCode(){
+
+        var href = '';
+        var backUrl = location.href;
+        setGlobalVar("scan_to_detail", backUrl);
+        setGlobalVar("vod_ctrl_backurl", backUrl);
+        href = goUrl+'/RGyouku'+"/scan/scan_test_list.htm?assetId=" + ''  +'&columnId='+columnId+'&backUrl='+goUrl+'/RGyouku/win8/index.htm'+"&prop=1"+'&gotoUrl='+goUrl+''+'&d1='+d1+'&d2='+d2+'&d3='+d3;
+
+        setTimeout(function (){location.href = href},200);
+        var errorMsg = "您好！您暂无观看权限，此套餐不支持在线购买，现在拨打电话96296，我们会登门为您办理。";
+        showMsg(tipUrl + "/T-nsp/tip/a_errorTip.htm", errorMsg);
+    }
+    /** @description goToPortal 返回portal处理函数*/
+
+</script>
+</head>
+<body onload="initPage()">
+<div class="app">
+    <!--<div class="logo" id="logo"></div>-->
+    <!--<div class="center">-->
+        <!--<div class="left" id="left">-->
+            <!--<div class="img1"><img src="images/show_sy.jpg" width="100%" height="100%" alt=""/></div>-->
+            <!--<div class="textA">影视</div>-->
+        <!--</div>-->
+        <!--<div class="right" id="right">-->
+            <!--<div class="img1"><img src="images/show_zy.jpg" width="100%" height="100%" alt=""/></div>-->
+            <!--<div class="textA">综艺</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+</div>
+
+<div id="tip_visibility" class="tip_visibility">
+    <div class="cover"></div>
+    <div class="tip_window" id="tip_window"></div>
+</div>
+<!-- 弹出窗口结束 -->
+</body>
+</html>

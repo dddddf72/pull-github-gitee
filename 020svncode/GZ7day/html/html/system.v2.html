@@ -1,0 +1,372 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />
+<script src="../js/keyDefine.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/global2.0.js"></script>
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+	//SET ADD
+	
+	ADD_MO = "system";
+	ADD_MONAME = "自助服务"
+	ADD_LE = 30;
+	ADD_PA = "system";
+	ADD_NAME = "系统设置";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+	
+</script>
+
+</head> 
+<body>
+<div class="systel_bg" style="background:url(../images/system_2.jpg)">
+  <div class="system_time">
+		<div  class="weather"></div>
+        <div>
+          <div id="time_HMS"></div>
+          <div id="time_YMDW"></div>
+        </div>
+	</div>
+  <div class="system_menu_title_bg" id="focus_title"></div>
+  <div class="system_menu_text_box">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0" class="system_menu_title_cen">
+      <tr>
+        <td width="217"><span class="system_menu_text1"> 系统信息</span></td>
+        <!--<td width="217"><span class="system_menu_text1"> 节目搜索</span></td>-->
+        <td width="217"><span class="system_menu_text1"> 本机设置</span></td>
+        <td width="217"><span class="system_menu_text1"> 网络设置</span></td>
+        <td width="217"><span class="system_menu_text1">系统自检</td>
+      <!--  <td width="217"><span class="system_menu_text1"> 电视邮箱</span></td>-->
+      </tr>
+    </table>
+  </div>
+  <div class="system_con_focus_01" id="focus_list"></div>
+  <div class="system_con_box">
+    <table width="1083" border="0" cellspacing="0" cellpadding="0" class="system_menu_table" >
+      <tr>
+        <td width="422" class="system_con_text_left font32" id="subMenu_0"></td>
+        <td width="661" class="system_con_text_right font22" id="subRemark_0"></td>
+      </tr>
+      <tr>
+        <td width="422" class="system_con_text_left" id="subMenu_1"></td>
+        <td width="661" class="system_con_text_right" id="subRemark_1"></td>
+      </tr>
+      <tr>
+        <td width="422" class="system_con_text_left" id="subMenu_2"></td>
+        <td width="661" class="system_con_text_right" id="subRemark_2"></td>
+      </tr>
+      <tr>
+        <td width="422" class="system_con_text_left" id="subMenu_3"></td>
+        <td width="661" class="system_con_text_right" id="subRemark_3"></td>
+      </tr>
+      <tr>
+        <td width="422" class="system_con_text_left" id="subMenu_4"></td>
+        <td width="661" class="system_con_text_right" id="subRemark_4"></td>
+      </tr>
+      <tr>
+        <td width="422" class="system_con_text_left" id="subMenu_5"></td>
+        <td width="661" class="system_con_text_right" id="subRemark_5"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+          </tr>
+        </table></td>
+        <td width="165">&nbsp;</td>
+        <td width="166">&nbsp;</td>
+        <td width="170">&nbsp;</td>
+        <td width="174">&nbsp;</td>
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+var SETITLE = ["系统信息",/*"节目搜索",*/"本机设置","网络设置"];
+var SUBMENU = new Array(); 
+var stbType = SysInfo.STBType;
+console.debug("wifi get stbType result is"+stbType);
+if(68 == stbType || 71 == stbType || 72 == stbType || 73 == stbType || 74 == stbType || 75 == stbType || 76 == stbType) {
+	SUBMENU.push([{"name":"基本信息","url":"system_baseInfo.v2.html","remark":"系统基本信息"},{"name":"机顶盒信息","url":"system_info.v2.html","remark":"机顶盒信息"},{"name":"CA信息","url":"CA_info.v2.html","remark":"查看智能卡基本信息、设置观看级别、工作时段等"},{"name":"应用管理列表","url":"appMan1.html","remark":"应用管理启动、卸载"},{"name":"WIFI设备管理","url":"http://192.168.88.254","remark":"管理WIFI设备"},{"name":"待机设置","url":"hibernate_mode.html","remark":"机顶盒待机设置"}/*,{"name":"应用部署参数设置","url":"setAppMan.v2.html","remark":"应用部署参数设置、重设"}*/,{"name":"主应用信息","url":"manAppInfo.v2.html","remark":"主应用信息"}]);
+} else {
+	SUBMENU.push([{"name":"基本信息","url":"system_baseInfo.v2.html","remark":"系统基本信息"},{"name":"机顶盒信息","url":"system_info.v2.html","remark":"机顶盒信息"},{"name":"CA信息","url":"CA_info.v2.html","remark":"查看智能卡基本信息、设置观看级别、工作时段等"},{"name":"应用管理列表","url":"appMan1.html","remark":"应用管理启动、卸载"},{"name":"待机设置","url":"hibernate_mode.html","remark":"机顶盒待机设置"},{"name":"主应用信息","url":"manAppInfo.v2.html","remark":"主应用信息"}]);
+}
+/*SUBMENU.push([
+{"name":"自动搜索","url":"auto_search.html","remark":"系统自动搜索节目"},{"name":"频段搜索","url":"fullSearch_setInfo.v2.html","remark":"指定频段搜索"},{"name":"主频点设置","url":"setMainFre.v2.html","remark":"设置主频点信息"}]);
+*/
+SUBMENU.push([{"name":"音视频设置","url":"avParameterSetting.v2.html","remark":"音视频参数设置"},{"name":"密码设置","url":"passwordSetting.v2.html","remark":"PIN码设置"},{"name":"菜单属性","url":"OSDSetting.v2.html","remark":"菜单属性设置"},{"name":"系统音量设置","url":"globalVolumnSetting.v2.html","remark":"设置视音频的音量参数"},{"name":"恢复出厂设置","url":"resetFactory.v2.html","remark":"恢复所有用户自己设置的属性到出厂状态"},{"name":"软件升级","url":"Software_upgrade.html","remark":"软件升级"}]); 
+SUBMENU.push([{"name":"网络信息","url":"system_set_network_view.v2.html","remark":"查看已经设置的网络信息"}]);
+SUBMENU.push([{"name":"检查Portal服务器地址","url":"portal_check.html","remark":"查看Portal地址是否正常获取"},{"name":"检查VOD频点","url":"vod_check.html","remark":"依次锁定VOD频点，检查VOD频点是否正常"},{"name":"检查配置表","url":"serviceinfo_check.html","remark":"依次检测配置表下载流程中各个环节是否正常"}]);
+
+
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	switch(val){
+		case ROC_IRKEY_DOWN: 
+		break;
+		case ROC_IRKEY_NUM0:
+		case ROC_IRKEY_NUM1:
+		case ROC_IRKEY_NUM2:
+		case ROC_IRKEY_NUM3:
+		case ROC_IRKEY_NUM4:
+		case ROC_IRKEY_NUM5:
+		case ROC_IRKEY_NUM6:
+		case ROC_IRKEY_NUM7:
+		case ROC_IRKEY_NUM8:
+		case ROC_IRKEY_NUM9:
+			superBackdoor(val - 48);
+			break;
+		case ROC_IRKEY_RED:	
+			superBackdoor("r");
+			break;
+		case ROC_IRKEY_YELLOW:	
+			superBackdoor("y");
+			break;
+		case ROC_IRKEY_GREEN:	
+			superBackdoor("g");
+			break;
+		case ROC_IRKEY_BLUE:	
+			superBackdoor("b");
+			break;
+	}
+	return true;
+}
+
+function grabEvent(event){
+	return page.grabEvent.Listener(event);
+}
+
+function page_systemevent_handler(event){	
+	return page.grabEvent.Listener(event);
+}
+
+function pageObj(){
+	
+	this.HInfoList = new HInfoList();  //横向
+	function HInfoList(){
+		this.index = 0;
+		this.pageSize = 4;//横向总栏目数
+		this.top = 100;
+		this.width = 273;	 
+		this.items = new Array();
+		
+		this.init = function(items,index){
+			this.items = items; 
+			this.index = index;  
+			this.focusOn(this.index);
+		}  
+		this.getStep = function(idx){   
+			return this.top + this.width * idx; 
+		}
+		this.focusOn = function(index){		
+			$("focus_title").style.left=this.getStep(index)+"px";
+			pageObj.VInfoList.init(SUBMENU[index],$J.evn("BACKTAGTPD")==""?0:parseInt($J.evn("BACKTAGTPD")));
+		}  
+	  	this.left = function(){ 
+		  	if(this.items.length<=1) 
+				return;  
+			if( this.index == 0){
+				this.index = this.pageSize -1;
+			}else{
+				this.index --;
+			}
+			$J.evn("BACKTAGTPL",this.index)
+			$J.evn("BACKTAGTPD",0)
+			this.focusOn(this.index); 
+		} 
+		this.right = function(){ 
+		 	if(this.items.length<=1) 
+				return;  
+			if( this.index == this.pageSize -1){
+				this.index = 0;
+			}else{
+				this.index ++;
+			}
+			$J.evn("BACKTAGTPL",this.index)
+			$J.evn("BACKTAGTPD",0);
+			this.focusOn(this.index);  
+		}  
+		this.Listener = function(event){
+			var val = event.which | event.keyCode; 
+			switch(val){
+				case ROC_IRKEY_RIGHT: 
+					this.right();
+					return true;
+				break;
+				case ROC_IRKEY_LEFT:  
+					this.left();
+					return true;
+				break;   
+			}  
+			return true;
+		} 
+	} 
+	
+	this.VInfoList = new VInfoList();  //纵向
+	function VInfoList(){
+		this.index = 0;   
+		this.pageSize = 6;//纵向总栏目数
+		this.top = 222;
+		this.height = 66;	 
+		this.items = new Array();  
+		this.focusPage = 0;
+		
+		this.init = function(items,index){ 
+			this.items = items; 
+			this.index = index;
+			this.focusPage = Math.floor(this.index/this.pageSize);    
+			this.showData();
+			this.focusOff(0);
+			this.focusOn(this.index);   
+		} 
+		this.getStep = function(idx){  
+			return this.top + this.height * (idx % this.pageSize); 
+		} 
+		this.showData = function(){
+			this.initResetPage(); 
+			for(var i=0;i<Math.min(this.pageSize,this.items.length-this.pageSize*this.focusPage);i++){
+				var idx = this.pageSize * this.focusPage;
+               	$("subMenu_"+i).innerHTML = this.items[idx+i].name;
+				$("subRemark_"+i).innerHTML = this.items[idx+i].remark;
+			}
+		}
+		this.initResetPage = function(){
+			 for(var i=0;i< this.pageSize;i++){
+				  this.focusOff(i); 
+				  $("subMenu_"+i).innerHTML = "";
+				  $("subRemark_"+i).innerHTML = "";
+			  }
+		}			
+		this.focusOff = function(i){
+			$("subMenu_"+i).className = "system_con_text_left";
+			$("subRemark_"+i).className = "system_con_text_right";
+		}
+		this.focusOn = function(i){
+			$("focus_list").style.top=this.getStep(i)+"px";
+			var idx = i % this.pageSize;
+			$("subMenu_"+idx).className = "system_con_text_left font32";
+			$("subRemark_"+idx).className = "system_con_text_right font22"; 
+		} 
+		this.up = function(){
+			this.focusOff(this.index % this.pageSize);
+			var oldfocusPage = Math.floor(this.index/this.pageSize);
+			this.index = this.index == 0 ? this.items.length - 1: this.index -1;
+			this.focusPage = Math.floor(this.index/this.pageSize);
+			if(oldfocusPage!=this.focusPage){
+				this.showData();
+			}
+			$J.evn("BACKTAGTPD",this.index);
+			this.focusOn(this.index);  
+		}
+		this.down = function(){ 
+			this.focusOff(this.index % this.pageSize);
+			var oldfocusPage = Math.floor(this.index/this.pageSize);
+			this.index = this.index == this.items.length - 1 ? 0 : this.index + 1;
+			this.focusPage = Math.floor(this.index/this.pageSize);  
+			if(oldfocusPage != this.focusPage){
+				this.showData();
+			}
+			$J.evn("BACKTAGTPD",this.index);
+			this.focusOn(this.index);  
+		}
+		 
+		this.href = function(){
+			var url = 	this.items[this.index].url;
+			if(url != ""){
+				var provider = SysInfo.STBProvider;
+				if(provider.indexOf("创维")>-1 && this.items[this.index].name=="WIFI设备管理"){//2014.12.9 创维老盒子wifi不能适配2.0浏览器，故特殊处理，tanghb
+					location.href = "http://192.168.88.254/skweb/main.html";
+				} else {
+					location.href = url;
+				}
+			}
+		}
+		this.Listener = function(event){
+			var val = event.which | event.keyCode; 
+			switch(val){
+				case ROC_IRKEY_DOWN: 
+					this.down();
+					return true;
+				break;
+				case ROC_IRKEY_UP: 
+					this.up();
+					return true;
+				break;
+				case ROC_IRKEY_SELECT:
+					this.href();
+					return false;
+				break; 
+			}  
+			return true;
+		} 
+	}
+	 
+	this.init = function(){    
+	    var BACKTAGTPL = $J.evn("BACKTAGTPL");
+		var index = BACKTAGTPL == "" ? 0 :parseInt(BACKTAGTPL); 
+		this.HInfoList.init(SETITLE,index);	   
+		showDateTime(); 
+	} 
+} 
+
+	//注册页面
+	var pageObj = new pageObj();
+	page.regedit(pageObj.HInfoList);  
+	page.regedit(pageObj.VInfoList);  
+
+function initPage(){ 
+	pageObj.init();
+	DataCollection.collectData(["01","main://html/html/system.v2.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"系统设置"]);
+	SysSetting.setEnv("SOURCE_PATH","main://html/html/system.v2.html"+window.location.search);
+}
+
+var backdoorStr = "";
+var backdoorTimer;
+function superBackdoor(num) {
+	if (backdoorStr.length == 5) return;
+	clearTimeout(backdoorTimer);
+	backdoorTimer = setTimeout(function() {
+		backdoorStr = "";
+	}, 2000);
+	backdoorStr += num;
+	if (backdoorStr.length == 4) {
+		if (backdoorStr == "rgyb") {
+			var sleepCfg = readFile('/storage/storage0/sleepcfg.json', 1);
+			if (sleepCfg == null || sleepCfg.isActive) {
+				saveJSONFile("/storage/storage0/sleepcfg.json", {isActive: 0}, 1);
+				alert("夜间待机提醒已关闭");
+			} else {
+				saveJSONFile("/storage/storage0/sleepcfg.json", {isActive: 1}, 1);
+				alert("夜间待机提醒已启用");
+			}
+		}
+	}
+	if (backdoorStr.length == 5) {
+		if (backdoorStr == "96956")	{
+			window.location.href = "ui://factory/index.html";
+		}else if(backdoorStr == "96957"){
+            window.location.href = "./backdoor.html";
+        }
+	}
+}
+
+window.onload = initPage;
+</script>
+
+<script src="../js/ADD_C.js"></script>
+
+</body>
+</html>

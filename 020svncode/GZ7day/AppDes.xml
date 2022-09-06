@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AppDes>
+<AppName>MainApp_UE_V1.6</AppName>
+<Provider>GDCATV</Provider>
+<ApplicationType>HTML</ApplicationType >
+<version>0</version>
+<Introduce>机顶盒主应用</Introduce>
+<ClassPath>/</ClassPath>
+<BootPath>index.html</BootPath>
+<uiVisible>true</uiVisible >
+</AppDes>

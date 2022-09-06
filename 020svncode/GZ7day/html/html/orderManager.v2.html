@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />
+<script src="../js/keyDefine.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/global2.0.js"></script> 
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+
+
+<script>
+	//SET ADD
+	
+	ADD_MO = "order";
+	ADD_MONAME = "自助服务"
+	ADD_LE = 30;
+	ADD_PA = "orderManager";
+	ADD_NAME = "频道预订";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+	
+</script>
+
+</head>
+<body>
+<div class="systel_bg" style="background:url(../images/order_manager.jpg)">
+  <div class="system_con_focus_01" id="focus_list"></div>
+
+  <div class="system_time">
+		<div  class="weather"></div>
+  		<div id="time_HMS"></div><div id="time_YMDW"></div>
+  
+  </div>
+  <div class="system_menu_text_box"> 频道预订管理</div>
+  <div class="system_con_focus"></div>
+  <div class="system_con_box">
+    <table width="1083" border="0" cellspacing="0" cellpadding="0" class="system_menu_table">
+      <tr class="">
+        <td width="422"  class="system_con_text_left font32" id="name0">预订管理</td>
+        <td width="661" class="system_con_text_right font22" id="remark0">已预订的节目查看</td>
+      </tr>
+      <tr  >
+        <td width="422"  class="system_con_text_left" id="name1"> 预订参数设置</td>
+        <td width="661" class="system_con_text_right" id="remark1">预订参数设置</td>
+      </tr>
+
+    </table>
+  </div>
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="166"><table width="166" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+          </tr>
+        </table></td>
+        <td width="170">&nbsp;</td>
+        <td width="166">&nbsp;</td>
+        <td width="170">&nbsp;</td>
+        <td width="174">&nbsp;</td>
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+global_control_mode = 1;
+ var _address=["orderProgram.v2.html","orderSetting.v2.html"];
+try{
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	switch(val){
+		case ROC_IRKEY_DOWN: 
+		break;
+	}
+	return true;
+}
+}catch(e){}
+
+function grabEvent(event){
+	page.grabEvent.Listener(event);
+	return true;
+}
+
+function page_systemevent_handler(event){
+	page.grabEvent.Listener(event);
+	return true;
+}
+
+function pageObj(){
+	 
+	this.orderInfoList = new orderInfoList();  //纵向
+	function orderInfoList(){
+		this.index = 0;   
+		this.pageSize = 2;//横向总栏目数
+		this.top = 222;
+		this.height = 66;	 
+		this.items = new Array();  
+		this.focusPage = 0;
+		
+		this.init = function(items,index){ 
+			this.items = items; 
+			this.index = index;
+			this.focusPage = Math.floor(this.index/this.pageSize);    
+			this.focusOff(0);
+			this.focusOn(this.index);   
+		} 
+		this.getStep = function(idx){  
+			return this.top + this.height * (idx % this.pageSize); 
+		} 
+		 		
+		this.focusOff = function(i){
+			$("name"+i).className = "system_con_text_left";
+			$("remark"+i).className = "system_con_text_right";
+		}
+		this.focusOn = function(i){
+			$("focus_list").style.top=this.getStep(i)+"px";
+			var idx = i % this.pageSize;
+			$("name"+idx).className = "system_con_text_left font32";
+			$("remark"+idx).className = "system_con_text_right font28";
+			 SysSetting.setEnv("BACKTAGTPL",i+"");
+		} 
+		this.up = function(){
+			this.focusOff(this.index % this.pageSize);
+			var oldfocusPage = Math.floor(this.index/this.pageSize);
+			this.index = this.index == 0 ? this.items.length - 1: this.index -1;
+			this.focusPage = Math.floor(this.index/this.pageSize);
+			if(oldfocusPage!=this.focusPage){
+				this.showData();
+			}
+			this.focusOn(this.index);  
+		}
+		this.down = function(){ 
+			this.focusOff(this.index % this.pageSize);
+			var oldfocusPage = Math.floor(this.index/this.pageSize);
+			this.index = this.index == this.items.length - 1 ? 0 : this.index + 1;
+			this.focusPage = Math.floor(this.index/this.pageSize);  
+			if(oldfocusPage != this.focusPage){
+				this.showData();
+			}
+			this.focusOn(this.index);  
+		}
+		this.href = function(){
+			var url = 	this.items[this.index];
+			if(url != ""){
+				location.href = url;
+			}
+		}
+		this.Listener = function(event){ 
+			var val = event.which | event.keyCode; 
+			switch(val){
+				case ROC_IRKEY_DOWN: 
+					this.down();
+					return true;
+				break;
+				case ROC_IRKEY_UP: 
+					this.up();
+					return true;
+				break;
+				case ROC_IRKEY_SELECT:
+					this.href();
+					return false;
+				break;  
+			}  
+			return true;
+		} 
+	} 
+	
+	 
+	this.init = function(){ 
+		var tempIndex = 0;
+		var BACKTAGTPL = SysSetting.getEnv("BACKTAGTPL");
+		if(BACKTAGTPL!=""){tempIndex = parseInt(BACKTAGTPL)}
+	
+		this.orderInfoList.init(_address,tempIndex);	   
+		showDateTime(); 
+	} 
+} 
+
+try{
+	//注册页面
+	var pageObj = new pageObj();  
+	page.regedit(pageObj.orderInfoList);  
+}catch(e){alert(e.message)}	
+
+function initPage(){ 
+		pageObj.init();
+		DataCollection.collectData(["01","main://html/html/orderManager.v2.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"频道预订"]);
+		SysSetting.setEnv("SOURCE_PATH","main://html/html/orderManager.v2.html"+window.location.search);
+}
+
+window.onload = initPage;
+ 
+</script>
+
+
+<script src="../js/ADD_C.js"></script>
+
+</body> 
+</html>

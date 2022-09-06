@@ -1,0 +1,419 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>播放页</title>
+    <link rel="stylesheet" href="../css/common.css" />
+    <style>
+        body {
+            background: transparent;
+            width: 1280px;
+            height: 720px;
+        }
+        
+        .main {
+            position: absolute;
+            left: 100px;
+            top: 488px;
+            background: url('images/g_bg_1.png') no-repeat;
+            width: 1037px;
+            height: 162px;
+            /*visibility: hidden;*/
+        }
+        
+        .playStatus {
+            position: absolute;
+            left: 1132px;
+            top: 63px;
+            font-size: 46px;
+            line-height: 46px;
+        }
+        
+        #begin_time {
+            position: absolute;
+            left: 14px;
+            top: 67px;
+            width: 100px;
+            text-align: center;
+        }
+        
+        #end_time {
+            position: absolute;
+            left: 855px;
+            top: 67px;
+            width: 95px;
+            text-align: center;
+        }
+        
+        #play_time {
+            position: absolute;
+            left: 190px;
+            top: 12px;
+            text-align: center;
+            width: 600px;
+        }
+        
+        #play_program {
+            position: absolute;
+            left: 190px;
+            top: 117px;
+            font-size: 24px;
+            text-align: center;
+            width: 600px;
+        }
+        
+        .play-progress {
+            position: absolute;
+            left: 130px;
+            top: 60px;
+        }
+        
+        .circle {
+            position: relative;
+            left: -10px;
+        }
+        
+        .tip {
+            position: absolute;
+            top: 160px;
+            left: 400px;
+            /* //margin: auto; */
+            width: 382px;
+            height: 226px;
+            background: url("images/tip.png") no-repeat;
+            /* //text-align: center; */
+            visibility: hidden;
+        }
+        
+        .content {
+            position: absolute;
+            top: 50px;
+            left: 10px;
+            width: 362px;
+            height: 135px;
+            line-height: 135px;
+            text-align: center;
+        }
+        
+        .btn {
+            position: absolute;
+            top: 180px;
+            left: 138px;
+            right: 0;
+            /* //margin: auto; */
+            width: 101px;
+            height: 43px;
+            background: url("images/y_button_s.png");
+        }
+    </style>
+</head>
+
+<body bgColor=transparent>
+    <div class="playStatus"><img src="images/button_q.png" id="playStatus"></div>
+    <div class="main" id="bar">
+        <div id="begin_time">
+            00:00:00
+        </div>
+        <div id="end_time">
+            00:00:00
+        </div>
+        <div id="play_time">
+            00:00:00
+        </div>
+        <div class="play-progress">
+            <img id='progress' src="images/g_c.png" height="14" width="0">
+            <img class="circle" src="images/circle.png" />
+        </div>
+        <div id="play_program">
+
+        </div>
+    </div>
+    <div class="tip" id="tip">
+        <div class="content" id="content">已播放完毕, 请返回</div>
+        <div class="btn"></div>
+    </div>
+</body>
+<script type="text/javascript" src="./common/global.js"></script>
+<script type="text/javascript" src="./common/utils.js"></script>
+<!--<script type="text/javascript" src="./common/keyAction.js"></script>-->
+<!-- <script type="text/javascript" src="./common/view.js"></script> -->
+<script type="text/javascript" src="./common/serverAPI.js"></script>
+<script>
+    var area = 0; // 0:bar  1: tipBox
+
+    function initPage() {
+        Player.init();
+        Player.play();
+    }
+
+    function exitPage() {
+        Player.stop();
+    }
+
+    function moveLeft() {
+        // alert('Left' + area)
+        if (area == 0) {
+            if (ControlBar.isShow) ControlBar.move(-1);
+            ControlBar.show();
+        }
+    }
+
+    function moveUp() {}
+
+    function moveRight() {
+        // alert('Right' + area)
+        if (area == 0) {
+            if (ControlBar.isShow) ControlBar.move(1);
+            ControlBar.show();
+        }
+    }
+
+    function moveDown() {}
+
+    function doConfirm() {
+        if (area == 0) {
+            ControlBar.changePlayStatus();
+            ControlBar.show();
+        } else {
+            hideTip();
+            history.back();
+        }
+    }
+
+    var ControlBar = {
+        showTimer: -1,
+        currentTimer: -1,
+        timeCount: 6000,
+        isDrag: false,
+        isShow: false,
+        totalTime: 0,
+        currentTime: 0,
+        moveTimer: -1,
+        refreshTimer: -1,
+        perStepLen: 5,
+        playName: getURLParameter('playName') || '',
+        init: function() {
+            $('play_program').innerHTML = decodeURI(this.playName);
+            this.initTime();
+            this.show();
+        },
+        initTime: function() {
+            clearTimeout(this.currentTimer);
+            $('begin_time').innerHTML = '00:00:00';
+            this.totalTime = Player.getTotalTime();
+            $('end_time').innerHTML = this.timeToStr(this.totalTime);
+            this.showCurrentTime();
+        },
+        showCurrentTime: function() {
+            clearTimeout(this.currentTimer);
+            if (!this.isDrag) {
+                $('play_time').innerHTML = ControlBar.timeToStr(Player.getCurrentTime());
+                ControlBar.showProgress();
+            }
+            this.currentTimer = setTimeout(function() {
+                ControlBar.showCurrentTime();
+            }, 500);
+        },
+        stopCurrentTime: function() {
+            clearTimeout(this.currentTimer);
+            this.currentTimer = -1;
+        },
+        timeToStr: function(timeDis) {
+            var hour = Math.floor(timeDis / 3600);
+            var minute = Math.floor((timeDis - hour * 3600) / 60);
+            var second = timeDis - hour * 3600 - minute * 60;
+            hour = hour > 9 ? hour : "0" + hour;
+            minute = minute > 9 ? minute : "0" + minute;
+            second = second > 9 ? second : "0" + second;
+            return hour + ":" + minute + ":" + second;
+        },
+        showProgress: function(time) {
+            // alert('time' + time)
+            // showLog('progress=' + (time != undefined ? time : Player.getCurrentTime()) / Player.getTotalTime() * 690);
+            $('progress').style.width = (time != undefined ? time : Player.getCurrentTime()) / Player.getTotalTime() * 690 + 'px';
+        },
+        show: function() {
+            $('bar').style.visibility = 'visible';
+            $('playStatus').style.visibility = 'visible';
+            clearTimeout(this.showTimer);
+            this.isShow = true;
+            this.showCurrentTime();
+            this.showTimer = setTimeout(function() {
+                ControlBar.hide();
+            }, this.timeCount);
+        },
+        hide: function() {
+            this.isShow = false;
+            clearTimeout(this.showTimer);
+            this.stopCurrentTime();
+            $('bar').style.visibility = 'hidden';
+            $('playStatus').style.visibility = 'hidden';
+        },
+        changePlayStatus: function(time) {
+            if (Player.isPause) {
+                if (time) Player.playByTime(time);
+                else Player.resume();
+                $('playStatus').src = 'images/button_q.png';
+                this.showCurrentTime();
+            } else {
+                Player.pause();
+                $('playStatus').src = 'images/button_s.png';
+                this.stopCurrentTime();
+            }
+        },
+        playByTime: function(time) {
+            Player.playByTime(time);
+            this.isDrag = false;
+            $('playStatus').src = 'images/button_q.png';
+            this.showCurrentTime();
+        },
+        move: function(type) {
+            if (!this.isDrag) this.currentTime = Player.getCurrentTime();
+            // alert('curr' + this.currentTime)
+            this.stopCurrentTime();
+            this.isDrag = true;
+            clearTimeout(this.moveTimer);
+            if (type < 0) {
+                this.currentTime += Math.floor(type * (0.06 * this.totalTime));
+            } else {
+                this.currentTime += Math.ceil(type * (0.06 * this.totalTime));
+            }
+            if (this.currentTime < 0) this.currentTime = 0;
+            else if (this.currentTime > this.totalTime) this.currentTime = this.totalTime;
+            // alert('currone' + this.currentTime)
+            this.showProgress(this.currentTime);
+            $('play_time').innerHTML = ControlBar.timeToStr(this.currentTime);
+            // showLog(this.currentTime)
+            this.moveTimer = setTimeout(function() {
+                ControlBar.playByTime(ControlBar.currentTime);
+            }, 1000);
+        }
+    };
+
+    var Player = {
+        playUrl: location.search.slice(9),
+        // playUrl: getURLParameter('playUrl'), 
+        //'http://10.9.217.62:8040/playback.m3u8?device_id=10002&start_time=20210104150000&end_time=20210104160000&bitrate=400&type=m3u8',//
+        mp: null,
+        isPause: false,
+        totalTime: 0,
+        init: function() {
+            console.log('playUrl', this.playUrl);
+
+            if (!this.mp) {
+                this.mp = new MediaPlayer();
+            }
+            this.mp.setVideoDisplayMode(1);
+            this.mp.setAllowTrickmodeFlag(0);
+            this.mp.refreshVideoDisplay();
+        },
+        play: function() {
+            if (this.playUrl) {
+                this.mp.setSingleMedia(this.playUrl);
+                this.mp.playFromStart();
+            }
+        },
+        playByTime: function(time) {
+            this.isPause = false;
+            this.mp.playByTime(1, time, 0);
+        },
+        stop: function() {
+            this.mp.setStopMode(0);
+            this.mp.stop();
+        },
+        resume: function() {
+            this.isPause = false;
+            this.mp.resume();
+        },
+        pause: function() {
+            this.isPause = true;
+            this.mp.pause();
+        },
+        getTotalTime: function() {
+            this.totalTime = parseInt(this.mp.getMediaDuration());
+            return this.totalTime;
+        },
+        getCurrentTime: function() {
+            return parseInt(this.mp.getCurrentPlayTime());
+        },
+    };
+
+
+    function pageUp() {}
+
+    function pageDown() {}
+
+    function showTip(txt) {
+        $('content').innerHTML = txt;
+        $('tip').style.visibility = 'visible';
+        area = 1;
+    }
+
+    function hideTip() {
+        $('tip').style.visibility = 'hidden';
+        area = 0;
+    }
+
+    document.onkeydown = function(event) {
+        var e = event || window.event,
+            keyCode = e.keyCode || e.which;
+        switch (keyCode) {
+            case 3:
+            case 37:
+                moveLeft && moveLeft();
+                break;
+            case 1:
+            case 38:
+                moveUp && moveUp();
+                break;
+            case 4:
+            case 39:
+                moveRight && moveRight();
+                break;
+            case 2:
+            case 40:
+                moveDown && moveDown();
+                break;
+            case 13:
+                doConfirm && doConfirm();
+                break;
+            case 8:
+            case 640:
+                // case 69:
+                // case 340:
+                if (keyBack) {
+                    preventDefault(e);
+                    keyBack();
+                } else {
+                    console.log('history back ==================');
+                    history.back();
+                }
+                break;
+            case 40200: //播放结束
+                showTip('播放已结束，请返回');
+                break;
+            case 40201: //播放开始
+                ControlBar.init();
+                break;
+            default:
+                break;
+        }
+    };
+
+    document.onkeypress = function(e) {
+        var keyCode = e.which || e.keyCode;
+        //document.getElementById('test').innerHTML = "事件"+keyCode;
+        // showLog('13015444==' + keyCode)
+        switch (keyCode) {
+            case 40200: //播放结束
+                showTip('播放已结束，请返回');
+                break;
+            case 40201: //播放开始
+                ControlBar.init();
+                break;
+        }
+    };
+</script>
+
+</html>

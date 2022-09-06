@@ -1,0 +1,112 @@
+#ue2_templine{
+    position:absolute;
+    left:150px;
+    top:229px;
+    height:6px;
+    width:980px;
+    background:#6D97B3;
+    border-radius:3px;
+}
+
+#ue2_step1,#ue2_step2,#ue2_step3{
+    position:absolute;
+    top:186px;
+    height:86px;
+    width:86px;
+    background:#3B6782;
+    border-radius:43px;
+    text-align:center;
+    line-height:86px;
+    font-size:55px;
+    color:#fff;
+}
+#ue2_step1,#ue2_step1_text{
+    left:225px;
+}
+
+#ue2_step2,#ue2_step2_text{
+    left:610px;
+}
+
+#ue2_step3,#ue2_step3_text{
+    left:968px;
+}
+#ue2_step1_text,#ue2_step2_text,#ue2_step3_text{
+    position:absolute;
+    top:290px;
+    height:30px;
+    text-align:center;
+    line-height:30px;
+    font-size:20px;
+    color:#c7d1d8;
+}
+#ue2_step1_status{
+    position:absolute;
+    top:330px;
+    left:225px;
+    font-size:20px;
+}
+
+#ue2_step2_status{
+    position:absolute;
+    top:330px;
+    left:605px;
+    font-size:20px;
+}
+
+#ue2_step3_status{
+    position:absolute;
+    top:330px;
+    left:963px;
+    font-size:20px;
+}
+
+#ue2_process,#ue2_process_text{
+    position:absolute;
+    top:182px;
+    left:0px;
+    height:100px;
+    width:100px;
+    text-align:center;
+    line-height:100px;
+    font-size:55px;
+    color:#fff;
+    display:none;
+}
+#ue2_process{
+    background:url(../images/service_ue/process.png) center no-repeat;
+}
+
+.ue2_menuLine{
+    position:relative;
+    width:250px;
+    height:30px;
+    line-height:30px;
+    color:#b4c0cf;
+}
+.ue2_menuTile{
+    float:left;
+    width:170px;
+}
+
+.ue2_menuValue{
+    float:left;
+    width:50px
+}
+.successstatus{
+    color:#24FF36;
+}
+.errorstatus{
+    color:#F00;
+}
+#check_result{
+    position:absolute;
+    left:340px;
+    top:590px;
+    height:30px;
+    width:600px;
+    text-align:center;
+    line-height:30px;
+    font-size:20px;
+    color:#717c86;
+}

@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>音视频参数设置</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />
+<link href="../css/frame.css?3" rel="stylesheet" type="text/css" />
+</head>
+
+<script src="../js/keyDefine.js"></script>
+<script src="../js/frame.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/global2.0.js"></script> 
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+	//SET ADD
+	ADD_MO = "system";
+	ADD_MONAME = "自助服务|系统设置"  
+	ADD_LE = 51;
+	ADD_PA = "system_set_network_view.v2";
+	ADD_NAME = "网络信息查看";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+	
+</script>
+
+<body>
+<div class="systel_bg">
+  <div class="system_time">
+    <div  class="weather"></div>
+    <div  class="time2">
+      <div id="time_HMS"></div>
+      <div id="time_YMDW"></div>
+    </div>
+  </div>
+  <div class="system_menu_text_box" id="title"> 网络设置-网络信息</div>
+  <div class="system_con_box">
+  <div class="g_com_input" id="Eth">
+        <div class="f_tag">网卡MAC：</div><div class="f_view_info" id="eth"></div>
+     </div>
+    <div class="g_com_input" id="Address">
+        <div class="f_tag">IP地址：</div><div class="f_view_info" id="address"></div>
+     </div><!--IP地址-->
+     <div class="g_com_input" id="Mask">
+        <div class="f_tag">子网掩码：</div><div  class="f_view_info" id="mask"></div>
+     </div><!--子网掩码-->
+     <div class="g_com_input" id="Gateway">
+        <div class="f_tag">默认网关：</div><div  class="f_view_info" id="gateway"></div>
+     </div><!--默认网关-->
+     
+     <div class="g_com_input" id="MainDns">
+        <div class="f_tag">DNS服务器：</div><div  class="f_view_info" id="mainDns"></div>
+     </div>  <!--DNS服务器-->
+     <div class="g_com_input" id="btnCancel">
+           
+           
+        </div>  
+</div>
+
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+            </tr>
+          </table></td>
+        <td width="165">&nbsp;</td>
+        <td width="166">&nbsp;</td>
+        <td width="170">&nbsp;</td>
+        <td width="174">&nbsp;</td>
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<script>
+var stbType = SysInfo.STBType;
+console.debug("get stb tyep stbType is "+stbType);
+	
+try{
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	
+	console.debug("########################key key key key key");
+	switch(val){
+		case ROC_IRKEY_DOWN: 
+		break;
+		case ROC_IRKEY_LEFT:
+		if(68 != stbType && 71 != stbType && 72 != stbType && 73 != stbType && 74 != stbType && 75 != stbType && 76 != stbType){
+			return;//非WIFI机顶盒，左右键不切换IP
+		}
+		if(ethLen == 1){ //如果只有一个网卡也不用切换了
+			return;
+		}
+		var lastIndex = ethIndex;		
+		ethIndex = ethIndex ==  0 ? ethLen - 1 : --ethIndex;
+		console.debug("###########left ###ethIndex = " + ethIndex);
+		if(lastIndex != ethIndex ){
+				if(typeof Network.ethernets[ethIndex] != "undefined"){
+						ethernet = Network.ethernets[ethIndex];
+						console.debug("###########ip len = " + ethernet.IPs.length);
+					  ip = (ethernet.IPs)[0];
+						$("eth").innerHTML = ethernet.MACAddress;
+						$("address").innerHTML = ip.address;
+						$("mask").innerHTML = ip.mask;
+						$("gateway").innerHTML = ip.gateway ;
+						$("mainDns").innerHTML = ethernet.DNSServers[0]||"" ;
+			}
+		}
+		return false;
+		break;
+		case ROC_IRKEY_RIGHT:
+		if(68 != stbType && 71 != stbType && 72 != stbType && 73 != stbType && 74 != stbType && 75 != stbType && 76 != stbType){
+			return;//非WIFI机顶盒，左右键不切换IP
+		}
+		if(ethLen == 1){ //如果只有一个网卡也不用切换了
+			return;
+		}
+		var lastIndex = ethIndex;
+		ethIndex = ethIndex == ethLen - 1 ? 0 : ++ethIndex;
+		console.debug("###########right ###ethIndex = " + ethIndex);
+		if(lastIndex != ethIndex){
+				if(typeof Network.ethernets[ethIndex] != "undefined"){
+					ethernet = Network.ethernets[ethIndex];
+					console.debug("###########ip len = " + ethernet.IPs.length);
+				  ip = (ethernet.IPs)[0];
+					$("eth").innerHTML = ethernet.MACAddress;
+					$("address").innerHTML = ip.address;
+					$("mask").innerHTML = ip.mask;
+					$("gateway").innerHTML = ip.gateway ;
+					$("mainDns").innerHTML = ethernet.DNSServers[0]||"" ;
+			}
+		}
+		return false;
+		break;
+		case ROC_IRKEY_SELECT:
+			window.location.href = "system.v2.html";
+			break;
+	}
+	return true;
+}
+
+function grabEvent(event){
+	return page.grabEvent.Listener(event);
+}
+
+function page_systemevent_handler(event){
+	return page.grabEvent.Listener(event);;
+}
+
+var ethLen = Network.ethernets.length;
+console.debug("###########ethLen = " + ethLen);
+var ethIndex = 0;
+var ethernet;
+var ip;
+
+function pageObj(){
+	this.paramSet = new paramSet();
+	function paramSet(){
+	   this.init = function(){
+			if(typeof Network.ethernets[ethIndex] != "undefined"){
+				ethernet = Network.ethernets[ethIndex];
+				console.debug("###########ip len = " + ethernet.IPs.length);
+				ip = (ethernet.IPs)[0]
+				var address = ip.address;
+				var gateWay = ip.gateway;//网关
+				var mask = ip.mask;//子网掩码
+				var mainDns = ethernet.DNSServers[0]||"";
+				$("eth").innerHTML = ethernet.MACAddress
+				$("address").innerHTML = address;
+				$("mask").innerHTML = mask;
+				$("gateway").innerHTML = gateWay ;
+				$("mainDns").innerHTML = mainDns ;
+			}
+			if(68 == stbType || 71 == stbType || 72 == stbType || 73 == stbType || 74 == stbType || 75 == stbType || 76 == stbType){
+				$("title").innerHTML = "网络设置-网络信息（左右键选择网卡）" ;
+	   		}
+	   }
+
+	 	this.Listener = function(event){ 
+			return true;
+		}  
+	}
+}
+
+	//注册页面
+	showDateTime(); 
+	var pageObj = new pageObj();  
+	page.regedit(pageObj.paramSet); 
+	pageObj.paramSet.init(); 
+	DataCollection.collectData(["01","main://html/html/system_set_network_view.v2.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"网络信息查看"]);		 
+	SysSetting.setEnv("SOURCE_PATH","main://html/html/system_set_network_view.v2.html"+window.location.search);	
+
+}catch(e){
+    $J.debug.Msg("Page Error:"+e.message,1,"Page Init");
+}
+</script>
+<script src="../js/ADD_C.js"></script>
+</body>
+</html>

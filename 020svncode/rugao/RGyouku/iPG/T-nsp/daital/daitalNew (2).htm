@@ -1,0 +1,603 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>搜索</title>
+<style>
+    body{ margin:0; padding:0; font-size:24px; font-family:"黑体"; color:#FFF;}
+    ul,p,h1,h2,h3,h4,h5,h6{ margin:0; padding:0}
+    li{ list-style:none; list-style-type:none;}
+    input{ margin:0; padding:0; background:transparent;}
+    img{ border:0}
+    a{text-decoration:none; color:#FFF;}
+    /*背景=====================*/
+    .bg{	position:absolute;	width:1280px;	height:720px;	overflow:hidden;}
+    .bg{ background:url(skin/images/searchbg.jpg) no-repeat;}
+    .logo{position:absolute;width:1280px;height:80px;left: 0px;	top: 0px;}
+    .logo div{ float:left; line-height:80px;}
+    .logo img{ margin-left:35px;}
+    .left_con{position:absolute;width:410px;height:587px;left:29px;top:103px; background:url(skin/images/leftconbg.png) no-repeat;}
+    .left_con_tip{position:absolute;width:358px;height:99px;left:20px;top:25px; font-size:20px; text-indent:2em; line-height:33px;}
+    .left_con_tip1{position:absolute;width:250px;height:22px;left:13px;top:145px; font-size:22px;}
+    .left_con_input{position:absolute;width:252px;height:34px;left:14px;top:182px;}
+    .left_con_input div{ border:none; line-height:34px; height:34px; width:252px; font-size:24px; color:#FFF; padding-top:3px;padding-left:3px;border:none;outline:none;background:url(skin/images/letterInput.png) no-repeat; color:#FFF;}
+    .left_con_input div.focus{ background:url(skin/images/letterFocus.png) no-repeat;}
+    .left_con_return{position:absolute;	width:104px;height:50px; left:268px;top:173px;}
+    .left_con_return div{width:104px;height:50px;line-height:50px; padding-left:35px;border:none;outline:none;font-size:22px; background:url(skin/images/returnButbg.png) no-repeat; color:#FFF;}
+    .left_con_return div.focus{background:url(skin/images/returnButFocus.png) no-repeat;}
+    .left_con_returnFocus{position:absolute;width:104px;height:50px; line-height:50px; padding-left:45px;border:none;outline:none; left:268px;	top:173px;	font-size:22px; background:url(skin/images/returnButbg.png) no-repeat;}
+    .left_con_actor{position:absolute;width:400px;height:35px;left:8px;top:233px; font-size:20px;}
+    .left_con_actor div{ text-align:center; margin:0px 5px 0px 5px; line-height:35px;font-size:20px; float:left; color:#FFF; width:121px; height:35px; line-height:35px; background:url(skin/images/listActorbg.png) no-repeat;border:none;outline:none;}
+    .left_con_actor div.focus{background:url(skin/images/searchbg_focus.png)  no-repeat;}
+    .left_con_letter{position:absolute;width:364px;height:165px;left:22px;top:298px;font-size:30px;}
+    .left_con_letter div{ width:40px; height:40px; line-height:40px; text-align:center; float:left;color:#FFF;border:none;outline:none; font-size:30px; }
+    .left_con_letter div.focus{ background:url(skin/images/letterFocus1.png) no-repeat;}
+    .returnbg{position:absolute;width:124px;height:33px;left:144px;top:500px; line-height:33px; text-align:center; font-size:20px; background:url(skin/images/returnbg.png) no-repeat;}
+    .returnbg div{width:124px;height:33px;top:500px; line-height:33px; text-align:center; font-size:20px; background:url(skin/images/returnbg.png) no-repeat; color:#FFF;border:none;outline:none; }
+    .returnbg div.focus{ background:url(skin/images/returnbg_focus.png) no-repeat;}
+    .list{	position:absolute;	width:776px;	height:495px;	left:476px;	top:144px;}
+    .list li{width:776px; line-height:54px; height:54px; font-size:22px;}
+    .list li div{float:left;width:365px;}
+    .list li span.num{float:left;width:40px;}
+    .list li span.name{float:left;width:360px;}
+    .list li span.type{float:left;width:140px; text-align:center;}
+    .listFocusDiv{position:absolute;width:830px;height:110px;left:448px;top:170px;background:url(skin/images/listFoucsbg1.png) no-repeat; display:none}
+    .listFocusDiv div{ float:left; line-height:110px; width:92px; text-align:center;}
+    .listFocusDiv .focusDiv{ background:url(skin/images/listFoucsbg.png) no-repeat; margin-left:-205px; width:133px; height:110px;}
+    .pageInfo{position:absolute;width:122px;height:30px;left:887px;top:647px;text-align:center;font-size:20px;}
+    .textfocus{position:absolute;left:-118px;top:53px;width:934px;height:134px;overflow:hidden;background: url(skin/images/list_focus.png) no-repeat;color:#fff;font-weight:bold;display: none;}
+    .textfocus ul{position:absolute;top:46px;left:741px;width:191px;height:32px;}
+    .textfocus ul li{ float:left; width:80px; }
+    .textfocus .focusInFocus{background:url(skin/images/list_little_focus.png) no-repeat;width:148px;height:100px;position:absolute;left:689px;top:12px;}
+
+
+</style>
+    <link type="text/css" rel="stylesheet" href="skin/css/tipwindow.css" />
+    <script src="js/common_cs_cst.js"></script>
+    <script type="text/javascript" src="../res/default/js/commonAPI.js"></script>
+    <script type="text/javascript" src="../res/default/js/global.js"></script>
+    <script type="text/javascript" src="js/dataMove.js"></script>
+<script>
+var listObj, listData;
+var resId;
+var playButFoucs = false; //默认播放按钮聚焦
+var listFocus = 0;
+var listSize = 8, curPage = 1, totalPage = 0, areaTip = 0;
+var areaTip1 = 0;
+var focusIndex = 1;
+var buttonIndex = 0;
+var listPos = {
+	"initTop" : 170,
+	"topStep" : 54
+}
+var keyword = "";
+var searchType = 1;
+var listConfig;
+var columnId = "search";
+var buyFlag;
+Object.extend(MultiMove, List);
+window.onload = function() {
+    if(getGlobalVar("isBack") == "Y") {
+        listFocus = getGlobalVar("listFocus" + columnId) == "" ? 0 : parseInt(getGlobalVar("listFocus" + columnId));
+        curPage = getGlobalVar("curPage" + columnId) == "" ? 1 : parseInt(getGlobalVar("curPage" + columnId));
+        areaTip = getGlobalVar("areaTip" + columnId) == "" ? 0 : parseInt(getGlobalVar("areaTip" + columnId));
+        keyword = getGlobalVar("keyword" + columnId);
+        $('searchValue').innerHTML = keyword;
+        searchType = getGlobalVar("searchType" + columnId);
+        setGlobalVar("isBack", "");
+    }
+	listConfig = {
+        "focusId" : "resultFocusId",
+        "focusIndex" : listFocus,
+        "size" : listSize,
+        "iterator" : showList,
+        "onFocus" : onListFocus,
+        "onBlur" : onListBlur,
+        "isLoop" : true,
+        "moveDir" : "V",
+        "updateData" : reGetData,
+        "focusTop" : listPos.initTop,
+        "focusStep" : listPos.topStep
+    };
+	listObj = New(MultiMove, listConfig);
+	if(keyword != ""){
+		initList();
+	}
+    setFocus(0);
+};
+function doSearch(type){
+	if(areaTip == 0 ){
+		keyword = $("searchValue").innerHTML;
+		searchType = parseInt(type);
+		curPage = 1;
+		listObj.focusIndex=0;
+		initList();
+	}
+}
+IEPG.getData.searchAction = function(_config){
+    var searchType = _config.searchType || 0; //点播0 回看1
+    var keyword =  _config.keyword || "";
+    var curPage = _config.curPage || 1;
+    var pageSize = _config.pageSize || 999;
+    var assetId = _config.assetId || "";
+    var startAt = (curPage - 1) * pageSize + 1;
+    var VOD_getAssetListByKeyword = "";
+
+    if (searchType == 0){
+        VOD_getAssetListByKeyword = {//点播搜索
+            "data" : "<SearchAction mergeTV=\"1\" keywordType='1' matchType=\"1\" keyword=\"" + keyword + "\" startAt=\""+startAt+"\" maxItems=\""+pageSize+"\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId+"\"/>",
+            "callBack":_config.callBack
+        };
+    } else if (searchType == 1){
+        VOD_getAssetListByKeyword = {//回看搜索
+            "data" : "<SearchAction mergeTV=\"1\" keywordType='1' matchType=\"1\" keyword=\"" + keyword + "\" startAt=\""+startAt+"\" maxItems=\""+pageSize+"\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId+"\"><UserParams><FilterBoxes serviceType=\"BTV\"></FilterBoxes></UserParams></SearchAction>",
+            "callBack":_config.callBack
+        };
+    }
+    IEPG.getData(URL.VOD_getAssetListByKeyword, VOD_getAssetListByKeyword);
+}
+var folderColumnId = getGlobalVar("folderColumnId") ||"MANU50438"; // 高清盒子只搜索城网互动的节目
+function initList() {
+
+	if(keyword == ""){
+
+		listData=[];
+		listObj.initListData(listData, 0, 0);
+		listObj.setPageInfo("pageId");
+        $("resultId").innerHTML='';
+		// $(" ").innerHTML = keyword;
+		// resetObjStyle();
+		// listObj.initFocus();
+	}else{
+
+        IEPG.getData.searchAction({
+			"curPage" : curPage,
+			"pageSize" : listSize,
+			"searchType": searchType,
+            "assetId": folderColumnId,
+			"keyword": keyword,
+			"callBack" : function(_dataJson) {
+					listData = _dataJson.selectableItem;
+					totalPage = _dataJson.totalResults % listSize == 0 ? _dataJson.totalResults / listSize : _dataJson.totalResults / listSize + 1;
+					listObj.initListData(listData, curPage, totalPage);
+					listObj.setPageInfo("pageId");
+					$("resultId").innerHTML = keyword;
+					resetObjStyle();
+					if(listObj.length > 0) {
+						closeStyle();
+						listObj.initFocus();
+						areaTip = 1;
+					}
+					//上报
+					// AppManager.invoke("TVRating", "addAction", "{\"action\":\"page\",\"data\":[\"E1\",\"search\",\"E2\",\"daital\",\"E3\",\"search\",\"E4\",\""+listData.length+"\",\"D1\",\"0000\",\"D2\",\""+encodeURI("详情")+"\",\"D3\",\""+curPage+"\",\"T\",\"P\"]}");
+				}
+			}
+        );
+    }
+}
+function closeStyle() {
+    resId = curId;
+    $(resId).className = '';
+    var btnObj = document.getElementsByTagName("input");
+    var len=btnObj.length;
+    for(var i=0;i<len;i++){
+        btnObj[i].disabled = true;
+    }
+}
+function reGetData(_curPage) {
+	if(_curPage <= 0) {
+		curPage = 1;
+	} else {
+		curPage = _curPage;
+	}
+	setTimeout("initList()",50);
+}
+
+function showList(_data, _focusIndex) {
+	if(_data) {
+		$("num_" + _focusIndex).innerHTML = (_focusIndex+1)+"、";
+		$("searchResult_" + _focusIndex).innerHTML = subText(_data.titleFull, 28, 0);
+		if (searchType == 0){
+            $("resultFlag_" + _focusIndex).innerHTML = subText(_data.folderName, 10, 0);
+        } else if(searchType == 1){
+            $("resultFlag_" + _focusIndex).innerHTML = subText(_data.titleBrief, 10, 0);
+        }
+	} else {
+		$("num_" + _focusIndex).innerHTML ="";
+		$("resultFlag_" + _focusIndex).innerHTML = "";
+		$("searchResult_" + _focusIndex).innerHTML = "";
+	}
+}
+
+function onListFocus(_focusIndex) {
+	listFocus = _focusIndex;
+	$("searchResult_" + _focusIndex).innerHTML =subText(listData[_focusIndex].titleFull, 28, 1);
+    var resultFlag = "";
+    if (searchType == 0){
+        resultFlag = listData[_focusIndex].folderName;
+    } else if(searchType == 1){
+        resultFlag = listData[_focusIndex].titleBrief;
+    }
+	$("resultFlag_" + _focusIndex).innerHTML = subText(resultFlag, 10, 1);
+}
+
+function onListBlur(_focusIndex) {
+	$("searchResult_" + _focusIndex).innerHTML =subText(listData[_focusIndex].titleFull, 28, 0);
+    var resultFlag = "";
+    if (searchType == 0){
+        resultFlag = listData[_focusIndex].folderName;
+    } else if(searchType == 1){
+        resultFlag = listData[_focusIndex].titleBrief;
+    }
+    $("resultFlag_" + _focusIndex).innerHTML = subText(resultFlag, 10, 0);
+}
+
+
+function setFocus(direction) {   //方向  item
+    $('searchValue').className  = '';
+    $('delete').className  = '';
+    $('searchVod').className  = '';
+    // $('searchBtv').className  = '';
+    if(direction=='0'){
+        areaTip1 = 0;
+        buttonIndex = 0;
+    }else if(direction=='1'){
+        buttonIndex -=2;
+    } else if(direction=='2'){
+        buttonIndex +=1;
+    }else if(direction=='3'){
+        buttonIndex +=2;
+    }else{
+        buttonIndex -=1;
+    }
+
+    switch (buttonIndex) {
+        case -1:
+        case -2:
+            buttonIndex = 0;
+            $('searchValue').className  = 'focus';
+            curId = 'searchValue';
+            break;
+        case 0:
+            $('searchValue').className  = 'focus';
+            curId = 'searchValue';
+            break;
+        case 1:
+            $('delete').className  = 'focus';
+            curId = 'delete';
+            break;
+        case 2:
+            $('searchVod').className  = 'focus';
+            curId = 'searchVod';
+            break;
+        // case 3:
+        //     $('searchBtv').className  = 'focus';
+        //     curId = 'searchBtv';
+        //     break;
+        case 3:
+        default:
+            buttonIndex = 0;
+            areaTip1 = 1;
+            focusIndex =1;
+            $("input_box_"+focusIndex).className = 'focus';
+            curId = "input_box_"+focusIndex;
+            break;
+    }
+}
+
+function setFocusA(direction) {   //方向  item
+    var oldFocus = focusIndex;
+    if(direction=='0'){
+        areaTip1 = 1;
+
+    }else if(direction=='1'){
+        focusIndex -=9;
+    } else if(direction=='2'){
+        focusIndex +=1;
+    }else if(direction=='3'){
+        focusIndex +=9;
+    }else if(direction=='4'){
+        focusIndex -=1;
+    }
+    if(focusIndex<=36&&focusIndex>=1) {
+        $("input_box_"+oldFocus).className = '';
+        $("input_box_" + focusIndex).className = 'focus';
+        curId = "input_box_"+focusIndex;
+    }else if(focusIndex>36){
+        areaTip1 = 2;
+        focusIndex = oldFocus;
+        $("input_box_"+oldFocus).className = '';
+        $('return').className = 'focus';
+        curId = 'return';
+    }else if(focusIndex<1){
+        areaTip1 = 0;
+        focusIndex = oldFocus;
+        $("input_box_"+oldFocus).className = '';
+        buttonIndex = 2;
+        $('searchVod').className  = 'focus';
+        curId = 'searchVod';
+    } else{
+        focusIndex = oldFocus;
+    }
+}
+function moveUp() {
+    if(areaTip == 1){
+        listObj.moveList(-1);
+    }else {
+        if(areaTip1 ==0){
+            setFocus(1);
+        }else if(areaTip1 ==1 ){
+            setFocusA(1);
+        }else if(areaTip1 ==2 ){
+            $('return').className = '';
+            setFocusA(0);
+        }
+    }
+}
+function moveDown() {
+
+	if(areaTip == 1){
+		listObj.moveList(1);
+	}else{
+	    if(areaTip1 ==0){
+            setFocus(3);
+        }else if(areaTip1 ==1 ){
+            setFocusA(3);
+        }else if(areaTip1 ==2 ){
+
+        }
+    }
+}
+function saveGlobalVar() {
+    //globalPath.setUrl();
+    setGlobalVar("listFocus" + columnId, listFocus);
+    setGlobalVar("curPage" + columnId, curPage);
+    setGlobalVar("areaTip" + columnId, areaTip);
+    setGlobalVar("keyword" + columnId, keyword);
+    setGlobalVar("searchType" + columnId, searchType);
+}
+function clearGlobalVar(){
+    setGlobalVar("listFocus" + columnId, "");
+    setGlobalVar("curPage" + columnId, "");
+    setGlobalVar("areaTip" + columnId, "");
+    setGlobalVar("keyword" + columnId, "");
+    setGlobalVar("searchType" + columnId, "");
+}
+
+function moveRight() {
+	if(tipFlag) {return;}
+	var curFocusId = curId;
+	if(areaTip == 0 && (curFocusId == "delete" ||curFocusId == "return"||curFocusId=='searchBtv' || curFocusId == "input_box_9"|| curFocusId == "input_box_18"|| curFocusId == "input_box_27"|| curFocusId == "input_box_36")) {
+		if(listObj.length > 0){
+			closeStyle();
+			areaTip = 1 ;
+			listObj.initFocus();
+		}
+	}
+	// else if( playButFoucs == true) {
+	// 	$("focusInfocusId").style.marginLeft = "-117px";
+	// 	playButFoucs = false;
+	// }
+	else if(areaTip == 0){
+        if(areaTip1 ==0){
+            setFocus(2);
+        }else if(areaTip1 ==1 ){
+            setFocusA(2);
+        }else if(areaTip1 ==2 ){
+
+        }
+    }
+}
+
+function moveLeft() {
+	if(tipFlag) {return;}
+	// if(playButFoucs == false){
+	// 	$("focusInfocusId").style.marginLeft = "-205px";
+	// 	playButFoucs = true;
+	// 	return;
+	// }
+	if(areaTip == 1) {
+		listObj.hideFocus();
+		//openStyle();
+		areaTip = 0;
+        $(curId).className = 'focus';
+	}else{
+        if(areaTip1 ==0){
+            setFocus(4);
+        }else if(areaTip1 ==1 ){
+            setFocusA(4);
+        }else if(areaTip1 ==2 ){
+
+        }
+    }
+}
+var curId = '';
+function setItemId() {
+    if(areaTip==1){
+
+    }else if(areaTip == 1){
+        if(areaTip1 ==0){
+
+        }else if(areaTip1 ==1){
+            curId = "input_box_"+focusIndex;
+        }else{
+            curId = 'return';
+        }
+    }
+}
+function doConfirm() {
+    if(areaTip == 0) {
+        if($(curId).getAttribute('value')){
+            getEnterValue($(curId).getAttribute('value'));
+        }else{
+            if(curId=='searchValue'){
+                getEnterValue('searchValue');
+            }else{
+                getEnterValue($(curId).innerHTML);
+            }
+        }
+
+        // try {
+        //     getEnterValue($(curId).getAttribute('value'));
+        // }catch (e) {
+        //
+        // }
+
+    }else{
+        var name = listData[listFocus].titleFull;
+        if(listData[listFocus].serviceType== "BTV"){
+            var tempStr = "您好！很抱歉，节目《"+name+"》属于“电视回放”类节目，该类节目不提供详情。";
+            showMsg(tipUrl +"/T-nsp/tip/info.htm",tempStr);
+            // showMsg("tip.htm",tempStr);
+        }else{
+            // saveGlobalVar();
+            // saveUrlPath();
+            // globalPath.setUrl();
+            var columnId = listData[listFocus].folderAssetId;
+            var assetId = listData[listFocus].assetId;
+            var providerId = listData[listFocus].providerId;
+            var isPack = listData[listFocus].isPackage; //是否资源包标识，1-是，0-否
+            saveGlobalVar();
+            goToDetail(listData[listFocus])
+
+
+        }
+    }
+}
+
+function turnNextPage() {
+	if(areaTip == 1) {
+		listObj.turnPage(1);
+		listFocus = 0;
+	}
+}
+
+function turnPrevPage() {
+	if(areaTip == 1) {
+		listObj.turnPage(-1);
+		listFocus = 0;
+	}
+}
+//取得键盘按键的值
+function getEnterValue(id) {
+
+    switch(id) {
+        case 'delete':
+        case '回退':
+            $('searchValue').innerHTML  = ($("searchValue").innerHTML).substring(0, ($("searchValue").innerHTML).length - 1)
+            break;
+        case 'searchVod':
+        case '点播搜索':
+            doSearch(0);
+            break;
+        case 'searchBtv':
+        case '回看搜索':
+            doSearch(1);
+            break;
+        case 'return':
+        case '返回上级':
+            goReturnUrlPath();
+            break;
+        case 'searchValue':
+            break;
+        default:
+            var value = "";
+            if ($("searchValue").innerHTML != "") {
+                if($("searchValue").innerHTML.length<15){
+                    value = $("searchValue").innerHTML + id;
+                }else {
+                    return;
+                }
+            } else {
+                value = value + id;
+            }
+            $("searchValue").innerHTML=value;
+            break;
+    }
+}
+</script>
+
+</head>
+
+<body>
+<div class="bg">
+  <div class="logo"><div><img src="skin/images/logo1.png"  width="79" height="46" style="margin-top:17px" /></div><div><span style="font-size:32px;">节目搜索</span></div></div>
+  <div class="left_con">
+  	<div class="left_con_tip">选择输入每个汉字拼音的首字母，例如："成龙"，选择输入"CL"后，可根据片名、演员、导演进行混合搜索。</div>
+    <div class="left_con_tip1">请输入汉字名称各首字母</div>
+      <div class="left_con_input"><div value="searchValue" id="searchValue"></div></div>
+      <div class="left_con_return"><div type="button" value="回退" id="delete" onClick="getEnterValue(this.id);">回退</div></div>
+    <div class="left_con_actor">
+        <div type="button" value="searchVod" id="searchVod" onClick="getEnterValue(this.id);">点播搜索</div>
+        <!--<div type="button" value="回看搜索" id="searchBtv" onClick="getEnterValue(this.id);">回看搜索</div>-->
+    </div>
+    <div class="left_con_letter" id="input_box">
+        <div id="input_box_1" onclick="getEnterValue(this.getAttribute('value'))" value="A">A</div>
+        <div id="input_box_2" onclick="getEnterValue(this.getAttribute('value'))" value="B">B</div>
+        <div id="input_box_3" onclick="getEnterValue(this.getAttribute('value'))" value="C">C</div>
+        <div id="input_box_4" onclick="getEnterValue(this.getAttribute('value'))" value="D">D</div>
+        <div id="input_box_5" onclick="getEnterValue(this.getAttribute('value'))" value="E">E</div>
+        <div id="input_box_6" onclick="getEnterValue(this.getAttribute('value'))" value="F">F</div>
+        <div id="input_box_7" onclick="getEnterValue(this.getAttribute('value'))" value="G">G</div>
+        <div id="input_box_8" onclick="getEnterValue(this.getAttribute('value'))" value="H">H</div>
+        <div id="input_box_9" onclick="getEnterValue(this.getAttribute('value'))" value="I">I</div>
+        <div id="input_box_10" onclick="getEnterValue(this.getAttribute('value'))" value="J">J</div>
+        <div id="input_box_11" onclick="getEnterValue(this.getAttribute('value'))" value="K">K</div>
+        <div id="input_box_12" onclick="getEnterValue(this.getAttribute('value'))" value="L">L</div>
+        <div id="input_box_13" onclick="getEnterValue(this.getAttribute('value'))" value="M">M</div>
+        <div id="input_box_14" onclick="getEnterValue(this.getAttribute('value'))" value="N">N</div>
+        <div id="input_box_15" onclick="getEnterValue(this.getAttribute('value'))" value="O">O</div>
+        <div id="input_box_16" onclick="getEnterValue(this.getAttribute('value'))" value="P">P</div>
+        <div id="input_box_17" onclick="getEnterValue(this.getAttribute('value'))" value="Q">Q</div>
+        <div id="input_box_18" onclick="getEnterValue(this.getAttribute('value'))" value="R">R</div>
+        <div id="input_box_19" onclick="getEnterValue(this.getAttribute('value'))" value="S">S</div>
+        <div id="input_box_20" onclick="getEnterValue(this.getAttribute('value'))" value="T">T</div>
+        <div id="input_box_21" onclick="getEnterValue(this.getAttribute('value'))" value="U">U</div>
+        <div id="input_box_22" onclick="getEnterValue(this.getAttribute('value'))" value="V">V</div>
+        <div id="input_box_23" onclick="getEnterValue(this.getAttribute('value'))" value="1">1</div>
+        <div id="input_box_24" onclick="getEnterValue(this.getAttribute('value'))" value="2">2</div>
+        <div id="input_box_25" onclick="getEnterValue(this.getAttribute('value'))" value="3">3</div>
+        <div id="input_box_26" onclick="getEnterValue(this.getAttribute('value'))" value="4">4</div>
+        <div id="input_box_27" onclick="getEnterValue(this.getAttribute('value'))" value="5">5</div>
+        <div id="input_box_28" onclick="getEnterValue(this.getAttribute('value'))" value="W">W</div>
+        <div id="input_box_29" onclick="getEnterValue(this.getAttribute('value'))" value="X">X</div>
+        <div id="input_box_30" onclick="getEnterValue(this.getAttribute('value'))" value="Y">Y</div>
+        <div id="input_box_31" onclick="getEnterValue(this.getAttribute('value'))" value="Z">Z</div>
+        <div id="input_box_32" onclick="getEnterValue(this.getAttribute('value'))" value="6">6</div>
+        <div id="input_box_33" onclick="getEnterValue(this.getAttribute('value'))" value="7">7</div>
+        <div id="input_box_34" onclick="getEnterValue(this.getAttribute('value'))" value="8">8</div>
+        <div id="input_box_35" onclick="getEnterValue(this.getAttribute('value'))" value="9">9</div>
+        <div id="input_box_36" onclick="getEnterValue(this.getAttribute('value'))" value="0">0</div>
+    </div>
+    <!--字母焦点-->
+      <div class="returnbg"><div type="button" value="return" id="return" onClick="getEnterValue(this.id);">返回上级</div></div>
+  </div>
+
+  <div class="list">
+  		<li><div style="font-size:24px; width:135px;">搜索结果：</div><div style="width:600px;">搜到"<span style="color:#2f9ee7" id="resultId"></span>"的相关结果<span id="resultCount" style="display:none">共12条</span></div></li>
+        <li><span class="num" id="num_0"></span><span class="name" id="searchResult_0"></span><span class="type" id="resultFlag_0"></span></li>
+        <li><span class="num" id="num_1"></span><span class="name" id="searchResult_1"></span><span class="type" id="resultFlag_1"></span></li>
+        <li><span class="num" id="num_2"></span><span class="name" id="searchResult_2"></span><span class="type" id="resultFlag_2"></span></li>
+        <li><span class="num" id="num_3"></span><span class="name" id="searchResult_3"></span><span class="type" id="resultFlag_3"></span></li>
+        <li><span class="num" id="num_4"></span><span class="name" id="searchResult_4"></span><span class="type" id="resultFlag_4"></span></li>
+        <li><span class="num" id="num_5"></span><span class="name" id="searchResult_5"></span><span class="type" id="resultFlag_5"></span></li>
+        <li><span class="num" id="num_6"></span><span class="name" id="searchResult_6"></span><span class="type" id="resultFlag_6"></span></li>
+        <li><span class="num" id="num_7"></span><span class="name" id="searchResult_7"></span><span class="type" id="resultFlag_7"></span></li>
+  </div>
+  <div>
+	<!--<div class="listFocusDiv" id="resultFocusId"><div style="margin-left:624px;">播放</div><div>详情</div><div class="focusDiv" id="focusInfocusId"></div></div>-->
+      <div class="listFocusDiv" id="resultFocusId"><div style="margin-left:624px;">详情</div><div class="focusDiv" id="focusInfocusId" style="margin-left: -117px;"></div></div>
+  </div>
+  <div class="pageInfo" id="pageId"></div>
+</div>
+<!-- 弹出框start -->
+<div id="tip_visibility" class="tip_visibility" style="visibility: hidden;">
+    <!-- ajax请求数据层 -->
+    <div class="tip_window" id="tip_window">
+
+    </div>
+</div>
+ <!-- 弹出框end -->
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+/**
+ * 
+ * @reset.css
+ *
+**/
+body{font-family:Helvetica; -webkit-font-smoothing: antialiased; color: #fff;}
+h1,h2,h3,h4,h5,h6{font-size:100%; margin:0; font-weight:400;}
+body,form,ul,ol,dl,dd,p{margin:0;}
+ul,ol{list-style-type:none; padding: 0;}
+img{border:0 none;vertical-align:middle;}
+a{text-decoration:none;outline: 0;}
+textarea{ overflow:auto; resize: vertical;}
+table {border-collapse:collapse;border-spacing:0;}
+:active,:focus{ outline: 0;}
+input::-ms-clear{display:none;}
+.mfix:before{content:'';display:inline-block; width:0; height:100%; vertical-align:middle;}
+.mfix>*{display:inline-block;vertical-align:middle;}
+a,button,input,textarea{-webkit-tap-highlight-color: rgba(0,0,0,0);}
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 2dppx){ 
+    /* Retina 下仍使用默认字体渲染 */
+	body { -webkit-font-smoothing: subpixel-antialiased; }
+}
+
+
+/** 通用 **/
+.main{ position: absolute; left: 0; top: 0; width: 1280px; height: 720px;overflow:hidden;}
+.logo{ position: absolute; left: 60px; top: 35px; width: 96px; height: 32px;}
+.indo{ text-align: right; position: absolute; right: 30px; top: 40px; color: #f2f2f2;}
+.info_weather{ font-size: 30px;}
+.info_data{ font-size: 30px;}
+.info_week{ font-size: 30px; padding: 0 25px;}
+.footer{ position: absolute; left: 18px; right: 0; bottom: 20px; height: 60px; line-height: 60px; background: url('../img/shadow01.png') ;}
+.notice{ box-sizing: border-box; width:60px; height:60px;font-size: 24px; margin-left:48px; background: url('../img/ico.png') left center no-repeat;}
+.marquee{ position: absolute; margin-left: 88px; left: 0; top: 0; right:0; font-size: 24px; height: 60px; line-height: 60px; white-space: nowrap; overflow: hidden;}
+.marquee>span{ padding-left:300px;}
+
+/* main */
+.maincon{ position: absolute; left: 0; top: 130px; right: 0; bottom: 80px; }
+.main_list{ display: none; position: absolute; left: 0; top: 0; bottom: 0; right: 0;}
+.main_list.current{ display:block;}
+.main_cell{ float: left; position: relative; border-radius: 20px; overflow: hidden;}
+.main_cell img{ border-radius: 20px; overflow: hidden;}
+.main_cell.focus:before{ content:''; position:absolute; left:0; top:0; bottom:0; right:0; border-radius: 20px;  border:3px solid #00FF00; }
+.main_cell.fr{ float: right; margin: 20px 20px 0 0;}
+.tabloading{ line-height: 680px; text-align: center; font-size: 40px;}
+/*.packageName{position: absolute;top: -24px;font-size: 18px; width: 100px;text-align: center;margin: 0 16px;color: cornflowerblue;display: inline-table;visibility: hidden;}
+
+.nav a{ display: inline-block; position:relative; font-size: 29px; color: #ada2a2; margin: 0 11px; width: 90px; height: 44px; line-height: 44px; text-align: center; }
+
+.nav a.current{background: url('../img/focus2.png');    width: 112px;margin: 0;    height: 52px;color: #fff;}
+.nav a.focus{background: url('../img/focus1.png');    width: 112px;margin: 0;height: 44px;color: #fff;}
+*/.main_cell{ float: left; position: relative; border-radius: 5px; overflow: hidden;}
+.main_cell img{ border-radius: 5px; overflow: hidden;width: inherit;height: inherit;}
+.main_cell.focus:before{ content:''; position:absolute; left:0; top:0; bottom:0; right:0; border-radius: 5px;  border:5px solid #00FF00; }  
+.info_weather{ font-size: 20px;}
+.info_city{ font-size: 15px;}
+.info_tempr{ font-size: 20px;}
+.info_date{ font-size: 20px;}
+.info_week{ font-size: 20px; }
+.info_weather_image{height:32px;width:32px;vertical-align:middle; margin:0 10px;}
+.indo_wrap{ display:inline-block; vertical-align:middle; text-align:center;}
+.indo_wrap span{ display:block;}
+.focusLogoContainer{    text-align: right;position: absolute;right: 350px;top: 34px;color: #f2f2f2;}
+.focusLogo{margin-left: 30px; position: relative;display: inline-block;}
+.indo{ text-align: right; position: absolute; right: 55px; top: 37px; color: #f2f2f2;}
+.xt{ position: absolute; left: 30px;font-size: 20px;color: #00FF00;top: 13px;}
+.focusLogo.focus{       border: 5px solid #00FF00;border-radius: 20px;}	
+
+
+/** nav **/
+.nav{ position: absolute; font-size: 0; top: 92px;width: 1200px;left: 40px;}
+.nav a{ display: inline-block; position:relative; font-size: 25px; color: #ada2a2; margin: 0 1px; width: 110px; height: 44px; line-height: 44px; text-align: center; text-indent: 23px;}
+.nav a.current{background: url('../img/focus2.png');    margin: 0;    height: 52px;color: #fff;}
+.nav a.focus{background: url('../img/focus1.png');    margin: 0;height: 44px;color: #fff;}
+.packageName{position: absolute;top: -25px;font-size: 18px; width: 100px;text-align: center;color: cornflowerblue;display: inline-table;visibility: hidden;}

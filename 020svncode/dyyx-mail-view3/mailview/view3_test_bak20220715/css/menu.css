@@ -1,0 +1,88 @@
+
+      .menu-icon {
+          position: absolute;
+          top: 0;
+          right: 55px;
+          
+      }
+      .menu-icon div{
+          width: 55.2px;
+          height: 55.2px;
+          margin: 18px 16px 0 16px;
+	float:left;       
+	   /* width: 92px;
+          height: 92px; */
+          /* transform: scale(0.6); */
+          /* padding: 5px; */
+          /* margin-bottom: 44px; */
+      }
+
+      .icon-item.focus {
+          /*outline: 5px solid #950000;*/
+      }
+      .icon-item .iconImg {
+        display: block;
+        margin: 0 auto;
+      }
+      .icon-item .iconTxt {
+        display: block;
+        margin-top: 5px;
+        text-align: center;
+      }
+
+      /* .menu-icon span {
+          display: block;
+      } */
+
+      .menu-icon .iconImg {
+          /* width: 58px;
+          height: 58px; */
+          width: 34.8px;
+          height: 34.8px;
+          /* margin-left: 16px;
+          margin-bottom: 5px; */
+      }
+      .menu-icon .iconTxt {
+          width: 100%;
+          font-size: 13.2px;
+          /* font-size: 22px; */
+          color: #ababab;
+          text-align: center;
+      }
+      .menu-icon .focus .iconTxt {
+          color: #38b336;
+      }
+
+      .icon0.focus .iconImg {
+          /* background: url("./img/icon_0.png"); */
+          background: url("../img/icon_0.png");
+          background-size: cover;
+          /* background-size: contain; */
+      }
+      .icon1.focus .iconImg {
+          /* background: url("./img/icon_1.png"); */
+          background: url("../img/icon_1.png");
+          background-size: cover;
+      }
+      .icon2.focus .iconImg {
+          /* background: url("./img/icon_2.png"); */
+          background: url("../img/icon_2.png");
+          background-size: cover;
+      }
+
+      .icon0 .iconImg {
+          /* background: url("./img/icon_00.png"); */
+          background: url("../img/icon_00.png");
+          background-size: cover;
+      }
+      .icon1 .iconImg {
+          /* background: url("./img/icon_10.png"); */
+          background: url("../img/icon_10.png");
+          background-size: cover;
+      }
+      .icon2 .iconImg {
+         /*  background: url("./img/icon_20.png"); */
+          background: url("../img/icon_20.png");
+
+          background-size: cover;
+      }

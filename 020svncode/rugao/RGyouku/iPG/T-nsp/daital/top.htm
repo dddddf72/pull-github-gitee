@@ -1,0 +1,553 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="1280*720; text/html; charset=utf-8" />
+		<title>点播排行</title>
+		<link type="text/css" rel="stylesheet" href="skin/css/style.css" />
+		<link type="text/css" rel="stylesheet" href="skin/css/tipwindow.css" />
+		<script src="../../common/js/common_cs_cst.js"></script>
+		<script src="../../common/js/commonAPI.js"></script>
+		<script src="../../common/js/dataMove.js"></script>
+<script>
+var menuObj, listObj, listData;
+var playButFoucs = true; //默认播放按钮聚焦
+var menuIndex = 0, menuFocus = 0, listFocus = 0;
+var listSize = 10, curPage = 1, totalPage = 0, areaTip = 0;
+var isGetData = false;
+var navPos = {
+	"menuSize": 8,
+	"menuFocusId":"menu_focus",
+	"initTop" : -28,
+	"topStep" : 54
+}
+var listPos = {
+	"initTop" : -53,
+	"initLeft" : -6,
+	"topStep" : 54
+}
+
+var srcollPos = {//initTop为初始化top值，totalLength为滑动总长度，length为滑动条长度
+	"initTop" : 0,
+	"totallength" : 488,
+	"length" : 41
+};
+var navConfig,listConfig;
+var menuData = ["本周电影排行","电影总排行", "本周电视剧排行", "电视剧总排行"];
+var columnId = "top";
+Object.extend(MultiMove, Menu);
+Object.extend(MultiMove, List);
+
+window.onload = function() {
+	if(getGlobalVar("isBack") == "Y") {
+		menuIndex = getGlobalVar("menuIndex" + columnId) == "" ? 0 : parseInt(getGlobalVar("menuIndex" + columnId));
+		menuFocus = getGlobalVar("menuFocus" + columnId) == "" ? 0 : parseInt(getGlobalVar("menuFocus" + columnId));
+		listFocus = getGlobalVar("listFocus" + columnId) == "" ? 0 : parseInt(getGlobalVar("listFocus" + columnId));
+		curPage = getGlobalVar("curPage" + columnId) == "" ? 1 : parseInt(getGlobalVar("curPage" + columnId));
+		areaTip = getGlobalVar("areaTip" + columnId) == "" ? 0 : parseInt(getGlobalVar("areaTip" + columnId));
+		playButFoucs = getGlobalVar("playButFoucs" + columnId) == "" ? true : getGlobalVar("playButFoucs" + columnId);
+		if(playButFoucs == 'true') playButFoucs = true;
+		setGlobalVar("isBack", "");
+	}
+	navConfig = {
+			"focusIndex" : menuFocus,
+			"dataIndex" : menuIndex,
+			"size" : navPos.menuSize,
+			"iterator" : showMenu,
+			"onFocus" : onMenuFocus,
+			"onBlur" : onMenuBlur,
+			"moveDir" : "V",
+			"focusId" : navPos.menuFocusId,
+			"focusTop" : navPos.initTop,
+			"focusStep" :navPos.topStep,
+			"isLoop" : true,
+			"isFocusFix" : false
+		};
+	listConfig = {
+			"focusId" : "list_focus",
+			"focusIndex" : listFocus,
+			"size" : listSize,
+			"iterator" : showList,
+			"onFocus" : onListFocus,
+			"onBlur" : onListBlur,
+			"isLoop" : true,
+			"moveDir" : "V",
+			"arrowUL": "arrowUp",
+			"arrowDR":"arrowDown",
+			"updateData" : reGetData,
+			"focusTop" : listPos.initTop,
+			"focusStep" : listPos.topStep
+		};
+
+	menuObj = New(MultiMove, navConfig);
+	listObj = New(MultiMove, listConfig);	
+	initMenu();
+};
+function initMenu() {
+	menuObj.initMenuData(menuData);
+	menuObj.initFocus();
+}
+
+function clearScreen(){
+    for(i=0;i<10;i++){
+        $("num_" + i).innerHTML = "";
+        $("assetName_" + i).innerHTML = "";
+        $("grade_" + i).innerHTML = "";
+        $("recom_" + i).innerHTML = "";
+    }
+}
+
+function showMenu(_data, _dataIndex , _focusIndex) {
+	if(_data) {
+		$("menu_" + _focusIndex).innerHTML = subText(_data, 14, 0);
+	} else {
+		$("menu_" + _focusIndex).innerHTML = "";
+	}
+}
+
+function onMenuFocus(_focusIndex, _dataIndex) {
+	$(navPos.menuFocusId).className = "menufocus";
+	$("menu_" + _focusIndex).style.fontSize = "26px";
+	$("menu_" + _focusIndex).style.color = "#FFF";
+	$("menu_" + _focusIndex).innerHTML = subText(menuData[_dataIndex], 14, 1);
+	initList();
+}
+
+function onMenuBlur(_focusIndex, _dataIndex) {
+	$(navPos.menuFocusId).className = "menublur";
+	$("menu_" + _focusIndex).style.fontSize = "24px";
+	$("menu_" + _focusIndex).style.color = "#d2d2d2";
+	$("menu_" + _focusIndex).innerHTML = subText(menuData[_dataIndex], 14, 0);
+}
+
+var topColumnId = "MANU6571807"; // 高清盒子只展现城网互动的点播排行
+function initList() {
+	listData = [];
+	isGetData = true;
+	$("pageInfo").style.display = "none";
+	clearScreen();
+	if(menuObj.dataIndex == 0) { // 本周电影排行
+		getData.top({
+			"curPage": curPage,
+			"listPageSize": listSize,
+			"columnId": topColumnId,
+			"showType": "Movie",
+			"days": "7",
+			"callBack": function(_dataJson) {
+				initListData(_dataJson);
+			}
+		});
+	} else if(menuObj.dataIndex == 1) { // 电影总排行
+		getData.top({
+			"curPage": curPage,
+			"listPageSize": listSize,
+            "columnId": topColumnId,
+			"showType": "Movie",
+			"callBack": function(_dataJson) {
+				initListData(_dataJson);
+			}
+		});
+	} else if(menuObj.dataIndex == 2) {
+		getData.top({ // 本周电视剧排行
+         	"curPage": curPage,
+         	"listPageSize": listSize,
+         	"showType": "Series",
+            "columnId": topColumnId,
+			"days": "7",
+			"callBack": function(_dataJson) {
+				initListData(_dataJson);
+		   	}
+		});
+	} else if(menuObj.dataIndex == 3) {
+		getData.top({ // 电视剧总排行
+			"curPage" : curPage,
+			"listPageSize" : listSize,
+            "columnId": topColumnId,
+			"showType": "Series",
+			"callBack": function(_dataJson) {
+				initListData(_dataJson);
+			}
+		});			
+	}
+}
+
+function initListData(_dataJson){
+    listData = _dataJson.selectableItemList;
+    totalPage=Math.ceil(_dataJson.totalResults / listSize);
+	listObj.initListData(listData, curPage, totalPage);
+	if(listObj.length>0){
+		listObj.setPageInfo("pageInfo");	
+	}
+	isGetData = false;
+	if (areaTip == 1) {
+		menuObj.setBlur();
+		listObj.initFocus();	
+		if(playButFoucs == 'false'){
+			playButFoucs = false;
+			$("focusInfocusId").style.left = "777px";
+		}
+	}
+	listObj.initListArrow();
+	listObj.slideUpdown();
+	AppManager.invoke("TVRating", "addAction", "{\"action\":\"page\",\"data\":[\"E1\",\""+columnId+"\",\"E2\",\"top\",\"E3\",\""+columnId+"\",\"E4\",\""+listData.length+"\",\"D1\",\"0000\",\"D2\",\""+encodeURI("点播排行")+"\",\"D3\",\""+curPage+"\",\"T\",\"P\"]}");
+}
+
+
+function reGetData(_curPage) {
+	if(_curPage <= 0) {
+		curPage = 1;
+	} else {
+		curPage = _curPage;
+	}
+	initList();
+	listObj.slideUpdown();
+}
+
+function showList(_data, _focusIndex) {		
+	if(_data) {	
+		$("num_" + _focusIndex).innerHTML = (_focusIndex+1)+"、";
+        $("assetName_" + _focusIndex).innerHTML =subText(_data.titleFull, 36, 0);
+        $("recom_" + _focusIndex).innerHTML = parseInt(_data.favorRating)*3+50;
+        $("grade_" + _focusIndex).innerHTML = subText(_data.folderName, 12, 0);
+	} else {
+		$("num_" + _focusIndex).innerHTML ="";
+		$("assetName_" + _focusIndex).innerHTML = "";
+		$("grade_" + _focusIndex).innerHTML = "";
+		$("recom_" + _focusIndex).innerHTML = "";
+	}
+}
+
+function onListFocus(_focusIndex) {
+	var _data = listData[_focusIndex];
+    $("assetName_" + _focusIndex).innerHTML = subText(_data.titleFull, 36, 1);
+    $("recom_" + _focusIndex).innerHTML = "";
+    $("grade_" + _focusIndex).innerHTML = subText(_data.folderName, 12, 1);
+	$("assetName_" + _focusIndex).style.color = "#FFF";
+	$("grade_" + _focusIndex).style.color = "#FFF";
+}
+
+function onListBlur(_focusIndex) {
+	var _data = listData[_focusIndex];
+    $("assetName_" + _focusIndex).innerHTML =subText(_data.titleFull, 36, 0);
+    $("recom_" + _focusIndex).innerHTML = parseInt(_data.favorRating)*3+50;
+    $("grade_" + _focusIndex).innerHTML = subText(_data.folderName, 12, 0);
+	$("assetName_" + _focusIndex).style.color = "#AAB2BA";
+	$("grade_" + _focusIndex).style.color = "#AAB2BA";
+}
+
+
+function moveUp() {
+	if(isGetData|| tipFlag){
+		return;	
+	}
+	if(areaTip == 0) {
+		if(menuObj.focusIndex == 0){
+			var menuTop=navPos.initTop+navPos.topStep*(navPos.menuSize+1);
+			$("menu_focus").style.top=menuTop+"px";
+			menuObj.setBlur();
+			$(navPos.menuFocusId).className = "menufocus";
+			areaTip =2;
+			return;
+		}
+		curPage = 1;		
+		listObj.isPageTurn=0;
+		listObj.focusIndex = 0;
+		listObj.focusTop = listPos.initTop;
+		listObj.resetSlidePos();
+		menuObj.moveMenu(-1);
+	} else if(areaTip == 1) {
+		listObj.moveList(-1);
+	}else if(areaTip == 2){
+		areaTip=0;
+		menuObj.focusIndex=menuObj.length-1;	
+		menuObj.dataIndex=menuObj.length-1;
+		menuObj.initFocus();
+	}
+}
+
+function moveDown() {
+	if(isGetData|| tipFlag){
+		return;	
+	}
+	if(areaTip == 0) {
+        if(menuObj.focusIndex == menuData.length -1){
+            var menuTop=navPos.initTop+navPos.topStep*(navPos.menuSize+1);
+            $("menu_focus").style.top=menuTop+"px";
+            menuObj.setBlur();
+            areaTip =2;
+            return;
+        }
+		curPage = 1;
+		listObj.isPageTurn=0;
+		listObj.focusIndex = 0;
+		listObj.focusTop = listPos.initTop;
+		listObj.resetSlidePos();
+		menuObj.moveMenu(1);
+	} else if(areaTip == 1) {
+		listObj.moveList(1);
+	}else if(areaTip == 2){
+		areaTip =0;
+		menuObj.focusIndex=0;
+		menuObj.dataIndex=0;
+		menuObj.initFocus();	
+	}
+}
+
+function changeArea(_offset) {
+	if(_offset == 1) {
+		if(menuObj.focusIndex == 4){
+			if(listData2.length <= 0) {
+				return;
+			}
+			menuObj.setBlur();
+			areaTip = 1;
+			listObj2.initFocus();
+		}else{
+			if(listData.length <= 0) {
+				return;
+			}
+			menuObj.setBlur();
+			areaTip = 1;
+			listObj.initFocus();
+		}
+	} else {		
+		listObj.hideFocus();
+		listObj.setBlur();
+		listObj.focusIndex = 0;
+		areaTip = 0;
+		$(navPos.menuFocusId).className = "menufocus";
+	}
+}
+
+function resetObjStyle() {
+	$(listObj.focusId).style.top = listPos.initTop + "px";
+	$(listObj.focusId).style.left = listPos.initLeft + "px";
+}
+
+function moveRight() {
+	if(isGetData|| tipFlag){
+		return;	
+	}
+	if(areaTip == 0) {
+		changeArea(1);
+	} else if(areaTip == 1 && playButFoucs == true) {
+		$("focusInfocusId").style.left = "777px";
+		playButFoucs = false;
+	}
+}
+
+function moveLeft() {
+	if(isGetData || tipFlag){
+		return;	
+	}
+
+	if(areaTip == 1&&playButFoucs == false){
+		$("focusInfocusId").style.left = "689px";
+		playButFoucs = true;
+		return;
+	}
+	if(areaTip == 1 &&playButFoucs == true ) {
+		changeArea(-1);
+	}
+	
+}
+
+function turnNextPage() {
+	if(areaTip == 1&&totalPage>1) {
+		onListBlur(listObj.focusIndex);
+		listObj.focusIndex = 0;
+		listObj.turnPage(1);
+		
+	}
+}
+
+function turnPrevPage() {
+	if(areaTip == 1&&totalPage>1) {
+		onListBlur(listObj.focusIndex);
+		listObj.focusIndex = 0;
+		listObj.turnPage(-1);
+	}
+}
+
+function doConfirm() {
+	if(areaTip == 1) {		
+		if(playButFoucs == true) {
+			doPlayAction();
+		} else {
+			saveGlobalVar();
+			globalPath.setUrl();
+			var isPack = listData[listObj.focusIndex].isPackage;
+			goTo.detail(listData[listObj.focusIndex].folderAssetId, listData[listObj.focusIndex].assetId,listData[listObj.focusIndex].providerId,isPack);
+		}
+	}else if(areaTip == 2){
+		goTo.back();
+	}
+}
+
+function doPlayAction(){
+	var item = listData[listObj.focusIndex];
+	if(item.isPackage == "1"){ // 媒资包（播放第一集）
+        getDataWmj.getChildAssetList({
+            "assetId": item.assetId,
+            "providerId": item.providerId,
+            "curPage": 1,
+            "pageSize": 10,
+            "callBack": function(_dataJson) {
+                var generData = _dataJson.selectableItemList;
+                totalSize = parseInt(_dataJson.totalResults);
+                if(totalSize > 0){
+                    doPlay(generData[0]);
+                } else {
+                    var tempStr = "您好！很抱歉，节目《"+item.titleFull+"》媒资包，无法播放。"
+                    showMsgWmj("",tempStr);
+                }
+            }
+        });
+	} else {
+        doPlay(item);
+	}
+}
+
+function doPlay(item){
+    getDataWmj.validatePlayEligibility({
+        "columnId":item.folderAssetId,
+        "assetId": item.assetId,
+        "providerId": item.providerId,
+        "callBack": function(_dataJson){
+            if(_dataJson.orderFlag == "Y"){
+                setGlobalVar("vod_ctrl_rtsp", "");
+                getDataWmj.selectionStart({
+                    "assetId": item.assetId,
+                    "providerId": item.providerId,
+                    "callBack": function(_dataJson){
+                        if(_dataJson.rtsp && _dataJson.purchaseToken){
+                            saveGlobalVar();
+                            setGlobalVar("assetId", item.assetId);
+                            setGlobalVar("providerId", item.providerId);
+                            setGlobalVar("purchaseToken", _dataJson.purchaseToken);
+                            setGlobalVar("vod_ctrl_rtsp", encodeURIComponent(_dataJson.rtsp));
+                            setGlobalVar("displayName", item.titleFull);
+                            setGlobalVar("vod_ctrl_backurl", location.href);
+                            location.href = epgUrl + vodPath;
+                        } else {
+                            alert("没有取到播放串！");
+                        }
+                    }
+                });
+            } else {
+                showMsgWmj("","您没有观看权限！");
+            }
+        }
+    });
+}
+
+
+function saveGlobalVar() {
+	//globalPath.setUrl();
+	setGlobalVar("menuIndex" + columnId, menuObj.dataIndex);
+	setGlobalVar("menuFocus" + columnId, menuObj.focusIndex);
+	setGlobalVar("listFocus" + columnId, listObj.focusIndex);
+	setGlobalVar("curPage" + columnId, listObj.curPage);
+	setGlobalVar("areaTip" + columnId, areaTip);
+	setGlobalVar("playButFoucs" + columnId, playButFoucs);
+}
+
+  
+</script>
+
+	</head>
+	<body>
+		<div class="main">
+			<div class="top_box">
+				<div class="logo"><img src="skin/images/vod_title_image.png" width="100" height="94" />
+				</div><span class="title_localtion">点播排行</span>
+			</div>
+			<div class="left_box">
+				<div class="menufocus" id="menu_focus"></div>
+				<div class="menu">
+					<ul>
+						<li id="menu_0"></li>
+						<li id="menu_1"></li>
+						<li id="menu_2"></li>
+						<li id="menu_3"></li>
+						<li id="menu_4"></li>
+						<li id="menu_5"></li>
+						<li id="menu_6"></li>
+						<li id="menu_7"></li>
+						<li id="menu_8"></li>
+						<li id="button_1"><img src="skin/images/return.png" width="135" height="28"/></li>
+					</ul>
+				</div>
+			</div>
+			<div class="middle_text_box">
+           	 	<div class="textfocus" id="list_focus">
+                		<div class="focusInFocus" id="focusInfocusId" ></div>
+                    	<ul>
+                			<li>播放</li>
+                       		<li>详情</li>
+                        </ul>
+				</div>
+				<div class="middletext_box">
+					 <ul>
+						<li>
+				 			<span id="num_0" class="num"></span><span id="assetName_0" class="assetName"></span><span class="grade"  id="grade_0"></span><span class="recommends"  id="recom_0"></span></li>
+						<li>
+							<span id="num_1" class="num"></span><span id="assetName_1" class="assetName"></span><span class="grade" id="grade_1"></span><span class="recommends"  id="recom_1"></span>
+						</li>
+						<li>
+							<span id="num_2" class="num"></span><span id="assetName_2" class="assetName"></span><span class="grade" id="grade_2"></span><span class="recommends"  id="recom_2"></span>
+						</li>
+						<li>
+							<span id="num_3" class="num"></span><span id="assetName_3" class="assetName"></span><span class="grade" id="grade_3"></span><span class="recommends"  id="recom_3"></span>
+						</li>
+						<li>
+							<span id="num_4" class="num"></span><span id="assetName_4" class="assetName"></span><span class="grade" id="grade_4"></span><span class="recommends"  id="recom_4"></span>
+						</li>
+						<li>
+							<span id="num_5" class="num"></span><span id="assetName_5" class="assetName"></span><span class="grade" id="grade_5"></span><span class="recommends"  id="recom_5"></span>
+						</li>
+						<li>
+							<span id="num_6" class="num"></span><span id="assetName_6" class="assetName"></span><span class="grade" id="grade_6"></span><span class="recommends"  id="recom_6"></span>
+						</li>
+						<li>
+							<span id="num_7" class="num"></span><span id="assetName_7" class="assetName"></span><span class="grade" id="grade_7"></span><span class="recommends"  id="recom_7"></span>
+						</li>
+						<li>
+							<span id="num_8" class="num"></span><span id="assetName_8" class="assetName"></span><span class="grade" id="grade_8"></span><span class="recommends"  id="recom_8"></span>
+						</li>
+                        <li>
+							<span id="num_9" class="num"></span><span id="assetName_9" class="assetName"></span><span class="grade" id="grade_9"></span><span class="recommends"  id="recom_9"></span>
+						</li>
+					</ul>
+				</div>
+				<div class="list_text_up"><img src="skin/images/list_up.png" width="25" height="14"   id="arrowUp"/>
+		    </div>
+				<div class="list_text_down"><img src="skin/images/list_down.png" width="49" height="38" id="arrowDown" /></div>
+				<div class="text_page" id="pageInfo" style="width: 152px;"></div>
+			</div>
+             <div class="scrollbar_box" id="scroll">
+               <div class="scrollbarfocus" id="srcoll"></div>
+ 			 </div>
+
+			<div class="bottom_box3">
+		  		<ul>
+					<li class="choose" style="margin-right:15px;">
+						选择
+					</li>
+					<li class="confirm">
+                    	进入
+					</li>
+                    <li class="page_move">
+                    	翻页
+					</li>
+				</ul>
+			</div>
+		</div>
+<!-- 弹出框start -->
+		<div id="tip_visibility" class="tip_visibility" style="visibility: hidden;">
+			<!-- ajax请求数据层 -->
+			<div class="tip_window" id="tip_window">
+          </div>
+		</div>
+ <!-- 弹出框end --> 
+	</body>
+</html>

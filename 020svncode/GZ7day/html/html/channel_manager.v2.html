@@ -1,0 +1,1267 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>频道编辑</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" /> 
+<script src="../js/keyDefine.js"></script>
+
+<script src="../js/global2.0.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+	//SET ADD
+	  
+	ADD_MO = "chan_editor";
+	ADD_MONAME = "自助服务|频道编辑"
+	ADD_LE = 31;
+	ADD_PA = "channel_manager";
+	ADD_NAME = "频道编辑";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+	 
+</script>
+
+<style>
+   .channel_icon {
+	height:59px;
+	width:60px;
+	visibility:hidden;
+	margin:0px;
+}
+</style>
+</head>
+<body>
+<div class="systel_bg" style="background:url(../images/channel_manager.jpg)">
+<div class="tip_box_bg" id="tip_box_bg">
+    	<div class="tip_box_title" id="tip_box_title">提 示</div>
+        <div class="tip_box_text" id="tip_box_text">提示</div>
+   	<div class="tip_box_button_01" id="tip_box_button_01"><img src="../images/ok_02.png" width="190" height="60" id="tip_box_img_01"/></div>
+    	<div class="tip_box_button_02" id="tip_box_button_02"><img src="../images/cancel.png" width="190" height="60" id="tip_box_img_02" /></div>
+   	  <!--<div class="tip_box_button_03"><img src="../images/cancel.png" width="190" height="60" /></div>-->
+    </div>
+    
+<div class="tip_box_bg" id="tip_box_bg_1">
+    	<div class="tip_box_title" id="tip_box_title_1">提 示</div>
+        <div class="tip_box_text" id="tip_box_text_1">提示</div>
+   	
+   	  <!--<div class="tip_box_button_03"><img src="../images/cancel.png" width="190" height="60" /></div>-->
+      </div>
+</div>
+<div class="tip_03_div" id="tip_03_div">
+    <div class="tip_box_bg_03"></div>
+    <div class="tip_box_03_text">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tip_box_03_table">
+        <tr>
+          <td width="63"><span class="tip_box_03_l" id="selectTag_0"><img src="../images/love.png" width="60" height="59" /></span></td>
+          <td width="169"><span class="tip_box_03_r" id="favoriteTag">设为喜爱</span></td>
+        </tr>
+        <tr>
+          <td width="63"><span class="tip_box_03_l" id="selectTag_2"><img src="../images/lock.png" width="60" height="59" /></span></td>
+          <td width="169"><span class="tip_box_03_r" id="lockTag">频道加锁</span></td>
+        </tr>
+        <tr>
+          <td width="63"><span class="tip_box_03_l" id="selectTag_3"><img src="../images/hidden.png" width="60" height="59" /></span></td>
+          <td width="169"><span class="tip_box_03_r" id="hideTag">频道隐藏</span></td>
+        </tr>
+        <tr>
+          <td width="63"><span class="tip_box_03_l" id="selectTag_4"><img src="../images/move_ico.png" width="60" height="59" /></span></td>
+          <td width="169"><span class="tip_box_03_r" id="moveTag">频道移动</span></td>
+        </tr>
+      </table>
+    </div>
+    <div class="tip_box_focus_03" id="tip_box_focus_03"></div>
+  </div>
+  <div class="system_time">
+    <div  class="weather"></div>
+    <div id="time_HMS"></div><div id="time_YMDW"></div>
+  </div>
+<div class="system_menu_text_box" id="system_menu_text_box">标题</div>
+  <div class="system_con_focus" id="system_con_focus"></div>
+<div class="system_con_focus_02" id="focus_list"></div>
+<div class="system_con_box">
+    <table width="1083" border="0" cellspacing="0" cellpadding="0" class="system_menu_table ">
+      <tr class="pages_title">
+        <td width="649" class="con_pad_left100" id="testTitle">频道列表</td>
+        <td width="88">移动</td>
+        <td width="88">喜爱</td>
+        <td width="88">加锁</td>
+        <td width="88">隐藏</td>
+      </tr>
+      <tr  class="list_font" id="tr_0"> 
+        <td width="649" class="con_pad_left100">
+        <span id="chan_id_0"></span>&nbsp;&nbsp;
+        <span id="chan_name_0"></span>
+        </td>
+ 		<td width="88"><div id="move_0" class="channel_icon"><img src="../images/move_ico.png" width="60" height="59"  /></div></td>
+        <td width="88"><div id="favorite_0" class="channel_icon"><img src="../images/love.png" width="60" height="59" /></div> </td>
+        <td width="88"><div id="lock_0" class="channel_icon"><img src="../images/lock.png" width="60" height="59" /></div></td>
+        <!--<td width="88"><div id="delete_0" class="channel_icon"><img src="../images/delete.png" width="60" height="59"  /></div></td>-->
+        <td width="88"><div id="hide_0" class="channel_icon"><img src="../images/hidden.png" width="60" height="59"  /></div></td>
+      </tr>  
+      <tr  class="list_font"  id="tr_1">
+        <td width="649" class="con_pad_left100">
+            <span id="chan_id_1"></span>&nbsp;&nbsp; 
+            <span id="chan_name_1"></span>
+        </td>
+        <td width="88"><div id="move_1" class="channel_icon"><img src="../images/move_ico.png" width="60" height="59"  /></div></td>
+        <td width="88"><div id="favorite_1" class="channel_icon"><img src="../images/love.png" width="60" height="59" /></div></td>
+        <td width="88"><div id="lock_1" class="channel_icon"><img src="../images/lock.png" width="60" height="59" /></div></td>
+        <!--<td width="88"><div id="delete_1" class="channel_icon"><img src="../images/delete.png" width="60" height="59"  /></div></td>-->
+        <td width="88"><div id="hide_1" class="channel_icon"><img src="../images/hidden.png" width="60" height="59"  /></div></td>
+      </tr>
+      <tr  class="list_font"  id="tr_2">
+        <td width="649" class="con_pad_left100">
+            <span id="chan_id_2"></span>&nbsp;&nbsp;
+            <span id="chan_name_2"></span>
+        </td>
+		<td width="88"><div id="move_2" class="channel_icon"><img src="../images/move_ico.png" width="60" height="59"  /></div></td>
+        <td width="88"><div id="favorite_2" class="channel_icon"><img src="../images/love.png" width="60" height="59" /></div></td>
+        <td width="88"><div id="lock_2" class="channel_icon"><img src="../images/lock.png" width="60" height="59" /></div></td>
+        <!--<td width="88"><div id="delete_2" class="channel_icon"><img src="../images/delete.png" width="60" height="59" /></div></td>-->
+        <td width="88"><div id="hide_2" class="channel_icon"><img src="../images/hidden.png" width="60" height="59"  /></div></td>
+      </tr>
+      <tr  class="list_font" id="tr_3">
+        <td width="649" class="con_pad_left100">
+           <span id="chan_id_3"></span>&nbsp;&nbsp;
+            <span id="chan_name_3"></span>
+        </td>
+        <td width="88"><div id="move_3" class="channel_icon"><img src="../images/move_ico.png" width="60" height="59"  /></div></td>
+        <td width="88"><div id="favorite_3" class="channel_icon"><img src="../images/love.png" width="60" height="59" /></div></td>
+        <td width="88"><div id="lock_3" class="channel_icon"><img src="../images/lock.png" width="60" height="59" /></div></td>
+       <!-- <td width="88"><div id="delete_3" class="channel_icon"><img src="../images/delete.png" width="60" height="59"  /></div></td> -->
+       <td width="88"><div id="hide_3" class="channel_icon"><img src="../images/hidden.png" width="60" height="59"  /></div></td>
+      </tr>
+      <tr  class="list_font"  id="tr_4">
+        <td width="649" class="con_pad_left100">
+            <span id="chan_id_4"></span>&nbsp;&nbsp;
+            <span id="chan_name_4"></span>
+        </td>
+        <td width="88"><div id="move_4" class="channel_icon"><img src="../images/move_ico.png" width="60" height="59"  /></div></td>
+        <td width="88"><div id="favorite_4" class="channel_icon"><img src="../images/love.png" width="60" height="59" /></div></td>
+        <td width="88"><div id="lock_4" class="channel_icon"><img src="../images/lock.png" width="60" height="59" /></div></td>
+       <!-- <td width="88"><div id="delete_4" class="channel_icon"><img src="../images/delete.png" width="60" height="59" /></div></td> -->
+       <td width="88"><div id="hide_4" class="channel_icon"><img src="../images/hidden.png" width="60" height="59"  /></div></td>
+      </tr>
+    </table>
+  </div>
+<div class="tip_02">
+  <table width="1085" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+        </tr>
+      </table></td>
+      <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="129"><img src="../images//channel_ok.png" width="129" height="32" /></td>
+        </tr>
+      </table></td>
+      <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="130"><img src="../images/channel_move.png" width="130" height="22" /></td>
+        </tr>
+      </table></td>
+      <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="130"><img src="../images/channel_like.png" width="130" height="22" /></td>
+        </tr>
+      </table></td>
+      <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="130"><img src="../images/channel_lock.png" width="130" height="22" /></td>
+        </tr>
+      </table></td>
+      <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="130"><img src="../images/channel_hide.png" width="130" height="22" /></td>
+        </tr>
+      </table></td>
+    </tr>
+  </table>
+</div>
+</div>
+
+
+<script>
+//initChannelInfo();
+PRINT_PREFIX = "[channel_manager]";
+
+//隐藏节目
+channelHide = {};
+
+function backToMain(){
+	if(SysSetting.getEnv("CHANNEL_LIST_TO_CHANNEL_MANAGE")){
+		if (SysSetting.getEnv("CHANNEL_LIST_TO_CHANNEL_MANAGE") == "2") {
+			window.location.href="../ChanList.v2.html?groupID=2";
+		} else {
+			window.location.href="../ChanList.v2.html";
+		}
+	}else if(BACKOREXIT==0){add_back();}else{add_exit();}
+}
+global_control_mode = 1;
+var saveFlag = false;//是否需要保存. 当页面中修改了频道属性时,将此值置true.
+function setSaveFlag(_bool){
+	//global_control_mode是控制是否要调用global.js里的退出，和菜单
+	if( _bool ){
+		global_control_mode =1;
+	}else{
+		global_control_mode = 0;
+	}
+	saveFlag = _bool;
+}
+
+//try{
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	switch(val){ 
+		case ROC_IRKEY_EXIT: 
+			 BACKOREXIT = 1;
+			 if(saveFlag && !pageObj.channelEditorSava.showTag){ 
+				  pageObj.channelListObj.showTag = false;
+				  pageObj.channelEditorSava.showTag = true;
+				  pageObj.channelEditorSava.init(); 
+				 return false;
+			 }
+		break;
+		case ROC_IRKEY_BACK: 
+			  BACKOREXIT = 0;
+			  if(saveFlag && !pageObj.channelEditorSava.showTag){ 
+				  pageObj.channelListObj.showTag = false;
+				  pageObj.channelEditorSava.showTag = true;
+				  pageObj.channelEditorSava.init(); 
+				 return false;
+			 } else if(SysSetting.getEnv("CHANNEL_LIST_TO_CHANNEL_MANAGE")){
+				if (SysSetting.getEnv("CHANNEL_LIST_TO_CHANNEL_MANAGE") == "2") {
+					window.location.href="../ChanList.v2.html?groupID=2";
+				} else {
+					window.location.href="../ChanList.v2.html";
+				}
+				return false;
+			}
+		break;
+		case ROC_IRKEY_SELECT:   
+				if(pageObj.moveIndex != -1){
+						pageObj.moveIndex = -1;	
+						pageObj.moveChannel = null;		
+						pageObj.channelListObj.showProp(pageObj.index, "move");
+						pageObj.channelListObj.isEvenSelect = false;
+						 pageObj.channelListObj.showTag = true;
+						return false;
+				}
+			  if(pageObj.channelListObj.isEvenSelect){  //当频道的ok事件时与弹出行为框有冲突，用pageObj.channelListObj.isEvenSelect变量来处理
+			  		pageObj.channelListObj.isEvenSelect = false;
+				  	pageObj.tipDivControl.showTag = true;
+					pageObj.tipDivControl.init();
+				 	return false;
+			  }
+		break; 
+	}
+	return true;
+}
+//}catch(e){}
+
+function grabEvent(event){
+	return page.grabEvent.Listener(event); 
+}
+
+function page_systemevent_handler(event){
+	page.grabEvent.Listener(event);
+	return true;
+}
+
+function pageObj(){
+	//this.isTVList = "";
+	this.groupList = null;
+	this.index = 0;
+	this.moveIndex = -1;
+	this.moveChannel = null;
+	this.isMove = false;
+	//this.numberIndexHash = {};
+
+
+		//获取频道类型
+	this.getChanType = function(){
+		/*this.isTVList = $G.getParameter("isTVList");
+		if(this.isTVList==""){
+			this.isTVList = 1;
+		} 
+		this.groupList = getEditGroupList(this.isTVList);*/
+		this.groupList = getEditGroupList();
+		/*for(var i = 0; i < this.groupList.GroupInfo.length; ++i)
+		{
+			this.numberIndexHash[parseInt(this.groupList.GroupInfo[i].ChannelNumber, 10)] = i;
+		}*/
+		 
+		ADD_NAME = this.groupList.GroupName; 
+		
+	}
+	this.getChannelId = function(_list,_idx){
+		channelId = _list[_idx].ChannelNumber;
+		return channelId;		
+	}
+		
+	this.channelListObj = new channelListObj();
+	function channelListObj(){ 
+		this.showTag = true;
+		this.page = 0;
+		this.pageSize = 5;
+		this.focusBarTop = 288;
+		this.focusbarHeight = 66; 
+		
+		this.CHAN_PROP_moveFlag = 0;
+		this.CHAN_PROP_deleteFlag = 0;
+		this.CHAN_PROP_favorite = 1;
+		this.CHAN_PROP_userChannel = 3;
+		this.CHAN_PROP_volume = 4;
+		this.CHAN_PROP_lockFlag = 5;
+		this.CHAN_PROP_hide =6;
+		//this.tempChannel = null;
+		this.index1 = -1; 
+		this.temps = [];
+		this.maxSize = 0;
+		this.maxPage = 0;
+		this.isEvenSelect = false;
+		
+		this.init = function(){
+			this.maxSize = pageObj.groupList.GroupInfo.length;
+ 			this.maxPage = Math.ceil(pageObj.groupList.GroupInfo.length / this.pageSize) - 1;
+			this.page = 0;
+			//this.initTemps();
+			this.showData();
+			this.setfocus(); 
+		}   
+		/*this.initTemps = function(){ 
+		   	this.temps = new Array();
+			for(var i=0;i<this.maxSize;i++){
+				this.temps.push(0);
+			} 
+		}*/		
+		this.getFocusChannel = function(){ 
+			return this.maxSize <= 0 ? null : pageObj.groupList.GroupInfo[pageObj.index]; 
+		}
+		this.getChanneByIndex = function(_index){  
+			return this.maxSize <= 0 ? null : pageObj.groupList.GroupInfo[_index]; 
+		}
+		this.showData = function(){
+			var len = Math.min(this.pageSize,this.maxSize - this.pageSize * this.page);		
+			for(var i = 0;i < this.pageSize; i++){ 
+				if(i < len){
+				var idx = this.pageSize * this.page; 
+				$("chan_id_"+i).innerHTML = pageObj.groupList.GroupInfo[idx+i].ChannelNumber;
+				$("chan_name_"+i).innerHTML = pageObj.groupList.GroupInfo[idx+i].ServiceName;
+				 this.showProp(idx+i, "favorite");
+				 this.showProp(idx+i, "hide"); 
+                 this.showProp(idx+i, "lock"); 
+				 this.showProp(idx+i, "move");
+				} else {
+					$("tr_"+i).className="list_font";
+					$("chan_id_"+i).innerHTML = "";
+					$("chan_name_"+i).innerHTML = "";
+					$("favorite_"+i).style.visibility = "hidden"; 
+					$("lock_"+i).style.visibility = "hidden";
+					$("hide_"+i).style.visibility = "hidden";
+					$("move_"+i).style.visibility = "hidden";
+				}
+			} 
+		}
+		this.showProp = function(idx, prop){ 
+			var pageIdx = idx % this.pageSize; 
+			switch(prop){
+				case "delete":
+					//$("delete_"+pageIdx).style.visibility = this.items[idx].deleteFlag==1 ? "visible" : "hidden";
+					break;
+				case "move":
+					$("move_"+pageIdx).style.visibility = pageObj.moveIndex == idx ? "visible" : "hidden";
+					break; 
+				case "favorite":
+					$("favorite_"+pageIdx).style.visibility = channelInfoObj[pageObj.groupList.GroupInfo[idx].ServiceHandle].favorite==1 ? "visible" : "hidden"; 
+					break;
+				case "lock":
+					$("lock_"+pageIdx).style.visibility = channelInfoObj[pageObj.groupList.GroupInfo[idx].ServiceHandle].lock==1 ? "visible" : "hidden"; 
+					break;
+				case "hide":
+					$("hide_"+pageIdx).style.visibility = channelInfoObj[pageObj.groupList.GroupInfo[idx].ServiceHandle].hide==1 ? "visible" : "hidden";
+					break;
+				default:
+					break;
+			}
+		} 
+		this.focusOff = function(){
+			$("tr_"+(pageObj.index % this.pageSize)).className="list_font";
+		}
+		this.focusOn = function(i){
+			$("tr_"+(pageObj.index % this.pageSize)).className="list_font font32"; 
+		}
+		this.setfocus = function(){ 
+			var tops = parseInt(this.focusBarTop + this.focusbarHeight * (pageObj.index%this.pageSize));
+    		$("focus_list").style.top = tops+"px";
+			this.focusOn();   
+		}
+		this.up = function(){
+			if(pageObj.moveIndex == -1)
+			{
+				this.focusOff();
+				var oldpage = Math.ceil((pageObj.index + 1)/this.pageSize) - 1;
+				pageObj.index = pageObj.index == 0?this.maxSize-1: pageObj.index -1;
+				this.page = Math.ceil((pageObj.index + 1)/this.pageSize) - 1;
+				if(oldpage!=this.page){this.showData()}
+				this.setfocus(); 
+			}
+			else
+			{
+				if(pageObj.index == 0)
+					return;
+				this.focusOff();
+				var oldpage = Math.ceil((pageObj.index + 1)/this.pageSize) - 1;
+			
+				var index1 = pageObj.index;
+				//alert(index1);
+				var channelNumber1 = pageObj.groupList.GroupInfo[index1]["ChannelNumber"];				
+				//alert(channelNumber1);
+				pageObj.index = pageObj.index == 0?this.maxSize-1: pageObj.index -1;
+				pageObj.moveIndex = pageObj.index;
+				//alert(pageObj.index);
+				var channelNumber2 = pageObj.groupList.GroupInfo[pageObj.index]["ChannelNumber"];	
+				//alert(channelNumber2);
+				var sortArray = originalArray.ServiceSortInfo.ServiceSortArray;
+				//alert(sortArray);
+				var temp = sortArray[numberIndexHash[channelNumber1]];
+				//alert(temp);
+				sortArray[numberIndexHash[channelNumber1]] = sortArray[numberIndexHash[channelNumber2]]
+				sortArray[numberIndexHash[channelNumber1]].ChannelNumber = channelNumber1;
+				sortArray[numberIndexHash[channelNumber2]] = temp;
+				sortArray[numberIndexHash[channelNumber2]].ChannelNumber = channelNumber2;
+				
+				/*var tempIndex = numberIndexHash[channelNumber1]
+				numberIndexHash[channelNumber1] = numberIndexHash[channelNumber2]
+				numberIndexHash[channelNumber2] = tempIndex;*/
+				
+				/*var text = JSON.stringify(numberIndexHash);
+				alert(text);*/
+				
+				var tempChannel = pageObj.groupList.GroupInfo[index1];
+				//alert(tempChannel);
+				pageObj.groupList.GroupInfo[index1] = pageObj.groupList.GroupInfo[pageObj.index];
+				pageObj.groupList.GroupInfo[pageObj.index] = tempChannel;
+				
+				pageObj.groupList.GroupInfo[index1]["ChannelNumber"] = channelNumber1;
+				pageObj.groupList.GroupInfo[pageObj.index]["ChannelNumber"] = channelNumber2;
+				
+				
+				var serviceHandle1 = pageObj.groupList.GroupInfo[index1].ServiceHandle;
+				//alert(serviceHandle1);
+				var serviceHandle2 = pageObj.groupList.GroupInfo[pageObj.index].ServiceHandle;
+				//alert(serviceHandle2);
+				var channel1 = globalConfigArray[serviceHandleIndexHash[serviceHandle1]];
+				//alert(channel1);
+				var channel2 = globalConfigArray[serviceHandleIndexHash[serviceHandle2]];
+				//alert(channel2);
+				var tempGroupId = -1;
+				for(var i = 0; i < channel1.GroupInfo.length; ++i)
+				{
+					for(var j = 0; j < channel2.GroupInfo.length; ++j)
+					{
+						if(channel1.GroupInfo[i].GroupId == channel2.GroupInfo[j].GroupId)
+						{
+							//alert(channel1.GroupInfo[i].isTVList);
+							tempGroupId = channel1.GroupInfo[i].GroupId;
+							break;
+						}
+					}
+					if(tempGroupId != -1)
+						break;
+				}
+				
+				//alert("tempisTVList = " + tempisTVList);
+				if(tempGroupId != -1)
+				{
+					var groupArray = originalArray.ServiceGroupInfo.DVBGroupArray;
+					for(i = 0; i < groupArray.length; ++i)
+					{
+						if(groupArray[i].GroupId == tempGroupId)
+						{
+							//alert("i = " + i);
+							var tempGroup = groupArray[i];
+							//alert(tempGroup);
+							break;
+						}
+					}
+					
+					var k = -1;
+					var tempServiceHandle = -1;
+					var isSearch = false;
+					//alert(serviceHandle1);
+					//alert(serviceHandle2);
+					for(j = 0; j < tempGroup.GroupServices.length; ++j)
+					{
+						if(tempGroup.GroupServices[j].ServiceHandle == serviceHandle1 
+							|| tempGroup.GroupServices[j].ServiceHandle == serviceHandle2)
+						{
+							if(isSearch == false)
+							{
+								//alert("k = " + j);
+								k = j;
+								tempServiceHandle = tempGroup.GroupServices[j].ServiceHandle;
+								//alert(tempServiceHandle);
+								isSearch = true;
+							}
+							else
+							{
+								//alert("j = " + j);
+								tempGroup.GroupServices[k].ServiceHandle = tempGroup.GroupServices[j].ServiceHandle;
+								//alert(tempGroup.GroupServices[k].ServiceHandle);
+								tempGroup.GroupServices[j].ServiceHandle = tempServiceHandle;
+								//alert(tempGroup.GroupServices[j].ServiceHandle);
+								break;
+							}
+						}
+						
+					}
+				}
+							
+				this.page = Math.ceil((pageObj.index + 1)/this.pageSize) - 1;
+				this.showData();
+				this.setfocus();
+			}	
+		}
+		this.down = function(){
+			if(pageObj.moveIndex == -1)
+			{
+				this.focusOff();
+				var oldpage = Math.ceil((pageObj.index + 1)/this.pageSize) - 1;
+				pageObj.index = pageObj.index == this.maxSize-1?0: pageObj.index +1;
+				this.page = Math.ceil((pageObj.index + 1)/this.pageSize) - 1;
+				if(oldpage!=this.page){this.showData()}
+				this.setfocus(); 
+			}
+			else
+			{
+				if(pageObj.index == this.maxSize - 1)
+					return;
+				this.focusOff();
+				var oldpage = Math.ceil((pageObj.index + 1)/this.pageSize) - 1;
+			
+				var index1 = pageObj.index;
+				//alert(index1);
+				var channelNumber1 = pageObj.groupList.GroupInfo[index1]["ChannelNumber"];				
+				//alert(channelNumber1);
+				pageObj.index = pageObj.index == this.maxSize-1?0: pageObj.index +1;
+				pageObj.moveIndex = pageObj.index;
+				//alert(pageObj.index);
+				var channelNumber2 = pageObj.groupList.GroupInfo[pageObj.index]["ChannelNumber"];	
+				//alert(channelNumber2);
+				var sortArray = originalArray.ServiceSortInfo.ServiceSortArray;
+				//alert(sortArray);
+				var temp = sortArray[numberIndexHash[channelNumber1]];
+				//alert(temp);
+				sortArray[numberIndexHash[channelNumber1]] = sortArray[numberIndexHash[channelNumber2]]
+				sortArray[numberIndexHash[channelNumber1]].ChannelNumber = channelNumber1;
+				sortArray[numberIndexHash[channelNumber2]] = temp;
+				sortArray[numberIndexHash[channelNumber2]].ChannelNumber = channelNumber2;
+				
+				/*var tempIndex = numberIndexHash[channelNumber1]
+				numberIndexHash[channelNumber1] = numberIndexHash[channelNumber2]
+				numberIndexHash[channelNumber2] = tempIndex;*/
+				
+				/*var text = JSON.stringify(numberIndexHash);
+				alert(text);*/
+				
+				var tempChannel = pageObj.groupList.GroupInfo[index1];
+				//alert(tempChannel);
+				pageObj.groupList.GroupInfo[index1] = pageObj.groupList.GroupInfo[pageObj.index];
+				pageObj.groupList.GroupInfo[pageObj.index] = tempChannel;
+				
+				pageObj.groupList.GroupInfo[index1]["ChannelNumber"] = channelNumber1;
+				pageObj.groupList.GroupInfo[pageObj.index]["ChannelNumber"] = channelNumber2;
+				
+				
+				var serviceHandle1 = pageObj.groupList.GroupInfo[index1].ServiceHandle;
+				//alert(serviceHandle1);
+				var serviceHandle2 = pageObj.groupList.GroupInfo[pageObj.index].ServiceHandle;
+				//alert(serviceHandle2);
+				var channel1 = globalConfigArray[serviceHandleIndexHash[serviceHandle1]];
+				//alert(channel1);
+				var channel2 = globalConfigArray[serviceHandleIndexHash[serviceHandle2]];
+				//alert(channel2);
+				var tempGroupId = -1;
+				for(var i = 0; i < channel1.GroupInfo.length; ++i)
+				{
+					for(var j = 0; j < channel2.GroupInfo.length; ++j)
+					{
+						if(channel1.GroupInfo[i].GroupId == channel2.GroupInfo[j].GroupId)
+						{
+							//alert(channel1.GroupInfo[i].isTVList);
+							tempGroupId = channel1.GroupInfo[i].GroupId;
+							break;
+						}
+					}
+					if(tempGroupId != -1)
+						break;
+				}
+				
+				//alert("tempisTVList = " + tempisTVList);
+				if(tempGroupId != -1)
+				{
+					var groupArray = originalArray.ServiceGroupInfo.DVBGroupArray;
+					for(i = 0; i < groupArray.length; ++i)
+					{
+						if(groupArray[i].GroupId == tempGroupId)
+						{
+							//alert("i = " + i);
+							var tempGroup = groupArray[i];
+							//alert(tempGroup);
+							break;
+						}
+					}
+					
+					var k = -1;
+					var tempServiceHandle = -1;
+					var isSearch = false;
+					//alert(serviceHandle1);
+					//alert(serviceHandle2);
+					for(j = 0; j < tempGroup.GroupServices.length; ++j)
+					{
+						if(tempGroup.GroupServices[j].ServiceHandle == serviceHandle1 
+							|| tempGroup.GroupServices[j].ServiceHandle == serviceHandle2)
+						{
+							if(isSearch == false)
+							{
+								//alert("k = " + j);
+								k = j;
+								tempServiceHandle = tempGroup.GroupServices[j].ServiceHandle;
+								//alert(tempServiceHandle);
+								isSearch = true;
+							}
+							else
+							{
+								//alert("j = " + j);
+								tempGroup.GroupServices[k].ServiceHandle = tempGroup.GroupServices[j].ServiceHandle;
+								//alert(tempGroup.GroupServices[k].ServiceHandle);
+								tempGroup.GroupServices[j].ServiceHandle = tempServiceHandle;
+								//alert(tempGroup.GroupServices[j].ServiceHandle);
+								break;
+							}
+						}
+						
+					}
+				}
+							
+				this.page = Math.ceil((pageObj.index + 1)/this.pageSize) - 1;
+				this.showData();
+				this.setfocus();
+			}
+		}
+		this.pageUp = function()
+		{
+			if(pageObj.moveIndex == -1)
+			{ 
+				this.focusOff();
+				this.page = this.page == 0 ? this.maxPage : --this.page; 
+				pageObj.index = this.page * this.pageSize;
+				this.showData();
+				this.setfocus(); 
+			}
+		}
+		this.pageDown = function()
+		{
+			if(pageObj.moveIndex == -1)
+			{
+				this.focusOff();
+				this.page = this.page == this.maxPage ? 0 : ++this.page;
+				pageObj.index = this.page * this.pageSize;
+				this.showData();
+				this.setfocus();
+			}
+		}
+		this.getChannelProp = function(channelObj, propType){
+			var retValue = null;
+			switch(propType){
+				case this.CHAN_PROP_moveFlag:
+					retValue = channelObj.moveFlag;
+					break;
+				case this.CHAN_PROP_deleteFlag:
+					retValue = channelObj.deleteFlag;
+					break;
+				case this.CHAN_PROP_lockFlag:
+					//retValue = channelObj.lock;
+					retValue = channelInfoObj[channelObj.ServiceHandle].lock;
+					break;
+				case this.CHAN_PROP_favorite:
+					retValue = channelInfoObj[channelObj.ServiceHandle].favorite;
+					//retValue = channelObj.favorite;
+					break;
+				case this.CHAN_PROP_hide:
+					retValue = channelInfoObj[channelObj.ServiceHandle].hide;
+					//retValue = channelObj.hide;
+					break;
+				case this.CHAN_PROP_userChannel:
+					retValue = channelObj.userChannel;
+					break;
+				case this.CHAN_PROP_volume:
+					retValue = channelObj.volume;
+					break; 
+				default:
+					break;
+			}
+			return retValue;
+		}
+		this.setChannelProp = function(channelObj, propType, propValue){
+			switch(propType){
+				case this.CHAN_PROP_moveFlag:
+					channelObj.moveFlag = propValue;
+					setSaveFlag(true);
+					break;
+				case this.CHAN_PROP_deleteFlag:
+				
+					channelObj.deleteFlag = propValue;
+					setSaveFlag(true);
+					break;
+				case this.CHAN_PROP_lockFlag:
+					channelInfoObj[channelObj.ServiceHandle].lock = propValue;
+					if (propValue == 1) {
+						var service = globalConfigArray[serviceHandleIndexHash[channelObj.ServiceHandle]];
+						DataCollection.collectData(["07",service.ChannelId+"",service.ServiceName,service.ServiceId+"",service.NetworkId+"",service.TsId+"","03"]);	
+					}
+					//channelObj.lock = propValue;
+					setSaveFlag(true);
+					break;
+				case this.CHAN_PROP_favorite:
+					channelInfoObj[channelObj.ServiceHandle].favorite = propValue;
+					if (propValue == 1) {
+						var service = globalConfigArray[serviceHandleIndexHash[channelObj.ServiceHandle]];
+						DataCollection.collectData(["07",service.ChannelId+"",service.ServiceName,service.ServiceId+"",service.NetworkId+"",service.TsId+"","02"]);	
+					}
+					//channelObj.favorite = propValue;
+					setSaveFlag(true);
+					break;
+				case this.CHAN_PROP_hide:
+					channelInfoObj[channelObj.ServiceHandle].hide = propValue;
+					channelHide[channelObj.ServiceHandle] = propValue;
+					//channelObj.hide = propValue;
+					setSaveFlag(true);
+					break;
+				case this.CHAN_PROP_userChannel:
+					channelObj.userChannel = propValue;
+					setSaveFlag(true);
+					break;
+				case this.CHAN_PROP_volume:
+					channelObj.volume = propValue;
+					setSaveFlag(true);
+					break;
+				default:
+					break;
+			}
+		} 
+		this.chl_love = function(){
+			var focusChannel = this.getFocusChannel();
+			if(this.getChannelProp(focusChannel, this.CHAN_PROP_favorite)==0){
+				this.setChannelProp(focusChannel, this.CHAN_PROP_favorite, 1);
+				this.showProp(pageObj.index, "favorite");
+			}else{
+				this.setChannelProp(focusChannel, this.CHAN_PROP_favorite, 0);
+				this.showProp(pageObj.index, "favorite");
+			}
+		}
+		this.chl_hidden = function(){
+			var focusChannel = this.getFocusChannel();
+			if(this.getChannelProp(focusChannel, this.CHAN_PROP_hide)==0){
+				this.setChannelProp(focusChannel, this.CHAN_PROP_hide, 1);
+				this.showProp(pageObj.index, "hide");
+			}else{
+				this.setChannelProp(focusChannel, this.CHAN_PROP_hide, 0);
+				this.showProp(pageObj.index, "hide");
+			}
+		}
+		
+		this.chl_move = function(){
+			setSaveFlag(true);
+			pageObj.isMove = true;
+			if(pageObj.moveIndex != -1){
+				pageObj.moveIndex = -1;	
+				pageObj.moveChannel = null;		
+				this.showProp(pageObj.index, "move");
+			}else{
+				pageObj.moveIndex = pageObj.index;
+				pageObj.moveChannel = this.getFocusChannel();
+				this.showProp(pageObj.index, "move");
+			}
+		}
+		
+		this.chl_lock = function(){
+		      passwordFrame.init({"SCB":function(){
+					    var focusChannel = pageObj.channelListObj.getFocusChannel();
+						if(pageObj.channelListObj.getChannelProp(focusChannel, pageObj.channelListObj.CHAN_PROP_lockFlag)==0){
+							pageObj.channelListObj.setChannelProp(focusChannel,pageObj.channelListObj.CHAN_PROP_lockFlag, 1);
+							pageObj.channelListObj.showProp(pageObj.index, "lock");
+						}else{
+							pageObj.channelListObj.setChannelProp(focusChannel, pageObj.channelListObj.CHAN_PROP_lockFlag, 0);
+							pageObj.channelListObj.showProp(pageObj.index, "lock");
+						}
+					  },"FCB":null});  
+			  /*
+			   var focusChannel = this.getFocusChannel();
+						if(this.getChannelProp(focusChannel, this.CHAN_PROP_lockFlag)==0){
+							this.setChannelProp(focusChannel,this.CHAN_PROP_lockFlag, 1);
+							this.showProp(pageObj.index, "lock");
+						}else{
+							this.setChannelProp(focusChannel, this.CHAN_PROP_lockFlag, 0);
+							this.showProp(pageObj.index, "lock");
+						}
+			  
+			  */
+			
+		}    
+		this.setTemp = function(_val){ 
+			 this.maxSize <= 0 ? null : this.temps[pageObj.index] = _val; 
+		}
+		this.refreshPage = function(){ 
+			 pageObj.getChanType();
+			 this.init();
+		} 
+		this.select = function(){
+			this.showTag = false;
+			this.isEvenSelect = true;
+		}
+		
+		this.execTip = function(option){ //处理弹出框的提醒选中事件 
+			switch(option){
+				case 0: //喜爱
+					this.chl_love();
+				break;
+				case 1: //加锁
+					this.chl_lock();
+				break;
+				case 2: //隐藏
+					this.chl_hidden();
+				break;  
+				case 3:
+					this.chl_move();
+				break;
+			}
+		}
+		this.Listener = function(event){
+			var val = event.which | event.keyCode; 
+			if(this.showTag){
+				switch(val){
+					case ROC_IRKEY_UP:
+						this.up();
+						return false;
+						break;
+					case ROC_IRKEY_DOWN:
+						this.down();
+						return false;
+						break;
+					case ROC_IRKEY_PAGE_UP:
+						this.pageUp();
+						return false;
+						break;
+					case ROC_IRKEY_PAGE_DOWN:
+						this.pageDown();
+						return false;
+						break; 	
+					case ROC_IRKEY_SELECT:
+						this.select();
+						return true;
+						break; 
+					case ROC_IRKEY_RED://喜爱
+						this.chl_love();
+						return false;
+						break;
+					case ROC_IRKEY_BLUE://隐藏 
+						this.chl_hidden();
+						return false;
+						break;
+					case ROC_IRKEY_YELLOW://加锁
+						this.chl_lock();
+						return false;
+					case ROC_IRKEY_GREEN://加锁
+						this.chl_move();
+						return false;
+					break; 
+				}  
+			}
+			return true;
+		} 
+	} 
+	 
+	this.channelEditorSava = new channelEditorSava(this);
+	function channelEditorSava(){ 
+		this.showTag = false;
+		this.isSave = true;
+		this.isTempSave = false;
+		this.globalJmp = "";
+		
+		this.init = function(){ 
+			this.showData("visible");
+			this.left(); //默认选中确定
+		}; 
+		this.showData = function(_type){ 
+			switch( _type ){
+				case "visible":
+				   $("tip_box_text").innerHTML = "是否保存所有频道变动?";
+				   $("tip_box_bg").style.display= "block";  
+				break;
+				case "hidden":
+				   $("tip_box_bg").style.display = "none";
+				break;
+			}  
+		};
+		this.left = function(){
+			$("tip_box_img_01").src = "../images/ok_02.png";
+			$("tip_box_img_02").src = "../images/cancel.png"; 
+			this.isSave = true; 
+		};
+		this.right = function(){
+			$("tip_box_img_01").src = "../images/ok.png";
+			$("tip_box_img_02").src = "../images/cancel_02.png";
+		    this.isSave = false; 
+		};
+		
+		this.displayNobuttionMsg = function(_type,_text){
+			$("tip_box_text_1").innerHTML = _text;
+			$("tip_box_bg_1").style.display = _type;
+		};
+		this.saveOptions = function(){
+			setSaveFlag(false);
+			//user.channels.deleteAll(1);//将所有标记为删除的频道确实删除掉
+			//console.debug("##################user.channels.deleteAll");
+			//user.channels.save(); //TODO: 1.21的规范中,此接口无返回值.对此有疑虑!!
+			//alert(pageObj.groupList.GroupInfo);
+			
+			//删除隐藏节目预订
+			var orderList = user.getOrders(0);
+			for(var handle in channelHide){
+				if(channelHide[handle]){
+					if(handle == offChannel.serviceHandle){
+						FileSystem.deleteFile("/storage/storage0/siConfig/OffChannel.json");
+					}
+					var serviceId = globalConfigArray[serviceHandleIndexHash[handle]].ServiceId;
+					var TsId = globalConfigArray[serviceHandleIndexHash[handle]].TsId;
+					for(var i=0; i<orderList.length; i++){
+						if(orderList[i].whichEvent.TSID == TsId && orderList[i].whichEvent.serviceID == serviceId){
+							user.orders.del(orderList[i]);
+							user.orders.save();
+						}
+					}					
+				}
+			};
+			
+			var ret1 = saveChannelInfoFile();
+			//editGroupList = pageObj.groupList;
+			//alert(ret1);
+			//alert("111111111");
+			var ret2 = saveServiceInfoFile(originalArray);
+			var ret3 = true;
+			if(pageObj.isMove)
+			{
+				configurationVersion.moveFlag = 1;
+				saveJSONFile("/storage/storage0/ServiceInfo/Version.json", configurationVersion, 1);
+				var tempChannelNumber = -1;
+				var serviceHandle = offChannel.serviceHandle;
+				var sortArray = originalArray.ServiceSortInfo.ServiceSortArray;
+				for(var i = 0; i < sortArray.length; ++i)
+				{
+					if(sortArray[i].ServiceHandle == serviceHandle)
+					{
+						tempChannelNumber = sortArray[i].ChannelNumber;
+						break
+					}
+				}
+				offChannel.logicalChannelId = tempChannelNumber;
+				offChannel.ChannelNumber = tempChannelNumber;
+				ret3 = saveOffChannel(offChannel);
+			}
+			//alert(ret2)
+			if(ret1 == true && ret2 == true && ret3 == true)
+			{
+				//alert("true");
+				return true;
+			}
+			else
+				return false;		
+		}
+		this.restoreOptions = function(){
+			//setSaveFlag(false);
+			//console.debug("##################user.channels.restore()");
+			//return user.channels.restore();
+			return 1;
+		};
+		this.select = function(){
+			this.showData("hidden"); 			
+			onExitSave = false;
+			if(this.isSave){  
+				this.displayNobuttionMsg("block","正在保存数据...");
+				if(1 == this.saveOptions()){
+					this.displayNobuttionMsg("block","保存成功!"); 
+				}else{
+					this.displayNobuttionMsg("block","保存失败!"); 
+				}
+				//setTimeout( backToMain(),2000);
+				if(this.isTempSave == false)
+					backToMain();
+				else
+					KeyFun.Shortcut(this.globalJmp);
+			}else{  
+				this.displayNobuttionMsg("block","正在恢复数据...");
+				if(1 == this.restoreOptions()){
+					this.displayNobuttionMsg("block","恢复成功!");
+				}else{
+					this.displayNobuttionMsg("block","恢复失败!"); 					
+				} 
+				//this.msgboxConfirmSave_msgShowTimer = setTimeout("pageObj.channelEditorSava.restoreFail()",2000);
+				if(this.isTempSave == false)
+					backToMain();
+				else
+					KeyFun.Shortcut(this.globalJmp);
+			} 
+			this.msgboxConfirmSave_msgShowTimer=-1;	
+		};
+		this.msgboxConfirmSave_msgShowTimer = -1;
+		this.restoreFail = function(){ 
+			clearTimeout(this.msgboxConfirmSave_msgShowTimer);
+			this.displayNobuttionMsg("none",""); 
+			this.showTag = false;
+			pageObj.channelListObj.showTag = true; 
+			pageObj.channelListObj.init();
+		};
+		
+		this.Listener = function(event){
+			var val = event.which | event.keyCode;
+			if(this.showTag){
+				switch(val){ 
+					case ROC_IRKEY_LEFT:
+						this.left();
+						return false;
+					break;
+					case ROC_IRKEY_RIGHT:
+						this.right();
+						return false;
+					break;
+					case ROC_IRKEY_SELECT:
+						return	this.select();
+					break; 
+				}
+			}
+			return true;
+		};
+	}	 
+	
+	this.tipDivControl = new tipDivControl(this); 
+	function tipDivControl(){   //属性设置框
+		this.showTag = false;  
+		this.focusBarTop = 30;
+		this.focusbarHeight = 59;
+		this.pageSize = 4;
+		this.index = 0;
+		
+		this.init = function(){  
+			if(channelInfoObj[pageObj.channelListObj.getFocusChannel().ServiceHandle]["favorite"] == 1){
+				$("favoriteTag").innerHTML="取消喜爱";
+			}else{ 
+				$("favoriteTag").innerHTML="设为喜爱";
+			}
+			if(channelInfoObj[pageObj.channelListObj.getFocusChannel().ServiceHandle]["lock"] == 1){
+				$("lockTag").innerHTML="频道解锁";
+			}else{ 
+				$("lockTag").innerHTML="频道加锁";
+			}
+			if(channelInfoObj[pageObj.channelListObj.getFocusChannel().ServiceHandle]["hide"] == 1){
+				$("hideTag").innerHTML="频道显示";
+			}else{ 
+				$("hideTag").innerHTML="频道隐藏";
+			}
+			if(pageObj.moveIndex==-1){
+				$("moveTag").innerHTML="频道移动";
+			}else{ 
+				$("moveTag").innerHTML="移动结束";
+			}
+		    this.index = 0; 
+			this.showData(true);
+		} 
+		this.showData = function(isDisplay){ 
+			 if(isDisplay){ 
+				  this.show();  
+				  this.focusOn();
+			 }else{
+				  this.hide();   
+			 }   
+		} 
+		this.show = function(){
+			$("tip_03_div").style.display = "block";
+		}
+		this.hide = function(){
+			$("tip_03_div").style.display = "none";
+		} 
+		this.focusOn = function(focusTop){
+			var focusTop = this.focusBarTop + this.index * this.focusbarHeight
+			$("tip_box_focus_03").style.top = focusTop+"px";
+		}
+		this.up = function(){
+			if(this.index == 0){
+				this.index = 3;
+			}else{
+				this.index --;
+			}
+			this.focusOn();
+		}
+		this.down = function(){
+			if( this.index == 3){
+				this.index =0;
+			}else{
+				this.index ++;
+			}
+			this.focusOn();
+		}
+		this.back = function(){
+			this.showTag = false;
+			this.hide();
+			pageObj.channelListObj.showTag = true;  
+		}
+		this.exit = function(){
+			this.showTag = false;
+			this.hide();  
+			pageObj.channelListObj.showTag = true;
+		}
+		this.select = function(){ 
+			this.showTag = false;
+			this.hide();
+			pageObj.channelListObj.showTag = true; 
+			pageObj.channelListObj.execTip(this.index);	
+
+		} 
+		this.Listener = function(event){
+			var val = event.which | event.keyCode;
+			if(this.showTag){
+				switch(val){    
+					case ROC_IRKEY_UP: 
+						this.up();
+						return false;
+					break;
+					case ROC_IRKEY_DOWN:  
+						this.down();
+						return false;
+					break; 
+					case ROC_IRKEY_SELECT:
+						//alert("1");
+						this.select();
+						return false;
+					break; 
+					case ROC_IRKEY_EXIT: 
+						 this.exit();  
+						 return true;
+					break;
+					case ROC_IRKEY_BACK: 
+						 this.back(); 
+						  return false;
+					break;
+				}
+			}
+			return true;
+		}
+	}	 
+	
+	this.initTitle = function(){   
+		  	$("system_menu_text_box").innerHTML = ADD_NAME ;	 
+	}
+	this.init = function(){ 
+		this.getChanType();
+		this.channelListObj.init();
+		this.initTitle();
+		showDateTime(); 
+	} 
+} 
+//initChannelInfoFile(originalArray);
+//saveServiceInfoFile(originalArray);
+//注册页面
+
+function globalQuickFunc(event){
+	var val = event.which|event.keyCode;
+	switch(val){
+		case ROC_IRKEY_TRACK:
+		case 313:
+		case ROC_IRKEY_ASTERISK:
+			 if(ADD_PA!="index")
+			 DYG.show();
+			 return false;
+		break;
+		case ROC_IRKEY_EPG:
+		case 37:
+			BACKOREXIT = 1;
+			 pageObj.channelEditorSava.isTempSave = true;
+			 pageObj.channelEditorSava.globalJmp = "EPG";
+			 if(saveFlag && !pageObj.channelEditorSava.showTag){ 
+				  pageObj.channelListObj.showTag = false;
+				  pageObj.channelEditorSava.showTag = true;
+				  pageObj.channelEditorSava.init(); 
+				 return false;
+			 }
+			KeyFun.Shortcut("EPG");
+		break;
+		case ROC_IRKEY_LIKE:
+			 BACKOREXIT = 1;
+			 pageObj.channelEditorSava.isTempSave = true;
+			 pageObj.channelEditorSava.globalJmp = "FAVORITE";
+			 if(saveFlag && !pageObj.channelEditorSava.showTag){ 
+				  pageObj.channelListObj.showTag = false;
+				  pageObj.channelEditorSava.showTag = true;
+				  pageObj.channelEditorSava.init(); 
+				 return false;
+			 }
+			KeyFun.Shortcut("FAVORITE");	
+		break;
+		case ROC_IRKEY_MAIL:
+			BACKOREXIT = 1;
+			 pageObj.channelEditorSava.isTempSave = true;
+			 pageObj.channelEditorSava.globalJmp = "EMAIL";
+			 if(saveFlag && !pageObj.channelEditorSava.showTag){ 
+				  pageObj.channelListObj.showTag = false;
+				  pageObj.channelEditorSava.showTag = true;
+				  pageObj.channelEditorSava.init(); 
+				 return false;
+			 }
+			KeyFun.Shortcut("EMAIL");		    
+		break;
+		case 80:
+			BACKOREXIT = 1;
+			 pageObj.channelEditorSava.isTempSave = true;
+			 pageObj.channelEditorSava.globalJmp = "BROADCAST";
+			 if(saveFlag && !pageObj.channelEditorSava.showTag){ 
+				  pageObj.channelListObj.showTag = false;
+				  pageObj.channelEditorSava.showTag = true;
+				  pageObj.channelEditorSava.init(); 
+				 return false;
+			 }
+			KeyFun.Shortcut("BROADCAST");			
+		break;
+	}
+	return true;
+}
+
+var pageObj = new pageObj();
+page.regedit(pageObj.channelListObj); 
+page.regedit(pageObj.channelEditorSava); 
+page.regedit(pageObj.tipDivControl);
+pageObj.init(); 
+DataCollection.collectData(["01","main://html/html/channel_manager.v2.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"频道编辑"]);
+SysSetting.setEnv("SOURCE_PATH","main://html/html/channel_manager.v2.html"+window.location.search);
+originalArray = readFile("/storage/storage0/siConfig/ServiceInfo.json", 3);	
+
+var onExitSave = true;
+window.onunload = function () {
+	SysSetting.setEnv("CHANNEL_LIST_TO_CHANNEL_MANAGE", "");
+	if (onExitSave) {
+		pageObj.channelEditorSava.saveOptions();
+	}
+}
+</script>
+ 
+
+<script src="../js/ADD_C.js"></script>
+
+</body>
+</html>

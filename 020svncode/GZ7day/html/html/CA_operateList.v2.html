@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />
+<script src="../js/keyDefine.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/global2.0.js"></script> 
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+	//SET ADD
+	
+	ADD_MO = "system";
+	ADD_MONAME = "系统设置"
+	ADD_LE = 51;
+	ADD_PA = "CA_operateList";
+	ADD_NAME = "运营商列表";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+	//GKeyRetrun = true;
+</script>
+
+
+
+</head>
+<body>
+
+
+
+<div class="systel_bg">
+  <div class="system_time">
+    <div  class="weather"></div>
+    <div id="time_HMS"></div><div id="time_YMDW"></div>
+  </div>
+  <div class="system_menu_text_box" id="title"> 授权 </div>
+  <div class="system_con_focus"></div>
+	<div class="system_con_focus_02" id="focus_list"></div>
+  <div class="system_con_box">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="system_menu_table system_table_l_pad">
+      <tr class="pages_title">
+        <td width="45%">运营商ID</td>
+        <td width="55%">运营商名称</td>
+      </tr>
+      <tr  class="list_font font32" id="list0">
+        <td width="45%" id="id0"></td>
+        <td width="55%" id="name0"></td>
+      </tr>
+      <tr  class="list_font" id="list1">
+      <td width="45%" id="id1"></td>
+        <td width="55%" id="name1"></td>
+
+      </tr>
+      <tr  class="list_font" id="list2">
+        <td width="45%" id="id2"></td>
+        <td width="55%" id="name2"></td>
+
+      </tr>
+      <tr  class="list_font" id="list3">
+        <td width="45%" id="id3"></td>
+        <td width="55%" id="name3"></td>
+
+      </tr>
+      <tr  class="list_font" id="list4">
+        <td width="45%" id="id4"></td>
+        <td width="55%" id="name4"></td>
+
+      </tr>
+    </table>
+  </div>
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+          </tr>
+        </table></td>
+        <td width="219"><table width="212" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="62"><img src="../images/tip_ok.png" width="50" height="40" /></td>
+            <td width="150" class="white_02">查看信息</td>
+          </tr>
+        </table></td>
+        <td width="169">&nbsp;</td>
+        <td width="169">&nbsp;</td>
+        <td width="118">&nbsp;</td>
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+
+PRINT_PREFIX = "[CA_operateList]";
+   
+try{
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	switch(val){
+		case ROC_IRKEY_DOWN: 
+		break;
+	}
+	return true;
+}
+
+
+function grabEvent(event){
+	
+	return page.grabEvent.Listener(event);
+}
+
+function page_systemevent_handler(event){
+	
+	return page.grabEvent.Listener(event);
+}
+
+function pageObj(){
+	 
+	this.CAInfoList = new CAInfoList();  //纵向
+	function CAInfoList(){
+		this.index = 0;   
+		this.pageSize = 5;//横向总栏目数
+		this.top = 288;
+		this.height = 66;	 
+		this.items = new Array();  
+		this.page = 0;
+		this.op = "getWallets";
+		
+		this.init = function(op){ 
+			this.op = op;
+			this.items = CA.getOperators();
+			this.index = 0;
+			this.maxPage = Math.ceil(this.items.length / this.pageSize) - 1;
+			this.page = Math.ceil((this.index + 1)/this.pageSize) - 1;   
+			this.showData();
+			this.focusOff(0);
+			this.focusOn(this.index);   
+		} 
+		this.getStep = function(idx){  
+			return this.top + this.height * (idx % this.pageSize); 
+		} 
+		this.showData = function(){
+			this.initResetPage(); 
+			for(var i=0;i<Math.min(this.pageSize,this.items.length-this.pageSize*this.page);i++){
+				var idx = this.pageSize * this.page;   
+				$("id"+i).innerHTML = this.items[idx+i].ID;
+				$("name"+i).innerHTML = this.items[idx+i].name; 
+			}
+		}
+		this.initResetPage = function(){
+			 for(var i=0;i< this.pageSize;i++){
+				  this.focusOff(i); 
+				  $("id"+i).innerHTML = "";
+				  $("name"+i).innerHTML = "";
+			  }
+		}			
+		this.focusOff = function(i){
+			$("list"+i).className = "list_font"; 
+		}
+		this.focusOn = function(i){
+			$("focus_list").style.top=this.getStep(i)+"px"; 
+			var idx = i % this.pageSize;
+			$("list"+idx).className = "list_font font32";
+		} 
+		this.up = function(){
+			this.focusOff(this.index % this.pageSize);
+			var oldpage = Math.ceil((this.index + 1) / this.pageSize) - 1;
+			this.index = this.index == 0 ? this.items.length - 1: this.index -1;
+			this.page = Math.ceil((this.index + 1) / this.pageSize) - 1;
+			if(oldpage!=this.page){
+				this.showData();
+			}
+			this.focusOn(this.index);  
+		}
+		this.down = function(){ 
+			this.focusOff(this.index % this.pageSize);
+			var oldpage = Math.ceil((this.index + 1) / this.pageSize) - 1;
+			this.index = this.index == this.items.length - 1 ? 0 : this.index + 1;
+			this.page = Math.ceil((this.index + 1) / this.pageSize) - 1;  
+			if(oldpage != this.page){
+				this.showData();
+			}
+			this.focusOn(this.index);  
+		}
+		this.pageUp = function(){
+			this.focusOff(this.index % this.pageSize);
+			this.page = this.page == 0 ? this.maxPage : --this.page;
+			this.index = this.page * this.pageSize;
+			this.showData();
+			this.focusOn(this.index);
+		}
+		this.pageDown = function(){
+			this.focusOff(this.index % this.pageSize);
+			this.page = this.page == this.maxPage ? 0 : ++this.page;
+			this.index = this.page * this.pageSize;
+			this.showData();
+			this.focusOn(this.index);
+		}
+		this.select = function(){ 
+			if(this.op=='getWallets'){
+			  this.viewWallets(this.items[this.index].ID);
+			}else if(this.op=='getEntitles'){
+			  this.viewEntitles(this.items[this.index].ID);
+			}
+		}
+		this.viewWallets = function(id){
+			location.href='CA_wallets.v2.html?operatorID='+id;
+		} 
+		this.viewEntitles  = function(id){
+			location.href='CA_entitles.v2.html?operatorID='+id;
+		} 
+		this.Listener = function(event){ 
+			var val = event.which | event.keyCode; 
+			switch(val){
+				case ROC_IRKEY_DOWN: 
+					this.down();
+					return true;
+				case ROC_IRKEY_UP: 
+					this.up();
+					return true;
+				case ROC_IRKEY_PAGE_DOWN:
+					this.pageDown();
+					return true;
+				case ROC_IRKEY_PAGE_UP:
+					this.pageUp();
+					return true;
+				case ROC_IRKEY_SELECT:
+					this.select();
+					return false;
+				break;  
+			}  
+			return true;
+		} 
+	}
+	this.initTitle = function(op){ 
+		if(op == 'getWallets'){
+			$('title').innerHTML = '钱包信息查询';	
+			ADD_NAME = "钱包信息查询"
+		}else if(op=='getEntitles'){
+			$('title').innerHTML = '授权信息查询';	
+			ADD_NAME = "授权信息查询"
+		}
+	} 
+	this.init = function(){   
+		var op = $G.getParameter("op"); 
+		this.initTitle(op); 
+    	this.CAInfoList.init(op);  
+		showDateTime(); 
+	} 
+} 
+
+
+	//注册页面
+	var pageObj = new pageObj();  
+	page.regedit(pageObj.CAInfoList);  
+
+function initPage(){ 
+		pageObj.init(); 
+		DataCollection.collectData(["01","main://html/html/CA_operateList.v2.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"运营商列表"]);	
+		SysSetting.setEnv("SOURCE_PATH","main://html/html/CA_operateList.v2.html"+window.location.search);	
+}
+
+window.onload = initPage;
+   }catch(e){
+	$J.debug.Msg("Page Error:"+e.message,1,"Page Init");
+}
+</script>
+
+<script src="../js/ADD_C.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,780 @@
+{
+    "config": {
+        "areaName": "东莞,东莞",
+        "dayUrl": "http://172.19.16.253/hospital_/html/portal.html?cID=3380",
+        "initPos": 2,
+        "version": "4c21663c90417e972cffb3c05e0833e9"
+    },
+    "menu": {
+        "menuArr": [
+            {
+                "id": "",
+                "logo": "",
+                "name": "本地",
+                "subArr": [
+                    {
+                        "addr": "http://172.19.16.253/xgp/index.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "新广屏",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "http://172.19.16.253/lanmu/zhihuidongguan/index.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "东莞时空",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "http://10.151.191.251/tvportal/pages/tv_qrcodePage.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "K歌坊",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "http://172.16.146.6/vipHome1.html?packageId=6",
+                        "id": "",
+                        "logo": "",
+                        "name": "儿童乐园",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "/NewFrameWork/newWeb/html/singleDemand/html/index.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "新片大片",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "http://172.19.16.253/lanmu/mfys_new/dianying.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "免费影视",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/web/backList.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "时移回看",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/web/localProgram/index.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "地市荟萃",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "http://172.19.16.253/lanmu/sanxing/index.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "电视商城",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/web/mgtv/html/index.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "芒果TV专区",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/newWeb/html/yueyu/html/index.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "粤语专区",
+                        "type": "1"
+                    }
+                ]
+            },
+            {
+                "id": "",
+                "logo": "",
+                "name": "直播",
+                "subArr": [
+                    {
+                        "addr": "/NewFrameWork/UE/html/newslist.html?groupId=GDZX0920161026000003&assetId=GDZX0920161026000004",
+                        "id": "news",
+                        "logo": "/attachments/201610/201f171e-7b7d-4755-a9b3-0246116c15fc.png",
+                        "name": "新闻",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "/NewFrameWork/web/tuijian/index.html",
+                        "id": "",
+                        "logo": "/attachments/201610/1e81bfe3-5619-4c1b-baa7-be238d859a61.png",
+                        "name": "推荐",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "/NewFrameWork/newWeb/html/columnSelection/column_index.html",
+                        "id": "",
+                        "logo": "/attachments/201610/e32c471d-f770-4a8e-b227-a096a34d8f6b.png",
+                        "name": "精选",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/backlist.html",
+                        "id": "",
+                        "logo": "/attachments/201610/29ae096b-70aa-4b3d-9a72-e74ed5e7b6f0.png",
+                        "name": "看",
+                        "type": "0"
+                    }
+                ]
+            },
+            {
+                "id": "",
+                "logo": "",
+                "name": "点播",
+                "subArr": [
+                    {
+                        "addr": "/NewFrameWork/newWeb/html/singleDemand/html/index.html",
+                        "id": "",
+                        "logo": "/attachments/20169/62c6aa9e-8585-4001-a9ab-767613d015a7.png",
+                        "name": "新片大片",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "/NewFrameWork/newWeb/html/latestOnline/onLine_index.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "最新上线",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "/NewFrameWork/web/tuijian/index.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "每日推荐",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/zqlist.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "片商专区",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/gudoulist.html?assetId=GDZX0920160725000001",
+                        "id": "",
+                        "logo": "",
+                        "name": "电影",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/gudoulist.html?assetId=GDZX0920160725000002",
+                        "id": "",
+                        "logo": "",
+                        "name": "电视剧",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/gudoulist.html?assetId=GDZX0920160725000003",
+                        "id": "",
+                        "logo": "",
+                        "name": "卡通",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/gudoulist.html?assetId=GDZX0920160725000004",
+                        "id": "",
+                        "logo": "",
+                        "name": "综艺娱乐",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/gudoulist.html?assetId=GDZX0920160725000005",
+                        "id": "",
+                        "logo": "",
+                        "name": "探索纪实",
+                        "type": "1"
+                    }
+                ]
+            },
+            {
+                "id": "",
+                "logo": "",
+                "name": "应用",
+                "subArr": [
+                    {
+                        "addr": "/NewFrameWork/UE/html/app.html?groupId=ff8080815889fff501588ae0b0270064",
+                        "id": "",
+                        "logo": "",
+                        "name": "游戏",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "//NewFrameWork/UE/html/app.html?groupId=4028b881572263440157226576440004",
+                        "id": "",
+                        "logo": "",
+                        "name": "教育",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/app.html?groupId=ff8080815889fff501588ae7df580085",
+                        "id": "",
+                        "logo": "",
+                        "name": "音乐",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "http://172.16.146.6",
+                        "id": "",
+                        "logo": "",
+                        "name": "UTVGO",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/app.html?groupId=ff8080815889fff501588af02fd80090",
+                        "id": "",
+                        "logo": "",
+                        "name": "文化旅游",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/app.html?groupId=ff8080815889fff501588aff7a5200ae",
+                        "id": "",
+                        "logo": "",
+                        "name": "健康体育",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/app.html?groupId=ff8080815889fff501588affd12200b1",
+                        "id": "",
+                        "logo": "",
+                        "name": "动漫电竞",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/app.html?groupId=ff8080815889fff501588b00479200b4",
+                        "id": "",
+                        "logo": "",
+                        "name": "政企民生",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/app.html?groupId=ff8080815889fff501588b00e6e200b8",
+                        "id": "",
+                        "logo": "",
+                        "name": "财富金融",
+                        "type": "1"
+                    }
+                ]
+            },
+            {
+                "id": "",
+                "logo": "",
+                "name": "我+",
+                "subArr": [
+                    {
+                        "addr": "http://10.205.22.158/tvhall/",
+                        "id": "tvgd",
+                        "logo": "",
+                        "name": "TV厅",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "/NewFrameWork/UE/html/mine.html?type=1",
+                        "id": "",
+                        "logo": "",
+                        "name": "收藏",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "main:// email_manager.v2.ue.html",
+                        "id": "",
+                        "logo": "",
+                        "name": "通知",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "main://servicepage.v2.ue.html?firstIndex=1&secondIndex=1",
+                        "id": "",
+                        "logo": "",
+                        "name": "设置",
+                        "type": "0"
+                    },
+                    {
+                        "addr": "http://10.205.22.158/tvhall/portalvisit.shtml?type=5&pos=401&menucode=c01",
+                        "id": "home1",
+                        "logo": "",
+                        "name": "我的广电",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "http://10.205.22.158/tvhall/portalvisit.shtml?type=5&pos=402&menucode=c02",
+                        "id": "home2",
+                        "logo": "",
+                        "name": "在用产品",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "http://10.205.22.158/tvhall/portalvisit.shtml?type=5&pos=404&menucode=c03",
+                        "id": "home3",
+                        "logo": "",
+                        "name": "清单明细",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "http://10.205.22.158/tvhall/",
+                        "id": "home4",
+                        "logo": "",
+                        "name": "最新优惠",
+                        "type": "1"
+                    },
+                    {
+                        "addr": "/NewFrameWork/newWeb/html/clearTSID.html",
+                        "id": "home5",
+                        "logo": "",
+                        "name": "一键恢复",
+                        "type": "1"
+                    }
+                ]
+            }
+        ],
+        "version": "6ef76ce0f4071bb7baa5cfd6e2f281e2"
+    },
+    "rcmd": [
+        {
+            "identity": "index_vod",
+            "positionName": "首页点播",
+            "recommendData": [
+                {
+                    "identity": "index_vod_1",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "vod_1",
+                            "img": "/attachments/201710/87744dd3-00af-4fc6-a4de-92e71b2712a0.jpg",
+                            "name": "vod_1",
+                            "src": "/NewFrameWork/newWeb/html/singleDemand/html/detail.html?assetId=GDZX3720170801001233&groupId=gd_dcdbdy&providerId=11000&progType=0",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "1"
+                },
+                {
+                    "identity": "index_vod_2",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "vod_2",
+                            "img": "/attachments/201711/2da22e3b-97a8-4e4b-9f37-023a310261e0.jpg",
+                            "name": "vod_2",
+                            "src": "/NewFrameWork/newWeb/html/singleDemand/html/detail.html?assetId=GDZX9920171031000794&groupId=gd_dcdbdy&providerId=11016&progType=0",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "2"
+                },
+                {
+                    "identity": "index_vod_3",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "vod_3",
+                            "img": "/attachments/201710/73257d06-1665-4ffc-b01c-fdb6ea8d35e3.jpg",
+                            "name": "vod_3",
+                            "src": "/NewFrameWork/newWeb/html/singleDemand/html/detail.html?assetId=GDZX9920171017000037&groupId=gd_dcdbdy&providerId=&progType=0",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "3"
+                },
+                {
+                    "identity": "index_vod_4",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "vod_4",
+                            "img": "/attachments/201710/4d3b4a5b-3dfd-4500-8dc4-220be7a7726e.jpg",
+                            "name": "vod_4",
+                            "src": "/NewFrameWork/newWeb/html/singleDemand/html/detail.html?assetId=GDZX9920170929000683&groupId=gd_dcdbdy&providerId=&progType=0",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "4"
+                },
+                {
+                    "identity": "index_vod_5",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "vod_51",
+                            "img": "/attachments/201710/8b95626f-3ffe-46c1-8e3a-ba1b1011dc6e.jpg",
+                            "name": "vod_510",
+                            "src": "/NewFrameWork/newWeb/html/singleDemand/html/detail.html?assetId=GDZX9920171019000335&groupId=gd_dcdbdy&providerId=&progType=0",
+                            "type": "1"
+                        },
+                        {
+                            "content": "vod_52",
+                            "img": "/attachments/20177/24c01cac-636a-4f41-87f0-9e304d9c2e04.jpg",
+                            "name": "vod_520",
+                            "src": "/NewFrameWork/newWeb/html/highClear_list.v2.htm?groupId=gd_bianzengkan&directoryName=%u6743%u529B%u7684%u6E38%u620F%u5168%u5B63%u5927%u8D4F&fullDirPath=%u5929%u534E%u4E13%u533A%7C%u4E13%u9898%u96C6%u9526&parent_ADD_PA=highClear&showFullDirPath=%u4E13%u9898%u96C6%u9526",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "5"
+                }
+            ],
+            "version": "bafd04ae8d93f9590a9552c7ea3034a4",
+            "windowsCount": 0
+        },
+        {
+            "identity": "index_tv",
+            "positionName": "首页直播",
+            "recommendData": [
+                {
+                    "identity": "index_tv_1",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "zhibo_1",
+                            "img": "/attachments/201711/55fde3aa-6788-4081-972c-f9b2c821b420.jpg",
+                            "name": "zhibo_1",
+                            "src": "/NewFrameWork/newWeb/html/singleDemand/html/index.html?index=4",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "1"
+                },
+                {
+                    "identity": "index_tv_2",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "zhibo_2",
+                            "img": "/attachments/201711/17b17512-203a-4f3b-8ea9-183a16f8214b.jpg",
+                            "name": "zhibo_2",
+                            "src": "/NewFrameWork/newWeb/html/columnSelection/column_detail.html?recreationId=GDZX1020171031000009&columnId=gd_rbjc&folderName=",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "2"
+                },
+                {
+                    "identity": "index_tv_3",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "zhibo_3",
+                            "img": "/attachments/201711/ec6a2cf2-0078-49c7-8533-412d219d8d9a.jpg",
+                            "name": "zhibo_3",
+                            "src": "/NewFrameWork/UE/html/detail.html?assetId=GDZX2820170504000361&nodeType=1&groudId=GDZX0920170301000014",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "3"
+                },
+                {
+                    "identity": "index_tv_4",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "zhibo_4",
+                            "img": "/attachments/201711/07a47e49-d3aa-4bf8-9809-c769bead30f6.jpg",
+                            "name": "zhibo_4",
+                            "src": "/NewFrameWork/newWeb/html/columnSelection/column_detail.html?recreationId=GDZX1020170830000006&columnId=gd_rbjc&folderName=",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "4"
+                },
+                {
+                    "identity": "index_tv_5",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "zhibo5.1",
+                            "img": "/attachments/201711/fda45502-16df-47a7-8d13-aef10cfc8e79.jpg",
+                            "name": "zhibo5.1",
+                            "src": "/NewFrameWork/newWeb/html/singleDemand/html/detail.html?assetId=GDZX9920171102000004&groupId=gd_dcdbdy&providerId=&progType=0",
+                            "type": "1"
+                        },
+                        {
+                            "content": "zhibo5.2",
+                            "img": "/attachments/20179/55597964-7d98-469a-9930-f5e55a48f781.jpg",
+                            "name": "zhibo5.2",
+                            "src": "/NewFrameWork/newWeb/html/columnSelection/column_detail.html?recreationId=GDZX6120170627000222&columnId=gd_rbjc&folderName=",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "5"
+                }
+            ],
+            "version": "9ce0c39a39c34b8b19a9d5f69c0554bf",
+            "windowsCount": 0
+        },
+        {
+            "identity": "index_home",
+            "positionName": "首页我+",
+            "recommendData": [
+                {
+                    "identity": "index_home_1",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "乐享音乐",
+                            "img": "/attachments/20177/fd83758d-d4a2-459b-aae9-cb330cefa9de.jpg",
+                            "name": "乐享音乐",
+                            "src": "http://172.16.147.163/epg/welcome.jsp?protal=1",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "1"
+                },
+                {
+                    "identity": "index_home_2",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": " 体感游戏",
+                            "img": "/attachments/20177/fba30775-d34c-4bbd-aa88-cfb6328a1daf.jpg",
+                            "name": "体感游戏",
+                            "src": "http://172.16.147.108/home/home.html",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "2"
+                },
+                {
+                    "identity": "index_home_3",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "健身团",
+                            "img": "/attachments/20177/542deb29-75af-41be-906f-34f3059f6c7f.jpg",
+                            "name": "健身团",
+                            "src": "http://172.16.147.48:9090/health-bc-hd/login.jsp?jumptype=new",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "3"
+                },
+                {
+                    "identity": "index_home_4",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "卡拉ok",
+                            "img": "/attachments/20177/d2c0d647-4e86-4f2b-b004-b554dcd6e59d.jpg",
+                            "name": "卡拉ok",
+                            "src": "http://172.16.147.48/gd-mp/index.jsp?jumptype=haibaozsx",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "4"
+                },
+                {
+                    "identity": "index_home_5",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "游戏视频",
+                            "img": "/attachments/20177/f66ea735-51df-4590-9f9c-c8a0a1d99b1d.jpg",
+                            "name": "游戏视频",
+                            "src": "http://172.16.146.100:8080/Game_Video/auth.jsp",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "5"
+                }
+            ],
+            "version": "e7efbab1ff6f154d5e9287500c047760",
+            "windowsCount": 0
+        },
+        {
+            "identity": "index_local",
+            "positionName": "首页本地",
+            "recommendData": [
+                {
+                    "identity": "index_local_1",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "新UE主菜单-1",
+                            "img": "/attachments/201710/92863ae0-1f43-4723-947e-6cbefe9b9548.jpg",
+                            "name": "新UE主菜单-1",
+                            "src": "/NewFrameWork/newWeb/html/singleDemand/html/detail.html?assetId=GDZX9920170926000054&groupId=gd_dcdbdy&providerId=11002&progType=0",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "1"
+                },
+                {
+                    "identity": "index_local_2",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "新UE主菜单-2",
+                            "img": "/attachments/201710/154b4d6d-d424-456b-9b12-aa1fcac780d0.jpg",
+                            "name": "新UE主菜单-2",
+                            "src": "/NewFrameWork/newWeb/html/singleDemand/html/detail.html?assetId=GDZX9920170918000765&groupId=gd_dcdbktp&providerId=11016&progType=0",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "2"
+                },
+                {
+                    "identity": "index_local_3",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "新UE主菜单-3",
+                            "img": "/attachments/201710/9aa515f0-f2ee-4c14-9b2b-d7e8b41dc39c.jpg",
+                            "name": "新UE主菜单-3",
+                            "src": "/NewFrameWork/newWeb/html/singleDemand/html/detail.html?assetId=GDZX9920170927000001&groupId=gd_dcdbdy&providerId=11016&progType=0",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "3"
+                },
+                {
+                    "identity": "index_local_4",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "新UE主菜单-4",
+                            "img": "/attachments/201710/7beb0524-702f-44ce-8b19-70c403fb3e76.jpg",
+                            "name": "新UE主菜单-4",
+                            "src": "/NewFrameWork/newWeb/html/singleDemand/html/detail.html?assetId=GDZX9920171019000335&groupId=gd_dcdbdy&providerId=11016&progType=0",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "4"
+                },
+                {
+                    "identity": "index_local_5",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "新UE主菜单-5",
+                            "img": "/attachments/201710/a6fecb75-58be-4a9b-b4d7-faab0bf7d425.jpg",
+                            "name": "新UE主菜单-5",
+                            "src": "http://172.19.16.253/lanmu/zhihuidongguan/index.html",
+                            "type": "1"
+                        },
+                        {
+                            "content": "新UE主菜单-6",
+                            "img": "/attachments/201710/4b7b4103-5a14-43d7-9560-edf131b062f7.jpg",
+                            "name": "新UE主菜单-6",
+                            "src": "/NewFrameWork/web/backList.html",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "5"
+                }
+            ],
+            "version": "b0383a68b95f5a1493624c49dd9e0d03",
+            "windowsCount": 0
+        },
+        {
+            "identity": "index_app",
+            "positionName": "首页应用",
+            "recommendData": [
+                {
+                    "identity": "index_app_1",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "果果乐园",
+                            "img": "/attachments/20177/f0b5c394-76a6-4a3a-9fe7-140617a42f1e.jpg",
+                            "name": "果果乐园",
+                            "src": "http://172.16.147.84:8021/ggly-bc-hd/login.jsp?jumptype=haibao0623",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "1"
+                },
+                {
+                    "identity": "index_app_2",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "游戏乐园",
+                            "img": "/attachments/20177/961f2e5b-3bbc-43ec-b19b-2a4a84ca006e.jpg",
+                            "name": "游戏乐园",
+                            "src": "http://172.16.147.162/gd720p/Default.aspx",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "2"
+                },
+                {
+                    "identity": "index_app_3",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "动画",
+                            "img": "/attachments/20177/9d37a5e9-afe9-4166-a715-119d49185069.jpg",
+                            "name": "动画",
+                            "src": "http://172.16.147.163:83/epg_mbxk/login.jsp",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "3"
+                },
+                {
+                    "identity": "index_app_4",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "手游视频",
+                            "img": "/attachments/20177/868ed0a3-3a96-4124-ba9b-503ce7fb817a.jpg",
+                            "name": "手游视频",
+                            "src": "http://172.16.147.82/youxi/index.html",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "4"
+                },
+                {
+                    "identity": "index_app_5",
+                    "showType": "0",
+                    "sourceData": [
+                        {
+                            "content": "米卡乐园",
+                            "img": "/attachments/20177/340ac332-500e-4d3c-afc9-14415ccc03b6.jpg",
+                            "name": "米卡乐园",
+                            "src": "http://172.16.147.88:8080/mika/welcome.jsp",
+                            "type": "1"
+                        }
+                    ],
+                    "type": "0",
+                    "windowName": "5"
+                }
+            ],
+            "version": "bafe4075d2ebd0e003e2a8f0dc53ab22",
+            "windowsCount": 0
+        }
+    ]
+}

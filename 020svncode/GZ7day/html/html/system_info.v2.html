@@ -1,0 +1,413 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />
+<script src="../js/keyDefine.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/global2.0.js"></script>
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+	//SET ADD
+	
+	ADD_MO = "system";
+	ADD_MONAME = "自助服务|系统设置"
+	ADD_LE = 50;
+	ADD_PA = "system_info";
+	ADD_NAME = "机顶盒信息";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+	
+</script>
+
+<style>
+.stytel_ground{width:1280px; height:720px; background:url(../images/system_2.jpg);overflow:hidden;}
+
+.system_con_focus_0001 {
+	position:absolute;
+	top:219px;
+	left:81px;
+	background: url(../images/system_focus_01.png);
+	width:1095px;
+	height:70px;
+}
+</style>
+</head>
+<body>
+
+
+<div class="stytel_ground">
+<div class="system_time">
+    <div  class="weather"></div>
+    <div id="time_HMS"></div><div id="time_YMDW"></div>
+  </div>
+  <div class="system_menu_bg"> </div>
+  <div class="system_menu_title_bg" id="focus_title"></div>
+  <div class="system_menu_text_box">
+    <table width="1083" border="0" cellspacing="0" cellpadding="0" class="system_menu_title_cen">
+      <tr>
+        <td width="216"><span class="system_menu_text2"> 平台信息</span></td>
+        <td width="216"><span class="system_menu_text2"> 硬件信息</span></td>
+        <td width="216"><span class="system_menu_text2"> OS信息</span></td>
+        <td width="216"><span class="system_menu_text2"> 驱动信息</span></td>
+        <td width="219"><span class="system_menu_text2"> 中间件信息</span></td>
+      </tr>
+    </table>
+  </div>
+  <div class="system_con_focus_01" id="foncus_bar_id"></div>
+  <div class="system_con_box"> 
+    
+    <table width="1083" border="0" cellspacing="0" cellpadding="0" class="system_menu_table">
+      <tr id="tr_0">
+        <td width="47%" class="system_con_text_left" id="subMenu_0"></td>
+        <td width="53%" class="system_con_text_right_28" id="subValue_0"></td>
+      </tr>
+      <tr  id="tr_1">
+        <td width="47%" class="system_con_text_left" id="subMenu_1"></td>
+        <td width="53%" class="system_con_text_right_28" id="subValue_1"></td>
+      </tr> 
+      <tr id="tr_2">
+        <td width="47%" class="system_con_text_left" id="subMenu_2"></td>
+        <td width="53%" class="system_con_text_right_28" id="subValue_2"></td>
+      </tr>
+      <tr id="tr_3">
+        <td width="47%" class="system_con_text_left" id="subMenu_3"></td>
+        <td width="53%" class="system_con_text_right_28" id="subValue_3"></td>
+      </tr>
+      <tr id="tr_4">
+        <td width="47%" class="system_con_text_left" id="subMenu_4"></td>
+        <td width="53%" class="system_con_text_right_28" id="subValue_4"></td>
+      </tr>
+      <tr id="tr_5">
+        <td width="47%" class="system_con_text_left" id="subMenu_5"></td>
+        <td width="53%" class="system_con_text_right_28" id="subValue_5"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+          </tr>
+        </table></td>
+        <td width="165">&nbsp;</td>
+        <td width="166">&nbsp;</td>
+        <td width="170">&nbsp;</td>
+        <td width="174">&nbsp;</td>
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+//try{
+var SETITLE = ["平台信息","硬件信息","OS信息","驱动信息","中间件信息"];
+
+var SUBMENU = new Array(); 
+
+var curProtocols = Middleware.protocols;
+var curLen = curProtocols.length;
+var protocolsHTML="";
+var eths = Network.ethernets;
+for(var i=0;i<curLen;i++)
+    protocolsHTML += curProtocols[i]+"&nbsp;";
+
+//平台信息
+SUBMENU.push([
+  {"name":"中间件系统软件版权所有者","value":util.str.undefinedReplacer(SysInfo.middlewareCopyRight,"未知的")},
+  {"name":"主芯片的名称型号","value":util.str.undefinedReplacer(SysInfo.SOCModel,"未知的")},
+  {"name":"主芯片的厂商","value":util.str.undefinedReplacer(SysInfo.SOCProvider,"未知的")},
+  {"name":"机顶盒的厂商名称","value":util.str.undefinedReplacer(SysInfo.STBProvider,"未知的")},
+  {"name":"机顶盒的类型","value":util.str.undefinedReplacer(SysInfo.STBType ,"未知的")},
+  {"name":"机顶盒的品牌名称","value":util.str.undefinedReplacer(SysInfo.STBBrand,"未知的")},
+  {"name":"机顶盒的型号","value":util.str.undefinedReplacer(SysInfo.STBModel,"未知的")},
+  {"name":"机顶盒的序列号","value":util.str.undefinedReplacer(SysInfo.STBSerialNumber,"未知的")},
+   {"name":"机顶盒的MAC","value":util.str.undefinedReplacer(eths[0].MACAddress,"未知的")},
+  {"name":"loader 的名称","value":util.str.undefinedReplacer(SysInfo.loaderName,"未知的")},
+  {"name":"loader 的提供商","value":util.str.undefinedReplacer(SysInfo.loaderProvider,"未知的")},
+  {"name":"loader 的版本号","value":util.str.undefinedReplacer(SysInfo.loaderVersion,"未知的")},
+  {"name":"loader的大小","value":util.str.undefinedReplacer(SysInfo.loaderSize,"未知的")+" K"},
+  {"name":"机顶盒硬件版本号","value":util.str.undefinedReplacer(SysInfo.hardwareVersion,"未知的")},
+  {"name":"机顶盒软件版本号","value":util.str.undefinedReplacer(SysInfo.softwareVersion,"未知的")},
+  {"name":"浏览器版本号","value":util.str.undefinedReplacer(SysInfo.browserVersion,"未知的")}
+  ]);
+  //硬件信息
+  SUBMENU.push([
+  {"name":"动态内存的大小","value":util.str.undefinedReplacer(Hardware.DRAM.size  ,"未知的")+" MB"},
+  {"name":"动态内存的工作频率","value":util.str.undefinedReplacer(Hardware.DRAM.frequency ,"未知的")+" kHz"},
+  {"name":"缓存的大小","value":util.str.undefinedReplacer(Hardware.flash.size ,"未知的")+" MB"} 
+  ]);
+  
+  //OS信息
+  SUBMENU.push([
+  {"name":"操作系统的名称","value":util.str.undefinedReplacer(OS.name,"未知的")},
+  {"name":"操作系统的厂商、品牌","value":util.str.undefinedReplacer(OS.provider ,"未知的")},
+  {"name":"操作系统的版本","value":util.str.undefinedReplacer(OS.version,"未知的")}
+  ]);
+  //驱动信息
+  SUBMENU.push([
+  {"name":"驱动的名称","value":util.str.undefinedReplacer(Driver.name,"未知的")},
+  {"name":"驱动的提供商","value":util.str.undefinedReplacer(Driver.provider ,"未知的")},
+  {"name":"驱动的大小","value":util.str.undefinedReplacer(Driver.size,"未知的")+" KB"},
+  {"name":"驱动的版本号","value":util.str.undefinedReplacer(Driver.version,"未知的")}
+  ]);
+  //中间件信息
+  SUBMENU.push([
+  {"name":"中间件软件的使用权归属者","value":util.str.undefinedReplacer(Middleware.belongTo,"未知的")},
+  {"name":"中间件图像格式信息","value":util.str.undefinedReplacer(Middleware.graphicFormat,"未知的")},
+  {"name":"中间件软件产品品牌图标的URL","value":util.str.undefinedReplacer(Middleware.logoURL,"未知的")},
+  {"name":"中间件内存大小","value":util.str.undefinedReplacer(Middleware.memorySize ,"未知的")+" KB"},
+  {"name":"中间件NVRAM的大小","value":util.str.undefinedReplacer(Middleware.NVRAMSize,"未知的")+" KB"},
+  {"name":"中间件的OC-CACHE的大小","value":util.str.undefinedReplacer(Middleware.OCCacheSize ,"未知的")+" KB"},
+  {"name":"中间件的应用管理器系统的应用cache大小","value":util.str.undefinedReplacer(Middleware.FFSCacheSize,"未知的")+" KB"},
+  {"name":"中间件 HTTP-CACHE的大小","value":util.str.undefinedReplacer(Middleware.HTTPCacheSize,"未知的")+" KB"},
+  {"name":"中间件软件发布的时间","value":util.str.undefinedReplacer(Middleware.releaseDate,"未知的")},
+  {"name":"中间件的名称","value":util.str.undefinedReplacer(Middleware.name,"未知的")},
+  {"name":"中间件的版本","value":util.str.undefinedReplacer(Middleware.version,"未知的")},
+  {"name":"中间件的提供商","value":util.str.undefinedReplacer(Middleware.provider,"未知的")},
+  {"name":"技术支持服务联系信息","value":util.str.undefinedReplacer(Middleware.supportInfo,"未知的")},
+  {"name":"中间件使用的 EVENT Cache的大小","value":util.str.undefinedReplacer(Middleware.eventCache,"未知的")+" KB"},
+  {"name":"已经注册的用户协议","value":util.str.undefinedReplacer(protocolsHTML,"未知的")},
+  {"name":"中间件section buffer的大小","value":util.str.undefinedReplacer(Middleware.sectionBufferSize,"未知的")+" KB"},
+  {"name":"中间件待显示页面缓存区的大小","value":util.str.undefinedReplacer(Middleware.renderingPageBufferSize,"未知的")+" KB"},
+  {"name":"中间件图片解码缓存区的大小","value":util.str.undefinedReplacer(Middleware.imageDecodeBufferSize,"未知的")+" KB"},
+  {"name":"中间件SI Manager缓存区的大小","value":util.str.undefinedReplacer(Middleware.SIManagerBufferSize,"未知的")+" KB"},
+  {"name":"中间件JS engine所用内存","value":util.str.undefinedReplacer(Middleware.JSEngineBufferSize,"未知的")+" KB"}
+  ]);
+
+
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	switch(val){
+		case ROC_IRKEY_DOWN: 
+		break;
+	}
+	return true;
+}
+
+function grabEvent(event){
+	
+	return page.grabEvent.Listener(event);;
+}
+
+function page_systemevent_handler(event){
+	
+	return page.grabEvent.Listener(event);
+}
+
+function pageObj(){
+	
+	this.HInfoList = new HInfoList();  //横向
+	function HInfoList(){
+		this.index = 0;
+		this.pageSize = 5;//横向总栏目数
+		this.top = 100;
+		this.width = 205;	 
+		this.items = new Array();
+		
+		this.init = function(items,index){
+			this.items = items; 
+			this.index = index;   
+			this.focusOn(this.index);
+		}  
+		this.getStep = function(idx){   
+			return this.top + this.width * idx; 
+		}
+		this.focusOn = function(index){
+			$("focus_title").style.left=this.getStep(index)+"px";   
+			pageObj.VInfoList.init(SUBMENU[index], 0);
+		}  
+	  	this.left = function(){ 
+		  	if(this.items.length<=1) 
+				return;  
+			if( this.index == 0){
+				this.index = this.pageSize -1;
+			}else{
+				this.index --;
+			}
+			this.focusOn(this.index); 
+		} 
+		this.right = function(){ 
+		 	if(this.items.length<=1) 
+				return;  
+			if( this.index == this.pageSize -1){
+				this.index = 0;
+			}else{
+				this.index ++;
+			}
+			this.focusOn(this.index);  
+		}  
+		this.Listener = function(event){
+			var val = event.which | event.keyCode; 
+			switch(val){
+				case ROC_IRKEY_RIGHT: 
+					this.right();
+					return true;
+				break;
+				case ROC_IRKEY_LEFT:  
+					this.left();
+					return true;
+				break;   
+			}  
+			return true;
+		} 
+	} 
+	
+	this.VInfoList = new VInfoList();  //纵向
+	function VInfoList(){
+		this.index = 0;   
+		this.pageSize = 6;//横向总栏目数
+		this.top = 222;
+		this.height = 66;	 
+		this.items = new Array();  
+		this.page = 0;
+		
+		this.init = function(items,index){ 
+			this.items = items; 
+			this.index = index;
+			this.page = Math.ceil((this.index + 1) / this.pageSize) - 1;  
+			this.maxPage = Math.ceil((this.items.length) / this.pageSize) - 1; 
+			this.showData();
+			this.focusOff(0);
+			this.focusOn(this.index);   
+		} 
+		this.getStep = function(idx){  
+			return this.top + this.height * (idx % this.pageSize); 
+		} 
+		this.showData = function(){
+			this.initResetPage(); 
+			for(var i=0;i<Math.min(this.pageSize,this.items.length-this.pageSize*this.page);i++){
+				var idx = this.pageSize * this.page;
+				
+				var tempName = getStrChineseLen(this.items[idx+i].name,10); 
+				var tempValue = getStrChineseLen(this.items[idx+i].value,12);
+				
+               	$("subMenu_"+i).innerHTML = tempName;
+				$("subValue_"+i).innerHTML = tempValue;  
+				
+			}
+		}
+		this.initResetPage = function(){
+			 for(var i=0;i< this.pageSize;i++){
+				  this.focusOff(i); 
+				  $("subMenu_"+i).innerHTML = "";
+				  $("subValue_"+i).innerHTML = "";
+			  }
+		}			
+		this.focusOff = function(i){
+			$("subMenu_"+i).style.color = "#1E2737";
+			$("subValue_"+i).style.color = "#616775";   
+		}
+		this.focusOffStr = function(i){  
+			var idx = i % this.pageSize;
+			$("subMenu_"+idx).innerHTML = getStrChineseLen(this.items[i].name,10);
+			$("subValue_"+idx).innerHTML = getStrChineseLen(this.items[i].value,12);   
+		} 
+		this.focusOn = function(i){
+			$("foncus_bar_id").style.top=this.getStep(i)+"px";
+			var idx = i % this.pageSize;
+			$("subMenu_"+idx).style.color = "#fff";
+			$("subValue_"+idx).style.color = "#fff"; 
+			 
+			var tempName = this.items[i].name; 
+			var tempValue = this.items[i].value; 
+			$("subMenu_"+idx).innerHTML = tempName;
+			$("subValue_"+idx).innerHTML = tempValue;  
+			if(getStrChineseLength(tempName) > 10 )  $("subMenu_"+idx).innerHTML="<marquee SCROLLDELAY ='20' >"+tempName+"</marquee>"; 
+			if(getStrChineseLength(tempValue) > 12)  $("subValue_"+idx).innerHTML="<marquee SCROLLDELAY ='20'>"+tempValue+"</marquee>"; 
+		}
+		this.up = function(){
+			this.focusOff(this.index % this.pageSize);
+			this.focusOffStr(this.index);
+			var oldpage = Math.ceil((this.index + 1)/this.pageSize) - 1;
+			this.index = this.index == 0 ? this.items.length - 1: this.index -1;
+			this.page = Math.ceil((this.index + 1)/this.pageSize) - 1;
+			if(oldpage!=this.page){
+				this.showData();
+			}
+			this.focusOn(this.index);  
+		}
+		this.down = function(){ 
+			this.focusOff(this.index % this.pageSize);
+			this.focusOffStr(this.index);
+			var oldpage = Math.ceil((this.index + 1)/this.pageSize) - 1;
+			this.index = this.index == this.items.length - 1 ? 0 : this.index + 1;
+			this.page = Math.ceil((this.index + 1)/this.pageSize) - 1; 
+			if(oldpage != this.page){
+				this.showData();
+			}
+			this.focusOn(this.index);  
+		}
+		this.pageUp = function(){
+			this.focusOff(this.index % this.pageSize);
+			this.page = this.page == 0 ? this.maxPage : --this.page;
+			this.index = this.page * this.pageSize;
+			this.showData();
+			this.focusOn(this.index);
+		}
+		this.pageDown = function(){
+			this.focusOff(this.index % this.pageSize);
+			this.page = this.page == this.maxPage ? 0 : ++this.page;
+			this.index = this.page * this.pageSize;
+			this.showData();
+			this.focusOn(this.index);
+		}
+		this.Listener = function(event){
+
+			var val = event.which | event.keyCode; 
+			switch(val){
+				case ROC_IRKEY_DOWN: 
+					this.down();
+					return true;
+				case ROC_IRKEY_UP: 
+					this.up();
+					return true;
+				case ROC_IRKEY_PAGE_DOWN:
+					this.pageDown();
+					return true;
+				case ROC_IRKEY_PAGE_UP:
+					this.pageUp();
+					return true;
+			}  
+			return true;
+		} 
+	} 
+	
+	 
+	this.init = function(){     
+		this.HInfoList.init(SETITLE,0);	   
+		showDateTime(); 
+	} 
+} 
+
+
+	//注册页面
+	var pageObj = new pageObj();
+	page.regedit(pageObj.HInfoList);  
+	page.regedit(pageObj.VInfoList);  
+
+
+function initPage(){ 
+		pageObj.init(); 
+		DataCollection.collectData(["01","main://html/html/system_info.v2.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"机顶盒信息"]); 
+		SysSetting.setEnv("SOURCE_PATH","main://html/html/system_info.v2.html"+window.location.search);	 		
+}
+
+window.onload = initPage;
+//}catch(e){
+	//$J.debug.Msg("Page Error:"+e.message,1,"Page Init");
+//}	
+</script>
+
+<script src="../js/ADD_C.js"></script>
+
+
+</body>
+</html>

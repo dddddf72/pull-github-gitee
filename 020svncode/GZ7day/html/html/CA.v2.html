@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />
+<script src="../js/keyDefine.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/global2.0.js"></script> 
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+	//SET ADD
+	
+	ADD_MO = "system";
+	ADD_MONAME = "自助服务|系统设置|CA信息"
+	ADD_LE = 51;
+	ADD_PA = "CA";
+	ADD_NAME = "CA基本信息";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+	
+</script>
+
+</head>
+<body>
+<div class="systel_bg">
+  <div class="system_time">
+    <div  class="weather"></div>
+    <div  class="time2">
+      <div id="time_HMS"></div>
+      <div id="time_YMDW"></div>
+    </div>
+  </div>
+  <div class="system_menu_text_box"> 系统信息-CA信息 </div>
+  <div class="system_con_focus"></div>
+  <div class="system_con_box">
+    <table width="1083" border="0" cellspacing="0" cellpadding="0" class="system_menu_table ">
+      <tr  class="list_font ">
+        <td width="225" class="" style="padding-left:10px;" id="name0"></td>
+        <td width="300" id="value0" class="system_con_text_right" style="padding-left:10px;"></td>
+        <td width="201" id="name1" style="padding-left:10px;" class=""></td>
+        <td width="357" id="value1" class="system_con_text_right" style="padding-left:10px;"></td>
+      </tr>
+      <tr  class="list_font ">
+        <td width="225" class="" style="padding-left:10px;" id="name2"></td>
+        <td width="300"  id="value2" class="system_con_text_right" style="padding-left:10px;"></td>
+        <td width="201" class="" style="padding-left:10px;" id="name3"></td>
+        <td width="357" id="value3" class="system_con_text_right" style="padding-left:10px;"></td>
+      </tr>
+       <tr  class="list_font">
+        <td width="225" class="" style="padding-left:10px;" id="name4"></td>
+        <td width="300"  id="value4" class="system_con_text_right" style="padding-left:10px;"></td>
+      </tr>     
+    </table>
+  </div>
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+            </tr>
+          </table></td>
+        <td width="165">&nbsp;</td>
+        <td width="166">&nbsp;</td>
+        <td width="170">&nbsp;</td>
+        <td width="174">&nbsp;</td>
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<script>
+
+try{
+var infos = [
+    {"name":"CA厂商:", "value": util.str.undefinedReplacer(CA.name,"未知的")},
+    {"name":"智能卡卡号:", "value": util.str.undefinedReplacer(CA.icNo,"未知的")},
+    {"name":"PIN码状态:", "value": (function(){
+            var val = CA.pinLocked;//1为智能卡被锁定，0为智能卡未锁定，-1为该终端的CA系统不支持PIN码锁定功能
+			val = util.str.undefinedReplacer(val,-2);
+			
+			if(val==1) {
+				val=1;
+			}else if(val==0){
+				val=0;
+			}else if(val==-1){
+			    val=2;
+			}else{
+			    val=3;	
+			}
+            return ["0,未锁定","1,锁定","-1,不支持锁定状态获取","未知的"][val];
+        }())
+    },
+    {"name":"CA版本:", "value": CA.version || ""},
+    {"name":"CA区域码:", "value": CA.regionCode}
+];
+
+
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	switch(val){
+		case ROC_IRKEY_DOWN: 
+		break;
+	}
+	return true;
+}
+
+
+function grabEvent(event){
+	
+	return page.grabEvent.Listener(event);
+}
+
+function page_systemevent_handler(event){
+	
+	return page.grabEvent.Listener(event);
+}
+
+function pageObj(){
+	 
+	this.CAInfoList = new CAInfoList();  
+	function CAInfoList(){  
+		this.items = new Array();
+		this.init = function(items){  
+			this.items = items;
+			this.showData();   
+		}  
+		this.showData = function(){
+			 for(var i=0,len=this.items.length; i<len; i++){
+				$("name"+i).innerHTML = this.items[i].name;
+				$("value"+i).innerHTML = this.items[i].value;
+			}
+		} 
+		this.Listener = function(event){ 
+			var val = event.which | event.keyCode; 
+			switch(val){
+				case ROC_IRKEY_DOWN:  
+					return true;
+				break; 
+			}  
+			return true;
+		} 
+	}  
+	this.init = function(){ 
+		this.CAInfoList.init(infos);	   
+		showDateTime(); 
+	} 
+} 
+
+
+	//注册页面
+	var pageObj = new pageObj();  
+	page.regedit(pageObj.CAInfoList);  
+
+
+function initPage(){ 
+	pageObj.init(); 
+	DataCollection.collectData(["01","main://html/html/CA.v2.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"CA基本信息"]);
+	SysSetting.setEnv("SOURCE_PATH","main://html/html/CA.v2.html"+window.location.search);
+}
+
+window.onload = initPage;
+ }catch(e){
+	$J.debug.Msg("Page Error:"+e.message,1,"Page Init");
+}	
+</script>
+
+<script src="../js/ADD_C.js"></script>
+
+</body>
+</html>

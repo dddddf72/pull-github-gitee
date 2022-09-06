@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="1280*720;text/html; charset=utf-8" />
+<title>我的收藏</title>
+<link href="../res/default/css/common.css" rel="stylesheet" type="text/css" />
+<!--<script type="text/javascript" src="../res/default/js/common.js"></script> -->
+<script type="text/javascript" src="../res/default/js/global.js"></script>
+<script type="text/javascript" src="../res/default/js/commonAPI.js"></script>
+<style type="text/css">
+    body {font-size:22px;padding:0;margin:0;color:#FFF;font-family:"黑体";background:url(../res/default/images/top/bg_func_1.jpg) no-repeat;}
+    ul, li {margin:0;padding:0;list-style:none;}
+    button {background:transparent;font-size:22px;padding:0;margin:0;color:#c6dfea;border:none;}
+    #day {position:absolute;left:702px;top:93px;width:399px;height:43px;font-size:24px;text-align:right;}
+    #now_time {position:absolute;left:1111px;top:87px;width:78px;height:51px;font-size:35px;}
+    .menu {position:absolute;left:313px;top:140px;width:227px;height:40px;}
+    .menu li {float:left;list-style:none;width:50%;}
+    .menu button {width:106px;height:39px;}
+    .menu_foc {background:url(../res/default/images/top/menu1.png) no-repeat;font-size:24px;color:#000;}
+    .prev {color:#fff;background:url(../res/default/images/top/prevPage_another.png) no-repeat;}
+    .next {color:#fff;background:url(../res/default/images/top/nextPage_another.png) no-repeat;}
+    .center{position:absolute;left:294px;top:256px;width:924px;height:361px;color:#fff;}
+    .center li {position:relative;float:left;width:924px;height:45px;line-height:45px;}
+    .center li button{background:transparent;border:none;width:30px;height:30px;color:#fff;}
+    .center li.focus{color:#000;background:url(../res/default/images/top/focusBar_ok_shortNOAnother.png) center center no-repeat;}
+    .center li.focus button{color:#000;background: none;}
+    /*.center li.focus span.func_name{visibility:hidden;}*/
+    .center span{display:block;float:left;position: relative;}
+    .channel_num{width:25px;position: absolute;top: 8px;left:55px}
+    .center .channel_name{width:370px;position: absolute;left: 84px;}
+    .center .func_name {width: 150px;position: absolute;left: 500px;}
+    .center .channel_time{width:auto;;position: absolute;left: 700px;}
+    #left{position:absolute;top:185px;left:37px;width:245px;height:337px;border:1px solid #05aec7;background:url(../res/default/images/top/l_menu.jpg) no-repeat;}
+    #title {position:absolute;left:146px;top:78px;width:165px;height:42px;font-size:32px;color:#fff;}
+    .page{position:absolute;left:1037px;top:142px;width:183px;height:42px;line-height:42px;text-align:right;color:#e2e2e3;font-size:22px;}
+    .function_btn{position:absolute;left:313px;top:190px;width:878px;height:55px;background:url(../res/default/images/top/left_right.png) center center no-repeat;}
+    .function_btn li{width:210px;height:55px;float:left;list-style:none;}
+    .function_btn button{font-size:26px;width:169px;height:44px;background:url(../res/default/images/top/func_black.png) center center no-repeat;}
+    .function_btn a{font-size:26px;width:171px;height:55px;background:url(../res/default/images/top/func_black.png) center center no-repeat;}
+    .function_btn li.func_focus button{color:#fff;background:url(../res/default/images/top/func_black.png) center center no-repeat;}
+    .function_btn li.func_click button{color:#000;background:url(../res/default/images/top/func_orange.png) center center no-repeat;}
+    .function_btn li.list_use button{color:#000;  background:url(../res/default/images/top/func_gray.png) center center no-repeat;}
+    .tips{position:absolute;left:565px;top:140px;width:480px;height:40px;line-height:40px;}
+    .bottom{position:absolute;left:701px;top:634px;width:526px;height:31px;font-size:22px;color:#dcdcdc;line-height:31px;}
+    .red {position:absolute;left:1px;top:0px;width:149px;height:30px;padding-left:20px;background:url(../res/default/images/top/red.png) 0px center no-repeat;}
+    .green {position:absolute;left:167px;top:1px;width:119px;height:30px;padding-left:20px;background:url(../res/default/images/top/green.png) 0px center no-repeat;}
+    .yellow {position:absolute;left:307px;top:1px;width:72px;height:30px;padding-left:20px;background:url(../res/default/images/top/yellow.png) 0px center no-repeat;}
+    .blue {position:absolute;left:399px;top:1px;width:105px;height:30px;padding-left:20px;background:url(../res/default/images/top/blue.png) 0px center no-repeat;}
+    .num{position:absolute;left:296px;top:636px;width:220px;height:30px;background:url(../res/default/images/top/num.png) center center no-repeat;}
+    #search,#back{position:absolute;top:630px;width:106px;height:39px;}
+    #search{left:57px;}
+    .search_blu{background:url(../res/default/images/top/search_fatAnother1.png) no-repeat;}
+    .search_foc{background:url(../res/default/images/top/search_fatAnother2.png) no-repeat;}
+    #back{left:182px;}
+    .back_blu{background:url(../res/default/images/top/back_another1.png) no-repeat;}
+    .back_foc{background:url(../res/default/images/top/back_another2.png) no-repeat;}
+</style>
+<script language="javascript">
+function $(_id){
+    return document.getElementById(_id);
+}
+var curPage = 1;
+var pageSize = 8;
+var page;
+var list;
+var movieListLength = 0;
+var posters;
+var currentFocus = null;
+var startAt;
+
+var delFlag = false;
+function doReturnWhenShow(event, keyValue)//当有弹出框时，按下返回
+{
+    if(delFlag)
+    {
+        closeTip();
+        initPage();
+    }
+    else
+    {
+        closeTip();
+        event.preventDefault();
+    }
+}
+
+function doYellowKey()//重载黄键执行事件
+{
+    if(currentFocus == null)
+        return;
+    var tempFocus = currentFocus;
+    var delUrl = "../yytc/a_delete_info.htm";
+    ajaxUrl(delUrl,function ()
+            {
+                showInfo(xmlHttp.responseText);
+                if(xmlHttp.responseText.indexOf("OKButton") != -1)
+                {
+                    //给当前请求回来的页面确定按键添加事件,播放
+                    document.getElementById("OKButton").onclick = function()
+                    {
+						if(tempFocus.selectableItem[0].serviceType == "VOD"){
+							var VOD_removeVodFavorites = {
+								"data" : "<DeleteBookmark  titleAssetId=\"" + tempFocus.selectableItem[0].assetId + "\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId +"\"/>",
+								"callBack" : doReturnMsg
+							};
+						}else if(tempFocus.selectableItem[0].serviceType == "BTV"){
+				
+							var VOD_removeVodFavorites = {
+								"data" : "<DeleteBookmark  custom= 'BTV' folderAssetId=\"" + tempFocus.selectableItem[0].folderAssetId + "\"  titleAssetId=\"" + tempFocus.selectableItem[0].assetId + "\" programName=\"" + tempFocus.selectableItem[0].titleFull +"\" portalId=\"" + portalId +"\" beginTime=\"" + tempFocus.selectableItem[0].startDateTime +"\" endTime=\"" + tempFocus.selectableItem[0].endDateTime +"\" client=\"" + cardId +"\" account=\"" + userId +"\"/>",
+								"callBack" : doReturnMsg
+							};
+						}
+                        IEPG.getData(URL.VOD_removeVodFavorites, VOD_removeVodFavorites);
+                    };
+                }
+            },null
+    );
+}
+
+function doReturnMsg(x)
+{
+    if(x.code =="0" )
+    {
+        document.getElementById("dailog_body_p_id").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除成功！";
+		document.getElementById("cancle").style.display="none";
+    }
+    else
+    {
+        document.getElementById("dailog_body_p_id").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除失败，请重试！";
+		document.getElementById("cancle").style.display="none";
+    }
+    delFlag = true;
+    document.getElementById("OKButton").onclick = function()
+    {
+        closeTip();
+        initPage();
+    }
+}
+
+function doPlayKeyPress(e,keyValue) //播放键
+{
+    if(currentFocus.selectableItem[0].status == "0"){// 1：下架
+        showMsg(tipUrl + "T-nsp/tip/error_info.htm", "媒资已下架！");
+        return;
+    }
+    //当前选中记录  currentFocusPm
+    if( document.activeElement.name == "listButton" && currentFocus != null)
+    {
+        if(currentFocus.selectableItem[0].serviceType == "VOD")//点播收藏，跳到详情页
+        {
+            if(currentFocus.selectableItem[0].isPackage == "1")//资源包
+            {
+                saveUrlPath();
+                //location.href = epgUrl + "MovieDetail.do?" + currentFocus.url.split("?")[1];
+                goToDetail(currentFocus.selectableItem[0]);
+            }
+            else //单片
+            {
+                IEPG.onPlayAction (currentFocus.selectableItem,0);
+            }
+        }
+        else //直接播放
+        {
+            IEPG.onPlayAction (currentFocus.selectableItem,0);
+        }
+    }
+}
+
+function listfocus(id){
+    var temp_id = id.substring(10);
+    temp_id = temp_id - 1;
+    showPmName($("vodName_" +temp_id),list[temp_id].selectableItem[0].titleFull,12,true);
+    document.getElementById('li_'+ temp_id).className = "focus";
+    //document.getElementById('li_'+temp_id).style.background = "url(../res/default/images/top/focusBar_ok_shortNOAnother.png)";
+    currentFocus = list[temp_id];
+
+    var picUrl = "../res/default/images/show_pic.jpg";
+    if(currentFocus.selectableItem[0].imageList.length  > 0){
+		picUrl = gPoster(currentFocus.selectableItem[0].imageList,97,131);
+    }
+
+    $("list_Pic_Img").src = picUrl;
+}
+
+function listblur(id)
+{
+    currentFocus = null;
+    var temp_id = id.substring(10);
+    temp_id = temp_id - 1;
+    showPmName($("vodName_" +temp_id),list[temp_id].selectableItem[0].titleFull,12,false);
+    document.getElementById('li_'+temp_id).className = "";
+}
+function openDetail(id){//打开详情
+    if (movieListLength > 0) {
+        if(currentFocus.selectableItem[0].status == "0"){// 1：下架
+            showMsg(tipUrl + "T-nsp/tip/error_info.htm", "媒资已下架！");
+        }else{
+            if(currentFocus.selectableItem[0].serviceType == "VOD")//点播收藏，跳到详情页
+            {
+                setGlobalVar("title","我的空间");
+                saveUrlPath();
+                //location.href = currentFocus.url;
+                //location.href = epgUrl + "MovieDetail.do?" + currentFocus.url.split("?")[1];
+                goToDetail(currentFocus.selectableItem[0]);
+            }
+            else //直接播放
+            {
+                //  var tempJson = {name:currentFocus.resourceName,resourceId:currentFocus.resourceId,channelId:currentFocus.catalogResourceId,noAuth:"N"};
+                //  doTvPlay(tempJson,"0");
+				var playJson = {
+					programName : currentFocus.selectableItem[0].titleFull,
+					programId : currentFocus.selectableItem[0].assetId,
+					channelId : currentFocus.selectableItem[0].folderAssetId,
+					assetId : currentFocus.selectableItem[0].assetId
+				}
+				var play = new IEPG.BTVPlay(playJson);
+				play.doBTVPlay();
+            }
+        }
+    }
+}
+function initPage(){
+    curPage = 1;
+    delFlag = false;
+//	ajaxUrl(url,ajaxCallBack);
+    startAt = (curPage - 1) * pageSize + 1;
+    var VOD_getSavedProgram = {
+        "data" : "<GetBookmarks  startAt=\"" + startAt + "\" maxItems=\"" + pageSize +"\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId +"\"/>",
+        "callBack" : doAjaxCallBack
+    };
+    IEPG.getData(URL.VOD_getSavedProgram, VOD_getSavedProgram);
+    if(movieListLength<1){
+        $("list_Pic_Img").src = "../res/default/images/show_pic.jpg";
+    }
+    showDay();//显示时间
+    document.getElementById("next").focus();
+    setGlobalVar("isBack","");
+}
+function doAjaxCallBack(json)
+{
+    currentFocus = null;
+    if(json){
+        list = json.bookmarkedItem;
+        totalPage = Math.ceil(json.totalResults/pageSize);
+//		posters = json.posters;
+        if(list.length<1){
+            curPage = 0;
+        }
+    }else{
+        list =[];
+        totalPage =0;
+    }
+    movieListLength = list.length;
+    showMovieList();
+}
+
+
+function showMovieList() {
+    if(movieListLength==0)curPage=0;
+    var info;
+    for (var i=0; i<pageSize; i++) {
+        if (i < movieListLength) {
+            var vod_name;
+            $("play_list_" + (i + 1)).innerHTML = ""+(i+1)+". ";
+            $("play_list_" + (i + 1)).disabled=false;
+            info = list[i].selectableItem;
+            if(info[0].serviceType == "VOD"){
+                $("playType_" + i).innerHTML = "互动点播";
+            }else if(info[0].serviceType == "BTV"){
+                $("playType_" + i).innerHTML = "频道回看";
+            }else if(info[0].serviceType == "nPVR"){
+                $("playType_" + i).innerHTML = "频道录像";
+            }else{
+                $("playType_" + i).innerHTML ="";
+            }
+
+            $("playTime_" + i).innerHTML = list[i].markDateTime;
+            vod_name = info[0].titleFull;
+            showPmName($("vodName_" + i),vod_name,12,false);
+            $("play_list_" + (i+1)).disabled=false;
+        } else {
+            $("play_list_" + (i + 1)).innerHTML = "";
+            $("play_list_" + (i + 1)).disabled=true;
+            $("vodName_" + i).innerHTML ="&nbsp;";
+            $("playType_" + i).innerHTML ="&nbsp;";
+            $("playTime_" + i).innerHTML ="&nbsp;";
+        }
+    }
+    $("page").innerHTML ="第"+curPage +"/" + totalPage + "页"
+}
+function changePage(type){
+    curPage += type;
+    if(curPage< 1) curPage = totalPage;
+    else if(curPage> totalPage) curPage = 1;
+//	var urls = "../Favorite.do?userId="+getUserId()+"&pageSize=" + pageSize + "&curPage="+curPage+"&invoke=list";
+    currentFocus = null;
+    startAt = (curPage - 1) * pageSize + 1;
+    var VOD_getSavedProgram = {
+        "data" : "<GetBookmarks  startAt=\"" + startAt + "\" maxItems=\"" + pageSize +"\" portalId=\"" + portalId +"\" client=\"" + cardId +"\" account=\"" + userId +"\"/>",
+        "callBack" : doAjaxCallBack
+    };
+    IEPG.getData(URL.VOD_getSavedProgram, VOD_getSavedProgram);
+//	ajaxUrl(urls,ajaxCallBack);
+}
+function changebg(m,id)
+{
+    var btn = document.getElementById(id);
+    switch (id)
+    {
+        case "prev":
+            m==0?btn.className="prev":btn.className="next";
+            break;
+        case "next":
+            m==0?btn.className="prev":btn.className="next";
+            break;
+        case "BookMark":
+            m==0?btn.className="func_click":btn.className="func_focus";
+            break;
+        case "PlayHistory":
+            m==0?btn.className="func_click":btn.className="func_focus";
+            break;
+        case "Favorite":
+            m==0?btn.className="func_click":btn.className="func_focus";
+            break;
+        case "search":
+            m==0?btn.className="search_foc":btn.className="search_blu";
+            break;
+        case "back":
+            m==0?btn.className="back_foc":btn.className="back_blu";
+            break;
+        case "buyHistory":
+            m==0?btn.className="func_click":btn.className="func_focus";
+            break;
+    }
+}
+function goToPlayHistory()
+{
+    setGlobalVar("columnId",columnId);
+    window.location.href = tipUrl+"/T-nsp/myzone/PlayHistory.htm";
+}
+</script>
+</head>
+<body onload="initPage();"><div id="day" class="day"></div><div id="now_time" class="now_time"></div>
+<div id="root_id" class="title_root"><span id="package_id" class="title" >我的空间</span><span id="title_menu" class="title_menu">--我的收藏</span><span id="pm_id" class="title_pm"></span><span id="buy_id" class="title_buy"></span></div>
+<div class="bottom"><!--<div class="red">我的空间</div><div class="green">搜索</div><div class="yellow">删除</div><div class="blue">点播排行</div>--></div>
+<div class="menu"><ul>
+    <li><button type="button" class="next" id="next" onfocus="changebg(0,'next')" onblur="changebg(1,'next')" onclick="changePage(1)" value="下一页">下一页</button></li>
+    <li><button  type="button" class="next" id="prev" onfocus="changebg(0,'prev')" onblur="changebg(1,'prev')" onclick="changePage(-1)" value="上一页">上一页</button></li>
+</ul></div>
+<!--<button id="search" class="search_blu" onfocus="changebg(0,'search')" onblur="changebg(1,'search')" onclick="goToSearch();" type="button"/>-->
+<button id="back" class="back_blu" onfocus="changebg(0,'back')" onblur="changebg(1,'back')" onclick="goReturnUrlPath();" type="button"></button>
+<div class="center">
+    <ul>
+        <li id="li_0">
+            <span class="channel_num"><button type="button" value="" name="listButton" id="play_list_1" onfocus="listfocus(this.id)" onblur="listblur(this.id)" onclick="openDetail(this.id)"></button></span>
+            <span class="channel_name" id="vodName_0"></span>
+            <span class="func_name" id="playType_0"></span>
+            <span class="channel_time" id="playTime_0"></span>
+        </li>
+        <li id="li_1">
+            <span class="channel_num"><button type="button" value="" name="listButton" id="play_list_2" onfocus="listfocus(this.id)" onblur="listblur(this.id)" onclick="openDetail(this.id)"></button></span>
+            <span class="channel_name" id="vodName_1"></span>
+            <span class="func_name" id="playType_1"></span>
+            <span class="channel_time" id="playTime_1"></span>
+        </li>
+        <li id="li_2">
+            <span class="channel_num"><button type="button" value="" name="listButton" id="play_list_3" onfocus="listfocus(this.id)" onblur="listblur(this.id)" onclick="openDetail(this.id)"></button></span>
+            <span class="channel_name" id="vodName_2"></span>
+            <span class="func_name" id="playType_2"></span>
+            <span class="channel_time" id="playTime_2"></span>
+        </li>
+        <li id="li_3">
+            <span class="channel_num"><button type="button" value="" name="listButton" id="play_list_4" onfocus="listfocus(this.id)" onblur="listblur(this.id)" onclick="openDetail(this.id)"></button></span>
+            <span class="channel_name" id="vodName_3"></span>
+            <span class="func_name" id="playType_3"></span>
+            <span class="channel_time" id="playTime_3"></span>
+        </li>
+        <li id="li_4">
+            <span class="channel_num"><button type="button" value="" name="listButton" id="play_list_5" onfocus="listfocus(this.id)" onblur="listblur(this.id)" onclick="openDetail(this.id)"></button></span>
+            <span class="channel_name" id="vodName_4"></span>
+            <span class="func_name" id="playType_4"></span>
+            <span class="channel_time" id="playTime_4"></span>
+        </li>
+        <li id="li_5">
+            <span class="channel_num"><button type="button" value="" name="listButton" id="play_list_6" onfocus="listfocus(this.id)" onblur="listblur(this.id)" onclick="openDetail(this.id)"></button></span>
+            <span class="channel_name" id="vodName_5"></span>
+            <span class="func_name" id="playType_5"></span>
+            <span class="channel_time" id="playTime_5"></span>
+        </li>
+        <li id="li_6">
+            <span class="channel_num"><button type="button" value="" name="listButton" id="play_list_7" onfocus="listfocus(this.id)" onblur="listblur(this.id)" onclick="openDetail(this.id)"></button></span>
+            <span class="channel_name" id="vodName_6"></span>
+            <span class="func_name" id="playType_6"></span>
+            <span class="channel_time" id="playTime_6"></span>
+        </li>
+        <li id="li_7">
+            <span class="channel_num"><button type="button" value="" name="listButton" id="play_list_8" onfocus="listfocus(this.id)" onblur="listblur(this.id)" onclick="openDetail(this.id)"></button></span>
+            <span class="channel_name" id="vodName_7"></span>
+            <span class="func_name" id="playType_7"></span>
+            <span class="channel_time" id="playTime_7"></span>
+        </li>
+    </ul>
+</div>
+<div class="function_btn">
+    <ul>
+        <li id="Favorite" class="list_use"><button type="button" onfocus="changebg(0,'Favorite')" onblur="changeObjClass($('Favorite'),'list_use')" value="我的收藏" >我的收藏</button></li>
+        <li id="PlayHistory"><button type="button"  onfocus="changebg(0,'PlayHistory')" onblur="changebg(1,'PlayHistory')" onclick="goToPlayHistory()" value="历史点播" >历史点播</button></li>
+    </ul>
+</div>
+<div id="left"><img id="list_Pic_Img" src="" width="245" height="337" style="border:0px solid #999999;"/></div>
+<div class="page" id="page"></div>
+<div id="tipWindow"></div>
+<div id="tip_visibility" class="tip_visibility">
+    <div class="cover"></div>
+    <div class="tip_window" id="tip_window"></div>
+</div>
+<!-- 弹出窗口结束 -->
+</body>
+</html>

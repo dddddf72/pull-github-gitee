@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>基本信息</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />
+<style>
+
+/* 系统表格行高 */
+.system_base_menu_table_title tr {
+	height:66px;
+	line-height:66px;
+}
+</style>
+<script src="../js/keyDefine.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/global2.0.js"></script> 
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+	//SET ADD
+	
+	ADD_MO = "system";
+	ADD_MONAME = "自助服务|系统设置"
+	ADD_LE = 50;
+	ADD_PA = "CA_info";
+	ADD_NAME = "CA信息";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+</script>
+
+</head>
+<body>
+<div class="systel_bg">
+  <div class="system_time">
+		<div  class="weather"></div>
+  		<div id="time_HMS"></div><div id="time_YMDW"></div>
+  
+  </div>
+  <div class="system_con_focus_01" id="foncus_bar_id"></div>
+  <div class="system_menu_text_box"> CA信息设置查看 </div>
+  <div class="system_con_focus"></div>
+  <div class="system_con_box"> 
+      <table width="1083" border="0" cellspacing="0" cellpadding="0" class="system_menu_table">
+      <tr class="">
+        <td width="422"  class="system_con_text_left font28" id="name0">CA基本信息</td>
+        <td width="661" class="system_con_text_right font22" id="remark0">查看CA卡号、厂商、版本、PIN码状态等</td>
+      </tr>
+      <tr  >
+        <td width="422"  class="system_con_text_left" id="name1"> 观看级别设置</td>
+        <td width="661" class="system_con_text_right" id="remark1">观看级别设置</td>
+      </tr>
+      <tr  >
+        <td width="422"  class="system_con_text_left" id="name2">工作时段设置 </td>
+        <td width="661"  class="system_con_text_right"  id="remark2">设置机顶盒的工作时段</td>
+      </tr>
+      <tr >
+        <td width="422"  class="system_con_text_left" id="name3"> 钱包信息查询 </td>
+        <td width="661"   class="system_con_text_right"  id="remark3">查看钱包信息</td>
+      </tr>
+      <tr  >
+        <td width="422"  class="system_con_text_left" id="name4"> 授权信息查询 </td>
+        <td width="661"  class="system_con_text_right"  id="remark4">查看授权信息</td>
+      </tr>
+       <tr  >
+        <td width="422"  class="system_con_text_left" id="name5">  </td>
+        <td width="661"  class="system_con_text_right"  id="remark5"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="137"><img src="../images/tip_returns.png" alt="" width="137" height="23" /></td>
+          </tr>
+        </table></td>
+        <td width="165">&nbsp;</td>
+        <td width="166">&nbsp;</td>
+        <td width="170">&nbsp;</td>
+        <td width="174">&nbsp;</td>
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+ try{
+var SUBMENU = new Array(); 
+SUBMENU.push([
+    {"name":"CA基本信息","url":"CA.v2.html","remark":"查看CA卡号、厂商、版本、PIN码状态等"},
+    {"name":"观看级别设置","url":"CA_setLevel.v2.html","remark":"观看级别设置"},
+    {"name":"工作时段设置","url":"CA_setWorktime.v2.html","remark":"设置机顶盒的工作时段"},	
+    {"name":"钱包信息查询","url":"CA_operateList.v2.html?op=getWallets","remark":"查看钱包信息"},
+    {"name":"授权信息查询","url":"CA_operateList.v2.html?op=getEntitles","remark":"查看授权信息"}
+	 
+  ]);
+  
+
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	switch(val){
+		case ROC_IRKEY_DOWN: 
+		break;
+	}
+	return true;
+}
+
+
+function grabEvent(event){
+	return page.grabEvent.Listener(event);
+}
+
+function page_systemevent_handler(event){
+	return page.grabEvent.Listener(event);
+}
+
+function pageObj(){
+	 
+	this.CAInfoList = new CAInfoList();  //纵向
+	function CAInfoList(){
+		this.index = 0;   
+		this.pageSize = 6;//横向总栏目数
+		this.top = 222;
+		this.height = 66;	 
+		this.items = new Array();  
+		this.focusPage = 0;
+		
+		this.init = function(items){ 
+			this.items = items; 
+			this.index = 0;
+			this.focusPage = Math.floor(this.index/this.pageSize);    
+			this.showData();
+			this.focusOff(0);
+			this.focusOn(this.index);   
+		} 
+		this.getStep = function(idx){  
+			return this.top + this.height * (idx % this.pageSize); 
+		} 
+		this.showData = function(){
+			this.initResetPage(); 
+			for(var i=0;i<Math.min(this.pageSize,this.items.length-this.pageSize*this.focusPage);i++){
+				var idx = this.pageSize * this.focusPage;   
+				var tempName = getStrChineseLen(this.items[idx+i].name,10); 
+				var tempValue = getStrChineseLen(this.items[idx+i].remark,18);
+				
+				 $("name"+i).innerHTML=tempName;
+				 $("remark"+i).innerHTML=tempValue;
+				//if( name > 10 )  $("name"+i).innerHTML="<marquee SCROLLDELAY ='20' >"+tempName+"</marquee>"; 
+			    //if(tempValue > 18) $("remark"+i).innerHTML="<marquee SCROLLDELAY ='20'>"+tempValue+"</marquee>"; 
+			}
+		}
+		this.initResetPage = function(){
+			 for(var i=0;i< this.pageSize;i++){
+				  this.focusOff(i); 
+				  $("name"+i).innerHTML = "";
+				  $("remark"+i).innerHTML = "";
+			  }
+		}			
+		this.focusOff = function(i){
+			$("name"+i).className = "system_con_text_left";
+			$("remark"+i).className = "system_con_text_right";
+		}
+		this.focusOn = function(i){
+			$("foncus_bar_id").style.top=this.getStep(i)+"px";
+			var idx = i % this.pageSize;
+			$("name"+idx).className = "system_con_text_left font28";
+			$("remark"+idx).className = "system_con_text_right font22"; 
+		} 
+		this.up = function(){
+			this.focusOff(this.index % this.pageSize);
+			var oldfocusPage = Math.floor(this.index/this.pageSize);
+			this.index = this.index == 0 ? this.items.length - 1: this.index -1;
+			this.focusPage = Math.floor(this.index/this.pageSize);
+			if(oldfocusPage!=this.focusPage){
+				this.showData();
+			}
+			this.focusOn(this.index);  
+		}
+		this.down = function(){ 
+			this.focusOff(this.index % this.pageSize);
+			var oldfocusPage = Math.floor(this.index/this.pageSize);
+			this.index = this.index == this.items.length - 1 ? 0 : this.index + 1;
+			this.focusPage = Math.floor(this.index/this.pageSize);  
+			if(oldfocusPage != this.focusPage){
+				this.showData();
+			}
+			this.focusOn(this.index);  
+		}
+		this.href = function(){
+			var url = 	this.items[this.index].url;
+			if(url != ""){
+				location.href = url;
+			}
+		}
+		this.Listener = function(event){ 
+			var val = event.which | event.keyCode; 
+			switch(val){
+				case ROC_IRKEY_DOWN: 
+					this.down();
+					return true;
+				break;
+				case ROC_IRKEY_UP: 
+					this.up();
+					return true;
+				break;
+				case ROC_IRKEY_SELECT:
+					this.href();
+					return false;
+				break;  
+			}  
+			return true;
+		} 
+	} 
+	
+	 
+	this.init = function(){ 
+		this.CAInfoList.init(SUBMENU[0]);	   
+		showDateTime(); 
+	} 
+} 
+
+
+	//注册页面
+	var pageObj = new pageObj();  
+	page.regedit(pageObj.CAInfoList);  
+
+
+function initPage(){ 
+		pageObj.init(); 
+		DataCollection.collectData(["01","main://html/html/CA_info.v2.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"CA信息"]);
+		SysSetting.setEnv("SOURCE_PATH","main://html/html/CA_info.v2.html"+window.location.search);	
+}
+
+window.onload = initPage;
+ }catch(e){
+	$J.debug.Msg("Page Error:"+e.message,1,"Page Init");
+}
+</script>
+<script src="../js/ADD_C.js"></script>
+</body>
+</html>

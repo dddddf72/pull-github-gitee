@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="content-type" content="1280*720; text/html; charset=utf-8">
+<meta name="viewport" content="width=1280,user-scalable=no">
+<title>红色专区</title>
+<link href="css/main.css" type="text/css" rel="stylesheet">
+<link type="text/css" rel="stylesheet" href="../skin/css/tipwindow.css" />
+<script src="../../../common/js/common_cs_cst.js"></script>
+<script src="../../../common/js/commonAPI.js"></script>
+<script src="../../../common/js/dataMove.js"></script>
+<script>
+var cateData;
+var cateList;
+var pmlist;
+var columnFocusIndex = 0;
+var curPage = 1;
+var listSize = 8;
+var movieFocusIndex = 0;
+var areaTip = 1;
+var codeFlag;//内容列表是文字标题列表还是海报列表
+var popCurPage = 1;  //弹框列表页
+var popListSize = 6;
+var subList;//子集列表
+var popFocusIndex = 0;
+var pmListPageCount;
+var popListPageCount;
+var tipFlag = false;
+var columnId = getQueryStr(location.href, "columnId");
+var serviceCode = "sjdxxzq";
+
+window.onload = function() {
+    if(getGlobalVar("isBack")== "Y"){
+        getPageGlobalVar();
+    }
+    setGlobalVar("reportVodPackageJson","");
+    getData.cate({
+        "columnId" : columnId,
+        "listPageSize" :listSize,
+        "callBack": function (_dataJson) {
+            cateData = _dataJson;
+            $("side_list_Obj").innerHTML = "";
+            var html = "";
+            cateList = _dataJson.childFolderList;
+            if(cateList.length>0){
+                for (var i = 0;i < cateList.length;i++) {
+                    html += "<li id='column_index_" + i + "'>" + subText(cateList[i].displayName, 12, 1) + "</li>"
+                }
+                $("side_list_Obj").innerHTML = html;
+                setFocus($("column_index_" + columnFocusIndex));
+                if(areaTip == 1) {
+                    setCurr($("column_index_" + columnFocusIndex));
+                }
+                getMovieList(columnFocusIndex,false);
+                AppManager.invoke("TVRating", "addAction", "{\"action\":\"page\",\"data\":[\"E1\",\""+serviceCode+"\",\"E2\",\"index\",\"E3\",\""+columnId+"\",\"E4\",\""+cateList.length+"\",\"D1\",\"0000\",\"D2\",\""+encodeURI("红色专区首页")+"\",\"D3\",\""+curPage+"\",\"T\",\"P\"]}");
+            }
+        }
+    });
+}
+
+function getMovieList(coumnIndex,isTurnPage){
+    codeFlag = "txt";//默认是媒资包
+    if (cateList[coumnIndex].infoText.indexOf("经典影视")!=-1){
+        codeFlag = "poster";  //是媒资的话就显示海报的形式
+    }
+    getData.list({
+        "assetId": cateList[coumnIndex].assetId,
+        "curPage": curPage,
+        "listPageSize": listSize,
+        "callBack": function (_dataJson) {
+            pmlist = _dataJson.selectableItemList;
+            if(pmlist.length>0){
+                pmListPageCount = _dataJson.totalResults % listSize == 0 ? parseInt(_dataJson.totalResults / listSize) : parseInt(_dataJson.totalResults / listSize) + 1;
+            //视频标题文字列表
+                if(codeFlag.indexOf("txt") >-1){
+                    $("txtListObj").style.display = "block";
+                    $("posterListObj").style.display = "none";
+                    $("txtLiListObj").innerHTML = "";
+                    var html = "";
+                    for(var i=0;i<pmlist.length;i++){
+                        html+= "<li class='list_item' id = 'txt_index_"+i+"'><i>"+pmlist[i].titleFull+"</i></li>";
+                    }
+                    $("txtLiListObj").innerHTML = html;
+                    if(getGlobalVar("isBack")== "Y"){
+                        setFocus($("txt_index_"+movieFocusIndex));
+						$("txt_index_"+movieFocusIndex).innerHTML = "<i>"+subText(pmlist[movieFocusIndex].titleFull,30,1)+"</i>";
+                    }else if(isTurnPage){
+                        movieFocusIndex = 0;
+                        setFocus($("txt_index_"+movieFocusIndex));
+						$("txt_index_"+movieFocusIndex).innerHTML = "<i>"+subText(pmlist[movieFocusIndex].titleFull,30,1)+"</i>";
+                    }
+                    $("txtListPage").innerHTML="第"+curPage+"/"+pmListPageCount+"页";
+                }else if(codeFlag.indexOf("poster") >-1){//视频海报列表
+                    $("txtListObj").style.display = "none";
+                    $("posterListObj").style.display = "block";
+                    $("posterLiListObj").innerHTML = "";
+                    var html = "";
+                    for(var i=0;i<pmlist.length;i++){
+                        html+="<li id='poster_index_"+i+"'><img  src='"+getPoster(pmlist[i].imageList,188,250)+"'/></li>";
+                    }
+                    $("posterLiListObj").innerHTML = html;
+                    if(getGlobalVar("isBack")== "Y") {
+                        setFocus($("poster_index_" + movieFocusIndex));
+                    }else if(isTurnPage){
+                        movieFocusIndex = 0;
+                        setFocus($("poster_index_" + movieFocusIndex));
+                    }
+                    $("posterListPage").innerHTML="第"+curPage+"/"+pmListPageCount+"页";
+                }
+                if(getGlobalVar("isBack")== "Y" && areaTip == 3){
+                    var assetId = pmlist[movieFocusIndex].assetId;
+                    var providerId = pmlist[movieFocusIndex].providerId;
+                    getPopData(assetId,providerId,false);
+                }
+                setGlobalVar("isBack","");
+            }else{
+                $("txtLiListObj").innerHTML = "";
+                $("posterLiListObj").innerHTML = "";
+            }
+        }
+    });
+}
+
+function subText(str, sub_length, num) {//汉字与字符都都在时截取长度
+    var temp1 = str.replace(/[^\x00-\xff]/g, "**");
+    var temp2 = temp1.substring(0, sub_length);
+    var x_length = temp2.split("\*").length - 1;
+    var hanzi_num = x_length / 2;
+    sub_length = sub_length - hanzi_num;
+    //实际需要sub的长度是总长度-汉字长度
+    var res = str.substring(0, sub_length);
+    if(num == 0) {
+        if(sub_length < str.length)
+            res = res + "...";
+        return res;
+    }else if(num == 1){
+        if(sub_length < str.length) {
+            return "<marquee scrollLeft='1' behavior='scroll' direction='left' scrollamount='6' scrolldelay='100'>" + str + "</marquee>";
+        } else {
+            return str;
+        }
+    }else{
+        return res;
+    }
+}
+
+function moveUp(){
+    if(areaTip == 1){
+        if(columnFocusIndex>0){
+            removeFocus($("column_index_" + columnFocusIndex));
+            removeCurr($("column_index_" + columnFocusIndex));
+            columnFocusIndex--;
+            curPage = 1;
+            setFocus($("column_index_" + columnFocusIndex));
+            setCurr($("column_index_" + columnFocusIndex));
+            getMovieList(columnFocusIndex,false);
+        }
+    }else if(areaTip == 2){
+        if(codeFlag.indexOf("txt") >-1){
+            if(movieFocusIndex>0){
+                removeFocus($("txt_index_"+movieFocusIndex));
+				$("txt_index_"+movieFocusIndex).innerHTML = "<i>"+pmlist[movieFocusIndex].titleFull+"</i>";
+                movieFocusIndex--;
+                setFocus($("txt_index_"+movieFocusIndex));
+				$("txt_index_"+movieFocusIndex).innerHTML = "<i>"+subText(pmlist[movieFocusIndex].titleFull,30,1)+"</i>";
+            }else{
+                turnPrevPage();
+            }
+        }else{
+            if(movieFocusIndex>3){//海报列表下面一排才能往上移动
+                removeFocus($("poster_index_"+movieFocusIndex));
+                movieFocusIndex-=4;
+                setFocus($("poster_index_"+movieFocusIndex));
+            }
+        }
+    }else if(areaTip == 3){
+        if(popFocusIndex >0){
+            removeFocus($("pop_index_"+popFocusIndex));
+            $("pop_index_"+popFocusIndex).innerHTML = "<i>" +subList[popFocusIndex].titleFull+ "</i>";
+            popFocusIndex--;
+            setFocus($("pop_index_"+popFocusIndex));
+            $("pop_index_"+popFocusIndex).innerHTML = "<i>" + subText(subList[popFocusIndex].titleFull,26,1)+ "</i>";
+        }else{
+            turnPrevPage();
+        }
+    }
+}
+
+function moveDown() {
+    if(areaTip == 1){
+        if(columnFocusIndex <cateList.length-1){
+            removeFocus($("column_index_" + columnFocusIndex));
+            removeCurr($("column_index_" + columnFocusIndex));
+            columnFocusIndex++;
+            curPage = 1;
+            setFocus($("column_index_" + columnFocusIndex));
+            setCurr($("column_index_" + columnFocusIndex));
+            getMovieList(columnFocusIndex,false);
+        }
+    }else if(areaTip == 2){
+        if(codeFlag.indexOf("txt") >-1){
+            if(movieFocusIndex <pmlist.length-1){
+                removeFocus($("txt_index_"+movieFocusIndex));
+                $("txt_index_"+movieFocusIndex).innerHTML = "<i>"+pmlist[movieFocusIndex].titleFull+"</i>";
+                movieFocusIndex++;
+                setFocus($("txt_index_"+movieFocusIndex));
+                $("txt_index_"+movieFocusIndex).innerHTML = "<i>"+subText(pmlist[movieFocusIndex].titleFull,30,1)+"</i>";
+            }else if(movieFocusIndex+1 == 8){
+                turnNextPage();
+            }else{
+
+            }
+        }else{
+            if(movieFocusIndex+4 <=pmlist.length-1){//海报列表上面一排才能往下移动
+                removeFocus($("poster_index_"+movieFocusIndex));
+                movieFocusIndex+=4;
+                setFocus($("poster_index_"+movieFocusIndex));
+            }
+        }
+    }else if(areaTip == 3){
+        if(popFocusIndex <subList.length-1){
+            removeFocus($("pop_index_"+popFocusIndex));
+            $("pop_index_"+popFocusIndex).innerHTML = "<i>"+subList[popFocusIndex].titleFull+"</i>";
+            popFocusIndex++;
+            setFocus($("pop_index_"+popFocusIndex));
+            $("pop_index_"+popFocusIndex).innerHTML = "<i>" + subText(subList[popFocusIndex].titleFull,26,1)+ "</i>";
+        }else if(popFocusIndex +1 == 6){
+            turnNextPage();
+        }else{
+
+        }
+    }
+}
+
+function moveRight(){
+    if(areaTip == 1 && pmlist.length >0){
+        removeCurr($("column_index_" + columnFocusIndex));
+        areaTip = 2;
+        movieFocusIndex =0;
+        if(codeFlag.indexOf("txt") >-1){
+            setFocus($("txt_index_0"));
+            $("txt_index_0").innerHTML = "<i>"+subText(pmlist[0].titleFull,30,1)+"</i>";
+        }else{
+            setFocus($("poster_index_0"));
+        }
+    }else if(areaTip == 2){
+        if(codeFlag.indexOf("poster") >-1){
+            if(movieFocusIndex+1<=pmlist.length-1) {
+                removeFocus($("poster_index_" + movieFocusIndex));
+                movieFocusIndex++;
+                setFocus($("poster_index_" + movieFocusIndex));
+            }else if(movieFocusIndex+1 == 8){
+                turnNextPage();
+            }else{
+
+            }
+        }
+    }
+}
+
+function moveLeft(){
+    if(areaTip == 2 ){
+        if(codeFlag.indexOf("poster") >-1) {
+            if (movieFocusIndex == 0 || movieFocusIndex == 4) {
+                removeFocus($("poster_index_" + movieFocusIndex));
+                setCurr($("column_index_" + columnFocusIndex));
+                areaTip = 1;
+            } else {
+                removeFocus($("poster_index_" + movieFocusIndex));
+                movieFocusIndex--;
+                setFocus($("poster_index_" + movieFocusIndex));
+            }
+        }else{
+            removeFocus($("txt_index_"+movieFocusIndex));
+            $("txt_index_"+movieFocusIndex).innerHTML = "<i>"+pmlist[movieFocusIndex].titleFull+"</i>";
+            setCurr($("column_index_" + columnFocusIndex));
+            areaTip = 1;
+        }
+    }
+}
+getData.getPlayList = function(_config){
+    var deviceID = _config.smartCardId || "";
+    var usage = _config.usage || "Start";
+    var purchaseToken = _config.purchaseToken || "";
+    var VOD_getPlayList = {
+        "data":'<GetPlaylist usage="' + usage + '" deviceID="' + deviceID + '" PT="' + purchaseToken + '"/>',
+        "callBack" : _config.callBack
+    };
+    IEPG.getData(URL.VOD_getPlaylist, VOD_getPlayList);
+}
+function doConfirm() {
+    var columnId = pmlist[movieFocusIndex].folderAssetId;
+    var assetId = pmlist[movieFocusIndex].assetId;
+    var providerId = pmlist[movieFocusIndex].providerId;
+    if(areaTip == 2){
+        if(codeFlag.indexOf("txt") >-1){
+            if(pmlist[movieFocusIndex].isPackage == "1"){
+                getPopData(assetId,providerId,false);
+            }else{
+                savePageGlobalVar();
+                globalPath.setUrl();
+                location.href = "movie_detail.htm?columnId=" + columnId + "&assetId=" + assetId + "&providerId=" + providerId;
+            }
+        }else{
+            if(pmlist[movieFocusIndex].isPackage == "1"){
+                savePageGlobalVar();
+                globalPath.setUrl();
+                location.href = "pakg_detail.htm?columnId=" + columnId + "&assetId=" + assetId + "&providerId=" + providerId;
+            }else{
+                savePageGlobalVar();
+                globalPath.setUrl();
+                location.href = "movie_detail.htm?columnId=" + columnId + "&assetId=" + assetId + "&providerId=" + providerId;
+            }
+        }
+    }else if(areaTip == 3){
+        getData.selectionStart({
+            "columnMapId": columnId,
+            "resourceId": subList[popFocusIndex].assetId,
+            "providerId": subList[popFocusIndex].providerId,
+            "callBack": function(_dataJson){
+                if(!!_dataJson.rtsp){
+                    setGlobalVar("vod_ctrl_rtsp", _dataJson.rtsp);
+                    getData.getPlayList({
+                        "smartCardId": cardId,
+                        "purchaseToken": _dataJson.purchaseToken,
+                        "callBack": function(_dataJson){
+                            if(_dataJson.playlistID){
+                                setGlobalVar("vod_ctrl_backurl", location.href);
+                                savePageGlobalVar();
+                                setGlobalVar("reportVodPackageJson",getVodPakgJson());
+                                location.href = epgUrl+"vodctrl/vodplay.htm";
+                            }
+                        }
+                    });
+                } else {
+                    tipFlag = true;
+                    showMsgWmj("",_dataJson.message);
+                }
+            }
+        });
+    }
+}
+
+function getVodPakgJson() {
+    var eId = 11004;
+    var videoId = subList[popFocusIndex].assetId+","+subList[popFocusIndex].providerId;
+    var rName = subList[popFocusIndex].titleFull;
+    var coId = cateList[columnFocusIndex].assetId;
+    var coName = cateList[columnFocusIndex].infoText;
+    var videoDuration = subList[popFocusIndex].displayRunTime;
+    if (videoDuration !=""){
+        videoDuration = videoDuration.substring(0,videoDuration.length-1);
+    }
+    var eStatus = "1";
+    var uuid = getUUid();
+    var productCode = cateList[columnFocusIndex].serviceId;
+    var pVideoId = pmlist[movieFocusIndex].assetId;
+    var videoIndex = (popCurPage-1)*popListSize+popFocusIndex+1;
+    var packageJson ="{\"eType\":\"play\",\"eId\":"+eId+",\"tId\":\""+tId+"\",\"tType\":\"0\",\"tProtocol\":\"0\",\"login\":\"B\",\"uc\":\""+uc+"\",\"tModel\":\""+tModel+"\",\"videoId\":\""+videoId+"\",\"rName\":\""+rName+"\",\"coId\":\""+coId+"\",\"coName\":\""+coName+"\",\"videoDuration\":"+videoDuration+",\"rFlag\":\"2\",\"pVideoId\":\""+pVideoId+"\",\"videoIndex\":\""+videoIndex+"\",\"eStatus\":\""+eStatus+"\",\"uuid\":\""+uuid+"\",\"productCode\":\""+productCode+"\"}";
+    return packageJson;
+}
+
+function doSeriesPlay(pmId,cateId) {
+    Buy = new BUY(subList[popFocusIndex]);
+    Buy.mainPmId = pmId;
+    Buy.cateId = cateId;
+    Buy.isPack = pmlist[movieFocusIndex].isPack;
+    Buy.saleType = pmlist[movieFocusIndex].saleType;
+    setGlobalVar("cateId",cateId);
+    setGlobalVar("pmId",pmId);
+    savePageGlobalVar();
+    Buy.doPlay();
+}
+
+getData.mediaList = function(_config){
+    var assetId =  _config.assetId || "";
+    var providerId =  _config.providerId || "";
+    var curPage = _config.curPage || 1;
+    var pageSize = _config.pageSize || 999;
+    var startAt = (curPage - 1) * pageSize + 1;
+    var maxItems = pageSize;
+    var VOD_getAssetSubDetail = {//媒资详情
+        "data":'<GetFolderContents startAt="'+startAt+'" maxItems="'+maxItems+'" titleProviderId="'+providerId+'" mergeTV="1" assetId="'+assetId+'" portalId="'+portalId+'" client="'+cardId+'" account="'+userId+'"  includeFolderProperties="Y" includeSubFolder="Y" includeSelectableItem="Y"/>',
+        "callBack":_config.callBack
+    };
+    IEPG.getData(URL.VOD_getAssetList, VOD_getAssetSubDetail);
+};
+function getPopData(assetId,providerId,isTurnPage) {
+    getData.mediaList({
+        "assetId": assetId,
+        "providerId": providerId,
+        "curPage": popCurPage,
+        "pageSize": popListSize,
+        "callBack": function(_dataJson) {
+            $("popObj").style.display="block";
+            $("popTitle").innerHTML = subText(pmlist[movieFocusIndex].titleFull,30,1);
+            subList = _dataJson.selectableItemList;
+            if(subList.length >0) {
+                popListPageCount = _dataJson.totalResults % popListSize == 0 ? parseInt(_dataJson.totalResults / popListSize) : parseInt(_dataJson.totalResults / popListSize) + 1;
+                $("popListObj").innerHTML = "";
+                var html = "";
+                for (var i = 0; i < subList.length; i++) {
+                    html += "<li class='list_item' id = 'pop_index_" + i + "'><i>" + subList[i].titleFull+ "</i></li>";
+                }
+                $("popListObj").innerHTML = html;
+                if(isTurnPage){
+                    popFocusIndex =0;
+                }
+                setFocus($("pop_index_" + popFocusIndex));
+                $("pop_index_"+popFocusIndex).innerHTML = "<i>" + subText(subList[popFocusIndex].titleFull,26,1)+ "</i>";
+                $("subPageInfo").innerHTML= "第"+popCurPage+"/"+popListPageCount+"页";
+                areaTip = 3;
+            }
+        }
+    });
+}
+
+function turnNextPage(){
+    if(areaTip ==2){
+        if(curPage +1<= pmListPageCount) {
+            curPage += 1;
+            getMovieList(columnFocusIndex,true);
+        }
+    }else if(areaTip ==3){
+        if(popCurPage +1<= popListPageCount){
+            popCurPage += 1;
+            var assetId = pmlist[movieFocusIndex].assetId;
+            var providerId = pmlist[movieFocusIndex].providerId;
+            getPopData(assetId,providerId,true);
+        }
+    }
+}
+
+function turnPrevPage(){
+    if(areaTip ==2){
+        if(pmListPageCount >0 &&curPage -1 >0)
+        curPage-=1;
+        getMovieList(columnFocusIndex,true);
+    }else if(areaTip ==3){
+        if(popListPageCount>0 && popCurPage -1 >0){
+            popCurPage-=1;
+            var assetId = pmlist[movieFocusIndex].assetId;
+            var providerId = pmlist[movieFocusIndex].providerId;
+            getPopData(assetId,providerId,true);
+        }
+    }
+}
+
+function savePageGlobalVar() {
+    setGlobalVar("hszqColumnFocusIndex",columnFocusIndex);
+    setGlobalVar("hszqCurPage",curPage);
+    setGlobalVar("hszqMovieFocusIndex",movieFocusIndex);
+    setGlobalVar("hszqAreaTip",areaTip);
+    setGlobalVar("hszqCodeFlag",codeFlag);
+    setGlobalVar("hszqPopCurPage",popCurPage);
+    setGlobalVar("hszqPopFocusIndex",popFocusIndex);
+}
+
+function cleanPageGlobalVar(){
+    setGlobalVar("hszqColumnFocusIndex","");
+    setGlobalVar("hszqCurPage","");
+    setGlobalVar("hszqMovieFocusIndex","");
+    setGlobalVar("hszqAreaTip","");
+    setGlobalVar("hszqCodeFlag","");
+    setGlobalVar("hszqPopCurPage","");
+    setGlobalVar("hszqPopFocusIndex","");
+}
+
+function getPageGlobalVar() {
+    columnFocusIndex = getGlobalVar("hszqColumnFocusIndex")==""?0:parseInt(getGlobalVar("hszqColumnFocusIndex"));
+    curPage = getGlobalVar("hszqCurPage")==""?1:parseInt(getGlobalVar("hszqCurPage"));
+    movieFocusIndex = getGlobalVar("hszqMovieFocusIndex")==""?0:parseInt(getGlobalVar("hszqMovieFocusIndex"));
+    areaTip = getGlobalVar("hszqAreaTip")==""?1:parseInt(getGlobalVar("hszqAreaTip"));
+    codeFlag = getGlobalVar("hszqCodeFlag")==""?"":getGlobalVar("hszqCodeFlag");
+    popCurPage = getGlobalVar("hszqPopCurPage")==""?1:parseInt(getGlobalVar("hszqPopCurPage"));
+    popFocusIndex = getGlobalVar("hszqPopFocusIndex")==""?0:parseInt(getGlobalVar("hszqPopFocusIndex"));
+}
+
+function doReturnKey(){
+    if(areaTip ==3){
+        popCurPage =1;
+        popListPageCount =0;
+        popFocusIndex = 0;
+        removeFocus($("pop_index_" + popFocusIndex));
+        $("popTitle").innerHTML = "";
+        $("subPageInfo").innerHTML= "";
+        $("popListObj").innerHTML = "";
+        $("popObj").style.display="none";
+        areaTip = 2;
+    }
+}
+
+function setFocus(obj){
+    addClass(obj,"focus");
+}
+
+function setCurr(obj){
+    addClass(obj,"current");
+}
+
+function removeFocus(obj){
+    removeClass(obj,"focus");
+}
+
+function removeCurr(obj){
+    removeClass(obj,"current");
+}
+
+function addClass(obj,className) {
+    if (hasClass(obj,className)) return;
+    if (obj.classList) {
+        obj.classList.add(className);
+    } else {
+        if(obj.className){
+            var newClass = obj.className.replace(/(^\s*)/g,"")+" "+className;
+            obj.className = newClass;
+        }else{
+            obj.className = className;
+        }
+    }
+}
+
+function removeClass(obj,className) {
+    if (hasClass(obj,className)) {
+        var newClass = obj.className.replace(className ,"");
+        obj.className = newClass.replace(/(^\s*)/g,"");
+    }
+}
+
+function hasClass(obj,className) {
+    return obj.className.indexOf(className)> -1 ? true : false;
+}
+
+document.onkeydown = grabEvent;
+var keycode;
+function grabEvent(e) {
+    e = (e) ? e : window.event;
+    keycode = e.keyCode || e.which;
+    switch (keycode) {
+        case KEY.ONE:
+        case KEY.TWO:
+        case KEY.THREE:
+        case KEY.FOUR:
+        case KEY.FIVE:
+        case KEY.SIX:
+        case KEY.SEVEN:
+        case KEY.EIGHT:
+        case KEY.NINE:
+        case KEY.ZERO:
+            doNumberKey(keycode);
+            break;
+        case KEY.UP:
+        case KEY.UP_N:
+            moveUp();
+            break;
+        case KEY.DOWN:
+        case KEY.DOWN_N:
+            moveDown();
+            break;
+        case KEY.LEFT:
+        case KEY.LEFT_N:
+            moveLeft();
+            break;
+        case KEY.RIGHT:
+        case KEY.RIGHT_N:
+            moveRight();
+            break;
+        case KEY.NEXT:
+        case KEY.NEXT_N:
+            turnNextPage();
+            break;
+        case KEY.PREV:
+        case KEY.PREV_N:
+            turnPrevPage();
+            break;
+        case KEY.ENTER:
+        case KEY.ENTER_N:
+            if (tipFlag){
+                closeTip();
+                tipFlag = false;
+                break;
+            }
+            e.preventDefault();
+            doConfirm();
+            break;
+        case KEY.PLAY:
+        case KEY.PLAY1:
+            break;
+        case KEY.BACK:
+        case KEY.RETURN:
+            e.preventDefault();
+            if(areaTip == 3){
+                doReturnKey();
+            }else{
+                cleanPageGlobalVar();
+                doEvent.back();
+            }
+            break;
+        case KEY.RED:
+        case KEY.RED_N:
+        case 118:
+            doEvent.red();
+            break;
+        case KEY.GREEN:
+        case KEY.GREEN_N:
+        case 119:
+            doEvent.green();
+            break;
+        case KEY.YELLOW:
+        case KEY.YELLOW_N:
+        case 120:
+            doEvent.yellow();
+            break;
+        case KEY.BLUE:
+        case KEY.BLUE_N:
+        case 121:
+            doEvent.blue();
+            break;
+        case KEY.POSITION:
+        case KEY._POSITION:
+            doEvent.position();
+            break;
+        case KEY.QUIT:
+        case KEY.QUIT_N:
+            cleanPageGlobalVar();
+            e.preventDefault();
+            doEvent.quit();
+            break;
+        case KEY.MENU:
+            cleanPageGlobalVar();
+            e.preventDefault();
+            doEvent.home();
+            break;
+        case KEY.BINDING:
+            location.href = "/iPG/T-nsp/vodctrlmessage/scanLogin.html";
+            break;
+    }
+}
+</script>
+</head>
+<body>
+    <div class="main">
+        <div class="side_con">
+            <ul class="side_list" id="side_list_Obj">
+
+            </ul>
+        </div>
+        <div class="content">
+            <!-- 文本 -->
+            <div class="main_con" id = "txtListObj" style="display:block;">
+                <ul class="list_wrap" id = "txtLiListObj">
+
+                </ul>
+                <div class="sub_page" id = "txtListPage"> </div>
+            </div>
+            <!-- 视频 -->
+            <div class="main_con" style="display:none;" id="posterListObj">
+                <ul class="video_list" id="posterLiListObj">
+
+                </ul>
+                <div class="sub_page" id ="posterListPage"></div>
+            </div>
+        </div>
+        <div class="page"></div>
+        <div class="pop_window"  style="display:none;" id = "popObj">
+            <div class="pop_con">
+                <h2 class="pop_hd" id="popTitle"></h2>
+                <ul class="list_wrap" id="popListObj">
+
+                </ul>
+                <div class="sub_page" id ="subPageInfo"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹出框start -->
+    <div id="tip_visibility" class="tip_visibility" style="visibility: hidden;">
+        <!-- ajax请求数据层 -->
+        <div class="tip_window" id="tip_window">
+
+        </div>
+    </div>
+    <!-- 弹出框end -->
+</body>

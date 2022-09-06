@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="./css/index.css" rel="stylesheet" type="text/css" />
+<link href="./css/email.ue.css" rel="stylesheet" type="text/css" />
+<!--script src="../js/keyDefine.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/global2.0.js"></script> 
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+	//SET ADD
+	
+	ADD_MO = "TVMail";
+	ADD_MONAME = "电视邮箱"
+	ADD_LE = 31;
+	ADD_PA = "mailDetail";
+	ADD_NAME = "邮箱内容";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+	GKeyRetrun = true;
+</script-->
+<style>
+.sytem_background{
+	width:1116px;
+	height:402px;
+	background:#d6dce3;
+	position: absolute;
+	top:221px;
+	left:81px;	
+}	
+.sytem_Software{width:877px; height:141px; font-family:'黑体'; line-height:47px;; font-size:28px;  color:#306294;padding:74px 0px 0px 118px;}
+.button{width:401px; height:28px; float:left; text-align:center;
+	position: absolute;
+	top:350px;
+	left:372px;	
+}
+.stytel_ground{width:1280px; height:720px; background:url(../images/system_2.jpg);overflow:hidden;}
+.sytem_nr{
+	width:1014px;
+	height:336px;
+	position:absolute;
+	top:262px;
+	left:120px;
+	font-family:'黑体';
+	font-size:26px;
+	line-height:47px;
+	color:white;
+}
+	
+	
+</style>
+
+</head>
+
+
+<body>
+<div class="stytel_ground" style="background-color:rgb(36,44,65)">
+  <!--	<div class="tip_box_bg">
+    	<div class="tip_box_title">是否取消预订节目</div>
+   	<div class="tip_box_button_01"><img src="../images/ok.png" width="190" height="60" /></div>
+    	<div class="tip_box_button_02"><img src="../images/cancel.png" width="190" height="60" /></div>
+   	<div class="tip_box_button_03"><img src="../images/cancel.png" width="190" height="60" /></div>
+    </div>-->
+
+
+    <!--div id="email_title">
+        <div id="email_logo"></div>
+        <div id="email_logo_txt">广东广电网络</div>
+        <div id="email_location">广州</div>
+        <div  class="weather"></div>
+        <div id="time_HMS"></div><div id="time_YMDW"></div>
+
+    </div-->
+    <div id="header">
+        <div id="header_logo"></div>
+        <div id="header_logo_text">广东广电网络</div>
+        <!-- <div><img id="header_main_icon" class="header"/> </div>  -->
+        <div  id="header_main_icon" class="header"></div>
+        <div id="header_weather" >
+            <div id="header_weather_status">晴</div>
+            <div id="header_weather_temperature">21~13°C</div>
+            <div id="header_weather_city">广州</div>
+        </div>
+        <div id="header_dateTime">
+            <div id="header_time">16:22</div>
+            <div id="header_date">2月23日 周五</div>
+        </div>
+    </div>
+    <div id="headerline"></div>
+  <div class="system_menu_text_box" id="email_detail_tip"> 电视邮箱管理</div>
+  <div class="system_menu_text_box" id="titles"> </div>
+  <div class="sytem_nr" id="content" style="word-wrap:break-word">
+    
+  </div>
+  <div style="position:absolute; width: 463px; height: 47px; left: 120px; top: 216px;color:white;font-size:24px; line-height:47px;" id="senderID"></div>
+  <div style="position:absolute; width: 488px; height: 47px; left: 841px; top: 556px;color:#d2dce6;font-size:24px; line-height:47px;" id="arrivalTime"></div>
+  <div id="system_email_content_detail"></div>
+    <img id="system_email_scrollbar_detail" src="images/service_ue/email_bar_bg.png"></img>
+    <img id="system_email_scrollbar_focus_detail" src="images/service_ue/scroll_bar.png"></img>
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td><table width="589" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="137"></td>
+            <td width="62"></td>
+            <td width="80" class="white_02"></td>
+            <td width="62"></td>
+            <td class="white_02"></td>
+          </tr>
+        </table></td>
+        <td width="162"class="white_02"></td>
+        <td width="327"class="white_02" ></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!--script src="js/fakeJS.js"></script-->
+<script src="./js/lib/core.js"></script>
+<script src="./js/lib/extension.js"></script>
+<script src="./js/adapter/adapter_gd.js"></script>
+<script src="./js/controls/sublist.js"></script>
+<script src="./js/email_ue.js"></script>
+<script src="./js/service/DataCollection.js"></script>
+
+<script>
+
+    //由于复用index.css的样式，不完全满足需求，这里做修改
+    var titleDom = SumaJS.getDom("header");
+    var titleEmailDom = SumaJS.getDom("header_main_icon");
+    if(titleDom){
+        titleDom.style.backgroundColor = "transparent";
+        titleEmailDom.style.display = "none";
+    }
+
+    SumaJS.showDateTime("header_time","header_date"); //显示时间
+ 
+PRINT_PREFIX = "[CA_emailDetail]";
+var divCon;
+
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	switch(val){
+		case ROC_IRKEY_PAGE_UP:
+		case ROC_IRKEY_UP:
+            divCon.nextPage(-1);
+			break;
+		case ROC_IRKEY_PAGE_DOWN:
+		case ROC_IRKEY_DOWN:
+            divCon.nextPage(1);
+			break;
+		case ROC_IRKEY_MENU:
+			window.location.href = "./index.html";
+            break;
+        case ROC_IRKEY_BACK:
+            window.location.href = "./email_manager.v2.ue.html";
+		break;
+        default:
+	}
+	return true;
+}
+
+function grabEvent(event){
+	page.grabEvent.Listener(event);
+	var val = event.which;
+	if(val ==ROC_IRKEY_BACK){
+		window.location.href="email_manager.v2.html?index="+index;	
+		return false;
+	}
+	return true;
+}
+
+function page_systemevent_handler(event){
+	page.grabEvent.Listener(event);
+	return true;
+}
+
+function pageObj(){
+	 
+	this.mailDetailInfo = new mailDetailInfo();  //纵向
+	function mailDetailInfo(){ 
+		this.emailInfo = null;
+		this.init = function(emailInfo){
+			 this.emailInfo = emailInfo;
+			 this.showData();
+		}  
+		this.showData = function(){
+			this.initResetPage();
+			if (this.emailInfo != null){
+				   $("titles").innerHTML  = this.emailInfo.title;
+				   $("senderID").innerHTML  = "发件人:"+this.emailInfo.senderID;
+				   $("arrivalTime").innerHTML  = "收件时间:"+this.emailInfo.arrivalTime;
+				   $("content").innerHTML  = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+this.emailInfo.content; 
+				   divCon = new divideContent("content", 6, 47);
+			  }
+		}
+		this.initResetPage = function(){
+			 $("titles").innerHTML  = "";
+		     $("senderID").innerHTML  = "";
+		     $("arrivalTime").innerHTML  ="";
+		     $("content").innerHTML  = "";
+		}
+		this.Listener = function(event){ 
+			var val = event.which | event.keyCode; 
+			switch(val){ 
+				case ROC_IRKEY_SELECT: 
+					return true;
+			}  
+			return true;
+		} 
+	} 
+	
+	 
+	this.init = function(){ 
+		 index = SumaJS.getQueryStr("index");//$G.getParameter("index");
+		 var emailInfo= CAMails.getEmail(parseInt(index));
+		 this.mailDetailInfo.init(emailInfo);	   
+		 showDateTime();
+	} 
+} 
+
+	//注册页面
+var pageObj = new pageObj();  
+page.regedit(pageObj.mailDetailInfo); 
+var index = 0;
+function initPage(){ 
+	pageObj.init(); 
+	DataCollection.collectData(["01","main://mailDetail.v2.ue.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"邮箱内容"]);
+	SysSetting.setEnv("SOURCE_PATH","main://mailDetail.v2.ue.html"+window.location.search);
+}
+
+function divideContent(contentId,rows,lineHeight){
+	this.obj = $(contentId);
+	this.maxCotentHeight = rows*lineHeight;
+	this.contentHeight = this.obj.scrollHeight;
+	this.pageCount = Math.ceil(this.contentHeight/this.maxCotentHeight);
+	this.tempCount=0;
+	this.obj.style.height = this.maxCotentHeight+"px";
+	this.obj.style.overflow = 'hidden';
+	//this.obj.style.display = 'block';
+	this.obj.scrollTop = 0;	
+}
+divideContent.prototype.nextPage = function(type){
+	if(this.pageCount > 1) {
+		this.tempCount += type;
+		if(this.tempCount<0)	{
+			this.tempCount = 0;
+		} else if(this.tempCount > this.pageCount-1) {
+			this.tempCount = this.pageCount-1;
+		}
+		this.obj.scrollTop = this.tempCount * this.maxCotentHeight;
+        //alert(this.obj.scrollTop)
+        //if(this.pageCount > 1){
+        if((type == -1 &&this.obj.scrollTop == 0) || (type == 1 && this.obj.scrollTop > 0) ){//FIXME:目前的算法只能移动一页
+            var step = (361-20)/(this.pageCount -1);
+            $("system_email_scrollbar_focus_detail").style.top = (189+step*this.tempCount)+"px";
+        }
+	}
+}
+
+window.onload = initPage;
+
+</script>
+
+<!--script src="../js/ADD_C.js"></script-->
+</body>
+</html>

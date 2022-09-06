@@ -1,0 +1,983 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="page-view-size" content="1280*720">
+    <title>广东新UE主应用</title>
+    <link href="css/index.css?20161255" rel="stylesheet" type="text/css" />
+    <link href="css/tv.css?20161255" rel="stylesheet" type="text/css" />
+    <link href="css/playtv.css?20161255" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+<div style="display:none">
+    <div id="width_calc"></div>
+
+    <div>
+
+        <!--header-->
+        <div id="header">
+            <div id="header_logo"></div>
+            <div id="header_logo_text"></div>
+            <!-- <div><img id="header_main_icon" class="header"/> </div>  -->
+            <div id="header_main_icon" class="header"></div>
+            <div id="header_main_icon_txt">9</div>
+            <div id="header_weather">
+                <div id="header_weather_status">晴</div>
+                <div id="header_weather_temperature">21~13°C</div>
+                <div id="header_weather_city">广州</div>
+            </div>
+            <div id="header_dateTime">
+                <div id="header_time">16:22</div>
+                <div id="header_date">2月23日 周五</div>
+            </div>
+        </div>
+        <div id="headerline"></div>
+
+        <div id="main1">
+
+            <!--  用来设置背景颜色(因小视频窗口必须为透明) start  --->
+            <div id="main_up"></div>
+            <div id="main_left"></div>
+            <div id="main_right"></div>
+            <div id="main_down"></div>
+            <!--  用来设置背景颜色(因小视频窗口必须透明) end  --->
+
+            <div id="page_index_focus"></div>
+            <table id="page_index">
+                <tbody>
+                <tr>
+                    <td>本地</td>
+                    <td>直播</td>
+                    <td>影视</td>
+                    <td>应用</td>
+                    <td>我+</td>
+                </tr>
+                </tbody>
+            </table>
+            <div id="container">
+
+            </div>
+            <div id="tv_page_small_video_cover">
+                <div id="tv_page_small_video_cover_msg"></div>
+            </div>
+            <div id="tv_page_small_video_cover_ca">
+                <div id="tv_page_small_video_cover_msg_ca"></div>
+            </div>
+
+            <!--container end-->
+        </div>
+        <!--main1 end-->
+
+        <!--footer start-->
+        <div id="footer">
+            <div id="footer_focus"></div>
+            <div id="footer_history" class="footer">
+                <img class="footer_img" src="images/main_page/history_small.png">历史
+            </div>
+            <div id="footer_search" class="footer">
+                <img class="footer_img" src="images/main_page/search_small.png">搜索
+            </div>
+            <div id="footer_service" class="footer">
+                <img class="footer_img" src="images/main_page/service_small.png">服务
+            </div>
+            <div id="footer_notice" style="display: none;">
+                <div id="scroll_text"></div>
+                <!--	<div id="test_str_len0"></div>  -->
+            </div>
+            <div id="footer_notice_icon" style="display: none;"></div>
+        </div>
+        <!--footer end-->
+
+    </div>
+
+
+    <!-- 永远不会display=none，但也不会显示，用来测试获取宽度 -->
+    <div id="test_str_len0"></div>
+    <div id="background">
+        <img src="images/main_page/all_big.jpg" width="1280" height="720"/>
+    </div>
+</div>
+
+<div id="shouye">
+    <div id="bg" class="main" >
+        <!-- logo  -->
+        <h1 class="logo" id="logo"></h1>
+        <h2 class="search" id = "search"></h2>
+        <!-- 日期  -->
+        <div class="indo" >
+            <!--<div class="indo_wrap" style="position: relative;top: -5px;">-->
+                <!--<img  id ="weatherImage" class="info_weather_image" src="">-->
+                <!--<span id = "weatherCity" class="info_city"></span>-->
+            <!--</div>-->
+            <!--<div class="indo_wrap">-->
+                <!--<span id = "weatherTemperature" class="info_tempr"></span>-->
+                <!--<span id = "weatherDes" class="info_weather"></span>-->
+            <!--</div>-->
+            &nbsp;&nbsp;&nbsp;&nbsp;
+
+            <div class="indo_wrap">
+                <span id="city" class="info_date">广州</span>
+                <span id="week" class="info_date"></span>
+                <span id="date" class="info_date"></span>
+            </div>
+
+        </div>
+        <!--<div class="time_dateTime">广州-->
+            <!--<div class="time_header_time" id="week"></div>-->
+            <!--<div class="time_header_date" id="date"></div>-->
+        <!--</div>-->
+        <!-- 导航 -->
+        <div class="nav" id="RoleTab">
+
+        </div>
+        <!-- 主体 -->
+        <div class="maincon" id="TabCell">
+
+        </div>
+        <!-- 跑马灯  -->
+        <div class="footer">
+            <div class="notice"></div>
+            <marquee id="notice" class="marquee" scrollamount="5"></marquee>
+        </div>
+        <div id="dengke"></div>
+        <div id="xt"></div>
+    </div>
+</div>
+<!-- playtv  -->
+<div id="playtv_parent">
+</div>
+<div id="container1">
+
+</div>
+</body>
+<script type="text/javascript" src="moui_files/nativeRoleTab.js"></script>
+<script type="text/javascript" src="moui_files/nativeTabCell.js"></script>
+<script type="text/javascript" src="moui_files/nativeMarquee.js"></script>
+<script type="text/javascript" src="moui_files/base.js"></script>
+<script type="text/javascript" src="moui_files/json2.min.js"></script>
+<script type="text/javascript" src="moui_files/main.js"></script>
+<script type="text/javascript" src="moui_files/data.js"></script>
+<script type="text/javascript" src="moui_files/initPage.js"></script>
+<script>
+    //var PORTAL_ADDR = "";	 //portal地址
+    //var PORTAL_SUB_ADDR = "";
+    //var UBAServerAdd = "";		//推荐系统地址
+    SysSetting.setEnv("firstIndex", ""); //清楚服务页面wifi路径
+    SysSetting.setEnv("secondIndex", ""); //清楚服务页面wifi路径
+    SysSetting.setEnv("detailPak_columnVar_set","");//vod专区焦点参数
+    SysSetting.setEnv("index_columnVar_set","");//vod专区焦点参数
+    SysSetting.setEnv("list_columnVar_set","");//vod专区焦点参数
+    SysSetting.setEnv("urlPathGlobalName","");//vod专区焦点参数
+    SysSetting.setEnv("resetColumnFocus", "");//vod专区焦点参数
+    SysSetting.setEnv("resetColumnFocus_detaile","");//vod专区焦点参数
+    SysSetting.setEnv("resetColumnFocusTVplay","");//vod专区焦点参数
+    SysSetting.setEnv("vodParameterFocus1", "");//vod专区预留焦点参数1
+    SysSetting.setEnv("vodParameterFocus2","");//vod专区预留焦点参数2
+    SysSetting.setEnv("vodParameterFocus3","");//vod专区预留焦点参数3
+    var PORTAL_ADDR = "http://" + DataAccess.getInfo("VodApp", "PortalAddress") + ":" + DataAccess.getInfo("VodApp", "PortalPort");
+    var PORTAL_SUB_ADDR = PORTAL_ADDR + "/NewFrameWork/newWeb/html/";
+    var UBAServerAdd = SysSetting.getEnv("UBAServerAdd"); //推荐系统地址
+
+    var portalInterfaceObj = {}; //对象，用来存放与portal有关的接口信息
+    portalInterfaceObj["initial"] = ""; //初始化接口地址
+    portalInterfaceObj["rcmd"] = ""; //推荐位接口地址
+    portalInterfaceObj["menu"] = ""; //菜单接口地址
+    portalInterfaceObj["config"] = ""; //本地接口
+
+    var localNetworkId = ""; //本地网络id，从init.html页面中获取
+
+    if(SysSetting.getEnv("Local_NetworkId") == "") {
+        SysSetting.setEnv("Local_NetworkId", "-1");
+    }
+
+    var Version = -1; //配置表版本号
+    var portalAd = null; //首页推荐海报
+    var RecLiveChannel = null; //直播推荐频道
+    var needInject = false; //是否需要配置表注入
+    var rojaoAdv = null; //如加资讯扩展功能全局变量
+    var playSuccess = false; //播放是否成功
+    var playSource = false; //播放视频源
+    var enterTimeShift = false; //进入时移标志
+    var siconfigUpdateFlag = false; //配置表更新检测是否开始，获得B6描述符置为true，更新结束时置为false
+    var upgradeFlag = false; //正在升级标志位
+
+    var channelOrderFlag = false; //是否开启频道订购
+    var channelOrder_channelListToPlayTv_falg = false;
+    var TvHallUrl = ""; //电视营业厅跳转地址
+    var TvBackUrl = ""; //产品列表请求地址
+    var TvPostUrl = "" //新订购流程使用的URL
+    var BossUrl = ""; //Boss地址
+
+    var homeFocusIndex = [];
+    var pageFocusIndex = ""; //页面索引
+    //var isETVCanUse = false;//add by jianghao 20151223
+    var siMonitor = null; //更新配置表变量
+    var originalArray = null; //配置表内容 全局变量
+
+    var PageObj; //页面对象
+
+    var currentService = null; //视频播放数据
+    var tempNVODServiceId = [];
+    var epgScheduleList = null; //节目指南节目列表
+    //直播频道换台方式-00:未知方式;01:按加号换台;02:按减号换台;03:按数字键换台;04:EPG菜单中换台;05:频道列表换台;06:定时预约换台;07:开机进入默认频道;08:热门推荐列表中换台;09:世界杯专题进入
+    var changeTvMode = "00";
+    //直播播放状态-00:未知状态;01:正常播放;02:频道未授权;03:解扰异常;04:信号异常
+    var playTvStatus = "00";
+    var playTimer = null; //播放延时
+    var playCAMsg = ""; //播放直播CA信息
+
+    var preparesRestartFlag =false;//准备重新启动标志位, 当ota升级完成准备升级时屏蔽掉跳转每日推荐
+    if(SysSetting.getEnv("preparesRestartFlag")=="Y")//当为Y时，代表从欢迎页跳转过来，设置启动标志位为true,屏蔽掉跳转到欢迎页。
+    {
+        preparesRestartFlag = true;
+    }
+
+
+    var freePreviewFlag = false; //免费预览状态标志位(用于首页进全屏时保存状态)
+
+    //首次开机15秒跳入直播页面
+    var playTvTimer = -1;
+
+ /*   function playTv() {
+        if(SysSetting.getEnv("KAIJIZHIBO")) {
+            return;
+        }
+        playTvTimer = setTimeout(function() {
+            changeTvMode = "07";
+            SysSetting.setEnv("KAIJIZHIBO", "false");
+            RecLiveChannel.pushRecChannel(1);
+            SumaJS.loadModule("play_tv");
+        }, 15000);
+    }*/
+</script>
+
+<!--<script type="text/javascript" src="moui_files/common.js" ></script>-->
+<!--<script type="text/javascript" src="moui_files/global.js" ></script>-->
+<!--<script type="text/javascript" src="moui_files/lowBoxJsCommon.js" ></script>-->
+
+
+
+<script src="js/adapter/adapter_gd.js?20161255" type="text/javascript" charset="utf-8"></script>
+
+<script src="js/controls/webcontrol_messagebox.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/controls/sublist.js?20161255" type="text/javascript" charset="utf-8"></script>
+
+<script src="js/lib/core.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/lib/extension.js?20161255" type="text/javascript" charset="utf-8"></script>
+
+<script src="js/service/DataCollection.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/channel_order.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/md5.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/ETV.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/event_manager.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/single.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/dvb_obj.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/service_player.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/service_volumebar.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/service_epg.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/service_feature.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/service_menu.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/service_block.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/service_recommend.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/service_cycleControl.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/service/service_oftenWatch.js?20161255" type="text/javascript" charset="utf-8"></script>
+
+<script src="js/page/tv_page.js?20161255" type="text/javascript" charset="utf-8"></script>
+
+<script src="html/js/version.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/msg.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/page/play_tv.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/page/home.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/page/preloadimages.js?20161255" type="text/javascript" charset="utf-8"></script>
+<script src="js/page/ad.js?20161255" type="text/javascript" charset="utf-8"></script>
+
+<script src="js/page/index.js?20161255" type="text/javascript" charset="utf-8"></script>
+
+
+
+
+
+<!--    <script>
+/**
+* 西维尔 增强应用引擎加载初始化代码， 在页面onload时运行
+*/
+function initETV(pageId,addr) {
+    var script = document.createElement('script');
+    var head = document.getElementsByTagName('head')[0];
+    script.onload = function () {
+        ETV.Engine.init({pageId: pageId || 'index'});
+    };
+    script.src = "http://"+addr+"/NewFrameWork/web/js/etv/etv.engine.min.js?" + Math.random();
+    head.appendChild(script);
+}
+</script>-->
+<script type="text/javascript" charset="utf-8">
+
+try {
+
+    //设置配置 新版本与老版本兼容  （老版本在ADD_C.js中设置）
+    SysSetting.setEnv("ADD_MO", "main");
+    SysSetting.setEnv("ADD_LE", "10");
+    SysSetting.setEnv("ADD_OT", "none");
+    SysSetting.setEnv("ADD_PA", "index");
+    SysSetting.setEnv("ADD_LEVEL_LINK", "10");
+
+    var hrefUrl = window.location.href;
+    SysSetting.setEnv("PORTAL_ADDR", hrefUrl);
+    hrefUrl = hrefUrl.substr(0, hrefUrl.lastIndexOf("/") + 1);
+    hrefUrl = hrefUrl + "index.html";
+    SysSetting.setEnv("ADD_LINK", hrefUrl);
+    SysSetting.setEnv("MAIN_ADDR", hrefUrl);
+
+    if(!SysSetting.getEnv("SOURCE_PATH")) {
+        SysSetting.setEnv("SOURCE_PATH", "main://index.html"); //源页面路径
+    } else {
+        DataCollection.collectData(["01", "main://index.html", SysSetting.getEnv("SOURCE_PATH"), "主页"]);
+        SysSetting.setEnv("SOURCE_PATH", "main://index.html");
+    }
+
+    /******************************************************/
+
+    window.onload = function() {
+        SumaJS.debug("=========mainPage onload==========");
+        SysSetting.setEnv("PORTAL_SEARCH_BACKPAGE", ""); //此变量指明portal的search页面返回时进入index.html的那个模块
+				/*
+				if(pageFocusIndex == "play_tv" || pageFocusIndex == "playtv_page"){
+					SumaJS.loadModule("play_tv");
+				}
+				*/
+				//SumaJS.eventManager.run();			
+
+				//添加home中的功能
+				//homeObj.initial();
+				
+
+				
+				
+				//跑马灯
+				var showNotice = new ShowNotice(PORTAL_ADDR, "scroll_text");
+				showNotice.getNoticeData();
+
+				//portalAd.readAd();  //读取海报数据
+				//SumaJS.eventManager.addEventListener("portalAd", portalAd, 110);
+				//portalAd.updateAd();
+
+				//LocationSearch();  //从其他页面返回时的传递参数的处理.					
+				//titleObj.getFocus(menuDataAccessObj.getPageIndex());  //进入页面			
+				//titleObj.loseFocus();			
+
+        SumaJS.preloadImages(imgArr["main_page"]);
+        SumaJS.preloadImages(imgArr["tv_page"]);
+        SumaJS.preloadImages(imgArr["often_watch"]);
+        SumaJS.preloadImages(imgArr["play_tv"]);
+
+        setTimeout(function() {
+            var firstOpenStb = SysSetting.getEnv("FIRST_OPEN_STB_TEST");
+            if(firstOpenStb == "") { //开机时执行
+                SumaJS.debug("========= firstOpenStb entered ==========");
+                SysSetting.setEnv("FIRST_OPEN_STB_TEST", "FALSE");
+                var OTAinfo = JSON.parse(readFile("/storage/storage0/UpgradeVersion.json", 3));
+                if(OTAinfo != null) {
+                    SumaJS.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!OTAinfo.UpgradeVersion = " + OTAinfo.UpgradeVersion);
+                    SumaJS.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Middleware.version = " + Middleware.version);
+                    SumaJS.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!OTAinfo.middlewareVersion = " + OTAinfo.middlewareVersion);
+                    SumaJS.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!STB_VERSION_INFO.versionNo = " + STB_VERSION_INFO.versionNo);
+                    SumaJS.debug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!OTAinfo.mainAppVersion = " + OTAinfo.mainAppVersion);
+                    if(OTAinfo.UpgradeVersion == -1 || Middleware.version != OTAinfo.middlewareVersion || STB_VERSION_INFO.versionNo != OTAinfo.mainAppVersion) {
+                        StbRegister(originalArray);
+                    }
+                } else {
+                    var middlewareVersion = Middleware.version;
+                    var mainAppVersion = STB_VERSION_INFO.versionNo;
+                    saveJSONFile("/storage/storage0/UpgradeVersion.json", {
+                        "UpgradeVersion": -1,
+                        "middlewareVersion": middlewareVersion,
+                        "mainAppVersion": mainAppVersion
+                    }, 1);
+                }
+
+                //配置表注入
+                var tsObj = [];
+                try {
+                    if(originalArray && originalArray.ServiceInfo.NetworkArray instanceof Array) {
+                        SumaJS.debug("originalArray.ServiceInfo.NetworkArray: " + originalArray.ServiceInfo.NetworkArray.toString());
+                        for(var i = 0; i < originalArray.ServiceInfo.NetworkArray.length; ++i) {
+                            tsObj = tsObj.concat(DVB.tss(originalArray.ServiceInfo.NetworkArray[i].NetworkId, 2, 1));
+                        }
+                    } else if(originalArray && typeof originalArray.ServiceInfo.NetworkArray.NetworkId != "undefined") {
+                        //}else {
+                        SumaJS.debug("originalArray.ServiceInfo.NetworkArray.NetworkId " + originalArray.ServiceInfo.NetworkArray.NetworkId);
+                        tsObj = DVB.tss(originalArray.ServiceInfo.NetworkArray.NetworkId, 2, 1);
+                    }
+                } catch(e) {
+
+                }
+
+                if(tsObj.length == 0) { //如果没有注入过数据,启动配置表数据注入流程
+                    needInject = true;
+                    FileSystem.deleteFile("/storage/storage0/siConfig/SearchInfo.json");
+                    SumaJS.eventManager.addEventListener("portalAd", portalAd, 110); //add by liwenlei 防止消息未被处理
+                    DVB.deleteAll();
+                }
+
+                //判断CA区域码是否变更，如果变更则删除配置表文件
+                var CARegionCode = CA.regionCode;
+
+                var localNetworkId = parseInt(SysSetting.getEnv("Local_NetworkId"));
+                var regionIndex = -1;
+                if(CARegionCode == -1) {
+                    if(localNetworkId != -1) {
+                        regionIndex = localNetworkId;
+                    }
+                }
+                SumaJS.debug("=============CARegionCode==================:" + CARegionCode);
+                var localRegionIndex = JSON.parse(readFile("/storage/storage0/localNetwork.json", 3));
+                if(localRegionIndex == null) {
+                    localRegionIndex = {
+                        localNetwork: regionIndex,
+                        localRegionCode: CARegionCode
+                    };
+                    saveJSONFile("/storage/storage0/localNetwork.json", localRegionIndex, 3);
+                }
+
+                function forceUpdateServiceInfo() {
+                    FileSystem.deleteDirectory("/storage/storage0/siConfig");
+                    FileSystem.deleteFile("/storage/storage0/ServiceInfo/ServiceInfo.json");
+                    FileSystem.deleteFile("/storage/storage0/sysInfo/sysInfo.json");
+                    localRegionIndex = {
+                        localNetwork: regionIndex,
+                        localRegionCode: CARegionCode
+                    };
+                    saveJSONFile("/storage/storage0/localNetwork.json", localRegionIndex, 3);
+                    showGlobalMsgBox("区域码变化需更新，请稍等...");
+                    SumaJS.debug("区域码变化需更新，请稍等... add by liwenlei");
+                    /*
+                     setTimeout(function(){
+                     SysSetting.setEnv("BOOT_SINCONFIG_FLAG","");//确保再次加载首页会重新更新配置表
+                     SysSetting.setEnv("FIRST_OPEN_STB_TEST","");
+                     window.location.reload();
+                     },1500);
+                     */
+
+                    //取消延时，防止在此时页面跳转到每日推荐
+                    SysSetting.setEnv("BOOT_SINCONFIG_FLAG", ""); //确保再次加载首页会重新更新配置表
+                    SysSetting.setEnv("FIRST_OPEN_STB_TEST", "");
+                    window.location.reload();
+
+                }
+                SumaJS.debug("==========localRegionIndex============:" + JSON.stringify(localRegionIndex));
+                if(CARegionCode == -1) {
+                    if(regionIndex != -1 && localRegionIndex.localNetwork != -1 && localRegionIndex.localNetwork != regionIndex) {
+                        forceUpdateServiceInfo();
+                    }
+                } else {
+                    SumaJS.debug("==========localRegionIndex.localRegionCode============:" + localRegionIndex.localRegionCode);
+                    if(localRegionIndex.localRegionCode != CARegionCode) {
+                        forceUpdateServiceInfo();
+
+                    }
+                }
+                //盒子、主应用等信息数据上报
+                SysSetting.setEnv('DataCollection','1');//不走第三方接口
+            }
+            if(SysSetting.getEnv('DataCollection')){
+                DataCollection.appCollData(["0f", Middleware.name, SysInfo.STBModel, SysInfo.STBSerialNumber, Middleware.version, SysInfo.softwareVersion, STB_VERSION_INFO.versionNo, SysInfo.hardwareVersion]);
+            }
+            //如家广告配置
+            var adCfgInfo = readFile("/storage/storage0/rojao.config", 3);
+            if(!adCfgInfo) {
+                if(originalArray) {
+                    var adCfg = originalArray.AdvInfo;
+                    if(adCfg) {
+                        //"AdvInfo":{"AdvFrequency":"578000","AdvModulation":"64QAM","AdvSymbol":"6875","AdvPid":"8050","AdvTimeout":"8"}
+                        //SumaJS.debug("save ad config: ad info =  " + JSON.stringify(adCfg));
+                        adCfg.AdvFrequency = parseInt(adCfg.AdvFrequency, 10);
+                        adCfg.AdvSymbol = parseInt(adCfg.AdvSymbol, 10);
+                        adCfg.AdvPid = parseInt(adCfg.AdvPid, 10);
+                        adCfg.AdvTimeout = parseInt(adCfg.AdvTimeout, 10);
+                        saveJSONFile("/storage/storage0/rojao.config", adCfg, 1);
+                    } else {
+                        SumaJS.debug("save ad config: no get ad config info ");
+                    }
+                }
+            }
+
+            //推荐系统地址  移动到加载页面后 index.js中
+            /*	if(originalArray && originalArray.UBAServer && originalArray.UBAServer.ServerAddress){
+             var serverPort = "80";
+             if(originalArray.UBAServer.ServerAddress){
+             var UBAServerAddress = "http://"+originalArray.UBAServer.ServerAddress;
+             SysSetting.setEnv("UBAServerAdd",UBAServerAddress);
+             UBAServerAdd = SysSetting.getEnv("UBAServerAdd");
+             }
+             }
+             RecLiveChannel.getData();
+             */
+
+            //夜间待机提醒功能
+            var sleepCfg = JSON.parse(readFile('/storage/storage0/sleepcfg.json', 1));
+            if(!sleepCfg || sleepCfg.isActive) {
+                if(!sleepCfg) {
+                    saveJSONFile("/storage/storage0/sleepcfg.json", {
+                        isActive: 1
+                    }, 1);
+                }
+                sleepInit(originalArray);
+                sleepCheck();
+                setInterval(function() {
+                    sleepCheck();
+                }, 60000);
+            }
+
+            var scripts = ["js/controls/webcontrol_inputbox.js", "js/nvod.js", "js/service/soundtrack.js"];
+            var script = null;
+            for(var i = 0; i < scripts.length; ++i) {
+                script = document.createElement("script");
+                script.type = "text/javascript";
+                script.src = scripts[i];
+                document.body.appendChild(script);
+            }
+        }, 100);
+
+        //FIXME:为了在整个应用使用电视键，将电视键需要的信息保存为全局变量
+        setTimeout(function() {
+            var service = smallHomeVideo.getServiceByOrder(4, 1); //电视键为4
+            //以下数据采集相关
+            if(service) {
+                var hasRec = smallHomeVideo.hasRecService(4, 1);
+                var info = {
+                    serviceObj: service,
+                    isRec: hasRec ? 1 : 0
+                };
+                SysSetting.setEnv("KEYTV_USE_INFO", JSON.stringify(info));
+                //alert(JSON.stringify(info));
+            }
+        }, 1000);
+
+    };
+
+    //图片预加载
+    //SumaJS.preloadImages(imgArr[pageFocusIndex+"1"]);
+
+    var globalEventHandle = {
+        eventHandler: function(event) {
+            var keyCode = event.keyCode || event.which;
+            var type = event.type;
+            var modifiers = event.modifiers;
+            SumaJS.debug("event.modifiers = " + modifiers);
+            SumaJS.debug("globalEventHandle keyCode = " + keyCode);
+            switch(keyCode) {
+                case KEY_MAIL:
+                    SumaJS.loadModule('mail_list');
+                    break;
+                case KEY_EPG:
+                    SumaJS.loadModule('epg_page');
+                    break;
+                /*
+                 case KEY_TV:
+                 if(SumaJS.currModuleName == "play_tv"){
+                 return true;
+                 }
+                 RecLiveChannel.pushRecChannel(4);
+                 var temp = SysSetting.getEnv("OFF_CHANNEL");
+                 if(temp){
+                 temp = JSON.parse(temp);
+                 if(temp.serviceType == 2){
+                 SysSetting.setEnv("OFF_CHANNEL","");
+                 }
+                 }
+                 if(SumaJS.currModuleName == "home"){
+                 SysSetting.setEnv("HOMETOPLAYTV","1");
+                 }
+                 SumaJS.loadModule('play_tv');
+                 return false;
+                 break;
+                 */
+                case KEY_FAV:
+                    //alert("测试")
+                    //window.location.href = "http://192.168.88.101";
+                    break;
+                case 10608: //电视机关机消息
+                    DataCollection.collectData(["0c", "03"]);
+                    break;
+                case 10609: //电视机开机消息
+                    DataCollection.collectData(["0b", "02"]);
+                    break;
+                case KEY_TRACK:
+                /*0x0197,  遥控器上的声道键,即AUDIO*/
+                case KEY_ASTERISK:
+                    /*0x0197,  遥控器上的星号键*/
+                    if(STrack && !STrack.showTag) {
+                        if(SumaJS.currModuleName == "play_tv" || SumaJS.currModuleName == "epg_page" || SumaJS.currModuleName == "nvod" || SumaJS.currModuleName == "channel_list") {
+                            STrack.show();
+                            return false;
+                        }
+                    }
+                    break;
+                case MSG_REMIND_EVENT_ORDERED_ABOUT_TO_PLAY: // 用户预定的节目将要开始
+                    var orderId = modifiers;
+                    var order = user.orders.getOrderByID(orderId);
+                    if(!order) {
+                        return;
+                    }
+                    //SumaJS.debug("MSG_REMIND_EVENT_ORDERED_START_PLAYING order = " + JSON.stringify(order));
+
+                    if(currentService && SumaJS.currModuleName == "play_tv") {
+                        if(currentService.tsInfo.TsId == order.whichEvent.TSID && currentService.serviceId == order.whichEvent.serviceID) {
+                            return true;
+                        }
+                    }
+
+                    var seconds = getOrderStartSecond(order.whichEvent.date, order.whichEvent.startTime); //user.orders.advanceRemind;startTime
+                    var timerOrder = -1;
+                    var name = order.whichEvent.name;
+                    var playParam = {
+                        serviceInfo: {
+                            TSID: order.whichEvent.TSID,
+                            serviceID: order.whichEvent.serviceID
+                        }
+                    };
+
+                    var msgtext = "您预订的节目:《" + name + " 》将在<span id='secs'>" + seconds + "</span>秒后开始, 是否进入播放?";
+                    var okfunction = function() {
+                        clearInterval(timerOrder);
+                        user.orders.del(order);
+                        SysSetting.setEnv("playParam", JSON.stringify(playParam));
+                        SumaJS.loadModule("play_tv");
+                    };
+                    var cancelfunction = function() {
+                        clearInterval(timerOrder);
+                        user.orders.del(order);
+
+                        //当在epg页面、play_tv的信息按键时，刷新epg列表
+                        if((SumaJS.currModuleName == "epg_page" || SumaJS.currModuleName == "play_tv") && epgScheduleList) {
+                            epgScheduleList.refresh();
+                        }
+                    };
+                    selectMsgBox("order_prompt", "温馨提示", msgtext, okfunction, cancelfunction);
+
+                    timerOrder = setInterval(function() {
+                        if(seconds > 0) {
+                            SumaJS.getDom("secs").innerHTML = --seconds;
+                        } else {
+                            clearInterval(timerOrder);
+                            user.orders.del(order);
+                            SumaJS.msgBox.removeMsg("order_prompt");
+                            SysSetting.setEnv("playParam", JSON.stringify(playParam));
+                            SumaJS.loadModule("play_tv");
+                        }
+                    }, 1000);
+                    return false;
+                    break;
+                case MSG_REMIND_EVENT_ORDERED_START_PLAYING: // 用户预定的节目开始
+                    var orderId = modifiers;
+                    var order = user.orders.getOrderByID(orderId);
+                    var name = order.whichEvent.name;
+                    //SumaJS.debug("MSG_REMIND_EVENT_ORDERED_START_PLAYING order = " + JSON.stringify(order));
+                    user.orders.del(order);
+                    user.orders.save();
+                    if(currentService && SysSetting.getEnv("PAGEFOCUSINDEX") == "play_tv") {
+                        if(currentService.tsInfo.TsId == order.whichEvent.TSID && currentService.serviceId == order.whichEvent.serviceID) {
+                            return;
+                        }
+                    }
+
+                    var playParam = {
+                        serviceInfo: {
+                            TSID: order.whichEvent.TSID,
+                            serviceID: order.whichEvent.serviceID
+                        }
+                    };
+                    SumaJS.msgBox.removeMsg("order_prompt");
+                    var playFlag = true;
+
+                    var msgtext = "您预订的节目: 《" + name + " 》已经开始!是否收看?";
+                    var okfunction = function() {
+                        SysSetting.setEnv("playParam", JSON.stringify(playParam));
+                        SumaJS.loadModule("play_tv");
+                    };
+                    selectMsgBox("order_start", "温馨提示", msgtext, okfunction);
+
+                    setTimeout(
+                            function() {
+                                if(playFlag) {
+                                    SysSetting.setEnv("playParam", JSON.stringify(playParam));
+                                    SumaJS.loadModule("play_tv");
+                                }
+                                SumaJS.msgBox.removeMsg("order_prompt");
+                            },
+                            5000
+                    );
+
+                    return false;
+                case SYSEVT_NETWORK_DISCONNECTED: // 网线已断开
+                    if(SumaJS.currModuleName != "play_tv") {
+                        var msgtext = "当前网络信号丢失，请检查信号线或致电客服";
+                        selectMsgBox("network_info", "温馨提示", msgtext);
+                    }
+                    break;
+                case SYSEVT_NETWORK_CONNECTED: //网络连接
+                    if(SumaJS.msgBox) {
+                        SumaJS.msgBox.removeMsg("network_info");
+                    }
+                    break;
+                case SYSEVT_OTA_FORCE_UPGRADE: //OTA强制升级
+                    SysSetting.setEnv("KAIJIZHIBO", "false"); //防止开机自动跳转到全屏直播
+                    clearTimeout(playTvTimer);
+
+                    //如果配置表更新已经获得b6则暂停升级直到配置表更新完成
+                    var upgradeDelayTime = 0;
+                    if(siconfigUpdateFlag) {
+                        upgradeDelayTime = 2000;
+                    }
+                    var upgradeTimer = setInterval(
+                            function() {
+                                if(siconfigUpdateFlag) {
+                                    upgradeDelayTime = 2000;
+                                    return;
+                                }
+                                clearInterval(upgradeTimer);
+                                upgradeFlag = true;
+                                var currTS = DVB.currentTS; //必须在Upgrade.startLater之前
+                                var rs = Upgrade.startLater();
+                                if(rs == 0) {
+                                    showGlobalMsgBox("OTA升级失败！", function() {
+                                        upgradeFlag = false;
+                                        //恢复播放
+                                        DVB.tune(currTS.frequency, currTS.symbolRate, currTS.modulation);
+                                    });
+                                    return;
+                                }
+                                setTimeout("Upgrade.start()", 10000);
+                                document.onkeypress = function() {
+                                    return 0;
+                                };
+                                preparesRestartFlag = true; //防止进入每日推荐
+                                SysSetting.setEnv("preparesRestartFlag","true");
+                                showGlobalMsgBox("发现新软件版本,强制升级中!10秒后机顶盒重启,请勿操作...");
+                            }, upgradeDelayTime
+                    );
+                    break;
+                case SYSEVT_OTA_MANUAL_UPGRADE: // OTA自动升级
+                    if(SysSetting.getEnv("Upgrade_notify_flag") == "") {
+                        var msgtext = "系统检测到新软件版本,是否升级,选择确定将在10秒后自动重启。";
+                        var okfunction = function() {
+                            SysSetting.setEnv("KAIJIZHIBO", "false"); //防止开机自动跳转到全屏直播
+                            clearTimeout(playTvTimer);
+                            var currTS = DVB.currentTS; //必须在Upgrade.startLater之前
+                            upgradeFlag = true;
+                            var rs = Upgrade.startLater();
+                            if(rs == 0) {
+                                showGlobalMsgBox("OTA升级失败！", function() {
+                                    upgradeFlag = false;
+                                    //恢复播放
+                                    DVB.tune(currTS.frequency, currTS.symbolRate, currTS.modulation);
+                                });
+                            } else {
+                                document.onkeypress = function() {
+                                    return 0;
+                                };
+                                setTimeout("Upgrade.start()", 10000);
+                                showGlobalMsgBox("机顶盒将在10秒钟后重启，请稍候...");
+                            }
+                        };
+                        var cancelfunction = function() {
+                            var currTS = DVB.currentTS;
+                            showGlobalMsgBox("正在写入升级信息，机顶盒将在下次开机时进行自动升级...");
+                            upgradeFlag = true;
+                            Upgrade.startLater();
+                            SysSetting.setEnv("Upgrade_notify_flag", "1");
+                            SumaJS.msgBox.removeMsg("global_tip_box");
+                            DVB.tune(currTS.frequency, currTS.symbolRate, currTS.modulation);
+                        };
+                        preparesRestartFlag = true; //防止进入每日推荐
+                        SysSetting.setEnv("preparesRestartFlag","true");
+                        selectMsgBox("upgrade_start", "温馨提示", msgtext, okfunction, cancelfunction);
+                    }
+                    break;
+                case SYSEVT_OTA_ANALY_UPGRADE_DATA: //手动升级
+                    SysSetting.setEnv("OTA_GOT_10703", "1");
+                    var currTS = DVB.currentTS;
+                    SysSetting.setEnv("UPGRADE_FREQ", "{frequency:" + currTS.frequency + ", symbolRate:" + currTS.symbolRate + ", modulation:'" + currTS.modulation + "'}");
+                    break;
+                case IP_OTA_FORCE_UPGRADE: //IP OTA强制升级
+                    SysSetting.setEnv("KAIJIZHIBO", "false"); //防止开机自动跳转到全屏直播
+                    clearTimeout(playTvTimer);
+
+                    //如果配置表更新已经获得b6则暂停升级直到配置表更新完成
+                    var upgradeDelayTime = 0;
+                    if(siconfigUpdateFlag) {
+                        upgradeDelayTime = 2000;
+                    }
+                    var upgradeTimer = setInterval(
+                            function() {
+                                if(siconfigUpdateFlag) {
+                                    upgradeDelayTime = 2000;
+                                    return;
+                                }
+                                clearInterval(upgradeTimer);
+                                upgradeFlag = true;
+                                SumaJS.debug("IP OTA 强制升级 :" + modifiers)
+                                var upGradeInfo = SysSetting.getEventInfo(modifiers);
+                                SumaJS.debug("IP OTA 强制升级 参数 :" + upGradeInfo);
+                                var upGradeParam = upGradeInfo.split(",");
+                                var packageUrl = upGradeParam[0];
+                                var downloadPort = upGradeParam[1];
+                                var hashCode = upGradeParam[2];
+                                SumaJS.debug("IP OTA 强制升级 参数 packageUrl [" + packageUrl + "]");
+                                SumaJS.debug("IP OTA 强制升级 参数 downloadPort [" + downloadPort + "]");
+                                SumaJS.debug("IP OTA 强制升级 参数 hashCode [" + hashCode + "]");
+                                var rs = Upgrade.ipStartLater(packageUrl, downloadPort, hashCode);
+                                if(rs == 0) {
+                                    showGlobalMsgBox("OTA升级失败！", function() {
+                                        upgradeFlag = false;
+                                    });
+                                    return;
+                                }
+                                setTimeout("Upgrade.start()", 10000);
+                                document.onkeypress = function() {
+                                    return 0;
+                                };
+                                preparesRestartFlag = true; //防止进入每日推荐
+                                SysSetting.setEnv("preparesRestartFlag","true");
+                                showGlobalMsgBox("发现新软件版本,强制升级中!10秒后机顶盒重启,请勿操作...");
+                            }, upgradeDelayTime
+                    );
+                    break;
+                case IP_OTA_AUTO_UPGRADE: // IP OTA 提示升级
+                    SumaJS.debug("IP OTA 提示升级 :" + modifiers)
+                    var upGradeInfo = SysSetting.getEventInfo(modifiers);
+                    SumaJS.debug("IP OTA 提示升级 参数 :" + upGradeInfo);
+                    var upGradeParam = upGradeInfo.split(",");
+                    var packageUrl = upGradeParam[0];
+                    var downloadPort = upGradeParam[1];
+                    var hashCode = upGradeParam[2];
+                    SumaJS.debug("IP OTA 提示升级 参数 packageUrl [" + packageUrl + "]");
+                    SumaJS.debug("IP OTA 提示升级 参数 downloadPort [" + downloadPort + "]");
+                    SumaJS.debug("IP OTA 提示升级 参数 hashCode [" + hashCode + "]");
+                    if(SysSetting.getEnv("IP_Upgrade_notify_flag") == 1) {
+                        return;
+                    }
+                    var msgtext = "系统检测到新软件版本,是否升级,选择确定将在10秒后自动重启。";
+                    var okfunction = function() {
+                        SysSetting.setEnv("KAIJIZHIBO", "false"); //防止开机自动跳转到全屏直播
+                        clearTimeout(playTvTimer);
+
+                        upgradeFlag = true;
+                        var rs = Upgrade.ipStartLater(packageUrl, downloadPort, hashCode);
+                        if(rs == 0) {
+                            showGlobalMsgBox("OTA升级失败！", function() {
+                                upgradeFlag = false;
+                            });
+                        } else {
+                            document.onkeypress = function() {
+                                return 0;
+                            };
+                            setTimeout("Upgrade.start()", 10000);
+                            showGlobalMsgBox("机顶盒将在10秒钟后重启，请稍候...");
+                        }
+                    };
+                    var cancelfunction = function() {
+                        var currTS = DVB.currentTS;
+                        showGlobalMsgBox("正在写入升级信息，机顶盒将在下次开机时进行自动升级...");
+                        upgradeFlag = true;
+                        Upgrade.ipStartLater(packageUrl, downloadPort, hashCode);
+                        SysSetting.setEnv("IP_Upgrade_notify_flag", "1");
+                        SumaJS.msgBox.removeMsg("global_tip_box");
+                    };
+                    preparesRestartFlag = true; //防止进入每日推荐
+                    SysSetting.setEnv("preparesRestartFlag","true");
+                    selectMsgBox("upgrade_start", "温馨提示", msgtext, okfunction, cancelfunction);
+                    break
+                case IP_OTA_MANUAL_UPGRADE: //IP OTA 手动升级
+                    SumaJS.debug("IP OTA 手动升级 :" + modifiers)
+                    var upGradeInfo = SysSetting.getEventInfo(modifiers);
+                    SumaJS.debug("IP OTA 手动升级 参数 :" + upGradeInfo);
+                    SysSetting.setEnv("OTA_GOT_10706", upGradeInfo);
+                    break;
+                case MSG_DVB_TUNE_FAILED:
+                    if(SumaJS.currModuleName == "play_tv") {
+                        gMsgBoxMgr.showTipBox({
+                            type: 1,
+                            id: "tune_lock",
+                            msg: "信号中断，请检查网络信号，如需<br/>帮助，请拨打客服热线96956",
+                            priority: 12
+                        });
+                    }
+                    break;
+                case MSG_DVB_TUNE_SUCCESS:
+                    if(SumaJS.currModuleName == "play_tv") {
+                        gMsgBoxMgr.removeBox("tune_lock");
+                    }
+                    break;
+                default:
+                    return true;
+            }
+            return true;
+        }
+    }
+    SumaJS.eventManager.addEventListener("globalEventHandle", globalEventHandle, 49);
+
+    function getOrderStartSecond(startDate, startTime) {
+        var date = startDate.split('-');
+        var time = startTime.split(':');
+        var startTime = new Date(parseInt(date[0], 10),
+                parseInt(date[1], 10) - 1,
+                parseInt(date[2], 10),
+                parseInt(time[0], 10),
+                parseInt(time[1], 10),
+                parseInt(time[2], 10)
+        );
+        var currTime = new Date();
+        return parseInt((startTime.getTime() - currTime.getTime()) / 1000, 10);
+    }
+
+    function sendOrderMsg(keyCode) {
+        SumaJS.eventManager.handleEvent({
+            source: 1001,
+            which: keyCode,
+            modifiers: "123"
+        });
+    }
+    var lowestPriorityEventHandler = { //注册一个最低优先级事件,用来处理该页面的按键事件
+        eventHandler: function(event) {
+            var keyCode = event.keyCode || event.which;
+            SumaJS.debug("lowestPriorityEventHandler keyCode = " + keyCode);
+            switch(keyCode) {
+                case KEY_BACK:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+    };
+    SumaJS.eventManager.addEventListener("lowestPriorityEventHandler", lowestPriorityEventHandler, 500);
+
+    //页面跳出时停止视频播放
+    window.onunload = function() {
+        SysSetting.setEnv("KAIJIZHIBO", "false");
+        if(typeof(SysSetting.setLoadProgressFlag) == "function") {
+            SysSetting.setLoadProgressFlag(1);
+        }
+        if(SumaJS.globalPlayer) {
+            if(enterTimeShift) {
+                SumaJS.stopPlayer(1);
+            } else {
+                SumaJS.stopPlayer(0);
+            }
+            SumaJS.releasePlayer();
+        }
+        var deployType = DataAccess.getInfo("Autodeployer", "type");
+        if(deployType == "oc" || deployType == "auto-oc") {
+            Autodeployer.stop();
+        }
+    };
+} catch(e) {
+    alert(e.line + e.sourceURL + e.message)
+}
+</script>
+
+</html>

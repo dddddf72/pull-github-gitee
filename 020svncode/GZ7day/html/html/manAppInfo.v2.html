@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>主应用信息</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />
+<script src="../js/keyDefine.js" language="javascript"></script>
+<script src="../js/config.js" language="javascript"></script>
+<script src="../js/version.js" language="javascript"></script>
+<script src="../js/global2.0.js" language="javascript"></script>
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+	//SET ADD
+	
+	ADD_MO = "system";
+	ADD_MONAME = "自助服务|系统设置"
+	ADD_LE = 50;
+	ADD_PA = "manAppInfo";
+	ADD_NAME = "主应用信息";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+
+</script>
+<script>
+   function init(){
+	   document.getElementById("subValue_0").innerHTML=STB_VERSION_INFO.provider;
+   	   document.getElementById("subValue_1").innerHTML=STB_VERSION_INFO.versionNo;
+	   document.getElementById("subValue_2").innerHTML=STB_VERSION_INFO.publishTime;
+	   DataCollection.collectData(["01","main://html/html/manAppInfo.v2.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"主应用信息"]);
+	   SysSetting.setEnv("SOURCE_PATH","main://html/html/manAppInfo.v2.html"+window.location.search);
+   }
+</script>
+</head>
+<body onload="init()">
+<div class="systel_bg">
+  <div class="system_time">
+    <div  class="weather"></div>
+    <div  class="time2">
+      <div id="time_HMS"></div>
+      <div id="time_YMDW"></div>
+    </div>
+  </div>
+  <div class="system_menu_text_box">主应用信息</div>
+  <div class="system_con_focus"></div>
+  <div class="system_con_box">
+     <table width="1083" border="0" cellspacing="0" cellpadding="0" class="system_menu_table">
+      <tr id="tr_0">
+        <td width="47%" class="system_con_text_left" >主应用提供商：</td>
+        <td width="53%" class="system_con_text_right_28" id="subValue_0"></td>
+      </tr>
+      <tr  id="tr_1">
+        <td width="47%" class="system_con_text_left" id="subMenu_1">版本号：</td>
+        <td width="53%" class="system_con_text_right_28" id="subValue_1"></td>
+      </tr> 
+      <tr id="tr_2">
+        <td width="47%" class="system_con_text_left" id="subMenu_2">更新时间：</td>
+        <td width="53%" class="system_con_text_right_28" id="subValue_2"></td>
+      </tr>
+      <tr id="tr_3">
+        <td width="47%" class="system_con_text_left" id="subMenu_3"></td>
+        <td width="53%" class="system_con_text_right_28" id="subValue_3"></td>
+      </tr>
+      <tr id="tr_4">
+        <td width="47%" class="system_con_text_left" id="subMenu_4"></td>
+        <td width="53%" class="system_con_text_right_28" id="subValue_4"></td>
+      </tr>
+      <tr id="tr_5">
+        <td width="47%" class="system_con_text_left" id="subMenu_5"></td>
+        <td width="53%" class="system_con_text_right_28" id="subValue_5"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+            </tr>
+          </table></td>
+        <td width="165">&nbsp;</td>
+        <td width="510" colspan="3">&nbsp;</td>
+        
+       <!-- <td width="170">&nbsp;</td>
+        <td width="174">&nbsp;</td>-->
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+<script>
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	switch(val){
+		case ROC_IRKEY_DOWN: 
+		break;
+	}
+	return true;
+}
+
+
+function grabEvent(event){
+	
+	return page.grabEvent.Listener(event);
+}
+
+function page_systemevent_handler(event){
+	
+	return page.grabEvent.Listener(event);
+}
+</script>
+<script src="../js/ADD_C.js"></script>
+
+
+</body>
+</html>

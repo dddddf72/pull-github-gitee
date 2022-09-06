@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.name_type_left{
+	text-align:left;
+	height:48px;
+	width:238px;
+	line-height:48px;
+	overflow:hidden;
+	text-overflow:ellipsis; 
+	white-space:nowrap;		
+}
+#width_calc{
+	visibility: hidden; 
+	white-space: nowrap; 
+	display: inline;
+}
+</style>
+<script src="../js/keyDefine.js" language="javascript"></script>
+<script src="../js/config.js" language="javascript"></script>
+<script src="../js/global2.0.js" language="javascript"></script>
+<script src="../js/GKey.js"></script>
+<script src="../js/AppPrivateDefine.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script src="../js/appMan.js?2"></script>
+<script src="../js/JAlex.js"></script>
+<script>
+	//SET ADD
+	
+	ADD_MO = "system";
+	ADD_MONAME = "自助服务|系统设置"
+	ADD_LE = 50;
+	ADD_PA = "appMan1";
+	ADD_NAME = "应用管理列表";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+	GKeyRetrun = true;
+</script>
+
+</head>
+<body>
+<div class="systel_bg">
+  <div class="system_time">
+    <div  class="weather"></div>
+    <div  class="time2">
+      <div id="time_HMS"></div>
+      <div id="time_YMDW"></div>
+    </div>
+  </div>
+  <div id="width_calc"></div>
+  <div class="system_menu_text_box"> 应用管理列表 </div>
+  <div class="system_con_focus"></div>
+  <div class="system_con_box">
+    <table width="1083" border="0" cellspacing="0" cellpadding="0" class="system_menu_table " style="text-align:center;">
+      <tr id="list_font" >
+          <th width="22%" height="48">名称</th>
+          <!--<th width="9%">(appId,orgId)</th>-->
+          <th width="10%">状态</th>
+          <th width="25%">应用类型</th>
+          <th width="10%"><!--大小-->版本</th>
+          <th width="24%">操作</th>
+        </tr>
+       <tr id="info0">
+          <td><div id="name0" class="name_type_left">&nbsp;</div></td>
+         <!-- <td id="orgAppId0">&nbsp;</td>-->
+          <td id="state0">&nbsp;</td>
+          <td id="type0">&nbsp;</td>
+          <td id="size0">&nbsp;</td>
+          <td id="boot0">&nbsp;</td>
+        </tr>
+        <tr id="info1">
+          <td><div id="name1" class="name_type_left">&nbsp;</div></td>
+         <!-- <td id="orgAppId1">&nbsp;</td>-->
+          <td id="state1">&nbsp;</td>
+          <td id="type1">&nbsp;</td>
+          <td id="size1">&nbsp;</td>
+          <td id="boot1">&nbsp;</td>
+        </tr>
+        <tr id="info2">
+          <td><div id="name2" class="name_type_left">&nbsp;</div></td>
+         <!-- <td id="orgAppId2">&nbsp;</td>-->
+          <td id="state2">&nbsp;</td>
+          <td id="type2">&nbsp;</td>
+          <td id="size2">&nbsp;</td>
+          <td id="boot2">&nbsp;</td>
+        </tr>
+         <tr id="info3">
+          <td><div id="name3" class="name_type_left">&nbsp;</div></td>
+         <!-- <td id="orgAppId3">&nbsp;</td>-->
+          <td id="state3">&nbsp;</td>
+          <td id="type3">&nbsp;</td>
+          <td id="size3">&nbsp;</td>
+          <td id="boot3">&nbsp;</td>
+        </tr>
+         <tr>
+   
+    <td colspan="6" style="text-align:center;">
+    <!--
+    <select id="model"  class="kuang3"   >
+   <option value="oc">oc模式</option>
+   <option value="ip">ip模式</option>   
+   </select>&nbsp;&nbsp;
+   
+   
+   <input type="button" class="kuang4"  value="确认部署模式" onclick="changeModel();" />&nbsp;
+   -->
+    <input type="button" class="kuang3"  value="停止检测" onclick="stopAutodeployer();" /> &nbsp;
+    <input type="button" class="kuang2"  value="上一页" onclick="mainsfm_pageup();" />  &nbsp; 
+    <input type="button" class="kuang2" value="下一页" onclick="mainsfm_pagedown();" />&nbsp;
+    </td>
+    </tr>
+     <!-- <tr  class="list_font ">
+        <td width="296" class="con_pad_left100" id="name0">&nbsp;</td>
+        <td width="291" id="value0" class="system_con_text_right" >&nbsp;</td>
+        <td width="178" id="name1">&nbsp;</td>
+        <td width="318" id="value1" class="system_con_text_right">&nbsp;</td>
+      </tr>
+      <tr  class="list_font ">
+        <td width="296" class="con_pad_left100" id="name2">&nbsp;</td>
+        <td width="291"  id="value2" class="system_con_text_right">&nbsp;</td>
+        <td width="178" id="name3">&nbsp;</td>
+        <td width="318" id="value3" class="system_con_text_right">&nbsp;</td>
+      </tr>-->
+      
+      
+    </table>
+  </div>
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+            </tr>
+          </table></td>
+        <td width="165">&nbsp;</td>
+        <td width="510" colspan="3">&nbsp;</td>
+        
+       <!-- <td width="170">&nbsp;</td>
+        <td width="174">&nbsp;</td>-->
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script src="../js/ADD_C.js"></script>
+
+
+</body>
+</html>

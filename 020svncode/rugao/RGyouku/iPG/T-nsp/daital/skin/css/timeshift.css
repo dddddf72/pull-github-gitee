@@ -1,0 +1,245 @@
+@charset "gb2312";
+/* CSS Document */
+body{margin:0px;padding:0px;font-size:22px;}
+ul,p,h1,h2,h3,h4,h5,h6{margin:0px;padding:0px;}
+li{list-style:none;}
+img{border:0;}
+input{outline:none;}
+
+/* 背景开始============================================================================================================================================ */
+.timeshift_bj,.tslist_bj{
+	width:1280px;
+	height:720px;
+	overflow:hidden;
+	position:absolute;
+	background:url(../btvImg/timeshift_bj.jpg) no-repeat;
+}
+/* 背景结束============================================================================================================================================ */
+
+/* 共用头部开始============================================================================================================================================ */
+.header_title{
+	position:absolute;
+	top:11px;
+	left:20px;
+	width:667px;
+	height:50px;
+}
+.header_title span{ float:left; color:#ffffff;}
+.header_title span.first_title{width:160px; height:70px; line-height:70px; text-align:left;font-size:32px;}
+.header_title span.second_title{ position:relative; height:70px; line-height:70px; text-align:left; font-size:24px;width:400px;}
+.header_title span.second_title2{ position:relative; width:160px; height:70px; line-height:70px; text-align:left; font-size:24px;}
+/* 共用头部结束
+============================================================================================================================================ */
+
+/* 新闻中心主体结构开始============================================================================================================================================ */
+/*.new_over{ position:absolute; top:0px; left:0px; width:1280px; height:720px; background:url(../images/new_over.png) no-repeat; display:none;}
+.new_over ul{
+	position:absolute;
+	top:170px;
+	left:200px;
+	width:876px;
+	height:439px;
+}*/
+.new_over{ position:absolute; top:100px; left:200px; width:934px; height:546px; background:url(../images/new_over.png) no-repeat; display:none;}
+.new_over ul{
+	position:absolute;
+	top:77px;
+	left:30px;
+	width:876px;
+	height:439px;
+}
+.new_over ul li{
+	height:52px;
+	line-height:52px;
+	font-size:22px;
+	color:#d2d2d2;
+}
+.new_over span{ float:left; width:30px;}
+.new_over span.num{ width:30px;}
+.new_over span.news_name{ width:800px;}
+.new_over .class_title{
+	position:absolute;
+	top:9px;
+	left:12px;
+	width:929px;
+	height:42px;
+	color:#d2d2d2;
+	font-size:26px;
+	text-align:center;
+	line-height:42px;
+}
+.new_over .class_focus{
+	position:absolute;
+	top:52px;
+	left:-123px;
+	width:1152px;
+	height:95px;
+	background:url(../images/new_class_focus.png) no-repeat;
+}
+.new_over .page{
+	position:absolute;
+	top:503px;
+	left:407px;
+	width:120px;
+	height:35px;
+	line-height:35px;
+	color:#FFF;
+	text-align:center;
+}
+/* 新闻中心主体结构结束============================================================================================================================================ */
+
+
+/* 频道列表主体结构开始============================================================================================================================================ */
+.channelList{ position:absolute; top:99px; left:24px; width:1227px; height:569px; background:url(../btvImg/channel_bj.png) no-repeat;}
+.channelList .channel_focus{
+	position:absolute;
+	top:-17px;
+	left:-22px;
+	width:355px;
+	height:92px;
+	background:url(../btvImg/channel_focus.png) no-repeat;
+}
+.channelList ul{position:absolute; top:5px;}
+.channelList ul li{ position:relative; width:304px; height:56px; line-height:56px; float:left; text-align:center; color:#d2d2d2;font-size:26px;}
+.channelList .focus{ color:#FFF;font-size:28px;}
+.channelPage{ position:absolute; top:613px; left:580px; width:120px; height:50px; text-align:center; line-height:50px; color:#FFF;}
+/* 频道列表主体结构结束============================================================================================================================================ */
+
+/* 回看列表主体结构开始============================================================================================================================================ */
+.btv2_list{ position:absolute; top:99px; left:27px; width:1225px; height:578px; background:url(../btvImg/list_bj.png) no-repeat;color:#fff;}
+.btv2_list .weekdate{ position:relative; top:3px; width:1220px; height:60px;}
+/*.weekdate .week_focus{ position:absolute;top:-8px; left:1px; color:#000; width:175px; height:68px; background:url(../btvImg/menu_focus.png) no-repeat;}
+.btv2_list .weekdate li{ position:relative; width:171px; height:60px; line-height:60px; text-align:center; float:left; color:#FFF; margin-left:3px;background:url(../btvImg/line.png) no-repeat;}
+.btv2_list .weekdate li span.day{position:relative; top:0px; left:0px;float:left;width:171px;height:24px; line-height:24px;text-align:center;word-wrap:break-word;overflow:hidden;font-size:22px;}
+.btv2_list .weekdate li span.date{position:relative;top:-2px;left:0px;float:left;width:171px;height:24px;line-height:24px;text-align:center;word-wrap:break-word;overflow:hidden;font-size:20px;}*/
+
+.weekdate li{float:left;height:60px;width:171px;font-size:22px;background:url(../btvImg/line.png) no-repeat;line-height:60px;}
+.weekdate span{	display:block;text-align:center;width:171px;height:30px;line-height:30px; vertical-align: bottom;}
+.weekdate li.dateFocus{color:#fff; font-size:24px;background:url(../btvImg/menu_focus.png) center center no-repeat; margin-top:-13px; margin-left:2px;width:175px; height:68px; vertical-align: bottom;}
+.weekdate li.dateFocus span{line-height:34px;height:34px;}
+.btv2_list .proList2{position: absolute;top:62px;width:1221px;height:518px;left: 14px; color:#d2d2d2;}
+.btv2_list .proList2_focus{position:absolute;top:37px;left:-3px;width:1227px;height:100px;background:url(../btvImg/list_focus.png) no-repeat;display:none;}
+.btv2_list .proList2 li{ position:relative; top:3px; left:20px; width:1200px; height:56px; line-height:56px;}
+.proList2 li span{ float:left;text-align:left;}
+.proList2 li span.num{width:30px;}
+.proList2 li span.newsName{width:1000px;}/*新闻列表*/
+.proList2 li span.pmTime{width:300px;  height:56px; display:inline-block; }/*频道回看时间*/
+.proList2 li span.pmName{width:700px;  height:56px;display:inline-block;}
+.proList2 li span.collect{width:150px; height:56px; display:inline-block; text-align:center;}
+/* 回看列表主体结构结束*/
+/* 节目关联主体结构开始 */
+.associateList{ position:absolute; top:92px; left:30px; width:1217px; height:577px;color:#FFF;background:url(../btvImg/list_bj.png) no-repeat;}
+.associateList .associateName{position:absolute; left:35px; top:0px;line-height:56px;font-size:28px; font-weight:bold; }
+.associateList .list_focus{position:absolute;width:1227px;height:100px;background:url(../btvImg/list_focus.png) no-repeat;top:42px;left:2px;display:none;}
+.associateList  .focusTip{position:absolute;top:42px;left:904px;width: 244px;height: 24px;}
+.focusTip2{position:absolute;top:42px;left:904px;width: 244px;height: 24px;}
+.tip1{background:url(../btvImg/tip_green.png) no-repeat; display:inline-block; float:left; font-size:20px; padding-left:50px;}
+.tip2{background:url(../btvImg/tip_yellow.png) no-repeat; display:inline-block; float: left; font-size:20px;padding-left:50px; margin-left:10px;}
+.associateList ul{position:absolute;top:62px;left:35px;width: 1177px; font-size:22px;font-weight:bold}
+.associateList li{width:1170px; height:57px; line-height:57px;font-size:22px; overflow:hidden; color:#CCC; float:left;}
+.associateList li span{ float:left; text-align:left;}
+.associateList li span.watchDate{width:160px;}
+.associateList li span.watchTime{width:180px;}
+.associateList li span.channel{width:200px;}
+.associateList li span.assetName{width:500px;}
+.associateList li span.collect{width:100px;text-align:center;}
+.scroll{ position: absolute; top:45px; left:1205px;; width:6px; height:490px; background:url(../images/scrollbar_bj.png) no-repeat;}
+.scroll .focus{position: absolute;left:-1px;width:6px;height:45px;background:url(../images/scrollbar.png) no-repeat;top: 2px;}
+
+/* 节目关联主体结构结
+
+/* 共用结尾开始============================================================================================================================================ */
+
+.bottom_left_box{
+	position:absolute;
+	left:27px;
+	top:676px;
+	height:22px;
+	width:630px;
+	font-size:22px;
+	line-height:22px;
+	font-weight:bold;
+	color:#f9f9f9;
+}
+.bottom_left_box li{float:left;padding:0px 40px 0px 35px;text-align:center;}
+.bottom_left_box li.red{background:url(../btvImg/tip_red.png) no-repeat;}
+.bottom_left_box li.yellow{background:url(../btvImg/tip_yellow.png) no-repeat;}
+.bottom_left_box li.blue{background:url(../btvImg/tip_blue.png) no-repeat;}
+.bottom_left_box li.green{background:url(../btvImg/tip_green.png) no-repeat;}
+
+
+.bottom_right_box{position:absolute;left:620px;top:669px;height:38px;font-size:22px;line-height:38px;font-weight:bold;color:#f9f9f9;width: 929px;}
+.bottom_right_box li{float:left;padding:0px 35px 0px 43px;text-align:center;}
+.bottom_right_box li.choose{background:url(../btvImg/tip_choose.png) no-repeat;}
+.bottom_right_box li.choose2{background:url(../btvImg/choose2.png) no-repeat;}
+.bottom_right_box li.ok{background:url(../btvImg/tip_ok.png) no-repeat;}
+.bottom_right_box li.turnPage{background:url(../btvImg/turn_move.png) no-repeat; margin-left:-12px; padding-left:95px;}
+.bottom_right_box li.back{background:url(../btvImg/tip_back.png) 0 4px no-repeat;padding-left:50px;}
+/* 共用结尾开始============================================================================================================================================ */
+
+/* 录像首页主体结构开始============================================================================================================================================ */
+.npvr_bj{width:1280px;height:720px;overflow:hidden;position:absolute;background:url(../btvImg/npvr_bj.jpg) no-repeat;}
+.classify_bj{width:1280px;height:720px;overflow:hidden;position:absolute;background:url(../btvImg/classify_bg.jpg) no-repeat;}
+.npvrNav{position:absolute;top:104px;left:36px;width:250px;height:580px;font-size:24px; color:#d2d2d2;}
+.npvrNav .nav_focus{position:absolute;width:316px;height:110px;top:28px;left:-28px;background:url(../btvImg/nav_focus.png) no-repeat;display:none;}
+.npvrNav .nav_blur{position:absolute;width:294px;height:88px;top:28px;left:-13px;background:url(../btvImg/nav_blur.png) 0px 16px no-repeat;}
+.npvrNav li{ position:relative; top:0px; left:-2px; text-indent:5px; width:250px; height:55px; line-height:55px;}
+.npvrNav li span{ position:absolute; top:0px; left:0px; width:250px; text-align:center;}
+.npvrNav li span.tsfz{ font-size:30px; font-weight:bold; text-align:center;}
+.npvrList{position:absolute; top:104px; left:320px; width:932px; height:589px; color:#d2d2d2;}
+.npvrList .list_focus{ position:absolute; width:242px; height:90px;top:-18px; left:-18px; background:url(../btvImg/btv_list_focus.png) no-repeat; display:block; padding:30px 0px 0px 700px;}
+.npvrList .list_focus span{ line-height:20px; float:left; display:block; padding:5px;}
+.npvrList .weekday{position:relative; top:7px; width:940px; height:46px;}
+.npvrList .weekdate_focus{position:absolute;top:-15px;left:-1px;width:135px;height:68px;background:url(../btvImg/dataFocus.png) no-repeat;display: none;}
+.npvrList .weekday li{position:relative; width:133px; height:46px; line-height:46px; text-align:center; float:left;background:right url(../images/btv_menu_l.png) no-repeat;}
+.npvrList .weekday li span{ float:left; width:130px; line-height:26px;text-align:center;font-size:18px;}
+.npvrList .weekday li span.day{font-size:22px;}
+.npvrList .weekday li span.vdate{line-height:20px;}
+.npvrList .proList{ position:relative; top:14px; width:940px; height:517px;} 
+.npvrList .proList .program_focus{position:absolute;top:-18px;left:4px;width:926px;height:96px;background:url(../btvImg/npvr_list_focus.png) no-repeat;display: none;}
+.npvrList .proList li{float:left;width:940px; height:54px; line-height:54px;}
+.npvrList .proList li span{ float:left;text-align:center; width:120px;}
+.npvrList .proList li span.proTime{width:220px;}
+.npvrList .proList li span.list{width:550px;text-align:left;}
+.npvrList .proList li span.state{width:100px;}
+
+.classifyList{position:absolute;top:96px;left:32px;width:1220px;height:566px;color:#FFF;font-weight:bold;}
+.classifyList .list_focus{ position:absolute; width:242px; height:90px;top:-18px; left:-18px; background:url(../btvImg/classify_list_focus.png) no-repeat; display:block; padding:30px 0px 0px 700px;}
+.classifyList .list_focus span{ line-height:20px; float:left; display:block; padding:5px;}
+.classifyList .weekday{position:relative; top:7px; width:1220px; height:46px;}
+.classifyList .weekdate_focus{position:absolute;top:-15px;left:0px;width:175px;height:68px;background:url(../btvImg/classify_top_focus.png) no-repeat;display: block;}
+.classifyList .weekday li{position:relative; width:174px; height:46px; line-height:46px; text-align:center; float:left;background:right url(../images/btv_menu_l.png) no-repeat;}
+.classifyList .weekday li span{ float:left; width:170px; line-height:26px;text-align:center;font-size:18px;}
+.classifyList .weekday li span.day{font-size:22px;}
+.classifyList .weekday li span.vdate{line-height:20px;}
+.classifyList .proList{ position:relative; top:16px; width:1220px; height:517px;} 
+.classifyList .proList .program_focus{position:absolute;top:-24px;left:-14px;width:1243px;height:100px;background:url(../btvImg/classify_list_focus.png) no-repeat;display: none;}
+.classifyList .proList li{float:left;width:1220px; height:56px; line-height:54px;}
+.classifyList .proList li span.proTime{ position:relative; left:35px; width:50px; height:54px; text-align:center; background:url(../btvImg/pointer.png) no-repeat 10px 21px; display:inline-block; float:left;}
+.classifyList .proList li span.list{ position:relative; left:30px; width:1050px; height:54px; text-align:left; display:inline-block}
+
+.pageInfo{
+	position:absolute;
+	top:610px;
+	left:720px;
+	width:103px;
+	height:37px;
+	font-weight:bold;
+	color:#FFF;
+}
+.pageInfo2{position:absolute;top:611px;left:583px;width:110px;height:37px;font-weight:bold;color:#FFF;}
+/*录像首页主体结构结束*/
+
+
+.npvr_list_bg{width:1280px;height:720px;overflow:hidden;position:absolute; left:0px; top:0px;background:url(../btvImg/npvr_list_bg.jpg) no-repeat; font-weight:bold;}
+.middle_list{position:absolute;left:27px;top:92px;width:1225px;height:570px;color:#FFF;}
+.pages{position:absolute;width:214px;height:33px;top:526px;left:512px;text-align:center;}
+.count{position:absolute;width:150px;height:33px;top:526px;left:726px;text-align:left;}
+.middle_list li{ float:left; width:1200px; height:58px; line-height:58px; margin-left:15px;background:url(../btvImg/list_text3_line.png) no-repeat;color:#d2d2d2;}
+.middle_list li.list_title span{font-size:24px; color:#FFF;text-align:center;}
+.middle_list .listFocus{background:url(../btvImg/npvr_manage_focus.png)  0 3px no-repeat;color:#FFF; font-size:24px;}
+.middle_list li span{float:left;text-align:center;}
+.middle_list li span.pm{width:350px;text-align:left; padding-left:10px;}
+.middle_list li span.date{width:370px;}
+.middle_list li span.pd_name{width:240px;}
+.middle_list li span.status{width:200px;}

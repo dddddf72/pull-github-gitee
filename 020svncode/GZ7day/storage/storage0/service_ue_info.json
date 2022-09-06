@@ -1,0 +1,82 @@
+[
+    {
+        "identity": "service_menu",
+        "showType": "0",
+        "sourceData": [
+            {
+                "content": "   ",
+                "img": "/attachments/20169/cfb5254e-1c31-4386-b454-14c7cbac6eb9.jpg",
+                "name": "电视营业厅",
+                "src": "http://10.205.22.158/tvhall/",
+                "type": "1"
+            },
+            {
+                "content": "  ",
+                "img": "/attachments/20169/08413da1-10dc-48d7-9e8f-3bc85a6abbf7.jpg",
+                "name": "使用说明",
+                "src": "/NewFrameWork/newWeb/html/hudong/index.html",
+                "type": "1"
+            },
+            {
+                "content": " ",
+                "img": "/attachments/20169/e39e8fc3-b9b9-4a76-a47d-c55911121463.jpg",
+                "name": "联系我们",
+                "src": " ",
+                "type": "1"
+            }
+        ],
+        "type": "0",
+        "windowName": "服务菜单"
+    },
+    {
+        "identity": "service_img",
+        "showType": "0",
+        "sourceData": [
+            {
+                "content": " 服务页面海报1",
+                "img": "/attachments/201612/cb002e91-1885-4ade-938e-48e55945fe46.png",
+                "name": "服务页面海报1",
+                "src": " #",
+                "type": "1"
+            },
+            {
+                "content": "服务页面海报2",
+                "img": "/attachments/201612/27695e6a-d5bd-4e04-a4b7-9a630e9c6f7c.png",
+                "name": "服务页面海报2",
+                "src": " #",
+                "type": "1"
+            },
+            {
+                "content": " 服务页面海报3",
+                "img": "/attachments/201612/6a3e909d-b101-43f9-94b9-fdec6e470eff.png",
+                "name": " 服务页面海报3",
+                "src": " #",
+                "type": "1"
+            },
+            {
+                "content": " 服务页面海报4",
+                "img": "/attachments/201612/723a6f9e-b24c-4ba3-914d-d8ac1af237a8.png",
+                "name": " 服务页面海报4",
+                "src": " #",
+                "type": "1"
+            }
+        ],
+        "type": "0",
+        "windowName": "服务海报"
+    },
+    {
+        "identity": "channel_edit",
+        "showType": "0",
+        "sourceData": [
+            {
+                "content": "  常看频道编辑",
+                "img": "/attachments/201612/29f2c1df-051d-44a8-858a-774d0fe72f33.png",
+                "name": " 常看频道编辑",
+                "src": " #",
+                "type": "1"
+            }
+        ],
+        "type": "0",
+        "windowName": "频道编辑"
+    }
+]

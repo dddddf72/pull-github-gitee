@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="../css/pub.css" rel="stylesheet" type="text/css" />
+<link href="../css/frame.css" rel="stylesheet" type="text/css" />
+</head>
+
+<script src="../js/keyDefine.js"></script>
+<script src="../js/frame.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/global2.0.js"></script> 
+<script src="../js/GKey.js"></script>
+<script src="../js/JAlex.js"></script>
+<script src="../js/ajax_1.0.js"></script>
+<script src="../js/DataCollection.js"></script>
+<script>
+	//SET ADD
+	ADD_MO = "system";
+	ADD_MONAME = "自助服务|系统设置|CA信息"  
+	ADD_LE = 51;
+	ADD_PA = "CA_setLevel.v2";
+	ADD_NAME = "观看级别设置";
+	ADD_OT = SysSetting.getEnv("PORTAL_ADDR");
+	
+</script>
+
+<body>
+<div class="systel_bg">
+  <div class="system_time">
+    <div  class="weather"></div>
+    <div  class="time2">
+      <div id="time_HMS"></div>
+      <div id="time_YMDW"></div>
+    </div>
+  </div>
+  <div class="system_menu_text_box"> 观看级别设置</div>
+  <div class="system_con_box">
+     <div class="g_com_input" id="Rating"></div>
+     <div class="g_com_input" id="Pin"></div>
+     <div class="g_com_input"></div>
+     <div class="g_com_input"></div>
+     <div class="g_com_input">
+           <div class="g_button_div_left"><div  class="g_btn_child_left" id="btnOk"></div></div>
+           <div class="g_button_div_right"><div class="g_btn_child_right" id="btnCancel"></div></div>
+        </div> 
+</div>
+
+  <div class="tip_02">
+    <table width="1085" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="171"><table width="166" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="137"><img src="../images/tip_returns.png" width="137" height="23" /></td>
+            </tr>
+          </table></td>
+        <td width="165">&nbsp;</td>
+        <td width="166">&nbsp;</td>
+        <td width="170">&nbsp;</td>
+        <td width="174">&nbsp;</td>
+        <td width="239">&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<script>
+
+
+	
+try{
+var pinLength = 6;
+var CAName = CA.name;
+if (CAName == "数码视讯") {
+	pinLength = 8;	
+}
+
+var page = new JPage();
+page.grabEvent.pageEvent = function pageEvent(event){
+	var val = event.which|event.keycode;
+	switch(val){
+		case ROC_IRKEY_DOWN: 
+		break;
+	}
+	return true;
+}
+
+function grabEvent(event){
+	return page.grabEvent.Listener(event);;
+}
+
+function page_systemevent_handler(event){
+	return page.grabEvent.Listener(event);;
+}
+
+
+function pageObj(){
+	this.paramSet = new paramSet();
+	function paramSet(){
+	   this.Rating = null;
+	   this.Pin = null;
+	   this.init = function(){
+		   var rating = CA.getRating();
+		   
+		   this.Rating = new INPUT({tagName:"观看级别：",insertId:"Rating",valLen:2,defaultVal:rating,remark:"观看级别可设置为4-18"});
+		    this.Rating.focus();
+		   this.Pin = new INPUT({tagName:"PIN码：",insertId:"Pin",defaultVal:"",textType:"pwd",valLen:pinLength});
+		   var btnOk = new BUTTON({btnImgName:"ok",innserId:"btnOk",onClick:function(){pageObj.paramSet.okBtn()}});
+		   var btnCancel = new BUTTON({btnImgName:"cancel",innserId:"btnCancel",onClick:function(){pageObj.paramSet.cancelBtn()}});	
+		   
+		   if(rating==-1){
+		     globalAlert.init({"val":"终端的CA系统不支持设置观看级别！","btnInfo":[{"name":"确认","callBack":function(){pageObj.paramSet.cancelBtn()}}],"timeout":0});
+			 return ;
+		   }else if(rating==-2){
+		     globalAlert.init({"val":"获取观看级别信息失败！","btnInfo":[{"name":"确认","callBack":function(){pageObj.paramSet.cancelBtn()}}],"timeout":0});
+			 return ;
+		   }
+	   }
+	   this.okBtn = function(){	
+	      if(this.checkValue()){
+			 var rs=CA.setRating(this.Pin.value,parseInt(this.Rating.value, 10)) ;
+			 
+			 if(rs==1){
+			   globalAlert.init({"val":"设置观看级别成功！","btnInfo":[{"name":"确认","callBack":function(){pageObj.paramSet.cancelBtn()}}],"timeout":0});
+			 }else if(rs==0){
+				showErrorMsg("设置观看级别失败！");
+			 }else if(rs==-1){
+				globalAlert.init({"val":"终端的CA系统不支持设置观看级别！","btnInfo":[{"name":"确认","callBack":function(){pageObj.paramSet.cancelBtn()}}],"timeout":0}); 
+			}
+
+		  }
+		}
+	   this.checkValue = function(){
+	     if(!(/^\d{1,2}$/.test(this.Rating.value)&&parseInt(this.Rating.value,10)<=18&&parseInt(this.Rating.value,10)>=4)){
+		     showErrorMsg("请输入正确的观看级别！");
+		     return false;
+		 }else if(this.Pin.value.length==0){
+			 showErrorMsg("PIN码不能为空！");
+		     return false;
+		 
+		 }
+		return true;	   
+	   }
+	   this.cancelBtn = function(){
+	      window.location.href = "CA_info.v2.html";
+	  }
+	  this.Listener = function(event){ 
+			return G_INPUT.Listener(event)
+		}  
+	}
+}
+
+	//注册页面
+
+	showDateTime(); 
+	var pageObj = new pageObj();  
+	page.regedit(pageObj.paramSet); 
+	pageObj.paramSet.init(); 
+	DataCollection.collectData(["01","main://html/html/CA_setLevel.v2.html"+window.location.search,SysSetting.getEnv("SOURCE_PATH"),"观看级别设置"]);
+	SysSetting.setEnv("SOURCE_PATH","main://html/html/CA_setLevel.v2.html"+window.location.search);
+ }catch(e){
+	$J.debug.Msg("Page Error:"+e.message,1,"Page Init");
+}
+</script>
+<script src="../js/ADD_C.js"></script>
+</body>
+</html>

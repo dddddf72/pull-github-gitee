@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="1280*720; text/html; charset=utf-8">
+    <meta name="viewport" content="width=1280,user-scalable=no">
+    <title>马鞍山-搜索</title>
+    <link href="css/main.css" type="text/css" rel="stylesheet">
+    <style>
+        .side {
+            float: left;
+            width: 360px;
+            margin: 50px 0 0 100px;
+        }
+
+        .title {
+            padding: 50px 0 0 60px;
+            line-height: 70px;
+            height: 70px;
+            font-size: 24px;
+            color: #ff7000;
+        }
+
+        .search-input {
+            line-height: 70px;
+            height: 70px;
+            font-size: 24px;
+            background: url('./img/icon_search.png') right center no-repeat #3c404b;
+            padding: 0 15px;
+            margin-right: 12px;
+            border-bottom: 2px solid #666;
+        }
+
+        .search-board {
+            height: 500px;
+        }
+
+        .serach-key {
+            float: left;
+            width: 48px;
+            height: 48px;
+            text-align: center;
+            line-height: 48px;
+            font-size: 28px;
+            margin: 12px 12px 0 0;
+            background: #3c404b;
+            transition: .3s;
+        }
+
+        .search-clear,
+        .search-back {
+            width: 168px;
+            height: 70px;
+            line-height: 70px;
+        }
+
+        .serach-key.focus {
+            background: #ff7000;
+        }
+
+        .content {
+            position: relative;
+            width: 820px;
+            height: 720px;
+            float: left;
+        }
+
+        .con-list {
+            width: 770px;
+            height: 400px;
+            text-align: left;
+            margin: 0 auto;
+            padding-left: 60px;
+            padding-top: 5px;
+        }
+
+        .con-item {
+            float: left;
+            position: relative;
+            width: 120px;
+            height: 170px;
+            color: #fff;
+            margin: 0 20px 20px 0;
+        }
+
+        .cont-section {
+            position: relative;
+            width: 120px;
+            height: 170px;
+        }
+
+        .con-item img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .item-title {
+            position: absolute;
+            display: block;
+            width: 120px;
+            top: 132px;
+            left: 0px;
+            background: url('./img/title_bg.png');
+            height: 38px;
+            line-height: 38px;
+            z-index: 999;
+            padding: 0 10px;
+            box-sizing: border-box;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 22px;
+        }
+
+        .con-item.focus {
+            outline: 5px solid #ff7000;
+            font-size: 22px;
+        }
+
+        .con-item {
+            background: url('./img/img01.png');
+        }
+
+        /* .con-item:after{
+            content: '';
+            position: absolute;
+            left: 0;
+            top:0;
+            right: 0;
+            bottom: 0;
+            border: 5px solid #ff7000;
+            visibility: hidden;
+            opacity: 0;
+            transition: .3s;
+        }
+        .con-item.focus{
+            background: #000;
+        }
+        .con-item.focus:after{
+            visibility: visible;
+            opacity: 1;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="side">
+            <div class="search-input" id="input">请输入名称首字母或全拼</div>
+            <div class="search-board" id="key">
+                <div class="serach-key search-clear" data-key="clear">清空</div>
+                <div class="serach-key search-back" data-key="back">退格</div>
+                <div class="serach-key focus" data-key="A" autofocus="true">A</div>
+                <div class="serach-key" data-key="B">B</div>
+                <div class="serach-key" data-key="C">C</div>
+                <div class="serach-key" data-key="D">D</div>
+                <div class="serach-key" data-key="E">E</div>
+                <div class="serach-key" data-key="F">F</div>
+                <div class="serach-key" data-key="G">G</div>
+                <div class="serach-key" data-key="H">H</div>
+                <div class="serach-key" data-key="I">I</div>
+                <div class="serach-key" data-key="J">J</div>
+                <div class="serach-key" data-key="K">K</div>
+                <div class="serach-key" data-key="L">L</div>
+                <div class="serach-key" data-key="M">M</div>
+                <div class="serach-key" data-key="N">N</div>
+                <div class="serach-key" data-key="O">O</div>
+                <div class="serach-key" data-key="P">P</div>
+                <div class="serach-key" data-key="Q">Q</div>
+                <div class="serach-key" data-key="R">R</div>
+                <div class="serach-key" data-key="S">S</div>
+                <div class="serach-key" data-key="T">T</div>
+                <div class="serach-key" data-key="U">U</div>
+                <div class="serach-key" data-key="V">V</div>
+                <div class="serach-key" data-key="W">W</div>
+                <div class="serach-key" data-key="X">X</div>
+                <div class="serach-key" data-key="Y">Y</div>
+                <div class="serach-key" data-key="Z">Z</div>
+                <div class="serach-key" data-key="1">1</div>
+                <div class="serach-key" data-key="2">2</div>
+                <div class="serach-key" data-key="3">3</div>
+                <div class="serach-key" data-key="4">4</div>
+                <div class="serach-key" data-key="5">5</div>
+                <div class="serach-key" data-key="6">6</div>
+                <div class="serach-key" data-key="7">7</div>
+                <div class="serach-key" data-key="8">8</div>
+                <div class="serach-key" data-key="9">9</div>
+                <div class="serach-key" data-key="0">0</div>
+            </div>
+        </div>
+        <div class="content">
+            <h2 class="title">·搜索结果·</h2>
+            <div class="con-list" id="list">
+                <div class="loading">暂无结果~</div>
+            </div>
+            <div class="page" id="page">
+                <div class="page-prev" data-page="prev"><i class="icon-prev"></i>上一页</div>
+                <span class="page-num" id="pagenum">第1/1页</span>
+                <div class="page-next" data-page="next">下一页<i class="icon-next"></i></div>
+            </div>
+        </div>
+    </div>
+    <!-- <script type="text/javascript" src="./js/smoothscroll.min.js"></script> -->
+    <script type="text/javascript" src="./js/json2.min.js"></script>
+    <script type="text/javascript" src="./js/base.js"></script>
+    <script type="text/javascript" src="./js/view.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script>
+        //焦点记录
+        var Skey = getGlobalVar('SKey') || '';
+        var listIndex = getGlobalVar('Slist') || -1;
+        var listPage = getGlobalVar('Spage') || 1;
+        var Key = $('key');
+        var Input = $('input');
+        var List = $('list');
+        var Page = $('page');
+        var Vkey = new View(Key);
+        var inputPlace = '请输入名称首字母或全拼';
+
+        var Vlist = new View(List);
+        var Vpage = new View(Page);
+        setTimeout(function () {
+            Vkey.init(Key.getElementsByTagName('div'));
+            Vpage.init(Page.getElementsByTagName('div'));
+            if (Skey) {
+                Input.innerHTML = Skey;
+                goSearch(Skey, listPage);
+            }
+            Vkey.map[0] = {
+                left: null,
+                right: {
+                    index: 1
+                },
+                up: null,
+                down: {
+                    index: 3
+                },
+            }
+            Vkey.map[1] = {
+                left: {
+                    index: 0
+                },
+                right: null,
+                up: null,
+                down: {
+                    index: 6
+                },
+            }
+            Vkey.focusByIndex(2);
+            Vkey.ok = function (item) {
+                var key = item.getAttribute('data-key');
+                var text = Input.innerHTML == inputPlace ? '' : Input.innerHTML;
+                if (key == 'back') {
+                    if (text !== inputPlace) {
+                        text = text.slice(0, -1);
+                    } else {
+                        showMessage('已经为空了');
+                    }
+                } else if (key == 'clear') {
+                    text = '';
+                } else {
+                    text += key;
+                }
+                Input.innerHTML = text;
+                goSearch(text);
+            }
+            Vkey.back = function () {
+                /*
+                var text = Input.innerHTML;
+                if (text !== inputPlace) {
+                    text = text.slice(0, -1);
+                } else {
+                    //console.log('返回上一页');
+                    //window.close();
+                    //parent.window.closeWindow();
+                    setGlobalVar('SKey', '');
+                    setGlobalVar('Slist', -1);
+                    setGlobalVar('Spage', 1);
+                    history.go(-1);
+                }
+                Input.innerHTML = text;
+                goSearch(text);
+                */
+                setGlobalVar('SKey', '');
+                setGlobalVar('Slist', -1);
+                setGlobalVar('Spage', 1);
+                history.go(-1);
+            }
+
+            Vlist.left = function () {
+                Vkey.onfocus();
+            }
+            Vlist.back = function () {
+                //this.onblur();
+                Vkey.onfocus();
+            }
+            Vlist.down = function () {
+                Vpage.onfocus();
+            }
+            Vpage.up = function () {
+                Vlist.onfocus();
+            }
+            Vpage.left = function () {
+                Vkey.onfocus();
+            }
+            Vpage.back = function () {
+                Vkey.onfocus();
+            }
+            Vkey.right = function () {
+                if (Vlist.isRender) {
+                    Vlist.onfocus();
+                }
+            }
+
+            Vpage.ok = function (el) {
+                var type = el.getAttribute('data-page');
+                if (type == 'prev') {
+                    Vlist.currentPage--;
+                } else {
+                    Vlist.currentPage++;
+                }
+                if (Vlist.currentPage < 1) {
+                    showMessage('已经是第一页了');
+                    Vlist.currentPage = 1;
+                    return
+                }
+                if (Vlist.currentPage > Vlist.total) {
+                    showMessage('已经是最后一页了');
+                    Vlist.currentPage = Vlist.total;
+                    return
+                }
+                turnPage(Input.innerHTML, Vlist.currentPage);
+            }
+        }, 300)
+
+
+        //doSearch
+        function goSearch(text, page) {
+            if (text) {
+                List.innerHTML = '<div class="loading">正在搜索...</div>';
+                Vlist.currentPage = page || 1;
+                API.GetSearch({
+                    keyword: text,
+                    page: page || 1,
+                    pageSize: 10
+                }, function (data, total) {
+                    if (data.length > 0) {
+                        var _html = '';
+                        Vlist.isRender = true;
+                        $("page").style.display = 'block';
+                        Vlist.total = Math.ceil(total / 10);
+                        data.forEach(function (el, i) {
+                            var src = "";
+                            src = el.recommendImage.posterUrl ? CONFIGS.ip + '/' + el.recommendImage
+                                .posterUrl :
+                                "";
+                            _html += '<div class="con-item"  id="' + el.assetId + '" providerId="' + el
+                                .providerId + '" folderAssetId="' + el.folderAssetId +
+                                '"><h5 class="cont-section"><img src="' +
+                                src +
+                                '" ><span class="item-title">' + el.titleBrief + '</span></h5></div>'
+                        })
+                        List.innerHTML = _html;
+                        $("pagenum").innerHTML = '第' + Vlist.currentPage + '/' + Vlist.total + '页';
+                        setTimeout(function () {
+                            Vlist.init(List.getElementsByTagName('div'));
+                            if (listIndex >= 0) {
+                                Vlist.focusByIndex(listIndex);
+                                listIndex = -1;
+                            }
+                        }, 300)
+                        Vlist.ok = function (el) {
+                            API.GetDetail({
+                                id: el.id
+                            }, function (_data) {
+
+                                if (_data.isOver) {
+                                    showMessage('该媒资已下架！');
+                                } else {
+                                    setGlobalVar('SKey', text);
+                                    setGlobalVar('Slist', Vlist.focusId);
+                                    setGlobalVar('Spage', Vlist.currentPage);
+                                    localStorage.setItem("preUrl", "./search.html");
+                                    location.href = './details.html?id=' + el.id;
+                                }
+                            })
+
+                        }
+                    } else {
+                        Vlist.isRender = false;
+                        List.innerHTML = '<div class="loading">暂无结果~</div>';
+                        Vlist.total = 1;
+                        $("pagenum").innerHTML = '第1/1页';
+                    }
+
+                })
+            } else {
+                Input.innerHTML = inputPlace;
+                List.innerHTML = '<div class="loading">暂无结果~</div>';
+                Vlist.total = 1;
+                $("pagenum").innerHTML = '第1/1页';
+            }
+        }
+
+        function turnPage(text, current) {
+            List.innerHTML = '<div class="loading">正在搜索...</div>'
+            API.GetSearch({
+                keyword: text,
+                page: current,
+                pageSize: 10
+            }, function (data) {
+                var _html = '';
+                data.forEach(function (el, i) {
+                    var src = "";
+                    src = el.recommendImage.posterUrl ? CONFIGS.ip + '/' + el.recommendImage
+                        .posterUrl :
+                        "";
+                    _html += '<div class="con-item"  id="' + el.assetId + '" providerId="' + el
+                        .providerId + '" folderAssetId="' + el.folderAssetId +
+                        '"><h5 class="cont-section"><img src="' + src +
+                        '" ><span class="item-title">' + el.titleBrief + '</span></h5></div>'
+                })
+
+                List.innerHTML = _html;
+                setTimeout(function () {
+                    Vlist.init(List.getElementsByTagName('div'));
+                }, 300)
+                $("pagenum").innerHTML = '第' + current + '/' + Vlist.total + '页';
+            })
+        }
+
+        /*
+
+
+
+
+
+
+
+        var list = $('list');
+        var page = $('page');
+
+        var Vlist = new View(list);
+        Vlist.init(list.getElementsByTagName('a'));
+        Vlist.onfocus();
+
+        var Vpage = new View(page);
+        Vpage.init(page.getElementsByTagName('a'));
+
+
+        Vlist.down = function(){
+            Vpage.onfocus();
+        }
+
+        Vpage.up = function(){
+            Vlist.onfocus();
+        }
+        */
+    </script>
+</body>
+
+</html>

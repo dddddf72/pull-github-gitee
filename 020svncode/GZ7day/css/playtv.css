@@ -1,0 +1,2198 @@
+body {
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+    background: transparent;
+    overflow: hidden;
+}
+
+#main {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: url(../images/home/index.jpg) no-repeat;
+}
+
+#home_info {
+    width: 145px;
+    height: 28px;
+    position: absolute;
+    left: 343px;
+    top: 648px;
+    background: url(../images/home/info.png);
+    display: none;
+}
+
+#search_icon {
+    width: 100px;
+    height: 41px;
+    position: absolute;
+    left: 213px;
+    top: 638px;
+    background: url(../images/home/blue_search.png);
+    display: none;
+}
+
+#keynum_icon {
+    width: 140px;
+    height: 33px;
+    position: absolute;
+    left: 50px;
+    top: 644px;
+    background: url(../images/home/keynum_icon.png);
+    display: none;
+}
+
+/*#notice_icon {*/
+    /*width: 33px;*/
+    /*height: 25px;*/
+    /*position: absolute;*/
+    /*left: 515px;*/
+    /*top: 649px;*/
+    /*background: url(../images/home/notice_icon.png);*/
+/*}*/
+
+/* 首页 天气时间框 */
+.weather_box {
+    width: 339px;
+    height: 55px;
+    position: absolute;
+    top: 20px;
+    left: 881px;
+}
+
+#weather_icon {
+    position: absolute;
+    top: 1px;
+    left: 34px;
+    width: 64px;
+    height: 64px;
+}
+
+#weather_current_temp {
+    position: absolute;
+    top: 2px;
+    left: 105px;
+    width: 128px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 38px;
+    text-align: left;
+    color: #fff;
+}
+
+#weather_current_status {
+    position: absolute;
+    top: 40px;
+    left: 106px;
+    width: 96px;
+    height: 21px;
+    line-height: 21px;
+    font-size: 20px;
+    text-align: left;
+    color: #fff;
+}
+
+#weather_se {
+    position: absolute;
+    left: 192px;
+    top: 5px;
+    width: 2px;
+    height: 52px;
+    background-image: url(../images/weather_se.png);
+}
+
+#width_calc {
+    visibility: hidden;
+    white-space: nowrap;
+    display: inline;
+}
+
+/* 首页 天气时间框 END */
+
+#header_nav {
+    position: absolute;
+    top: 86px;
+    left: 62px;
+    width: 1150px;
+    height: 81px;
+}
+
+/*首页头部导航*/
+.nav_nofocus {
+    width: 145px;
+    height: 75px;
+    margin-top: 3px;
+    float: left;
+}
+
+.nav_focus {
+    width: 233px;
+    height: 81px;
+    float: left;
+}
+
+.nav_temp {
+    width: 23px;
+    height: 81px;
+    float: left;
+}
+
+/*首页头部导航* END/
+
+/*首页左右广告位*/
+#portalAd_l {
+    position: absolute;
+    left: 87px;
+    top: 169px;
+    width: 392px;
+    height: 447px;
+}
+
+#portalAd_r {
+    position: absolute;
+    left: 795px;
+    top: 169px;
+    width: 392px;
+    height: 447px;
+}
+
+/*首页左右广告位 END*/
+
+/*跑马灯*/
+/*#notice {*/
+    /*position: absolute;*/
+    /*top: 648px;*/
+    /*left: 565px;*/
+    /*font-size: 22px;*/
+    /*color: #fff;*/
+    /*height: 25px;*/
+    /*line-height: 25px;*/
+    /*width: 620px;*/
+    /*overflow: hidden;*/
+/*}*/
+
+/*跑马灯* END */
+
+#version_logo {
+    position: absolute;
+    top: 641px;
+    left: 1200px;
+    width: 35px;
+    height: 35px;
+    display: none;
+}
+
+.home_sublist_cell_nofocus {
+    width: 223px;
+    height: 58px;
+    font-size: 32px;
+    font-weight: 200;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.home_sublist_cell_focus {
+    width: 223px;
+    height: 58px;
+    font-size: 38px;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*************************chanlist****************************/
+#chanlist_bg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: url(../images/chanlist/chan_bg.png) center no-repeat;
+}
+
+.chanlist_group_list_cell {
+    height: 45px;
+    line-height: 45px;
+    width: 143px;
+    color: #FFF;
+    float: left;
+    margin: 5px 5px 0px 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chanlist_list_name {
+    position: relative;
+    width: 210px;
+    height: 50px;
+    line-height: 50px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+    display: inline;
+    float: left;
+}
+
+#chanlist_scroll {
+    position: absolute;
+    top: 136px;
+    left: 417px;
+    width: 11px;
+    height: 47px;
+    background: url(../images/icon/scroll.png) no-repeat;
+}
+
+#chanlist_focus {
+    position: absolute;
+    left: 69px;
+    top: 156px;
+    height: 49px;
+    width: 348px;
+    background: url(../images/chanlist/focus.png) no-repeat;
+}
+
+#chanlist_tv_channel_number {
+    position: absolute;
+    left: 860px;
+    top: 175px;
+    display: block;
+    z-index: 100;
+}
+
+#chanlist_tv_channel_number img {
+    width: 30px;
+    height: 42px;
+}
+
+#chanlist_pf_bar {
+    position: absolute;
+    left: 410px;
+    top: 560px;
+    width: 600px;
+    height: 80px;
+    color: #fff;
+}
+
+#chanlist_pf_playnow_name {
+    position: absolute;
+    left: 655px;
+    top: 477px;
+    font-size: 24px;
+    height: 24px;
+    width: 420px;
+    color: #fff;
+}
+
+#chanlist_pf_playnow_starttime {
+    position: absolute;
+    left: 482px;
+    top: 534px;
+    font-size: 17px;
+    height: 17px;
+    width: 50px;
+    color: #fff;
+}
+
+#chanlist_pf_process_bar {
+    position: absolute;
+    left: 534px;
+    top: 539px;
+    height: 9px;
+    width: 0px;
+    background: url(../images/chanlist/progress_bar.png) no-repeat;
+}
+
+#chanlist_pf_playnow_endtime {
+    position: absolute;
+    left: 897px;
+    top: 534px;
+    font-size: 17px;
+    height: 17px;
+    width: 50px;
+    color: #fff;
+}
+
+#chanlist_pf_playnext_name {
+    position: absolute;
+    left: 570px;
+    top: 580px;
+    font-size: 18px;
+    height: 18px;
+    width: 470px;
+    color: #fff;
+}
+
+#epg_AD_1 {
+    position: absolute;
+    top: 471px;
+    left: 69px;
+    width: 359px;
+    height: 132px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+}
+
+#epg_AD_0 {
+    position: absolute;
+    top: 160px;
+    left: 989px;
+    width: 218px;
+    height: 443px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+}
+
+#chanlist_tv_volume_bar {
+    position: absolute;
+    top: 413px;
+    left: 513px;
+    width: 402px;
+    height: 41px;
+    background: url(../images/chanlist/chanlist_tv_volume_bar.png) center no-repeat;
+    display: none;
+    z-index: 60;
+}
+
+#chanlist_volume_bar_progress {
+    position: absolute;
+    top: 16px;
+    left: 45px;
+    width: 0px;
+    height: 9px;
+    background: url(../images/chanlist/chanlist_tv_volume_width.png) no-repeat;
+}
+
+#chanlist_volume_bar_num {
+    position: absolute;
+    top: 8px;
+    left: 370px;
+    width: 29px;
+    height: 33px;
+    font-size: 22px;
+    color: #fff;
+}
+
+#chanlist_tv_mute {
+    position: absolute;
+    top: 175px;
+    left: 800px;
+    width: 49px;
+    height: 48px;
+    background: url(../images/icon/mute_icon.png) center no-repeat;
+    display: none;
+    z-index: 60;
+}
+
+/*************************chanlist END***********************/
+
+/*************** play tv channel info *********************/
+#channel_info_box {
+    width: 935px;
+    height: 515px;
+    background: url(../images/channel_order/order_select_bg.png) center no-repeat;
+    background-size: 990px 570px;
+    position: absolute;
+    top: 100px;
+    left: 180px;
+    text-align: center;
+    display: none;
+    z-index: 72;
+}
+
+#channel_info_title {
+    width: 920px;
+    height: 65px;
+    line-height: 65px;
+    margin-top: 26px;
+    color: #fff;
+    font-family: "黑体";
+    font-size: 26px;
+}
+#channel_info_item{
+    top: 100px;
+    left: 90px;
+    width: 920px;
+    height: 350px;
+    text-align: left;
+    position: absolute;
+}
+.chan_info_cell0 {
+    position: absolute;
+    top: 50px;
+    left: 70px;
+    width: 160px;
+    height: 55px;
+    line-height: 55px;
+    text-align: left;
+    margin-right: 5px;
+    overflow: hidden;
+    color: #fff;
+    font-family: "黑体";
+    font-size: 24px;
+}
+
+.chan_info_cell1 {
+    position: absolute;
+    top: 50px;
+    left: 235px;
+    width: 160px;
+    height: 55px;
+    line-height: 55px;
+    text-align: left;
+    margin-right: 5px;
+    overflow: hidden;
+    color: #fff;
+    font-family: "黑体";
+    font-size: 24px;
+}
+
+.chan_info_cell2 {
+    position: absolute;
+    top: 50px;
+    left: 410px;
+    width: 160px;
+    height: 55px;
+    line-height: 55px;
+    text-align: left;
+    margin-right: 5px;
+    overflow: hidden;
+    color: #fff;
+    font-family: "黑体";
+    font-size: 24px;
+}
+
+.chan_info_cell3 {
+    position: absolute;
+    top: 50px;
+    left: 575px;
+    width: 160px;
+    height: 55px;
+    line-height: 55px;
+    text-align: left;
+    margin-right: 5px;
+    overflow: hidden;
+    color: #fff;
+    font-family: "黑体";
+    font-size: 24px;
+}
+
+.channel_info_tip {
+    position: absolute;
+    top: 415px;
+    left: 0px;
+    width: 920px;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    color: #fff;
+    font-family: "黑体";
+    font-size: 26px;
+}
+
+/*************** play tv channel info end *********************/
+
+/*************************play tv***********************/
+#play_bg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: transparent;
+    /*background: url("../images/play/playtv_cover.png");*/
+}
+
+#play_bg_cover {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: url("../images/play/playtv_cover.png");
+    /*display: none;*/
+}
+
+#play_pf_bar {
+    display: none;
+}
+.play_pf_bar_long{
+    position: absolute;
+    left: 180px;
+    top: 419px;
+    height: 131px;
+    width: 1030px;
+    background: url(../images/play/pfbar_bg.png) no-repeat;
+    /*display: none;*/
+}
+.play_pf_bar_long #play_pf_progress{
+    margin: 0px 17px;
+}
+.play_pf_bar_short{
+    position: absolute;
+    left: 390px;
+    top: 419px;
+    height: 131px;
+    width: 600px;
+    background: url(../images/play/pfbar_bg.png) no-repeat;
+    background-size: 600px 150px;
+    /* display: none; */
+}
+.play_pf_bar_long #play_pf_progress{
+    margin: 0px 14px;
+}
+#play_pf_bar_channel_tag {
+    position: fixed;
+    left: 999px;
+    top: 72px;
+    height: 44px;
+    width: 232px;
+    background: url("../images/play/channel_tag.png") no-repeat;
+    /*background: #2a385b;*/
+    /*opacity: 0.8;*/
+}
+
+#play_pf_bar_channel_num {
+    position: absolute;
+    left: 10px;
+    /* top: 20px; */
+    height: 44px;
+    width: 55px;
+    line-height: 44px;
+    font-size: 32px;
+    color: #FFFFFF;
+    /* display: none; */
+}
+
+#play_pf_bar_channel_name {
+    position: absolute;
+    left: 80px;
+    top: 0px;
+    height: 44px;
+    line-height: 44px;
+    width: 152px;
+    font-size: 20px;
+    color: #8b9299;
+    overflow: hidden;
+    /* display: none; */
+}
+
+#play_pf_bar_time {
+    position: absolute;
+    left: 26px;
+    top: 7px;
+    height: 26px;
+    width: 100px;
+    font-size: 20px;
+    line-height: 26px;
+    color: #FFF799;
+    text-shadow: 1px 0px 0px #05003c, -1px 0px 0px #05003c, 0px 1px 0px #05003c, 0px -1px 0px #05003c;
+}
+
+#play_love {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 0px;
+    width: 0px;
+    background: url(../images/icon/love.png) no-repeat;
+    display: none;
+}
+
+#play_lock {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 0px;
+    width: 0px;
+    background: url(../images/icon/lock.png) no-repeat;
+    display: none;
+}
+
+#play_pf_info_p_time {
+    position: absolute;
+    top: 54px;
+    left: 26px;
+    width: 100px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 20px;
+    color: #fff;
+    text-shadow: 1px 0px 0px #05003c, -1px 0px 0px #05003c, 0px 1px 0px #05003c, 0px -1px 0px #05003c;
+}
+
+#play_pf_info_p_name {
+    position: absolute;
+    top: 54px;
+    left: 146px;
+    width: 420px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 20px;
+    color: #fff;
+    overflow: hidden;
+    text-shadow: 1px 0px 0px #05003c, -1px 0px 0px #05003c, 0px 1px 0px #05003c, 0px -1px 0px #05003c;
+}
+
+#play_pf_info_f_time {
+    position: absolute;
+    top: 101px;
+    left: 26px;
+    width: 100px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 20px;
+    color: #fff;
+    text-shadow: 1px 0px 0px #05003c, -1px 0px 0px #05003c, 0px 1px 0px #05003c, 0px -1px 0px #05003c;
+}
+
+#play_pf_info_f_name {
+    position: absolute;
+    top: 101px;
+    left: 146px;
+    width: 420px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 20px;
+    color: #fff;
+    overflow: hidden;
+    text-shadow: 1px 0px 0px #05003c, -1px 0px 0px #05003c, 0px 1px 0px #05003c, 0px -1px 0px #05003c;
+}
+
+#play_pf_progress_bg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0px;
+    height: 0px;
+    /* background-color: #535353; */
+}
+
+#play_pf_progress {
+    position: absolute;
+    top: 39px;
+    /*left: 12px;*/
+    width: -1px;
+    height: 13px;
+
+}
+
+#pfbar_AD_0 {
+    position: absolute;
+    top: 0px;
+    left: 797px;
+    width: 232px;
+    height: 130px;
+    overflow: hidden;
+    display:none;
+    /*background: #057F55 no-repeat;*/
+}
+
+#play_tv_channel_number {
+    position: absolute;
+    left: 984px;
+    top: 47px;
+    text-align: center;
+    display: block;
+}
+
+#shoushi_bg {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: url(../images/play/shoushi.png) no-repeat;
+    display: none;
+}
+
+#sousuo_bg {
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: url(../images/play/sousuo.png) no-repeat;
+    display: none;
+}
+
+/*********节目信息*****************/
+#play_tv_info_list {
+    position: absolute;
+    width: 474px;
+    height: 540px;
+    left: 492px;
+    top: 72px;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 49px;
+    /* background-image: url(../images/play/info_bg.png); */
+    /* background-repeat: no-repeat; */
+    display: none;
+    /*background: #394a73;*/
+     /*opacity: 0.8;*/
+    z-index: 84;
+}
+
+#play_tv_info_event_tip {
+    position: absolute;
+    top: 243px;
+    left: 111px;
+    width: 360px;
+    height: 49px;
+    line-height: 49px;
+    text-align: center;
+    z-index: 99;
+    color: #ffffff;
+}
+
+#play_tv_info_list_title {
+    width: 0px;
+    height: 0px;
+    line-height: 0px;
+    text-align: center;
+    font-size: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#play_tv_date_list {
+    width: 113px;
+    height: 441px;
+    padding-top: 104px;
+    color: #8b9299;
+    background: url("../images/play/third_menu_list_focus2.png") no-repeat;
+}
+
+#play_tv_info_date_focus {
+    color: yellow;
+}
+
+#play_tv_info_event_focus {
+    position: absolute;
+    top: 220px;
+    /*left: 113px;*/
+/*    left: 6px; */
+	left: 1px;
+    width: 323px;
+    height: 94px;
+    display: none;
+    background: url(../images/play/timeshift_focus.png) center no-repeat;
+    /*background-size: 346px 70px;*/
+    z-index: 99;
+}
+
+
+#play_tv_info_date_focus {
+    position: absolute;
+    top: 230px;
+    left: -4px;
+    width: 120px;
+    height: 80px;
+    background: url(../images/play/second_menu_list_focus.png) center no-repeat;
+    z-index: 99;
+    color: #ffffff;
+    display: none;
+
+}
+
+.play_tv_info_date {
+    float: left;
+    font-size: 20px;
+    text-align: center;
+    line-height: 47px;
+    height: 47px;
+}
+#play_tv_info_event_item{
+    /*padding-top: 6px;*/
+    top: 0px;
+    left: 113px;
+    width: 361px;
+    height: 540px;
+    text-align: center;
+    position: absolute;
+    color: #8b9299;
+    background: url("../images/play/forth_menu_list_blur.png") no-repeat;
+
+}
+#play_tv_info_event_item_content{
+    position: absolute;
+/*    padding-top: 6px;  */
+	padding-top: 8px;
+}
+/*.play_tv_info_event_time_start {*/
+   /*!*width: 81px; *! */
+	/*width: 86px; */
+    /*height: 47px;*/
+    /*line-height: 47px;*/
+    /*text-align: right;*/
+    /*overflow: hidden;*/
+    /*margin-right: 15px;*/
+    /*float: left;*/
+    /*!*background-image: url(../images/play/timeshift_pro_start.png);*!*/
+    /*!*background-repeat: no-repeat;*!*/
+ /*!* background-position: -135% 50%; *!*/
+	/*!*background-position: -105% 50%;*!*/
+    /*!*background-color: #000000;*!*/
+/*}*/
+/*.play_tv_info_event_time_end {*/
+    /*!*width: 81px; *! */
+	/*width: 86px; */
+    /*height: 47px;*/
+    /*line-height: 47px;*/
+    /*text-align: right;*/
+    /*overflow: hidden;*/
+    /*margin-right: 15px;*/
+    /*float: left;*/
+    /*!*background-image: url(../images/play/timeshift_pro_end.png);*!*/
+    /*!*background-repeat: no-repeat;*!*/
+  /*!*background-position: -135% 50%; *!*/
+	/*!*background-position: -105% 50%;*!*/
+    /*!*background-color: #111111;*!*/
+/*}*/
+.play_tv_info_event_time {
+/*  width: 81px; */ 
+	width: 86px; 
+    height: 47px;
+    line-height: 47px;
+    text-align: right;
+    overflow: hidden;
+    margin-right: 15px;  
+    float: left;
+}
+
+.play_tv_info_event_name {
+ /*   width: 190px;  */ 
+	width: 185px;
+    height: 47px;
+    line-height: 47px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 15px;
+    float: left;
+}
+
+.play_tv_info_event_flag {
+    width: 55px;
+    height: 47px;
+    line-height: 47px;
+    text-align: center;
+    float: left;
+}
+
+#play_tv_info_list_desc {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 0px;
+    width: 0px;
+    text-align: left;
+    line-height: 0px;
+    font-size: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #000;
+}
+
+#play_tv_info_list_ad {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 0px;
+    width: 0px;
+}
+
+#play_tv_info_list_ad_img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 0px;
+    width: 0px;
+    display: none;
+    overflow: hidden;
+    background-repeat: no-repeat;
+}
+
+#play_tv_info_list_ad_key {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 0px;
+    width: 0px;
+    background: url(../images/play/info_key.png) no-repeat;
+    display: none;
+}
+
+#play_tv_info_event_scroll {
+    position: absolute;
+    top: -9px;
+    left: 455px;
+    width: 30px;
+    height: 40px;
+    background: url(../images/icon/scroll.png) no-repeat;
+}
+
+/************节目信息 END*****************/
+
+/*********连看信息*****************/
+#play_tv_info_relate_list {
+    position: absolute;
+    width: 474px;
+    height: 540px;
+    left: 492px;
+    top: 72px;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 47px;
+    /* background-image: url(../images/play/info_bg.png); */
+    /* background-repeat: no-repeat; */
+    display: none;
+    background: url("../images/play/third_menu_list_focus1.png") no-repeat;
+    /*background: #394a73;*/
+    /*opacity: 0.8;*/
+    z-index: 84;
+}
+
+#play_tv_info_relate_tip {
+    position: absolute;
+    top: 56px;
+    left: 50px;
+    width: 360px;
+    height: 65px;
+    line-height: 47px;
+    text-align: center;
+    color: #FFFFFF;
+}
+#play_tv_info_relate_program_name {
+    width: 474px;
+    height: 55px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#play_tv_info_relate_focus {
+    position: absolute;
+    top: 32px;
+    width: 472px;
+    height: 94px;
+    display: none;
+    background: url(../images/play/fav_relate_focus.png) center no-repeat;
+    /*background-size: 500px 70px;*/
+    z-index: 99;
+}
+
+#play_tv_info_relate_item {
+    top: 55px;
+    left: 0px;
+    width: 474px;
+    height: 540px;
+    text-align: center;
+    position: absolute;
+    color: #8b9299;
+}
+
+.play_tv_info_relate_order {
+    width: 80px;
+    height: 47px;
+    line-height: 47px;
+    text-align: center;
+    overflow: hidden;
+    margin-left: 22px;
+    float: left;
+}
+.play_tv_info_relate_type {
+    /*width: 55px;*/
+    width: 85px;
+    height: 47px;
+    line-height: 47px;
+    text-align: center;
+   /* margin-left: 130px;*/
+    margin-left: 100px;
+    float: left;
+    font-size: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.play_tv_info_relate_playsource {
+    width: 150px;
+    height: 47px;
+    line-height: 47px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 22px;
+    float: left;
+}
+
+#play_tv_info_relate_scroll {
+    position: absolute;
+    top: 43px;
+    left: 458px;
+    width: 30px;
+    height: 40px;
+    background: url(../images/icon/scroll.png) no-repeat;
+}
+
+/************连看信息 END*****************/
+
+/*********常看信息*****************/
+#play_tv_info_fav_list {
+    position: absolute;
+    width: 474px;
+    height: 540px;
+    left: 492px;
+    top: 72px;
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 47px;
+    /* background-image: url(../images/play/info_bg.png); */
+    /* background-repeat: no-repeat; */
+    display: none;
+    /*background: #394a73;*/
+    background: url("../images/play/third_menu_list_focus1.png") no-repeat;
+    /*opacity: 0.8;*/
+    z-index: 84;
+}
+#play_tv_info_fav_tip {
+    position: absolute;
+    top: 200px;
+    left: 93px;
+    width: 360px;
+    height: 65px;
+    line-height: 47px;
+    text-align: center;
+    color: #8b9299;
+}
+#play_tv_info_fav_current_status {
+    width: 474px;
+    height: 55px;
+    line-height: 60px;
+    text-align: center;
+    font-size: 22px;
+    color: #fff799;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#play_tv_info_fav_focus {
+    position: absolute;
+    top: 32px;
+    width: 472px;
+    height: 94px;
+    display: none;
+    background: url(../images/play/fav_relate_focus.png) center no-repeat;
+    /*background-size: 500px 70px;*/
+    z-index: 99;
+}
+#play_tv_info_fav_item {
+    top: 55px;
+    left: 0px;
+    width: 474px;
+    height: 540px;
+    text-align: center;
+    position: absolute;
+    color: #8b9299;
+}
+.play_tv_info_fav_name {
+   /* width: 474px; */
+    width: 430px;
+    height: 47px;
+    line-height: 47px;
+    text-align: center;
+    overflow: hidden;
+    margin-left: 22px;
+    float: left;
+}
+#play_tv_info_fav_scroll {
+    position: absolute;
+    top: 43px;
+    left: 458px;
+    width: 30px;
+    height: 40px;
+    background: url(../images/icon/scroll.png) no-repeat;
+}
+/************常看信息 END*****************/
+/***************节目列表***************/
+#play_channel_list {
+    position: absolute;
+    top: 72px;
+    /*left: 126px;*/
+    left: 62px;
+    width: 380px;
+    height: 540px;
+    color: #8b9299;
+    /*background:url(../images/play/chanlist_bg.png) no-repeat;*/
+    display: none;
+    z-index:84;
+}
+
+#play_channel_list_title {
+    width: 0px;
+    height: 0px;
+    font-size: 0px;
+    line-height: 0px;
+    text-align: center;
+    margin: 0px 0px;
+    display: none;
+}
+
+#play_channel_list_item {
+    top: 0px;
+    width: 254px;
+    left: 63px;
+    height: 540px;
+    text-align: left;
+    position: absolute;
+    padding-top:10px;
+    /*opacity: 0.8;*/
+    /*background: #394A73;*/
+    background: url("../images/play/channelist_bg.png") no-repeat;
+}
+
+.play_channel_list_item {
+    line-height: 47px;
+    font-size: 20px;
+    width: 254px;
+    height: 47px;
+}
+
+#play_channel_list_focus {
+    position: absolute;
+    top: 229px;
+    /* left: 63px;  */
+    left: 59px;
+    width: 260px;
+    height: 80px;
+    display: none;
+    background: url(../images/play/channelist_focus.png) no-repeat;
+    z-index: 99;
+}
+
+.play_channel_list_num_nofocus {
+    width: 40px;
+    margin-left: 20px;
+    text-align: left;
+    float: left;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.play_channel_list_name_nofocus {
+    width: 169px;
+    margin-left: 5px;
+    text-align: left;
+    float: left;
+    font-size: 20px;
+    font-weight: 200;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /*height: 49px;*/
+}
+
+.play_channel_list_num_focus {
+    width: 40px;
+    margin-left: 20px;
+    text-align: left;
+    float: left;
+    font-size: 22px;
+    font-weight: bolder;
+    color: #FFFFFF;
+}
+
+.play_channel_list_name_focus {
+    width: 173px;
+    margin-left: 5px;
+    text-align: left;
+    float: left;
+    font-size: 22px;
+    font-weight: bolder;
+    height: 47px;
+    overflow: hidden;
+    /*text-overflow: ellipsis;*/
+    /*white-space: nowrap;*/
+    color: #FFFFFF;
+}
+
+#play_channel_list_scroll {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 0px;
+    height: 0px;
+    background: url(../images/icon/scroll.png) no-repeat;
+    display: none;
+}
+
+#channel_AD_0 {
+    position: absolute;
+    top: 347px;
+    left: 935px;
+    width: 232px;
+    height: 130px;
+    overflow: hidden;
+    /*background: #00003F;*/
+    background-repeat: no-repeat;
+
+}
+#channel_AD_1 {
+    position: absolute;
+    top: 207px;
+    left: 935px;
+    width: 232px;
+    height: 130px;
+    overflow: hidden;
+    /*background: #000000;*/
+    background-repeat: no-repeat;
+
+}
+#channel_AD_2 {
+    position: absolute;
+    top: 67px;
+    left: 935px;
+    width: 232px;
+    height: 130px;
+    overflow: hidden;
+    /*background: #000000;*/
+    background-repeat: no-repeat;
+
+}
+
+#play_channel_list_timeshift {
+    width: 63px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 40px;
+    font-family: "黑体";
+    position: absolute;
+    top: 250px;
+    left: 0px;
+    display: none;
+    background: url(../images/play/left_arrow.png) 90% 50% no-repeat;
+    /*url(../images/play/timeshift.png) 20% 50% no-repeat,*/
+}
+
+#play_channel_list_more {
+    width: 63px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 40px;
+    font-family: "黑体";
+    padding-left: 30px;
+    position: absolute;
+    top: 250px;
+    left: 312px;
+    display: none;
+    background: url(../images/play/right_arrow.png) 20% 50% no-repeat;
+    /*url(../images/play/more.png) 90% 50% no-repeat,*/
+}
+
+/***************节目列表 END***************/
+
+/***************二级更多列表***************/
+#play_second_menu_list {
+    position: absolute;
+    top: 72px;
+    left: 379px;
+    width: 113px;
+    height: 540px;
+    color: #8b9299;
+    /*opacity: 0.8;*/
+    /*background: #2A3859;*/
+    background: url("../images/play/second_menu_list_bg_focus.png") no-repeat;
+    display: none;
+    z-index:84;
+}
+
+#play_second_menu_list_item {
+    top: 151px;
+    width: 113px;
+    left: 0px;
+    height: 540px;
+    text-align: center;
+    position: absolute;
+}
+
+.play_second_menu_list_item {
+    line-height: 47px;
+    font-size: 20px;
+}
+
+#play_second_menu_list_focus {
+    position: absolute;
+    top: 230px;
+    left: -4px;
+    width: 120px;
+    height: 80px;
+    /* display: none; */
+    /* border: 2px solid #d98b1f; */
+    /* background: url(../images/play/channelist_focus.png) center no-repeat; */
+    background: url(../images/play/second_menu_list_focus.png) center no-repeat;
+    /* background-size: 134px 86px; */
+    z-index: 99;
+    color: #ffffff;
+
+}
+
+.play_second_menu_list_name_nofocus {
+    width: 113px;
+    /* margin-left: 5px; */
+    text-align: center;
+    /* float: left; */
+    font-size: 20px;
+    font-weight: 200;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 47px;
+    line-height: 47px;
+    color: #8b9299;
+}
+
+.play_second_menu_list_name_focus {
+    width: 113px;
+    /*margin-left: 5px;*/
+    text-align: center;
+    /*float: left;*/
+    font-size: 22px;
+    font-weight: bolder;
+    height: 47px;
+    line-height: 47px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #FFFFFF;
+}
+
+/***************二级更多列表 END***************/
+
+/**********************play tv 音量*************************/
+#play_tv_volume_bar {
+    position: absolute;
+    width: 1208px;
+    height: 130px;
+    left: 58px;
+    top: 420px;
+    overflow: hidden;
+    font-size: 24px;
+    color: #FFF;
+    background: url(../images/play/play_tv_volume_bar.png) 0% 50% no-repeat;
+    display: none;
+    z-index: 60;
+}
+
+#play_tv_volume_bar_progress {
+    position: absolute;
+    width: 0px;
+    height: 5px;
+    /*left: 92px;*/
+    left: 82px;
+    top: 63px;
+    background: url(../images/play/play_tv_volume_width.png) left repeat-x;
+}
+
+#play_tv_volume_bar_progress_point {
+    position: absolute;
+    width: 54px;
+    height: 40px;
+    left: 22px;
+    top: 44px;
+    background: url(../images/play/play_tv_volume_flag.png) no-repeat;
+    display: none;
+}
+
+#volumebar_AD_0 {
+    position: absolute;
+    left: 930px;
+    top: 0px;
+    width: 232px;
+    height: 130px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    /*background-color: #000000;*/
+}
+
+#play_tv_volume_bar_num {
+    position: absolute;
+    width: 50px;
+    height: 40px;
+    left: 850px;
+    /*top: 55px;*/
+    top: 53px;
+    line-height: 24px;
+    font-size: 24px;
+    text-align: center;
+}
+
+#play_tv_mute {
+    position: absolute;
+    left: 978px;
+    top: 95px;
+    width: 112px;
+    height: 113px;
+    background: url(../images/icon/mute_icon.png) center no-repeat;
+    display: none;
+    z-index: 60;
+}
+
+/**********************play tv 音量 END************************/
+
+#support_play_back {
+    position: absolute;
+    left: 999px;
+    top: 73px;
+    width: 232px;
+    height: 94px;
+    background: url(../images/play/tips_sttv.png) no-repeat;
+    display: none;
+}
+#mail_icon{
+    position: absolute;
+    width: 36px;
+    height: 37px;
+    left: 935px;
+    top: 34px;
+    background: url(images/icon/unread_messages.png) no-repeat;
+    display: none;
+}
+
+/***********************直播收视排行榜*****************************/
+#channel_top {
+    position: absolute;
+    top: 72px;
+    left: 492px;
+    width: 474px;
+    height: 540px;
+    font-size: 22px;
+    line-height: 95px;
+    /* background: url(../images/play/channel_top_bg.png) center no-repeat; */
+    /*background: #394a73;*/
+    background: url("../images/play/third_menu_list_focus3.png") no-repeat;
+    /*opacity: 0.8;*/
+    display: none;
+    z-index: 85;
+}
+#play_tv_channel_top_tip {
+     position: absolute;
+     top: 107px;
+     left: 0px;
+     width: 470px;
+     height: 180px;
+     line-height: 180px;
+     text-align: center;
+     color: #FFFFFF;
+ }
+#channel_top_focus {
+    position: absolute;
+    top: 107px;
+    left: 0px;
+    width: 480px;
+    height: 180px;
+    display: none;
+    /* border: 2px solid #d98b1f; */
+    background: url(../images/play/channel_top_focus.png) center no-repeat;
+    /*background-size: 487px 176px;*/
+    z-index: 99;
+}
+
+#channel_top_item {
+    top: 150px;
+    left: 0px;
+    width: 474px;
+    height: 432px;
+    text-align: center;
+    position: absolute;
+}
+.channel_top_item {
+    color: #8b9299;
+}
+
+.chan_top_cell0, .chan_top_cell1, .chan_top_cell2, .chan_top_cell3, .chan_top_cell4 {
+    float: left;
+    height: 49px;
+    line-height: 49px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+#currentchannel_top_cell0{
+    margin-left: 40px;
+    width: 64px;
+    text-align: left;
+    font-size: 16px;
+/*  color:#8b9299;  */
+	color:#fff799;
+}
+
+#channel_top_item .chan_top_cell0{
+/*  width: 18px;  */
+	width: 20px;
+    height: 18px;
+/*  line-height: 16px;  */
+	line-height:18px;
+    text-align: center;
+    font-size: 13px;
+    margin: 16px 0px 0px 38px;
+/*  border: #fff799 1px solid;*/
+/*  border-radius:9px ;  */
+	border-radius:15px ;
+    color: #fff799;
+	text-align: center;
+	font-size: 16px;
+}
+
+.chan_top_cell1 {
+    width: 350px;
+    margin-left: 20px;
+    font-size: 20px;
+
+}
+
+.chan_top_cell1_onfocus {
+    width: 350px;
+    margin-left: -12px;
+    font-size: 22px;
+    color: #FFFFFF;
+}
+
+.chan_top_cell2 {
+    width: 186px;
+    /* margin: 0px 10px; */
+    text-align: left;
+    margin-left: 40px;
+    font-size: 20px;
+
+}
+
+.chan_top_cell3 {
+    width: 90px;
+    font-size: 16px;
+    margin-left: 20px;
+
+}
+
+.chan_top_cell4 {
+    width: 80px;
+    font-size: 16px;
+    margin-left: 30px;
+}
+
+#channel_top_scroll {
+    position: absolute;
+    top: -9px;
+    left: 458px;
+    width: 30px;
+    height: 40px;
+    background: url(../images/icon/scroll.png) no-repeat;
+}
+
+#currentchannel_top {
+    position: absolute;
+    top: 54px;
+    left: 0px;
+    color: #8b9299;
+}
+
+/***********************直播收视排行榜 END*****************************/
+
+/*************************play tv END***********************/
+
+/*************epg 节目指南***********************************/
+#epg_bg {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: url(../images/epg/epg_bg.png) no-repeat;
+}
+
+#epg_right_focus {
+    position: absolute;
+    left: 491px;
+    top: 127px;
+    width: 761px;
+    height: 525px;
+    background: url(../images/epg/right_focus.png) no-repeat;
+    display: none;
+}
+
+#epg_left_focus {
+    position: absolute;
+    left: 61px;
+    top: 72px;
+    width: 463px;
+    height: 525px;
+    background: url(../images/epg/left_focus.png) no-repeat;
+}
+
+#epg_chan_list_focus {
+    position: absolute;
+    left: 65px;
+    top: 135px;
+    width: 416px;
+    height: 48px;
+    overflow: hidden;
+    background: url(../images/epg/epg_left_list_focus.png) no-repeat;
+}
+
+.epg_chan_list_num_nofocus {
+    height: 49px;
+    width: 80px;
+    font-size: 25px;
+    text-align: left;
+    margin-left: 30px;
+    font-weight: 200;
+    float: left;
+}
+
+.epg_chan_list_name_nofocus {
+    height: 49px;
+    width: 240px;
+    font-size: 25px;
+    text-align: left;
+    margin-left: 10px;
+    font-weight: 200;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+}
+
+.epg_chan_list_num_focus {
+    height: 49px;
+    width: 100px;
+    font-size: 30px;
+    text-align: left;
+    margin-left: 30px;
+    font-weight: bolder;
+    float: left;
+}
+
+.epg_chan_list_name_focus {
+    height: 49px;
+    width: 220px;
+    font-size: 30px;
+    text-align: left;
+    margin-left: 10px;
+    font-weight: bolder;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#epg_chan_list_scroll {
+    position: absolute;
+    left: 481px;
+    top: 135px;
+    width: 11px;
+    height: 47px;
+    background: url(../images/icon/scroll.png) no-repeat;
+}
+
+.epg_date_list_nofocus {
+    width: 95px;
+    float: left;
+    color: #fff;
+    /*background: url();*/
+    font-size: 23px;
+    overflow: hidden;
+    height: 49px;
+}
+
+.epg_date_list_focus {
+    width: 138px;
+    float: left;
+    color: #fff;
+    font-size: 23px;
+    overflow: hidden;
+    height: 49px;
+    background: url(../images/epg/epg_date_focus.png) no-repeat;
+}
+
+#epg_schedule_list_focus {
+    position: absolute;
+    left: 500px;
+    top: 190px;
+    width: 710px;
+    height: 49px;
+    display: none;
+    background: url(../images/epg/epg_right_schedule_focus.png) no-repeat;
+}
+
+#epg_schedule_list_scroll {
+    position: absolute;
+    left: 1210px;
+    top: 190px;
+    width: 11px;
+    height: 47px;
+    background: url(../images/icon/scroll.png) no-repeat;
+}
+
+#epg_schedule_event_tip {
+    position: absolute;
+    left: 499px;
+    top: 210px;
+    width: 710px;
+    height: 49px;
+    color: #000;
+    font-size: 26px;
+    text-align: center;
+    z-index: 10;
+}
+
+.epg_volume_bar {
+    position: absolute;
+    top: 570px;
+    left: 125px;
+    width: 300px;
+    height: 47px;
+    background: url(../images/epg/epg_volume_bar.png) center no-repeat;
+    display: none;
+    z-index: 60;
+}
+
+.epg_volume_bar_progress {
+    position: absolute;
+    top: 19px;
+    left: 36px;
+    width: 0px;
+    height: 19px;
+    background: url(../images/epg/epg_volume_width.png) no-repeat;
+}
+
+.epg_volume_bar_num {
+    position: absolute;
+    top: 11px;
+    left: 270px;
+    width: 29px;
+    height: 33px;
+    font-size: 22px;
+    color: #fff;
+}
+
+.epg_mute {
+    position: absolute;
+    top: 400px;
+    left: 425px;
+    width: 49px;
+    height: 48px;
+    background: url(../images/icon/mute_icon.png) center no-repeat;
+    display: none;
+    z-index: 60;
+}
+
+/*************epg 节目指南 END***********************************/
+
+/*************************准视频点播（NVOD）*************************/
+#nvod_bg {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: url(../images/nvod/nvod_bg.png) no-repeat;
+}
+
+#play_nvod_volume_bar {
+    position: absolute;
+    top: 600px;
+    left: 246px;
+    width: 788px;
+    height: 83px;
+    background: url(../images/nvod/play_nvod_volume_bar.png) center no-repeat;
+    display: none;
+    z-index: 60;
+}
+
+#play_nvod_volume_bar_progress {
+    position: absolute;
+    top: 27px;
+    left: 87px;
+    width: 0px;
+    height: 83px;
+    background: url(../images/nvod/play_nvod_volume_bar_progress.png) no-repeat;
+}
+
+#play_nvod_volume_bar_num {
+    position: absolute;
+    top: 17px;
+    left: 715px;
+    width: 40px;
+    height: 38px;
+    font-size: 34px;
+    color: #fff;
+}
+
+#play_nvod_mute {
+    position: absolute;
+    left: 935px;
+    top: 50px;
+    width: 49px;
+    height: 48px;
+    background: url(../images/icon/mute_icon.png) center no-repeat;
+    display: none;
+    z-index: 60;
+}
+
+/*************************准视频点播（NVOD） END**********************/
+
+#show_time {
+    position: absolute;
+    top: 28px;
+    right: 40px;
+    width: 170px;
+    height: 50px;
+    text-align: center;
+    color: #fff;
+}
+
+#page_time {
+    width: 170px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 24px;
+}
+
+#page_date {
+    width: 170px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 20px;
+}
+
+.sys_btn {
+    position: absolute;
+    width: 168px;
+    height: 50px;
+}
+
+/*双按钮弹出框样式*/
+.confirm {
+    position: absolute;
+    left: 405px;
+    top: 224px;
+    width: 529px;
+    height: 328px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 24px;
+    background: url(../images/message_box/tip_box.png) center no-repeat;
+    z-index: 94;
+}
+
+/*.msg_box 样式可配合，.info使用*/
+.msg_box, .msg_box1, .msg_box2 {
+    position: relative;
+    width: 435px;
+    left: 20px;
+    top: 0px;
+    padding-left: 15px;
+    padding-top: 3px;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    color: #ffffff;
+    vertical-align: middle;
+    display: table-cell;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 99;
+}
+
+.msg_box {
+    height: 100px;
+}
+
+.msg_box1 {
+    height: 140px;;
+}
+
+.msg_box2 {
+    height: 100px;
+}
+
+/*.info 为无焦点的弹出框样式*/
+.info, .info1, .info2 {
+    position: absolute;
+    left: 405px;
+    top: 252px;
+    width: 521px;
+    height: 289px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 24px;
+    background: url(../images/message_box/tip_box.png) center no-repeat;
+    overflow: hidden;
+}
+
+.info {
+    z-index: 80;
+}
+
+.info1 {
+    z-index: 81;
+}
+
+.info2 {
+    z-index: 82;
+}
+
+/*.title 可配合,.info,.alert使用*/
+.title {
+    position: relative;
+    text-align: center;
+    font-size: 26px;
+    height: 30px;
+    margin-top: 12px;
+    color: #ffffff;
+}
+
+.title_confirm{
+    position: absolute;
+    top:50px;
+    left:200px;
+    font-size: 26px;
+    height: 30px;
+    color: #ffffff;
+}
+
+.msg_box_confirm{
+    position: relative;
+    width: 435px;
+    left: 20px;
+    top: 90px;
+    padding-left: 15px;
+    padding-top: 3px;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    color: #ffffff;
+    vertical-align: middle;
+    display: table-cell;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 99;
+}
+
+/*单按钮焦点弹出框样式，显示内容时需要搭配只用.alert_msg*/
+.alert {
+    position: absolute;
+    left: 406px;
+    top: 256px;
+    width: 521px;
+    height: 289px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 24px;
+    background: url(../images/message_box/tip_box.png) center no-repeat;
+    z-index: 60;
+}
+
+/*.alert_msg 仅和.alert 搭配使用*/
+.alert_msg {
+    position: relative;
+    width: 435px;
+/*    left: 0px;  */
+	left: 28px;
+    top: 0px;
+    padding-left: 15px;
+    padding-top: 3px;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+    color: #ffffff;
+    vertical-align: middle;
+    display: table-cell;
+    z-index: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 110px;
+}
+
+/*.alert_ok_btn 仅和.alert搭配使用*/
+.alert_ok_btn {
+    position: absolute;
+    width: 168px;
+    height: 50px;
+/*    left: 149px;  */
+	left: 175px;
+    top: 146px;
+    background: url(../images/message_box/determine_focus.png) center no-repeat;
+}
+
+.confirm_determine_btn {
+    position: absolute;
+    width: 134px;
+    height: 95px;
+    left: 85px;
+    top: 175px;
+    line-height: 95px;
+    /*background: url(../images/message_box/determine.png) center no-repeat;*/
+}
+
+.confirm_cancel_btn {
+    position: absolute;
+    width: 134px;
+    height: 95px;
+    left: 305px;
+    top: 175px;
+    line-height: 95px;
+    /*background: url(../images/message_box/cancel.png) center no-repeat;*/
+}
+
+/**************************** password input box  **********************************/
+.play_tv_password_input {
+    position: absolute;
+    left: 407px;
+    top: 262px;
+    width: 465px;
+    height: 220px;
+    background-image: url(../images/message_box/pop_up_bg.png);
+    background-repeat: no-repeat;
+    font-size: 22px;
+    z-index: 70;
+    color: #ffffff;
+}
+
+.play_tv_password_prompt {
+    margin-top: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.password_input_tip {
+    positino: absolute;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    display: none;
+}
+
+.play_tv_password_content {
+    position: absolute;
+    width: 240px;
+    height: 37px;
+    left: 100px;
+    top: 70px;
+    padding-left: 30px;
+    background-image: url(../images/input/password_text_bg.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.play_tv_password_content_item {
+    width: 26px;
+    color: #000000;
+    line-height: 41px;
+    text-align: center;
+    float: left;
+}
+
+.play_tv_password_result {
+    position: absolute;
+    line-height: 42px;
+    color: #ffffff;
+    text-align: center;
+    left: 0px;
+    top: 150px;
+    width: 100%;
+    height: 42px;
+}
+
+.TVReception {
+    position: absolute;
+    left: 340px;
+    background-image: url(../images/play/diaochabg.png);
+    width: 600px;
+    height: 400px;
+    top: 160px;
+    z-index: 999;
+    display: none;
+}
+
+.diaocha {
+    margin: 140px 0px 0px 255px;
+    line-height: 50px;
+    font-size: 24px;
+}
+
+.diaocha a {
+    float: left;
+    clear: both;
+    color: #FFF;
+}
+
+.playtv_osd {
+    position: absolute;
+    width: 1280px;
+    height: 60px;
+    background: #39F;
+    left: 0px;
+    top: 632px;
+    visibility: hidden;
+    font-size: 48px;
+    line-height: 60px;
+    color: #fff;
+    opacity: 0.8;
+    background-color: #336699;
+    overflow: hidden;
+}
+
+.playtv_test_str_len {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    font-size: 48px;
+    line-height: 60px;
+    white-space: nowrap;
+    visibility: hidden;
+}
+
+/**************************** password input box  **********************************/
+
+/**  订购预览提示  add by liwenlei   ***/
+#play_free_preview_tips{
+    position: absolute;
+    top: 438px;
+    left: 700px;
+    width: 542px;
+    height: 218px;
+    background: url("../images/play/free_preview_tips.png") no-repeat;
+    display: none;
+   /* z-index: 85;  */
+}
+#play_free_preview_tips_text{
+    position: absolute;
+    top: 70px;
+    left: 50px;
+    width: 442px;
+    height: 78px;
+    color: #fff;
+    font-size: 22px;
+    text-indent: 2em;
+    line-height: 30px
+}

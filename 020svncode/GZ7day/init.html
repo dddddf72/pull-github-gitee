@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+        <meta name="page-view-size" content = "1280*720">
+		<title>广东新UE主应用</title>
+		<link href="css/index.css?20161025" rel="stylesheet" type="text/css" />
+		<link href="css/tv.css?20161025" rel="stylesheet" type="text/css" />
+		<link href="css/playtv.css?20161025" rel="stylesheet" type="text/css" />
+        <link href="css/main.css" type="text/css" rel="stylesheet">
+	</head>
+	<body>
+	
+	<div  style="display: none;">
+		<div id = "width_calc"></div>
+		<!--header-->
+		<div id="header">
+			<div id="header_logo"></div>
+			<!-- <div><img id="header_main_icon" class="header"/> </div>  -->
+			<div  id="header_main_icon" class="header"></div>
+			<div id="header_weather" >           
+				<div id="header_weather_status">晴</div>
+				<div id="header_weather_temperature">21~13°C</div>
+				<div id="header_weather_city">广州</div>
+			</div>
+			<div id="header_dateTime">
+				<div id="header_time">16:22</div>
+				<div id="header_date">2月23日 周五</div>         
+			</div>
+		</div>
+		<div id="headerline"></div>
+		
+		<div id="main1">
+		
+		
+			<!--  用来设置背景颜色(因小视频窗口必须为透明) start  --->
+			<div id="main_up"></div>
+			<div id="main_left"></div>
+			<div id="main_right"></div>
+			<div id="main_down"></div>			
+			<!--  用来设置背景颜色(因小视频窗口必须透明) end  --->
+		
+			<div id="page_index_focus"></div>
+			<table id="page_index">
+				<tbody>
+					<tr><td>本地</td><td>直播</td><td>影视</td><td>应用</td><td>我+</td></tr> 
+				</tbody>
+			</table>
+			<div id="container1">								
+				
+			</div>
+			
+			
+			<!--container end-->
+		</div>
+		<!--main1 end-->
+		
+
+		<!--footer start-->
+		<div id="footer">
+			<div id="footer_focus"></div>
+			<div id="footer_history" class="footer">
+				<img class="footer_img" src="images/main_page/history_small.png">历史
+			</div>
+			<div id="footer_search" class="footer"> 
+				<img class="footer_img" src="images/main_page/search_small.png">搜索
+			</div>
+			<div id="footer_service" class="footer"> 
+				<img class="footer_img" src="images/main_page/service_small.png">服务
+			</div>
+			<div id="footer_notice">
+				<div id="scroll_text"></div>
+				<div id="test_str_len0"></div>
+			</div>
+			<div id="footer_notice_icon"></div>
+		</div>
+		<!--footer end-->
+		
+		
+	</div>
+
+
+    <div id="shouye">
+        <div id="bg" class="main" >
+            <!-- logo  -->
+            <h1 class="logo" id="logo"></h1>
+            <h2 class="search" id = "search"></h2>
+            <!-- 日期  -->
+            <div class="indo" style="display:none">
+                <div class="indo_wrap" style="position: relative;top: -5px;">
+                    <img  id ="weatherImage" class="info_weather_image" src="">
+                    <span id = "weatherCity" class="info_city"></span>
+                </div>
+                <div class="indo_wrap">
+                    <span id = "weatherTemperature" class="info_tempr"></span>
+                    <span id = "weatherDes" class="info_weather"></span>
+                </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="indo_wrap">
+                    <span id="week" class="info_date"></span>
+                    <span id="date" class="info_date"></span>
+                </div>
+
+            </div>
+            <!-- 导航 -->
+            <div class="nav" id="RoleTab">
+
+            </div>
+            <!-- 主体 -->
+            <div class="maincon" id="TabCell">
+
+            </div>
+            <!-- 跑马灯  -->
+            <div class="footer">
+                <div class="notice"></div>
+                <marquee id="notice" class="marquee" scrollamount="5"></marquee>
+            </div>
+            <div id="dengke"></div>
+            <div id="xt"></div>
+        </div>
+    </div>
+	
+	<!-- playtv  -->
+	<div id="playtv_parent">
+	</div>
+    <div class="info">
+        <div class="title"></div>
+        <div class="alert_msg">正在获取区域信息，请稍候...</div>
+    </div>
+	</body>
+
+	
+	<script src="js/lib/core.js?20161025" type="text/javascript" charset="utf-8"></script>	
+	<script src="js/lib/extension.js?20161025" type="text/javascript" charset="utf-8"></script>	
+    <script>
+
+        //跑马灯
+        //var showNotice = new ShowNotice(PORTAL_ADDR,"scroll_text");
+        //showNotice.getNoticeData();
+        
+		SumaJS.$("#shouye").style.display = "block";
+		
+        DVB.tune(339000, 6875, "64QAM");
+        var localNetworkId = -1;
+        document.onsystemevent = function(event) {
+            var val = event.which;
+            debug("=========================init==========event.which=" + val);
+            var modifiers = event.modifiers;
+            switch (val) {
+                case 10031:
+                    checkB6();
+                    break;
+                case 10032:
+                    onFailed();
+                    break;
+                case 10042:
+                    var retEvtStr = SysSetting.getEventInfo(modifiers);
+                    debug("==========init retEvtStr==========" + retEvtStr);
+                    var temp = retEvtStr.substr(retEvtStr.indexOf(",") + 1);
+                    var descriptor_tag = temp.substring(0,2);
+                    if (descriptor_tag == "b6"){
+                        var networkId = DVB.currentDVBNetwork.networkID;
+                        debug("==========init networkId==========" + networkId);
+                        localNetworkId = networkId;
+                        onSuccess();
+                    }
+                    break;
+            }
+        }
+
+        document.onkeypress = function() {
+            var val = event.which;
+            switch (val) {
+                case 27:
+                case 8:
+                    return 0;
+                    break;
+            }
+        }
+
+        var b6TryCount = 0;
+        var checkB6Timer = -1;
+        function checkB6() {
+            if (b6TryCount == 5) {
+                onFailed();
+            } else {
+                clearTimeout(checkB6Timer);
+                if (DVB.currentDVBNetwork && DVB.currentDVBNetwork.networkID) {
+                    DVB.getNITNetworkDescriptor(DVB.currentDVBNetwork.networkID,0xB6);
+                }
+                checkB6Timer = setTimeout(checkB6, 1000);
+                b6TryCount++;
+            }
+        }
+
+        function onSuccess() {
+            debug("=========================init localNetworkId==========:" + localNetworkId);
+            SysSetting.setEnv("Local_NetworkId", "" + localNetworkId);
+            SysSetting.setEnv("INIT_FLAG","1");
+            SysSetting.setEnv("INIT_FLAG_TEST","1");
+            window.location.href = "index.html";
+        }
+
+        function onFailed() {
+            debug("=========================init localNetworkId==========:failed" );
+            SysSetting.setEnv("Local_NetworkId", "-1");
+            SysSetting.setEnv("INIT_FLAG","1");
+            SysSetting.setEnv("INIT_FLAG_TEST","1");
+            window.location.href = "index.html";
+        }
+
+        function debug(str) {
+            if (typeof Utility != "undefined" && typeof Utility.println != "undefined") {
+                Utility.println(str);
+            } else if (typeof RocME != "undefined" && typeof RocME.debug != "undefined") {
+                RocME.debug(str);
+            } else if (typeof console != "undefined") {
+                console.debug(str);
+            } else {
+                //no debug function avaliable
+            }
+        }
+
+        var timer_datetime = -1;
+    </script>
+
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="1280*720; text/html; charset=utf-8">
+    <meta name="viewport" content="width=1280,user-scalable=no">
+    <title>马鞍山-收藏</title>
+    <link href="css/main.css" type="text/css" rel="stylesheet">
+    <style>
+        .title {
+            font-size: 28px;
+            padding: 30px 0 0 60px;
+        }
+
+        .content {
+            position: absolute;
+            /* overflow: hidden; */
+            width: 100%;
+            height: 100%;
+            top: 0;
+            bottom: 0;
+        }
+
+        .con_list {
+            padding: 100px 0 0 60px;
+        }
+
+        .con-item {
+            position: relative;
+            float: left;
+            width: 176px;
+            height: 250px;
+            background: #111;
+            margin: 0 20px 20px 0;
+        }
+
+        .item-title {
+            position: absolute;
+            display: block;
+            width: 176px;
+            top: 212px;
+            left: 0px;
+            background: url('./img/title_bg.png');
+            height: 38px;
+            line-height: 38px;
+            padding: 0 10px;
+            box-sizing: border-box;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 22px;
+        }
+
+        .cont-section {
+            position: relative;
+            width: 176px;
+            height: 250px;
+        }
+
+        .con-item img {
+            width: 100%;
+            height: 100%;
+            /* object-fit: cover; */
+        }
+
+        .con-item.focus {
+            outline: 5px solid #ff7000;
+            font-size: 22px;
+        }
+
+        .con-item {
+            background: url('./img/img05.png');
+        }
+
+        /* .con-item:after{
+            content: '';
+            position: absolute;
+            left: 0;
+            top:0;
+            right: 0;
+            bottom: 0;
+            border: 5px solid #ff7000;
+            visibility: hidden;
+            opacity: 0;
+            transition: .3s;
+        }
+        .con-item.focus{
+            background: #000;
+        }
+        .con-item.focus:after{
+            visibility: visible;
+            opacity: 1;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="title">我的收藏</div>
+        <div class="content">
+            <ul class="con_list" id="list">
+                <div class="loading">正在加载...</div>
+            </ul>
+        </div>
+        <div class="page" id="page">
+            <div class="page-prev" data-page="prev"><i class="icon-prev"></i>上一页</div>
+            <span class="page-num" id="pagenum">第1/1页</span>
+            <div class="page-next" data-page="next">下一页<i class="icon-next"></i></div>
+        </div>
+    </div>
+    <!-- <script type="text/javascript" src="./js/smoothscroll.min.js"></script> -->
+    <script type="text/javascript" src="./js/json2.min.js"></script>
+    <script type="text/javascript" src="./js/base.js"></script>
+    <script type="text/javascript" src="./js/view.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+    <script>
+        var List = $('list');
+        var page = $('page');
+        //焦点记录
+        var listIndex = getGlobalVar('Flist') || 0;
+        var listPage = getGlobalVar('Fpage') || 1;
+        /*Vlist*/
+        var Vlist = new View(list);
+
+        API.GetBookmarks({
+            page: listPage,
+            pageSize: 12
+        }, function (data, total) {
+
+            if (data.length > 0) {
+                var _html = '';
+                $("page").style.display = 'block';
+                Vlist.total = Math.ceil(total / 12);
+                Vlist.currentPage = listPage;
+
+                data.forEach(function (item, i) {
+                    var el = item.selectableItem[0];
+                    var imgUrl = "";
+                    if (el.imageList[0]) {
+                        imgUrl = CONFIGS.ip + '/' + el.imageList[0].posterUrl;
+                        imgUrl = imgUrl ? imgUrl :
+                            ""
+                    } else {
+                        imgUrl = "";
+                    }
+                    _html += '<div class="con-item"  id="' + el.assetId + '" providerId="' + el
+                        .providerId + '" folderAssetId="' + el.folderAssetId +
+                        '"><h5 class="cont-section"><img src="' + imgUrl +
+                        '" ><span class="item-title">' + el
+                        .titleFull + '</span></h5></div>';
+                })
+                List.innerHTML = _html;
+                $("pagenum").innerHTML = '第' + Vlist.currentPage + '/' + Vlist.total + '页';
+                setTimeout(function () {
+
+                    Vlist.init(List.getElementsByTagName('div'));
+                    Vlist.focusByIndex(listIndex);
+                    Vlist.ok = function (el) {
+                        API.GetDetail({
+                            id: el.id
+                        }, function (_data) {
+
+                            if (_data.isOver) {
+                                showMessage('该媒资已下架！');
+                            } else {
+                                setGlobalVar('Flist', Vlist.focusId);
+                                setGlobalVar('Fpage', Vlist.currentPage);
+                                localStorage.setItem("preUrl", "./favorite.html");
+                                location.href = './details.html?id=' + el.id;
+                            }
+                        })
+
+                    }
+                    Vpage.up = function () {
+                        Vlist.onfocus();
+                    }
+                    Vpage.back = function () {
+                        Vlist.onfocus();
+                    }
+                    Vlist.back = function () {
+                        setGlobalVar('Flist', 0);
+                        setGlobalVar('Fpage', 1);
+                        history.go(-1);
+                    }
+                }, 300)
+            } else {
+                List.innerHTML = '<div class="loading">暂无收藏~</div>';
+                Vlist.total = 1;
+                Vlist.onfocus();
+                $("pagenum").innerHTML = '第1/1页';
+            }
+        })
+
+        /*Vpage*/
+        var Vpage = new View(page);
+        setTimeout(function () {
+            Vpage.init(page.getElementsByTagName('div'));
+            Vpage.ok = function (el) {
+                var type = el.getAttribute('data-page');
+                if (type == 'prev') {
+                    Vlist.currentPage--;
+                } else {
+                    Vlist.currentPage++;
+                }
+                if (Vlist.currentPage < 1) {
+                    showMessage('已经是第一页了');
+                    Vlist.currentPage = 1;
+                    return
+                }
+                if (Vlist.currentPage > Vlist.total) {
+                    showMessage('已经是最后一页了');
+                    Vlist.currentPage = Vlist.total;
+                    return
+                }
+                turnPage(Vlist.currentPage);
+            }
+            Vlist.down = function () {
+                Vpage.onfocus();
+            }
+        }, 300)
+
+        //翻页
+        function turnPage(current) {
+            List.innerHTML = '<div class="loading">正在加载...</div>'
+            API.GetBookmarks({
+                page: current,
+                pageSize: 12
+            }, function (data) {
+                var _html = '';
+                data.forEach(function (item, i) {
+                    var el = item.selectableItem[0];
+                    var imgUrl = "";
+                    if (el.imageList[0]) {
+                        imgUrl = CONFIGS.ip + '/' + el.imageList[0].posterUrl;
+                        imgUrl = imgUrl ? imgUrl :
+                            ""
+                    } else {
+                        imgUrl = "";
+                    }
+                    _html += '<div class="con-item"  id="' + el.assetId + '" providerId="' + el
+                        .providerId + '" folderAssetId="' + el.folderAssetId +
+                        '"><h5 class="cont-section"><img src="' + imgUrl +
+                        '" ><span class="item-title">' + el
+                        .titleFull + '</span></h5></div>';
+                })
+
+                List.innerHTML = _html || '暂无收藏~';
+                setTimeout(function () {
+                    Vlist.init(List.getElementsByTagName('div'));
+                    $("pagenum").innerHTML = '第' + current + '/' + Vlist.total + '页';
+                }, 300)
+            })
+        }
+    </script>
+</body>
+
+</html>

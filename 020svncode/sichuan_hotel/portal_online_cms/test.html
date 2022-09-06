@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- <script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript" src="js/global.js" ></script>
+<script type="text/javascript" src="js/lowBoxJsCommon.js" ></script>
+<script type="text/javascript" src="js/base.js"></script> -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+this  is page!
+</body>
+<script type="text/javascript">
+	var data = {
+		"eType":"moui",
+		"eId":"61001",
+		"tId":"4234",
+		"uc":"34234",
+		"tType":"0",
+		"eStatus":"3",
+		"areaCode":"0000",
+		"tModel":"2313"
+	}
+	$.ajax({
+		contentType:"application/json; charset=UTF-8",
+		data:JSON.stringify(data),
+		url:"http://10.9.220.9:81/dc.gif",
+		method:"OPTIONS",
+		success:function (data) {
+			
+		}
+	})
+</script>
+</html>

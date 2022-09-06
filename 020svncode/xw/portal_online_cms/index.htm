@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="1280*720; text/html; charset=utf-8">
+    <meta name="viewport" content="width=1280,user-scalable=no">
+    <title>江苏有线</title>
+    <link href="css/main.css" type="text/css" rel="stylesheet">
+</head>
+
+<body onload="initPage();" bgcolor="#000000">
+    <div id="bg" class="main" >
+        <!-- logo  -->
+        <h1 class="logo" id="logo"></h1>
+        <div class="focusLogoContainer" id="focusLogoContainer">
+        	<div class="focusLogo" id="history">
+
+        	</div>
+			<div class="focusLogo" id="search">
+
+			</div>
+        </div>
+        <span id="test" style="left:300px;top:40px;position:relative;"> </span>
+        <!-- 日期  -->
+        <div class="indo">
+			<div class="indo_wrap">
+				<span id = "weatherTemperature" class="info_tempr"></span>
+			</div>&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="indo_wrap">
+				<span id = "weatherDes" class="info_weather"></span>
+			</div>&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="indo_wrap" style="position: relative;">
+				<img  id ="weatherImage" class="info_weather_image" src="">
+			</div>
+			
+        </div>
+        <!-- 导航 -->
+        <div class="nav" id="RoleTab">
+            
+        </div>
+        <!-- 主体 -->
+        <div class="maincon" id="TabCell">
+            
+        </div>
+        <!-- 跑马灯  -->
+        <div class="footer">
+			<div class="notice"></div>
+			<div class="marquee" id="marquee">
+				<span></span>
+			</div>
+        </div>
+		<div id="dengke"></div>
+		<div id="xt" class="xt"></div>
+    </div>
+</body>
+<script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript" src="js/global.js" ></script>
+<script type="text/javascript" src="js/lowBoxJsCommon.js" ></script>
+<script type="text/javascript" src="js/base.js"></script>
+<script type="text/javascript" src="js/json2.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/data.js"></script>
+<script type="text/javascript" src="js/xml2json.js"></script>
+<script type="text/javascript" src="js/focusLogo.js"></script>
+<script type="text/javascript" src="js/carouse.js"></script>
+<script>
+    var Tabdata;//标签数据
+	var rollTabData;//getRoleTab接口返回的数据
+    var CellArr = [];
+    var Area = 0;
+    var Tab;
+    var ScrollH;
+    var tabIndex = 0;
+    var isBack="n";
+    var lastUpdateTime;
+    var updateInterval = 7200000;//更新布局时间间隔；
+    var isNeedUpdate = false;
+	//var weatherArray = null;
+    var wIndex = 0;
+	var smartCardId = null;
+	var trueCardId = null;//未经处理的智能卡号
+    
+    var planId;//布局ID
+	var confirmUrl="";//焦点移动到资源块上的链接url
+	try{
+		var user =users.currentUser;
+	}catch(e){
+		
+	}
+//	var lock = true;
+    var isMenu =  parseInt(getGlobalVar('isMenu') || 1);//是否是通过按的菜单键进的首页,1代表是
+//	var keyUpTime =0;
+	var resultCode = -1;//-1表示向aaa查询用户信息失败
+	var caName = null;
+
+    var confKey = 1;//后门按键
+
+	var userCode = null;
+	
+	var isAutoGoPlay = true;  //开机后用户在N秒后没做任何操作，则自动打开直播页面
+	var waitTime = 0;
+	
+	var iepgAddr = '';
+	var canPreview = "0";//不支持预发布布局预览
+	
+	var liveArr = [];//直播窗口对象数组     
+
+
+    function initPage(){
+		if(isMenu === 1){//判断是否通过菜单键刷新重新进入首页
+			cleanFocusCache();
+		}
+		getSavaData();
+        iepgAddr = getQueryString("iepgAddr") || getGlobalVar('iepgAddr');//判断是否从后门配置参数获取的布局
+        if(iepgAddr !==null && iepgAddr !=='undefined' && iepgAddr !=='' && iepgAddr !=='null'){
+            getConfigure();
+            if(isBack === "y"){
+                var tabData = getGlobalVar("tabData");
+                initTab(tabData);
+                setGlobalVar('isMenu',1);
+                initWeatherInfo();
+            }else{
+                //	queryUserInfo();
+                //	getAreaCodeAndver();
+                initWeatherInfo();
+                getData();
+				if(areaCode == "0000"){
+					$("xt").innerHTML = iPanel.eventFrame.firstToPlayAuto;
+				}
+            }
+        }else{
+            if (isBack === "y") {
+                if (NeedUpdate()) {
+                    queryUserInfo(function(){
+                    	getHotPlay();
+                    	getAreaCodeAndver(true);
+                    });
+                    
+                } else {
+                    getAreaCodeAndver(false);
+                    var tabData = getGlobalVar("tabData");
+                    initTab(tabData);
+                }
+                setGlobalVar('isMenu', 1);
+                //initWeatherInfo();
+            } else {
+                queryUserInfo(function() {
+                	getHotPlay();
+	                getAreaCodeAndver(true);
+					try{
+						waitTime = parseInt(iPanel.eventFrame.firstToPlayAuto);
+					}catch(e){
+						waitTime = 15;
+					}
+					if(waitTime > 0){
+						setTimeout("firstGoPlayAuto()",waitTime*1000);
+					}
+                });
+                
+            }
+        }
+		
+		//$("xt").innerHTML = "test:"+districtCode+","+areaCode+","+version+","+resultCode+","+trueCardId; 
+		//$("xt").innerHTML ="districtCode:"+districtCode+",areaCode："+areaCode+",version："+version+",isMenu："+isMenu+",isBack："+isBack+",CellArr："+CellArr.length+",CA="+CA.name+",resultCode"+resultCode;
+		/*if(tabIndex === 0){
+			setLivePlay();
+		}else{
+			stopLivePlay();
+		} */
+		//checkLivePlay(tabIndex);
+		//setInterval("weatherChange()",4000);
+
+    }
+	
+	function firstGoPlayAuto(){
+		if(isAutoGoPlay){
+			location.href = "ui://play.html";
+		}
+	}
+
+    function getConfigure(){
+        iepgIP = getQueryString("iepgAddr") || getGlobalVar('iepgAddr');
+        areaCode = getQueryString("areaCode") || getGlobalVar('areaCode');
+        version = getQueryString("version") || getGlobalVar('version');
+		canPreview = getQueryString("canPreview") || getGlobalVar('canPreview');
+    }
+
+    function getQueryString(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+	
+	function getUrlParam(url,paramName){
+		var paraArr = url.split("&");
+		var param = "";
+		for(var i = 0;i<paraArr.length;i++){
+			var para = paraArr[i];
+			if(para.indexOf(paramName) !== -1){
+				param = para.split("=")[1];
+			}
+		}
+		return param;
+	}
+
+    function setLivePlay(liveObj){
+    	//开发环境 关闭直播相关
+    	/*if (dev) {
+    		return;
+    	}*/
+    	//debug("test");
+		try{			
+			//media.video.setPosition(91,155,442,260);
+			media.video.setPosition(liveObj.cellX+5,liveObj.cellY+130+5,liveObj.width-10,liveObj.height-10);
+			if(rollTabData.extData.serviceId && rollTabData.extData.frequency){//播放宣传频道
+				var frequency = parseInt(rollTabData.extData.frequency+"0000");//默认给频点后面加4个0
+				var serviceId = parseInt(rollTabData.extData.serviceId);
+				DVB.playAV(frequency,serviceId);
+			}else{  //播放关机频道
+				var channel = user.getOffChannel(1);
+				if(typeof(channel) == "object" && channel != null){
+					DVB.playAV(channel.getService().frequency,channel.getService().serviceId);
+				}
+			}
+		}catch(e){
+		
+		}
+	}
+	
+    function debug(str){
+        if (debugInfoOn) {
+           $("test").innerHTML=str; 
+        }
+    }
+
+	function stopLivePlay(){
+        //return;
+	try{
+            //DVB.stopAV(0);
+            media.video.setPosition(0,0,0,0);
+	    DVB.stopAV(0);
+        }catch(e){
+
+        }
+    }
+
+    function checkLivePlay(tabIndex) {
+    	//return;
+	for (var i = 0; i < liveArr.length; i++) {
+    		if (liveArr[i].tabIndex == tabIndex) {
+    			setLivePlay(liveArr[i]);
+    			return;
+    		}
+    		
+    	}
+    	stopLivePlay();
+    }
+
+    function NeedUpdate(){
+        var now = new Date().getTime();
+        if(now - lastUpdateTime > updateInterval){
+            isNeedUpdate = true;
+        }
+        return isNeedUpdate;
+    }
+
+    function getData(){
+        ajax({
+            type: "GET",
+            url: iepgIP+'getRoleTab?roleId=&version='+version+'&productType=DVB&areaCode='+areaCode+'&appType=moui&smartCardId='+trueCardId+'&isTest='+canPreview,
+            error: function () {
+
+            },
+            success: function (data) {
+                var startUpDateTime = new Date().getTime();
+                setGlobalVar("lastUpdateTime",startUpDateTime);
+                setGlobalVar("tabData",data);
+                initTab(data);
+            }
+        });
+    }
+
+    function initTab(data) {
+        var jsonData = JSON.parse(data);
+		rollTabData = jsonData;
+//        $('bg').style.background = 'url(' + jsonData.roleList[0].tabList[0].tabBgUrl + ')';
+        planId = jsonData.planId;
+        Tabdata = jsonData.roleList[0].tabList;
+		/*if(areaCode === "1002"){
+			$("xt").innerHTML = "test:"+districtCode+","+areaCode+","+version+","+resultCode+","+trueCardId+","+Tabdata.length;
+		} */
+
+        Tab = new TabView(Tabdata, tabIndex);
+        Tab.init('RoleTab', 'TabCell');
+        tabAdapt(Tabdata.length);
+        Tab.onfocus();
+        //初始化
+        if(isBack === "y"){
+            if(isNeedUpdate){
+                initCellData(tabIndex);
+				initMarqueeData();
+            }else{
+				backContent();
+				initCell(CellArr[tabIndex].data, tabIndex);
+				var marqueeData = getGlobalVar("marqueeData");
+                initMarquee(JSON.parse(marqueeData).marqueeList);
+            }
+        }else{
+            initCellData(tabIndex);
+			initMarqueeData();
+        }
+		
+		//checkLivePlay(tabIndex);
+		
+        Tab.tabFub = function (index) {
+            stopLivePlay();
+		//	$("xt").innerHTML = "rollTabId:"+rollTabId+",rollArr:"+rollArr.length;
+            tabIndex = index;
+            //console.log(Tabdata[index].tabId)
+            if (CellArr[index] && !isNeedUpdate){
+                ScrollH = CellArr[index];
+                checkCarouse(null);
+				if(ScrollH.isShow === 0){
+					CellArr[index].init(index);
+					CellArr[index].isShow = 1;
+				}else{
+					checkLivePlay(tabIndex);
+				}
+			//	lock = true;
+            } else {
+//                if(isBack === "y"){
+//                    if(isNeedUpdate){
+//                       initCellData(tabIndex);
+//					   initMarqueeData();
+//                    }else{
+//                       initCell(CellArr[index].data, index);
+//					   var marqueeData = getGlobalVar("marqueeData");
+//					   initMarquee(JSON.parse(marqueeData).marqueeList);
+//                    }
+ //               }else{
+                    initCellData(index);
+//					initMarqueeData();
+//               }
+            }
+			/*if(index === 0){
+				setLivePlay();
+			}else{
+                stopLivePlay();
+			}*/
+			//checkLivePlay(tabIndex);
+        }
+        Tab.downFun = function () {
+            if (CellArr[tabIndex]){
+                Area++;
+                Tab.onblur(true);
+				ScrollH.focusId = ScrollH.firstFocusId;
+				if($(ScrollH.focusId+"").style.display === "none"){//如果下一个资源块为隐藏状态，则默认将焦点移到滑动资源块数组第0个上
+					ScrollH.focusId = rollArr[0].cellId;
+				}
+				confirmUrl = ScrollH._data[ScrollH.focusId].intent;				
+				ScrollH && ScrollH.onfocus();
+            }
+            var cellObj = {};
+            cellObj.cellId = CellArr[tabIndex].focusId
+            cellCheckCarouse(null,cellObj);
+        }
+        Tab.upFun = function () {
+        	if(focusLogoArr){
+        		Area--;
+        		Tab.onblur(true);
+
+        	}
+        }
+
+    }
+
+    //从栏目页返回到首页后初始化CellArr
+	function backContent(){
+	//	console.log(CellArr);
+        for(var i = 0;i<CellArr.length;i++){
+			if(CellArr[i] !== null){
+				var mFocusId = CellArr[i].focusId;
+				CellArr[i] = new ScrollHView(CellArr[i].data,i);
+				CellArr[i].focusId = mFocusId;
+				CellArr[i].isShow = 0; 
+			//	CellArr[i].init(i);
+				CellArr[i].upFun = function (){
+					Area--;
+					Tab.onfocus();
+				}
+			}
+        }
+	//	console.log(CellArr);
+    }
+
+    function initCellData(index) {
+        var tabId = Tabdata[index].tabId;
+        ajax({
+            type:"GET",
+            url: iepgIP+'getTabCell?planId='+planId+'&tabId=' + tabId+'&isTest='+canPreview,
+            success: function (data) {
+                initCell(JSON.parse(data).tabCell,index);
+			//	lock = true;
+            },
+            error: function () {
+
+            }
+        });
+    }
+	
+	function initMarqueeData(){
+		ajax({
+            type:"GET",
+            url: iepgIP+'getMarquee?version='+version+'&areaCode='+areaCode+'&marqueeVersion=0',
+            success: function (data)  {
+                setGlobalVar("marqueeData",data);
+                initMarquee(JSON.parse(data).marqueeList);
+            },
+            error: function () {
+            }
+        });	
+	}
+	
+
+    function initCell(data,index) {
+        CellArr[index] = new ScrollHView(data,index);
+        CellArr[index].init(index);
+		CellArr[index].isShow = 1;
+	//	console.log(CellArr);
+        ScrollH = CellArr[index];
+        ScrollH.upFun = function () {
+            Area--;
+            Tab.onfocus();
+        }
+        if (Area === 1) {
+			if(isBack === "y" && index === rollTabId){
+                var rollArrBak = JSON.parse(getGlobalVar("rollArrBak"));
+				rollArr = JSON.parse(JSON.stringify(rollArr));
+			//	console.log(rollArr);
+			//	console.log(rollArrBak);
+                var index = rollArr.length - rollArrBak.length;
+                for(var i =0;i<rollArr.length;i++){
+                    if(i<index){
+                        $(rollArr[i].cellId+"").style.display= "none";
+                        $(rollArr[i].cellId+"").style.top = rollArr[0].cellY +"px";
+                    }else{
+						$(rollArr[i].cellId+"").style.display = "block";
+                        $(rollArr[i].cellId+"").style.top = rollArrBak[i-index].cellY +"px";
+                        if(rollArrBak[i-index].cellY > rollTop){
+                            $(rollArr[i].cellId+"").style.display = "none";
+                        }
+                    }
+					if(ScrollH.map[rollArr[i].cellId]['right'] === undefined){
+						ScrollH.map[rollArr[i].cellId]['right'] = ScrollH.map[rollArr[0].cellId]['right'];
+					}else if(ScrollH.map[rollArr[i].cellId]['left'] === undefined){
+						ScrollH.map[rollArr[i].cellId]['left'] = ScrollH.map[rollArr[0].cellId]['left'];
+					}
+                }
+				rollArr = rollArrBak;
+            }
+            Tab.onblur(true);
+            ScrollH && ScrollH.onfocus();
+			confirmUrl = ScrollH._data[ScrollH.focusId].intent;
+        }else if(isBack !== "y" && index === liveTabId){//开机或者按菜单键刷新后焦点默认落在直播窗口上
+			Area++;
+			Tab.onblur(true);
+            ScrollH && ScrollH.onfocus();
+			confirmUrl = ScrollH._data[ScrollH.focusId].intent;
+		}
+		
+		if(keyBoardConfArr.length === 0){
+			getKeyboardConf();
+		}
+
+		if(isBack === "y" && !isNeedUpdate){
+			if (Area == 1) {
+	        	checkCarouse(parseInt(getGlobalVar("focusId")) || null);   
+	        }else{
+	        	checkCarouse(null);
+	        }
+	    }else{
+	        
+	        if (Area == 1) {
+	        	checkCarouse(ScrollH.focusId);
+	        }else{
+	            checkCarouse(null);
+	        }
+	        
+	    }
+
+	    //checkLivePlay(Tab.focusPos);
+    }
+	
+	var keyBoardConfArr = [];
+	function getKeyboardConf(){
+		ajax({
+            type:"GET",
+            url: iepgIP+'getPram?PramName=keyboardConf&version=V001',
+            success: function (data)  {
+                initKeyboardConf(JSON.parse(data));
+            },
+            error: function () {
+            }
+        });		
+	}
+	
+	function initKeyboardConf(data){
+		var datas = data.datas;
+		for(var i = 0;i<datas.length;i++){
+			var key = datas[i];
+			switch(key.pramKey){
+				case "0":
+					keyBoardConfArr[0]=key.pramValue;
+					break;
+				case "1":
+					keyBoardConfArr[1]=key.pramValue;
+					break;
+				case "2":
+					keyBoardConfArr[2]=key.pramValue;
+					break;
+				case "3":
+					keyBoardConfArr[3]=key.pramValue;
+					break;
+				case "4":
+					keyBoardConfArr[4]=key.pramValue;
+					break;
+				case "5":
+					keyBoardConfArr[5]=key.pramValue;
+					break;
+				case "6":
+					keyBoardConfArr[6]=key.pramValue;
+					break;
+				case "7":
+					keyBoardConfArr[7]=key.pramValue;
+					break;
+				case "8":
+					keyBoardConfArr[8]=key.pramValue;
+					break;
+				case "9":
+					keyBoardConfArr[9]=key.pramValue;
+					break;
+			}
+		}
+	}
+	
+	function initMarquee(data) {
+		focusLogoArr = [];
+		for(var i = 0;i<data.length;i++){
+			var marquee = data[i];
+			if(marquee.type === 0){
+				var txt = marquee.infoList[0].font.text;
+			//	$("notice").innerHTML ="";
+			//	$("notice").innerHTML = txt;
+				var marqueeObj = document.getElementById("marquee");
+				var W = marqueeObj.offsetWidth;
+				var  marqueeSpan = marqueeObj.getElementsByTagName('span')[0];
+				marqueeSpan.innerHTML = txt;
+				var w = marqueeSpan.offsetWidth;
+				marqueeObj.innerHTML += marqueeObj.innerHTML;
+				marqueeObj.timer && clearInterval(marqueeObj.timer);
+				marqueeObj.timer = setInterval(function(){
+					if(marqueeObj.scrollLeft+W>=w*2){					
+						marqueeObj.scrollLeft = w-W;
+					}else{
+						marqueeObj.scrollLeft += 1;
+					}
+				},40)
+			}else if(marquee.type === 1){
+				if(marquee.intent.indexOf("logo")==0){
+					$("logo").style.background = "url('"+marquee.bgImage+"')";
+				}else if(marquee.intent.indexOf("history")==0){
+					focusLogoArr.unshift(marquee);
+					//$("history").style.background = "url('"+marquee.bgImage+"')";
+				}else if(marquee.intent.indexOf("search")==0){
+					focusLogoArr.push(marquee);
+					//$("search").style.background = "url('"+marquee.bgImage+"')";
+				}
+				
+			}else if(marquee.type === 2){
+				$('bg').style.background = 'url(' + marquee.bgImage + ')';
+			}
+		}
+		Logo = new FocusLogo(focusLogoArr);
+		Logo.init("focusLogoContainer");
+		if (Area == -1) {
+			Logo.onfocus();
+			Tab.onblur(true);
+        }
+    }
+
+	//设置日期
+	function setDate() {
+		
+		var nowDate = new Date();
+		var year = nowDate.getFullYear();
+		var month = nowDate.getMonth()+1;
+		var monthDay = nowDate.getDate();
+		var weekDay = nowDate.getDay();
+		var hours = nowDate.getHours().toString();
+		var min = nowDate.getMinutes().toString();
+		if (month/10 < 1) {
+			month = "0" + month;
+		}
+		if (monthDay/10 < 1) {
+			monthDay = "0" + monthDay;
+		}
+		if(weekDay == 0)
+			weekDay=" 星期日 ";
+		else if(weekDay == 1)
+			weekDay=" 星期一 ";
+		else if(weekDay == 2)
+			weekDay=" 星期二 ";
+		else if(weekDay == 3)
+			weekDay=" 星期三 ";
+		else if(weekDay == 4)
+			weekDay=" 星期四 ";
+		else if(weekDay == 5)
+			weekDay=" 星期五 ";
+		else if(weekDay == 6)
+			weekDay=" 星期六 ";
+		if(hours.length < 2){
+			hours = "0"+hours;
+		}
+		if(min.length < 2){
+			min = "0"+min;
+		}
+		var showTime = month+"/"+monthDay+" "+ hours+":"+min;
+		$("date").innerHTML = showTime;
+		$("week").innerHTML = weekDay;
+		//setTimeout("setDate();",60000);
+	}
+	   //获取天气预报数据
+    function initWeatherInfo(){
+        //设置日期
+        //setDate();
+        ajax({
+            type:"GET",
+            url: weatherUrl,
+            success: function (data) {
+				setGlobalVar("weatherData",data);
+				//weatherArray = data;
+				weatherArray =  JSON.parse(data);
+				var localWeather = getLocalWeather();
+				setWeather(localWeather);
+            },
+            error: function () {
+            	setWeather(defaultWeather);
+            }
+        });
+    }
+
+    //天气数据
+    function setWeather(localWeather)
+    {
+        try{
+
+            if (localWeather !== null && localWeather !== 'undefined' && localWeather !== '') {
+                //$('weatherCity').innerHTML = localWeather.city;
+                $('weatherTemperature').innerHTML = localWeather.temperature;
+                $('weatherDes').innerHTML = localWeather.des;
+                $('weatherImage').src = localWeather.image;
+                if (dev) {$('weatherImage').src = "img/ic_cloud.png";} //开发环境 默认天气图片
+            }
+        }catch(e){
+
+        }
+    }
+
+    function getLocalWeather(){
+    	//找对应城市
+    	for (var i = weatherArray.length - 1; i >= 0; i--) {
+    		if(localArea.remark.indexOf(weatherArray[i].city) != -1){
+    			return weatherArray[i];
+    		}
+    	}
+    	//找默认城市天气
+    	for (var i = weatherArray.length - 1; i >= 0; i--) {
+    		if(defaultCity.remark.indexOf(weatherArray[i].city) != -1){
+    			return weatherArray[i];
+    		}
+    	}
+    	return defaultWeather;
+    }
+
+ function queryUserInfo(callback)
+    {
+    	/*if (dev) {return;} //开发环境跳过 AAA接口*/
+        //用户信息接口地址
+        var URL = "http://172.31.228.6:8091/aaa/Business/CoshipService?wsdl";
+	//var URL = "http://172.31.177.244:18080/aaa/Business/CoshipService?wsdl";
+        //拼接webService接口请求报文
+        var data;
+        try{
+            smartCardId = CA.card.serialNumber;
+			trueCardId = smartCardId;
+			caName = CA.name;
+        }catch(e){
+
+        }
+        if(smartCardId !==null && smartCardId !=='undefined' && smartCardId !=='' && smartCardId.length > 2 )
+        {
+			if(caName === "永新视博" && navigator.userAgent.indexOf("std") == -1){//天柏的卡用15位进行查询
+				smartCardId = smartCardId.substring(0,smartCardId.length-1);
+			}
+        } 
+        data = '<?xml version="1.0" encoding="utf-8"?>';
+        data = data + '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ser="http://service.business.coship.com/">';
+        data = data + '   <soap:Header/>' + '   <soap:Body>' + ' <ser:queryUserInfo>' + '<queryInfo>';
+        data = data + '<queryType>'+"1"+'</queryType>';
+        data = data + '<setTopBoxId>'+'</setTopBoxId>';
+        data = data + '<smartCardId>'+smartCardId+'</smartCardId>';
+        data = data + '<TVCode>'+'</TVCode>';
+        data = data +  '</queryInfo>' +'</ser:queryUserInfo>'+'</soap:Body>'+'</soap:Envelope>';
+
+
+        ajax({
+            type:"POST",
+            url: URL,
+            async:true,
+			parseData:false,
+			processData:false,
+            contentType:"application/soap+xml;charset=utf-8",
+            data:data,
+            success: function (data)  {
+            	try{
+            		var x2js = new X2JS();
+	                var jsonObj = x2js.xml_str2json(data);
+	                var userInfo = userInfo = jsonObj.Envelope.Body.queryUserInfoResponse.return.userInfo;
+	                resultCode = jsonObj.Envelope.Body.queryUserInfoResponse.return.resultCode;
+
+	                if(userInfo.districtCode){
+	                    districtCode = userInfo.districtCode;
+	                }
+
+	                if(userInfo.userCode){
+	                    userCode = userInfo.userCode;
+	                }
+            	}catch(e){
+            		districtCode = "0000";
+            	}
+                
+                callback();
+            },
+            error: function () {
+                districtCode = "0000";
+                callback();
+            }
+        }); 
+    }
+	
+	function saveDistrictCode(){
+		try{
+			Utility.setEnv("districtCode",districtCode);
+			iPanel.misc.setGlobal("districtCode",districtCode);
+			iPanel.misc.save();
+		}catch(e){
+            
+        }
+		if(smartCardId !==null && smartCardId !=='undefined' && smartCardId !=='' && smartCardId.length > 2 ){
+			ajax({
+				type: "GET",
+				url: iepgIP + "addSmartCardDistrictRel?appType=0&smartCardId=" + trueCardId + "&districtCode=" + districtCode + "&statusCode=" + resultCode + "&factoryName=" + caName,
+				success: function (data) {
+				},
+				error: function () {
+
+				}
+			});
+        }
+	}
+</script>
+
+<script>
+    //回车事件
+	function doConfirm(){
+        if(Area != 0){
+	    var channelId = $(CellArr[tabIndex].focusId).getAttribute("channelId");
+	    if (channelId !=null && channelId.length>0) {
+                        getEpgChannel(channelId);
+                        return;
+            }
+	   var link = $(CellArr[tabIndex].focusId).getAttribute("link");
+	   if(link != null && link.length>0){
+		confirmUrl = link;
+	   }
+
+
+           if ($(CellArr[tabIndex].focusId).hasAttribute("carouseLink")) {
+                var link = $(CellArr[tabIndex].focusId).getAttribute("carouseLink");
+                confirmUrl = link;
+           }
+            if(confirmUrl !== ""){
+                if(tabIndex === 0){
+                    stopLivePlay();
+                }
+                isMenu = 0;
+
+                //var channelId = $(CellArr[tabIndex].focusId).getAttribute("channelId");
+                //if (channelId !=null && channelId.length>0) {
+                //	getEpgChannel(channelId);
+	        //        return;
+                //}
+                
+                
+				if(areaCode==="0000" && confirmUrl.indexOf("coshipUrl") !== -1){
+					confirmUrl = getUrlParam(confirmUrl,"coshipUrl");
+				}else if(confirmUrl.indexOf("{userCode}") !== -1){
+					userCode = CITV.loginInfo.getValue("userId");
+				//	confirmUrl+= userCode;
+					confirmUrl = confirmUrl.replace("{userCode}",userCode);
+				}else if(confirmUrl.indexOf("{stbNo}") !== -1){
+					var stbNo = hardware.STB.serialNumber;
+					confirmUrl = confirmUrl.replace("{stbNo}",stbNo);
+				}else if(confirmUrl.indexOf("{cardId}") !== -1){
+					confirmUrl = confirmUrl.replace("{cardId}",trueCardId);
+				}else if(confirmUrl.indexOf("{mac}") !== -1){
+					var mac = network.macAddress;
+					confirmUrl = confirmUrl.replace("{mac}",mac);
+				}
+                saveData();//缓存焦点
+				location.href= confirmUrl;
+			// $("xt").innerHTML = confirmUrl;
+            }
+        }
+	}
+
+	//清除缓存
+    function cleanFocusCache(){
+    	var storage = window.localStorage;
+        var len = storage.length;
+        for (var i=0; i  <  len; i++){     
+            var key = storage.key(i);       
+            var value = storage.getItem(key);
+           	storage.setItem(key,"");
+        }  
+    }
+
+    //缓存
+    function saveData(){
+        setGlobalVar('focusId',ScrollH.focusId);
+        setGlobalVar('Area',Area);
+        setGlobalVar('tabIndex',Tab.focusPos);
+		setGlobalVar('CellArr',JSON.stringify(CellArr).toString());
+        setGlobalVar('isBackToPortal',"y");
+		setGlobalVar('districtCode',districtCode);
+		if(rollArr.length >0){
+            setGlobalVar('rollArrBak',JSON.stringify(rollArr).toString());
+			setGlobalVar('rollTop',rollTop);
+        }
+	//	if(rollTabId !== null){
+	//		setGlobalVar('rollTabId',rollTabId);
+	//	}
+        setGlobalVar('isMenu',isMenu);
+		if(keyBoardConfArr.length > 0){
+			setGlobalVar('keyBoardConfArr',JSON.stringify(keyBoardConfArr).toString());
+		}
+		setGlobalVar('iepgAddr',iepgAddr);
+		if(iepgAddr !==null && iepgAddr !=='undefined' && iepgAddr !==''){
+			setGlobalVar("areaCode",areaCode);
+			setGlobalVar("version",version);
+			setGlobalVar("canPreview",canPreview);
+		}
+		setGlobalVar('logoFocusIndex',logoFocusIndex);
+		setGlobalVar('hotplay',JSON.stringify(hotplay).toString());
+		setCarouseGlobal();
+    }
+
+    function getSavaData(){
+        lastUpdateTime = getGlobalVar('lastUpdateTime') || new Date().getTime();
+        Area = parseInt(getGlobalVar('Area')) || 0;
+        tabIndex = parseInt(getGlobalVar('tabIndex') || 0);
+        isBack = getGlobalVar('isBackToPortal');
+		var CellArrStr = getGlobalVar('CellArr') || "";
+		if(CellArrStr != ""){
+			CellArr = JSON.parse(CellArrStr);
+		}		
+		districtCode = getGlobalVar('districtCode') || districtCode;
+		rollTop = parseInt(getGlobalVar('rollTop') || 470);
+	//	var rollTabIdBak = getGlobalVar('rollTabId') || "";
+	//	if(rollTabIdBak !== ""){
+	//		rollTabId = parseInt(rollTabIdBak);
+	//	}
+     //   isMenu = parseInt(getGlobalVar('isMenu') || 1);
+	    var keyBoardConfStr = getGlobalVar('keyBoardConfArr') || "";
+		if(keyBoardConfStr != ""){
+			keyBoardConfArr = JSON.parse(keyBoardConfStr);
+		}
+		var hotplayStr = getGlobalVar("hotplay") || "";
+		if(hotplayStr != ""){
+			hotplay = JSON.parse(hotplayStr);
+		}
+		logoFocusIndex = getGlobalVar('logoFocusIndex') || 0;
+		getCarouseGlobal();
+    }
+	
+	var isKeyUp = true;	
+	
+	//键盘事件
+    document.onkeydown = function (event) {
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+	
+	//debug("index-keyCode="+e.keyCode);
+	isAutoGoPlay = false;
+	//	var keyDownTime = new Date().getTime();
+    //    var duration = keyDownTime - keyUpTime;
+	//	$("dengke").innerHTML = isKeyUp+","+duration;
+	//	if(isKeyUp && duration >150){
+	//	if(isKeyUp){
+			switch (e.keyCode) {
+				case KEY.LEFT:
+				case KEY.LEFT_N:
+					moveLeft();	
+					isKeyUp = false;
+					break;
+				case KEY.UP:
+				case KEY.UP_N:
+					moveUp();
+					isKeyUp = false;
+					break;
+				case KEY.RIGHT:
+				case KEY.RIGHT_N:
+					moveRight();
+					isKeyUp = false;
+					break;
+				case KEY.DOWN:
+				case KEY.DOWN_N:
+					moveDown();
+					isKeyUp = false;
+					break;
+				case KEY.ENTER:
+				case KEY.ENTER_N:
+					doConfirm();
+					break;
+				case KEY.BACK:
+					keyBack();
+					break;
+				case KEY.ZERO:
+					stopLivePlay();
+					location.href = keyBoardConfArr[0];
+					break;
+				case KEY.ONE:
+					stopLivePlay();
+					location.href = keyBoardConfArr[1];
+					break;
+				case KEY.TWO:
+					stopLivePlay();
+				   //location.href = "http://172.31.139.29/was5/1222.html";
+				   location.href = keyBoardConfArr[2];
+					break;
+				case KEY.THREE:
+					//stopLivePlay();
+					/*ajax({
+						type:"GET",
+						url: 'http://hdamsp.jsamtv.com/businessrecommend/businessRecommendAction!getRecommend.do',
+						success: function (data) {
+							var recommendUrl =  JSON.parse(data).url;
+							location.href = recommendUrl;
+						},
+						error: function (){
+
+						}
+					});*/
+					//location.href = keyBoardConfArr[3];
+					break;
+				case KEY.FOUR:
+				//	location.href = "http://tvoslauncher.jsamtv.com/portal_online_cms/index.htm";
+                    confKey++;
+					break;
+				case KEY.FIVE:
+					//stopLivePlay();
+					//location.href = keyBoardConfArr[5];
+					break;
+				case KEY.SIX:
+					stopLivePlay();
+					location.href = keyBoardConfArr[6];
+					break;
+				case KEY.SEVEN:
+					//stopLivePlay();
+					//var userId  = CITV.loginInfo.getValue("userId");
+					//var cityCode = "025021000000";
+					//location.href = "http://tvosui.jsamtv.com/redirect/EntranceRedirect.do?entranceID=codeN0-03-10-007&userCode="+userId+"&cityCode="+cityCode;
+					//location.href = keyBoardConfArr[7];
+					break;
+				case KEY.EIGHT:
+					stopLivePlay();
+					location.href =keyBoardConfArr[8];
+					break;
+				case KEY.NINE:
+					stopLivePlay();
+					location.href = keyBoardConfArr[9];
+					break;
+				case KEY.RETURN:
+				case KEY.QUIT_NJ:
+					e.preventDefault();
+					//debug("quit_nj2");
+					break;
+				default:
+					break;
+			}
+	//	}
+    };
+/*	document.onkeyup=function (event){
+	//	keyUpTime = new Date().getTime();
+		isKeyUp = true;
+//		$("xt").innerHTML="onkeyup:"+isKeyUp;
+    };  */
+
+
+ScrollHView.prototype.onkey = function (action) {
+    this.onblur();
+    var scrollview = this.id;
+	var lastFocusId = parseInt(this.focusId);
+    var current = this.map[this.focusId][action];
+	//判下一个资源块能否获得焦点
+    if (current){
+		if(this.map[current.cellId]['canGetFocus'] === 0){
+			current = this.map[current.cellId][action];
+		}
+		confirmUrl = current.intent;
+		var link = $(current.cellId).getAttribute("link");
+		if(link!=null && link.length>0){
+			confirmUrl = link;
+		}
+        this.focusId = current.cellId;
+        var left = parseInt($(scrollview).style.left);
+        if (current.cellX + current.width + left > 1920){
+            $(scrollview).style.left = (1920 - current.cellX - 180 - current.width) + 'px';
+        }
+        if (current.cellX + left < 0) {
+            $(scrollview).style.left = (180 - current.cellX) + 'px';
+        }
+		switch (action){
+			case 'down':
+			//	console.log(rollArr);
+			//	console.log(CellArr);
+				var topValue = parseInt($(current.cellId+"").style.top.split("p")[0]);
+				if(Tab.focusPos === rollTabId && topValue > beyondTop){
+				//	var CellArrBak = JSON.parse(JSON.stringify(CellArr));//深度拷贝CellArr对象
+					rollArr = JSON.parse(JSON.stringify(rollArr));
+					this.map[current.cellId]['right'] = this.map[firstRoll.cellId]['right'];
+					this.map[current.cellId]['left'] = this.map[firstRoll.cellId]['left'];
+					var id = rollArr[0].cellId;
+					$(id+"").style.display = "none";
+					var lastTop = rollArr[0].cellY;
+					var currentTop;
+					for(var i = 0;i<rollArr.length;i++){
+						if(i>0){ 
+						   $(rollArr[i].cellId+"").style.top = lastTop + 'px';
+						   currentTop = rollArr[i].cellY;
+						   rollArr[i].cellY = lastTop;
+						   lastTop = currentTop;
+						}
+						if(currentTop < beyondTop && rollArr[i+1].cellY >= beyondTop){
+							rollTop = currentTop;
+						}
+					}
+					rollArr.splice(0,1);
+				//	rollArrIndex--;
+				//    rollArr.push(current);
+					$(current.cellId+"").style.top=rollTop + 'px';
+					$(current.cellId+"").style.display = "block";
+				//	CellArr = CellArrBak;
+				}
+			//	rollArrIndex++;
+				break;
+			case 'up':
+				if(Tab.focusPos === rollTabId && lastFocusId === rollArr[0].cellId){
+				//	var CellArrBak = JSON.parse(JSON.stringify(CellArr));
+					rollArr = JSON.parse(JSON.stringify(rollArr));
+					var initTop = rollArr[0].cellY;
+					for(var i = 0;i<rollArr.length;i++){
+						if(i !== rollArr.length-1){
+							rollArr[i].cellY = rollArr[i+1].cellY
+						}else{
+							rollArr[i].cellY  = maxTop;
+						}
+						$(rollArr[i].cellId+"").style.top = rollArr[i].cellY + 'px';
+						if(rollArr[i].cellY > rollTop){
+							$(rollArr[i].cellId+"").style.display = "none";
+						}
+					}
+					var currentBak = JSON.parse(JSON.stringify(current));
+					currentBak.cellY = initTop;
+					rollArr.splice(0,0,currentBak);
+					$(current.cellId+"").style.display = "block";
+				//	CellArr = CellArrBak;
+				}
+			//	rollArrIndex--;
+			//	if(rollArrIndex < 0){
+			//		rollArrIndex = 0;
+			//	}
+				break;
+			case 'left':
+				var currentBak = JSON.parse(JSON.stringify(current));
+				if($(current.cellId+"").style.display === "none"){//如果下一个资源块为隐藏状态，则默认将焦点移到滑动资源块数组第0个上
+					currentBak = rollArr[0];
+				//	rollArrIndex = 0;
+				}
+				confirmUrl = currentBak.intent;
+				this.focusId = currentBak.cellId;
+				break;
+		}
+        this.onfocus();
+    } else {
+        switch (action) {
+            case 'up':
+                this.up();
+                break;
+            case 'down':
+                this.down();
+                break;
+			case 'left':
+				Area = 0;
+				Tab && Tab.onkey('left');
+			//	Tab && Tab.onkey('down');
+				break;
+			case 'right':
+				Area = 0;
+				Tab && Tab.onkey('right');
+			//	Tab && Tab.onkey('down');
+				break;
+            default:
+                this.onfocus();
+                break;
+        }
+    }
+    cellCheckCarouse(lastFocusId,current);
+}
+	
+</script>
+</html>

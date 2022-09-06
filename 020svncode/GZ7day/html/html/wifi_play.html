@@ -1,0 +1,202 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title>show wifi image </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script>
+	// url格式： http://127.0.0.1/wifi_play.html?type=1&displayMode=0&positionX=0&positionY=0&src=http://192.166.62.118:8080/1.jpg
+	/** 获取图片尺寸 yangxuezhong 2012/06/14
+	 * cfg <object> {img:domImg,oncomplete:new Function, maxWidth:Number}
+	 */
+	//var PRINT_PREFIX = "[wifi show image]"
+	var type = -1;
+	var displayMode = -1;
+	var positionX = 0;
+	var positionY = 0;
+	var src = "";
+	
+    function getImageSize(cfg){
+        /* 如果图片在缓存中 */
+		RocME.debug("[wifi show image] start to get image size");
+		if( cfg.img.complete ||  cfg.img.width &&  cfg.img.height){
+			RocME.debug("[wifi show image] get image size from cache images");
+			cfg.oncomplete.call({
+                "img":cfg.img,
+                "width":cfg.img.width,
+                "height":cfg.img.height
+            },null);
+            return;
+        }
+		
+        var img=document.createElement('img'),
+        callback=cfg.oncomplete;
+       	img.src = cfg.img.src;
+		img.style.visibility = "hidden";
+        document.body.appendChild(img);
+        img.onload=img.onerror=img.onreadystatechange=function(){
+			RocME.debug("[wifi show image] get image size from current images");
+            if(img&&img.readyState&&img.readyState!='loaded'&&img.readyState!='complete'){
+				RocME.debug("[wifi show image] get image size from current images failed");
+                return false;
+            }
+            img.onload = img.onreadystatechange = img.onerror = null;
+			RocME.debug("[wifi show image] get image size from current images success, invoke callback function");
+            callback.call({"img":cfg.img,"width":img.width,"height":img.height},null);
+            //removeNode(img);
+            img=null;
+        };
+    }
+	
+	function getParameter(param){
+		var query = window.location.search; //获取URL"?"后面的字符串
+		if(query.length==0){
+			return "";
+		}
+		else{
+			var iLen = param.length;
+			var iStart = query.indexOf(param);
+			if (iStart == -1) //判断是否有那个需要查询值的传递参数
+				return ""; //没有就返回一个空值
+			iStart += iLen + 1;
+			var iEnd = query.indexOf("&", iStart); //判断是不是带有多个参数   &为多个参数的连接符号
+			if (iEnd == -1) {
+				return query.substring(iStart);
+			}
+			return query.substring(iStart, iEnd);
+		}
+	}
+
+	function initPage(){
+		RocME.debug("[wifi show image] initpage location = "+window.location);
+		type = getParameter("type") || -1;
+		displayMode = getParameter("displayMode") || 0;
+		positionX = getParameter("positionX") || 0;//如果数据未传输错误或者
+		positionY = getParameter("positionY") || 0;
+		src = getParameter("src") || "";
+		RocME.debug("[wifi show image] initpage get parameters  type = "+type+" | displayMode = "+displayMode+" | positionX = "+positionX+" | positionY = "+positionY+" | src = "+src);
+		if(1 != type ){
+			//暂时只处理图片类型
+			return;	
+		}
+		if("" == src){
+			alert("Can't get source of this image");//图片为空提示
+			return;	
+		}
+		
+		var img=document.createElement('img');
+       	img.src = src;
+		img.style.display = "none";
+		var parent = document.getElementById("imgContainer");
+        parent.appendChild(img);
+		
+		//document.getElementById("displayImg").src = src;
+		cfg = {"img":img,"oncomplete":displayImg};
+		getImageSize(cfg);
+	}
+
+	function displayImg(){
+		RocME.debug("[wifi show image] begen to display images  src= "+this.img.src+" | width= "+this.width+" | height= "+this.height);
+		var parentDom = document.getElementById("imgContainer");
+		if(1 == displayMode){
+			geometricDrawing(this.img,this.width,this.height,1280,720,parentDom);
+		} else {//more显示原图
+			originalDrawing(this.img,this.width,this.height,1280,720,parentDom,positionX,positionY);
+		}
+		//this.img.style.visibility = "visible";
+		this.img.style.display = "block";
+	}
+	
+	function geometricDrawing(domImg,imgW,imgH,containerW,containerH,parentDom){//等比拉伸
+		RocME.debug("[wifi show image] geometricDrawing prameters src="+domImg+" | imgW="+imgW+" | imgH="+imgH+"| containerW="+containerW+" | containerH="+containerH+" | parentDom="+parentDom);
+		var ratioW =  containerW / imgW;
+		var ratioH = containerH / imgH;
+		var ratio = Math.min(ratioW,ratioH);
+		var realW = parseInt(ratio*imgW);
+		var realH = parseInt(ratio*imgH);
+		domImg.style.width = realW+"px";
+		domImg.style.height = realH+"px";
+		RocME.debug("[wifi show image] image width = "+realW);
+		RocME.debug("[wifi show image] image height = "+realH);
+		parentDom.style.left = parseInt((containerW - realW)/2) +"px";
+		parentDom.style.top = parseInt((containerH - realH)/2)+"px";
+		RocME.debug("[wifi show image] image left = "+parseInt((containerW - realW)/2));
+		RocME.debug("[wifi show image] image top = "+parseInt((containerH - realH)/2));
+	}
+	
+	function originalDrawing(domImg,imgW,imgH,containerW,containerH,parentDom,positionX,positionY){
+		RocME.debug("[wifi show image] originalDrawing prameters src="+domImg+" | imgW="+imgW+" | imgH="+imgH+"| containerW="+containerW+" | containerH="+containerH+" | parentDom="+parentDom+" | positionX="+positionX+" | positionY ="+positionY)
+		domImg.style.width = imgW+"px";
+		domImg.style.height = imgH+"px";
+		var x = toStyleStr(positionX);
+		var y = toStyleStr(positionY);
+		var cssStyle = "position:absolute;";
+		if(x.indexOf("px") != -1|| x.indexOf("%") != -1){
+			cssStyle += "left:" + x + ";"
+		} else if("center" == x || "right" == x || "left" == x){
+			switch(x){
+			case "right":
+				cssStyle += "right:0px;"
+				break;
+			case "left":
+				cssStyle += "left:0px;"
+				break;
+			case "center":
+				cssStyle += "left:" + parseInt((containerW - imgW)/2) + "px;";
+				break;
+			}
+		}else if(isNum(x)){
+			cssStyle += "left:"+x + "px;";
+		} else {
+			 RocME.debug("[wifi show image]  positonX["+positionX+"] is not a standard css style string");
+		}
+		
+		if(y.indexOf("px") != -1 || y.indexOf("%") != -1){
+			cssStyle += "top:" + y + ";"
+		} else if("center" == y || "top" == y || "bottom" == y){
+			switch(y){
+			case "top":
+				cssStyle += "top:0px;"
+				break;
+			case "bottom":
+				cssStyle += "top:" + parseInt(containerH - imgH) + "px;";
+				break;
+			case "center":
+				cssStyle += "top:" + parseInt((containerH - imgH)/2) + "px;";
+				break;
+			}
+		}else if(isNum(y)){
+			cssStyle += "top:" + y + "px;"
+		} else {
+			 RocME.debug("[wifi show image]  positonY["+positionY+"] is not a standard css style string");
+		}
+		RocME.debug("[wifi show image] originalDrawing cssStyle: "+cssStyle);
+		parentDom.setAttribute("style",cssStyle);
+	}
+	
+	function toStyleStr(s){ 
+		var str = s.replace(/(^\s*)(\s*$)/g,""); 
+		return str.toLowerCase();
+	}
+	
+	function isNum(s){
+		if (s!=null && s!=""){
+			return !isNaN(s);
+		}
+		return false;
+	}
+  </script>
+ </head>
+
+ <body onload="initPage();" background="transparent">
+ <div style="position:absolute;width:1280px;height:720px;left:0px;top:0px;background:#000;overflow:hidden;">
+	 <div id="imgContainer" style="position:absolute;">
+	 	//不在html中添加图片位，因为在 IE 浏览器中，如果html中src没有给定图片链接，
+		//获取缓存的图片大小时会获取到一个默认值28*30
+		<!--<img style="display:none" id="displayImg" src="" />-->
+	</div>
+ </div>
+ </body>
+</html>
