@@ -1,0 +1,53 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!--    <link rel="stylesheet" href="css/demo.css">-->
+
+</head>
+<body>
+  <div style="width: 600px;height: 600px;">
+    <div class="citytime" id="beijing"></div>
+    <div id="mengmai"></div>
+    <div id="niuyue"></div>
+    <div id="dongjing"></div>
+    <div id="bali"></div>
+    <div id="xini"></div>
+  </div>
+<script>
+  startTime()
+    function calcTime(offset) {
+        var d = new Date();
+        var utc = d.getTime() + (d.getTimezoneOffset() * 60000)
+        var nd = new Date(utc + (3600000 * offset))
+        var h = nd.getHours()
+        var m = nd.getMinutes()
+        var s = nd.getSeconds()
+        h = checkTime(h)
+        m = checkTime(m)
+        s = checkTime(s)
+        return h + ":" + m + ":" + s;
+    }
+    function startTime() {
+        document.getElementById('beijing').innerHTML = calcTime(+8)
+        document.getElementById('mengmai').innerHTML = calcTime(+5.5)
+        document.getElementById('niuyue').innerHTML = calcTime(-5)
+        document.getElementById('dongjing').innerHTML = calcTime(+9)
+        document.getElementById('bali').innerHTML = calcTime(+2)
+        document.getElementById('xini').innerHTML = calcTime(+10)
+        // document.getElementById('inputTime').innerHTML = new Date("2015-01-30T00:00")
+        t = setTimeout('startTime()',1000)
+    }
+
+    function checkTime(i) {
+        if(i < 10 ) {
+            i = "0"+i
+        }
+        return i
+    }
+
+</script>
+</body>
+</html>

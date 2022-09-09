@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script src="timezones.full.js"></script>
+		<script src="moment-timezone-with-data-2012-2022.min.js"></script>
+		<style>
+			div {
+				width: 500px;
+				margin: 0 auto;
+				margin-top: 400px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<select></select>
+			<br /><br />
+			<button>获取值</button>
+			<br /><br />
+			<span></span>
+		</div>
+	</body>
+	<script>
+		//初始化
+		$('select').timezones();
+//		$('select').val('Asia/Shanghai');
+		//选中当前时区,有些浏览器不支持
+		$('select').val(Intl.DateTimeFormat().resolvedOptions().timeZone);
+		//使用moment-timezone获取当前时区
+//		$('select').val(moment.tz.guess());
+		$("button").click(function() {
+			$("span").html($("select").val());
+		});
+		
+//		console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
+		//推测当前时区
+		console.log(moment.tz.guess());
+		
+		//方法可返回格林威治时间和本地时间之间的时差，以分钟为单位。
+		var d = new Date();
+		var n = d.getTimezoneOffset();
+	</script>
+
+</html>

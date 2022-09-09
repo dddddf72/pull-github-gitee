@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <style>
+    *{margin:0;padding:0}
+    .row:before{
+        display: table;
+        content:''
+    }
+    .row:after{
+        display: table;
+        content:'';
+        clear:both;
+    }
+    .header{width:1000px;height:40px;background:pink;line-height: 40px;margin-left:auto;margin-right:auto}
+    ul{list-style: none;}
+    a{text-decoration: none}
+    li{float:left;width:500px;}
+    li.dropdown{position:relative}
+    .dropContent{position:absolute;width:500px;background-color: deeppink;display:none;box-shadow: 0 1px 2px 0px gainsboro}
+    .row a{display:block;text-align: center;color:white}
+    a:hover{color:gainsboro;background:palevioletred}
+    .dropdown:hover .dropContent{
+        display: block;
+    }
+</style>
+</head>
+  <body>
+    <!-- <h3>下拉框</h3>
+      <select id="selectPage" onchange="select()">
+        <option value="3" selected>3</option>
+        <option value="6">6</option>
+        <option value="14">14</option>
+        <option value="100">100</option>
+      </select> -->
+      <div class="header">
+        <ul class="row" >
+            <li class="dropdown">
+                <a href="#" class="dropdown">选择时区</a>
+                <div class="dropContent" id="selectPage"></div>
+            </li>
+            <li class="zoneOpt" id="city"><a href="#">城市名</a></li>
+        </ul>
+      </div>
+
+	<input id="set" type="button" value="set"/>
+  <div class="setTime" id="setTime" style="width: 100px;height:100px;background-color: yellow;"></div>
+  
+  <div style="width: 600px;height: 500px;">
+      <h4>beijing</h4>
+      <div id="beijing" class="zoneOpt"></div>
+  </div>
+  
+</body>
+<script>
+  var utcNum = 'UTC+' + (0 - new Date().getTimezoneOffset() / 60);
+  var zonelocalNum = utcNum.split('UTC')[1]
+  startTime()
+    
+    function startTime() {
+      document.getElementById('beijing').innerHTML = calcTime(zonelocalNum)
+      t = setTimeout('startTime()',1000)
+    }
+var doHandleZoneNum = '';
+  var htmlVal = $('.zoneOpt')[0].innerText
+  
+  var strArr = [
+    '(UTC-05:00)萨尔瓦多',
+    '(UTC-04:00)圣皮埃尔和密克隆群岛',
+    '(UTC-03:00)协调世界时-02',
+    '(UTC-02:00)佛得角群岛',
+    '(UTC-01:00)亚速尔群岛',
+    '(UTC)协调世界时',
+    '(UTC+00:00)都柏林，爱丁堡，里斯本，伦敦',
+    '(UTC+01:00)蒙罗维亚，雷克雅未克',
+    '(UTC+02:00)圣多美',
+    '(UTC+03:00)萨拉热窝，斯科普里，华沙，萨格勒布',
+    '(UTC+04:00)雅典，布加勒斯特',
+    '(UTC+05:00)耶路撒冷',
+    '(UTC+06:00)朱巴',
+    '(UTC+07:00)巴格达',
+    '(UTC+08:00)伏尔加格勒',
+    '(UTC+09:00)科威特，利雅得',
+    '(UTC+10:00)明斯克'
+  ];
+  
+  var selectPageHtml = '';
+
+  strArr.forEach(function (el,i){
+    selectPageHtml += '<a class="item" value="' +
+                el +
+                '" id="selectdiv select'
+                +i+
+                '"  hasNextSection="' +
+                'folderType' +
+                '"  channelname="' +
+                'displayName' +
+                '">' +
+                el +
+                '</a>'
+    // selectPageHtml += 
+    // // '<div class="selectdiv">' +
+    //   '<div class="selectdiv" id="selectdiv select'
+    //   +i
+    //   +'">'
+    //   +el
+    //   +'</div>'
+    //   // +'</div>'
+  })
+
+  document.getElementById('selectPage').innerHTML = selectPageHtml
+  
+  $("#selectPage a").click(function(el){
+      htmlVal = el.currentTarget.innerHTML
+      showHtmlVal(htmlVal)
+      return false;
+  })
+  
+  $('#set').click(function(){
+    if(doHandleZoneNum == ''){
+      console.log(document.getElementById('setTime').innerHTML)
+      return
+    }
+    clearTimeout(t)
+    startLocalTime()
+    // document.getElementById('beijing').innerHTML = calcTime(doHandleZoneNum)
+    // t = setTimeout('startTime()',1000)
+  });
+  function startLocalTime() {
+    document.getElementById('beijing').innerHTML = calcTime(doHandleZoneNum)
+    startLocalTimet = setTimeout('startLocalTime()',1000)
+  }
+
+  // var UTCArray = strArr.map(item=>{
+  //   item= item.split('UTC')[1].split(')')
+  //   if(item[0] == ""){
+  //     item = '+00'
+  //   }
+  //   return item[0]
+  //   // return item.name= item[1]
+  // })
+  // console.log('UTCArray'+UTCArray)
+
+  // var zoneNum = UTCArray.map(item=>{
+  //   if(item == '+'){
+  //     return item = 0
+  //   }
+  //   return item.split(':')[0]
+  // })
+  // console.log('zoneNum'+zoneNum)
+
+  // var nameArray= strArr.map(item=>{
+  //   item= item.split('UTC')[1].split(')')
+  //   if(item[0] == ""){
+  //     item = '+00'
+  //   }
+  //   return item[1]
+  // }) 
+  // console.log('nameArray'+nameArray)
+
+function handleZoneNum(item){
+  item= item.split('UTC')[1].split(')')
+  if(item[0] == ""){
+    item = '+00'
+  }
+  item = item[0]
+  if(item == '+'){
+    return item = 0
+  }
+  return item.split(':')[0]
+}
+    
+function calcTime(offset) {
+  var d = new Date();
+  var utc = d.getTime() + (d.getTimezoneOffset() * 60000)
+  var nd = new Date(utc + (3600000 * offset))
+  var h = nd.getHours()
+  var m = nd.getMinutes()
+  var s = nd.getSeconds()
+  h = checkTime(h)
+  m = checkTime(m)
+  s = checkTime(s)
+  return h + ":" + m + ":" + s;
+}
+
+    function checkTime(i) {
+        if(i < 10 ) {
+            i = "0"+i
+        }
+        return i
+    }
+
+    
+  function showHtmlVal(){
+    $('.zoneOpt')[0].innerText = htmlVal
+      doHandleZoneNum = handleZoneNum(htmlVal)
+      showYellow()
+  }
+  function showYellow() {
+    document.getElementById('setTime').innerHTML = calcTime(doHandleZoneNum)
+    showYellowt = setTimeout('showYellow()',1000)
+  }
+</script>
+</html>

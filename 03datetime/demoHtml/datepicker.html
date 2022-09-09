@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <!-- datetimepicker的相关js、css链接 -->
+    <!-- <link href="https://cdn.bootcss.com/datepicker/0.5.4/datepicker.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/datepicker/0.5.4/datepicker.js"></script>
+    <script src="https://cdn.bootcss.com/datepicker/0.5.4/i18n/datepicker.zh-CN.js"></script> -->
+
+    <!-- datetimepicker的相关js、css链接 -->
+    <link href="http://cdn.bootcss.com/twitter-bootstrap/2.2.2/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="http://www.bootcss.com/p/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+  </head>
+  <body>
+    <input type="date" name="" id="timePick1" value="">
+    <!-- <input type="month" name="" id=""> -->
+    <!-- <input type="week" name="" id=""> -->
+    <!-- <input type="datetime" name="" id=""> -->
+    <input type="datetime-local" name="" id="timePick2" value="">
+    <!-- 精确到秒 -->
+    <input id="inputTime" type="datetime-local" step="01" name="user_date" required>
+    <script>
+      
+    console.log(new Date().toLocaleDateString())//2022/9/9
+      // if ($(this).attr("id") == "start-datepicker") {
+      //   start_date_value = dateText;
+      // }
+      // if ($(this).attr("id") == "end-datepicker") {
+      //   end_date_value = dateText;
+      // }
+      
+      // $(document).ready(function(dateText){ }
+
+      // $(function () {
+      //     $('#mydate').datepicker({
+      //         language: 'zh-CN',
+      //         autoclose: true,
+      //         todayHighlight: true
+      //     });
+      // });
+
+      //     $.fn.datetimepicker.dates['zh-CN'] = {
+      //         days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
+      //         daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+      //         daysMin:  ["日", "一", "二", "三", "四", "五", "六"],
+      //         months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+      //         monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+      //         monthNamesShort: ['一','二','三','四','五','六', '七','八','九','十','十一','十二'],
+      //         today: "今天",
+      //         suffix: [],
+      //         meridiem: ["上午", "下午"]
+      // };
+
+
+          // 设置日期选择器位置
+          // pickerPosition: "bottom-left"
+
+          // 设置初始视图，最小视图，最大视图
+          // format:'yyyy-mm-dd',
+          // startView: "year", //初始化视图是‘年’
+          // minView: "month",//最精确视图为'月'
+          // maxView: "decade"//最高视图为'十年'
+
+          // 跳转到当天
+          // format:'yyyy-mm-dd',
+          // todayBtn:true,
+
+          // 分钟步长设置
+          // format:'yyyy-mm-dd',
+          // minuteStep:1
+
+          // 常用日期选择
+          // format:'yyyy-mm-dd',
+          // startView:'year',
+          // maxView:'year',
+          // minView:'month',
+          // autoclose:true,
+          // pickerPosition: "bottom-left",
+          // language:'zh-CN',
+
+          // 常用时间选择
+          // format:'hh:ii',
+          // startView:'day',
+          // maxView:'day',
+          // minView:'hour',
+          // minuteStep:1,
+          // autoclose:true,
+          // pickerPosition: "bottom-left",
+          // language:'zh-CN',
+          
+        </script>
+        </body>
+</html>
