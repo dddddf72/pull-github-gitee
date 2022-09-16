@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    if(this.scrollX || this.scrollY){
+      var node = this.focusItem();
+      var offsetTop = node.offsetTop;
+      var offsetHeight = node.offsetHeight;
+      var nodeMarginHeight = parseInt(getComputedStyle(node,null).marginBottom +parseInt(getComputedStyle(node,null).marginTop))
+      var scrollTop = this.parentNode.scrollTop;
+      var scrollHeight = this.parentNode.offsetHeight;
+      var offsetLeft = node.offsetLeft;
+      var offsetWidth = node.offsetWidth
+      var scrollLeft = this.parentNode.scrollLeft;
+      var scrollWidth = this.parentNode.offsetWidth;
+      if(this.scrollY){
+        if(this.scrollAnimate){
+          this.parentNode.scroll({top:offsetTop-(scrollHeight)*.5,behavior:'smooth'})
+
+        }else{
+          var top = this.parentNode.scrollHeight-this.parentNode.offsetHeight<
+          offsetTop-(this.parentNode.offsetHeight-offsetHeight-nodeMarginHeight)*.5?
+          this.parentNode.scrollHeight-this.parentNode.offsetHeight:
+          offsetTop-(this.parentNode.offsetHeight-offsetHeight-nodeMarginHeight)*.5
+
+          this.parentNode.style.top = top >0?(-top+'px'):'0px'
+        }
+      }else if(this.scrollX){
+        if(this.scrollAnimate){
+          this.parentNode.scroll({left:offsetLeft-(scrollWidth)})
+        }
+      }
+
+
+    }
+  </script>
+</body>
+</html>

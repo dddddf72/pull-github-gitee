@@ -1,0 +1,231 @@
+//打卡类型（上班打卡/下班打卡）
+var punchType = "下班打卡";
+ 
+//设置随机延时（分钟），避免所有打卡时间点都一样
+var randomSleepMinutes = 10;
+ 
+//发送打卡结果到此邮箱(换成自己的邮箱)
+var emailAddress = "XX@qq.com";
+ 
+/**
+ * 示例:swipe(539, 1918, 539, 1100, 200);
+ * 表示从位置(539, 1918)滑动到位置(539, 1100), 持续2秒
+ * swipe(swipeStartX, swipeStartY, swipeEndX, swipeEndY, swipeSpeed);
+ * 上滑起始和中止的坐标可以根据手机分辨率自己设置
+ * swipeSpeed=200适用于上滑解锁美图系统，其他系统的swipeSpeed需要自己测试出来
+ * 起始位置坐标可以通过打开手机的调试模式，然后选择开发者选项>开启>指针位置（选择打开）
+ */
+var swipeStartX = 539;
+var swipeStartY = 1918;
+var swipeEndX = 539;
+var swipeEndY = 1100;
+var swipeSpeed = 200;
+ 
+//脚本执行时保持屏幕常亮,默认15分钟
+var keepScreenOnMinutes = 15;
+ 
+//输出指定日志文件
+console.setGlobalLogConfig({
+  file: "/sdcard/auto_daka_log.txt",
+});
+ 
+//记录当前时间
+var date = new Date();
+console.log(
+  "当前日期：" +
+    date.getFullYear() +
+    "/" +
+    (date.getMonth() + 1) +
+    "/" +
+    date.getDate()
+);
+console.log(punchType + "开始");
+ 
+//设置随机延时
+var sleep_time = random(0, randomSleepMinutes * 60 * 1000);
+console.log("延时时间：" + sleep_time / 1000 + "s");
+sleep(sleep_time);
+ 
+//检测网络状态
+internetCheck();
+ 
+//检测GPS状态
+gpsCheck();
+ 
+//进入打卡流程
+punchTheClock();
+ 
+function punchTheClock() {
+  //唤醒手机
+  device.wakeUp();
+  sleep(3 * 1000);
+ 
+  //判断屏幕是否唤醒成功
+  if (!device.isScreenOn()) {
+    console.error("屏幕未唤醒，退出脚本");
+    exit();
+  }
+ 
+  //上滑解锁
+  sleep(3 * 1000);
+  swipe(swipeStartX, swipeStartY, swipeEndX, swipeEndY, swipeSpeed);
+  sleep(3 * 1000);
+ 
+  //脚本执行时保持屏幕常亮
+  device.keepScreenOn(keepScreenOnMinutes * 60 * 1000);
+ 
+  //返回桌面
+  home();
+  sleep(5 * 1000);
+ 
+  //关闭钉钉（这个关闭操作根据自己设备具体情况配置）
+  console.log("关闭钉钉");
+  openAppSetting(getPackageName("钉钉"));
+  sleep(5 * 1000);
+  click("强行停止");
+  sleep(5 * 1000);
+  click("确定");
+  sleep(5 * 1000);
+ 
+  //打开钉钉
+  console.log("打开钉钉");
+  launchApp("钉钉");
+  sleep(10 * 1000);
+ 
+  //判断是否已登录
+  if (id("tv_welcome_name").exists()) {
+    console.error("钉钉未登录");
+    exit();
+  }
+ 
+  //点击忽略更新（如果有）
+  if (click("暂不更新")) {
+    console.log("点击暂不更新");
+  }
+  sleep(5 * 1000);
+ 
+  //点击工作台
+  console.log("点击工作台");
+  clickMessage("工作台");
+  sleep(10 * 1000);
+ 
+  //点击考勤进入打卡页面
+  console.log("点击考勤打卡");
+  clickMessage("考勤打卡");
+  sleep(10 * 1000);
+ 
+  //判断是否休息日
+  if (className("android.view.View").text("今日休息").exists()) {
+    console.log("今日休息");
+    exit();
+  }
+ 
+  //点击打卡
+  console.log("点击" + punchType);
+  clickMessage(punchType);
+  sleep(10 * 1000);
+ 
+  //点击 查看打卡结果
+  console.log("点击查看打卡结果");
+  clickMessage("查看打卡结果");
+  sleep(10 * 1000);
+ 
+  //上滑
+  swipe(swipeStartX, swipeStartY, swipeEndX, swipeEndY, swipeSpeed);
+  sleep(5 * 1000);
+ 
+  //截图
+  console.log("截图");
+  if (!requestScreenCapture()) {
+    console.error("请求截图失败");
+    exit();
+  }
+  var img = captureScreen();
+  images.saveImage(img, "/sdcard/result.png");
+  sleep(5 * 1000);
+ 
+  //发送邮件，唤起选择发送邮件应用的界面
+  console.log("发送邮件");
+  app.sendEmail({
+    email: [emailAddress],
+    subject: punchType + "成功",
+    text: punchType + "成功",
+    attachment: "/sdcard/result.png",
+  });
+  sleep(5 * 1000);
+ 
+  //点击应用名称选择邮箱。根据自己情况配置，我用的美图系统自带邮箱
+  clickMessage("电子邮箱");
+  sleep(5 * 1000);
+ 
+  //点击发送邮件
+  //if (className("android.widget.Button").desc("发送").findOnce().click()) {
+   // console.log("邮件发送成功");
+  //} else {
+    //console.error("未找到邮件发送按钮");
+    //exit();
+	//console.log("通过坐标点击发送");
+	//click(987,144)
+ // }
+//通过坐标点击发送(我这边调试不通，暂时通过坐标方式去点击发送，实现效果一样)
+  click(987,144)
+  sleep(5 * 1000);
+ 
+  //关闭钉钉（这个关闭操作根据自己设备具体情况配置）
+  console.log("关闭钉钉");
+  openAppSetting(getPackageName("钉钉"));
+  sleep(5 * 1000);
+  click("强行停止");
+  sleep(5 * 1000);
+  click("确定");
+  sleep(5 * 1000);
+ 
+  //返回主页
+  home();
+  sleep(1 * 1000);
+ 
+  //关闭屏幕常亮
+  console.log("关闭屏幕常亮");
+  device.cancelKeepingAwake();
+ 
+  console.log("打卡完成");
+  exit();
+}
+ 
+//判断网络情况，如果没有网络，结束脚本运行
+function internetCheck() {
+  var url = "m.baidu.com";
+  var res = http.get(url);
+  if (res.statusCode != 200) {
+    console.error("网络不可用，无法打卡");
+    exit();
+  }
+}
+ 
+//判断GPS是否可用，如果不可用，结束脚本运行
+function gpsCheck() {
+  importClass(android.location.LocationManager);
+  importClass(android.content.Context);
+  var locationManager = context.getSystemService(Context.LOCATION_SERVICE);
+  if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+    console.error("GPS不可用，无法打卡");
+    exit();
+  }
+}
+ 
+//根据控件文字点击，如果点击失败，则说明打卡流程无法正常进行，结束脚本运行
+function clickMessage(message) {
+  var n = 3;
+  var logo = false;
+  while (n--) {
+    if (click(message)) {
+      logo = true;
+      break;
+    }
+    sleep(3 * 1000);
+  }
+  if (logo == false) {
+    console.error("点击" + message + "出错");
+    exit();
+  }
+}

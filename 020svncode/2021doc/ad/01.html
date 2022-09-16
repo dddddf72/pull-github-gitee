@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .app{
+      top: 10px;
+      left: 20px;
+      margin-top: 300px;
+      margin-bottom: 400px;
+    }
+    .node{
+      top: 61px;
+
+      left: 52px;
+
+      margin-top: 63px;
+      margin-bottom: 540px;
+    }
+  </style>
+</head>
+<body style="position: relative;">
+  <div class="app" id="app" style="width: 500px;height:800px;background: yellow;position:absolute">
+    <div class="node" id="node" style="width:200px;height:300px;background: red;position: absolute;">
+    </div>
+  </div>
+  <script>
+    var parentNode = document.getElementById("app")
+    var node = document.getElementById("node")
+    console.log("parentNode.scrollTop：是"+parentNode.scrollTop)
+    console.log("parentNode.scrollLeft：是"+parentNode.scrollLeft)
+    console.log("parentNode.scrollHeight：是"+parentNode.scrollHeight)/*app的height值 800 */
+    // console.log("parentNode.offsetHeight：是"+parentNode.offsetHeight)/*app的height值 800 */
+    console.log("node.offsetTop：是"+node.offsetTop)/* 61+63=104    即top+marginTop */
+    console.log("node.offsetLeft：是"+node.offsetLeft)/* left的值52 */
+    // console.log("node.offsetWidth：是"+node.offsetWidth)/* 本身宽高 */
+    // console.log("node.offsetHeight：是"+node.offsetHeight)
+    var nodeMarginHeight = parseInt(getComputedStyle(node,null).marginBottom +parseInt(getComputedStyle(node,null).marginTop))
+    console.log("nodeMarginHeight：是"+nodeMarginHeight)/* 540 */
+
+  </script>
+  <script>
+    View.prototype.focus = function () {
+        if (this.scrollX || this.scrollY) {
+            //滚动
+            var node = this.focusItem();
+            var offsetTop = node.offsetTop;
+            var offsetHeight = node.offsetHeight;
+            var nodeMarginHeight = parseInt(getComputedStyle(node,null).marginBottom) + parseInt(getComputedStyle(node,null).marginTop);
+            var scrollTop = this.parentNode.scrollTop;
+            var scrollHeight = this.parentNode.offsetHeight;
+            var offsetLeft = node.offsetLeft;
+            var offsetWidth = node.offsetWidth;
+            var scrollLeft = this.parentNode.scrollLeft;
+            var scrollWidth = this.parentNode.offsetWidth;
+            var X = offsetLeft + 50 <= scrollLeft || offsetLeft + offsetWidth + 50 >= scrollLeft + scrollWidth;
+            var Y = offsetTop - 50 <= scrollTop || offsetTop + offsetHeight + 50 >= scrollTop + scrollHeight;
+            //alert('X:'+X+'Y:'+Y+'scrollY:'+this.scrollY)
+            if (this.scrollY) {
+                if (this.scrollAnimate) {
+                    this.parentNode.scroll({ top: offsetTop - (scrollHeight - offsetHeight) * .5, behavior: 'smooth' })
+                } else {
+                    //this.parentNode.scrollTop = offsetTop - (scrollHeight - offsetHeight) * .5;
+                    //this.parentNode.scrollTop = 100
+                    var top = this.parentNode.scrollHeight - this.parentNode.offsetHeight < offsetTop - (this.parentNode.offsetHeight - offsetHeight - nodeMarginHeight) * .5 ? this.parentNode.scrollHeight - this.parentNode.offsetHeight : offsetTop - (this.parentNode.offsetHeight - offsetHeight - nodeMarginHeight) * .5;
+                    // var top = offsetTop - (scrollHeight - offsetHeight);
+                    this.parentNode.style.top = top > 0 ? (-top + 'px') : '0px';
+                    // showMessage(offsetTop+'-'+this.parentNode.offsetHeight+'-'+offsetHeight)
+                }
+            } else if (this.scrollX) {
+                if (this.scrollAnimate) {
+                    this.parentNode.scroll({ left: offsetLeft - (scrollWidth - offsetWidth) * .5, behavior: 'smooth' })
+                } else {
+                    var left = offsetLeft - (720 - offsetWidth) * .5;
+                    // console.log(top)
+                    this.parentNode.style.left = left > 0 ? (-left + 'px') : '0px';
+                    //this.parentNode.scrollLeft = offsetLeft - (scrollWidth - offsetWidth) * .5;
+                }
+            } else {
+                if (this.scrollAnimate) {
+                    this.parentNode.scroll({ top: offsetTop - (scrollHeight - offsetHeight) * .5, left: offsetLeft - (scrollWidth - offsetWidth) * .5, behavior: 'smooth' })
+                } else {
+                    this.parentNode.scrollLeft = offsetLeft - (scrollWidth - offsetWidth) * .5;
+                    this.parentNode.scrollTop = offsetTop - (scrollHeight - offsetHeight) * .5;
+                }
+            }
+        }
+    }
+  </script>
+</body>
+</html>
