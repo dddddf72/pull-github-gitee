@@ -1,0 +1,42 @@
+{
+  // prettier-ignore
+  "extends": "@tsconfig/react-native/tsconfig.json",     /* Recommended React Native TSConfig base */
+  "compilerOptions": {
+    /* Basic Options */
+    "baseUrl": "./src", // 模块解析根路径，默认为 tsconfig.json 位于的目录"baseUrl":"./",
+    "paths": {
+      "@/assets/*":["@/assets/*"],
+      "@/components/*":["@/components/*"],
+      "@/config/*":["@/config/*"],
+      "@/models/*":["@/models/*"],
+      "@/navigator/*":["@/navigator/*"],
+      "@/pages/*":["@/pages/*"],
+      "@/utils/*":["@/utils/*"],
+    },
+    // "rootDir": "./src", // 编译解析根路径，默认为 tsconfig.json 位于的目录 "src"
+    "target": "ESNEXT", // 指定输出 ECMAScript 版本，默认为 es5
+    "module": "ESNext", // 指定输出模块规范，默认为 Commonjs
+    "lib": ["es6","ESNext", "DOM"], // 编译需要包含的 API，默认为 target 的默认值
+    "allowJs": true,
+    // "checkJs":true,
+    "jsx": "react-native",
+    // "outFile":"./",
+    // "outDir":"./",// 编译输出文件夹路径，默认为源文件同级目录"dist"
+    // "removeComments": true,
+    // "sourceMap": true, // 启用 sourceMap，默认为 false
+    // "declaration": true, // 生成 .d.ts 类型文件，默认为 false
+    // "declarationDir": "dist/types", // .d.ts 类型文件的输出目录，默认为 outDir 目录
+    "noEmit": true,
+    /* Strict Type-Checking Options */
+    "strict": true, // 启用所有严格的类型检查选项，默认为 true
+    "esModuleInterop": true, // 通过为导入内容创建命名空间，实现 CommonJS 和 ES 模块之间的互操作性，默认为 true
+    /* Completeness */
+    "skipLibCheck": true, // 跳过导入第三方 lib 声明文件的类型检查，默认为 true/* Skip type checking all .d.ts files. */
+    "forceConsistentCasingInFileNames": true, // 强制在文件名中使用一致的大小写，默认为 true
+    "moduleResolution": "Node", // 指定使用哪种模块解析策略，默认为 Classic
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+    
+    
+
+  }
+}
